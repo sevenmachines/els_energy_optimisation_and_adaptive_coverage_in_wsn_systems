@@ -23,7 +23,7 @@
 %\usepackage[numbers]{natbib}
 %\usepackage[authoryear]{natbib}
 \usepackage[authoryear,longnamesfirst]{natbib}
-\usepackage[textsize=tiny]{todonotes}
+\usepackage[textsize=small]{todonotes}
 %%%Author macros
 \def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
 \tsc{WGM}
@@ -38,8 +38,8 @@
 	\let\WriteBookmarks\relax
 	\def\floatpagepagefraction{1}
 	\def\textpagefraction{.001}
-	\shorttitle{Leveraging social media news}
-	\shortauthors{CV Radhakrishnan et~al.}
+	\shorttitle{Energy optimisation and adaptive coverage in WSN systems}
+	\shortauthors{N Creech et~al.}
 	%\begin{frontmatter}
 	
 	\title [mode = title]{Energy optimisation and adaptive coverage in WSN systems}                      
@@ -49,11 +49,11 @@
 	\cortext[cor1]{Corresponding author}	
 	\credit{Conceptualization of this study, Methodology, Software}
 	
-	\author[2]{Natalia Craido Pacheco}[]
+	\author[2]{Natalia Craido Pacheco\corref{cor2}}[]
 	\ead{natalia.criado_pacheco@kcl.ac.uk}
 	\credit{Supervision, Writing - Review and Editing}
 
-	\author[3]{Simon Miles}[]
+	\author[3]{Simon Miles\corref{cor3}}[]
 	\ead{simon.miles@kcl.ac.uk}
 	\credit{Supervision, Writing - Review and Editing}
 
@@ -72,7 +72,9 @@
 	\end{highlights}
 	
 	\begin{keywords}
-		quadrupole exciton \sep polariton \sep \WGM \sep \BEC
+		multi-agent system
+		\sep multi-agent reinforcement learning
+		\sep wireless sensor network
 	\end{keywords}
 
 	\input{common-definitions}
@@ -86,6 +88,7 @@
 	\input{background}
 	\input{problem}
 	\input{solution}
+	\input{results}
 	\input{conclusions}
 	\input{references}
 	\input{appendix}	
