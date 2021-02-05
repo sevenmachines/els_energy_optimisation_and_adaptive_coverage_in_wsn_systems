@@ -24,9 +24,8 @@
 	\begin{itemize}{
 			\item Node deployment is randomly distributed across the grid following the uniform distribution or a radial normal distribution.
 			\item Energy harvesting works continuously at constant rate. This assumes consistent solar exposure and limits the simulation to daytime.
-			\item Node failure is random and at a constant rate over time. We regularly introduce new nodes and ignore the initial lifetime of the system so we can assume a steady-state of failures.
+			\item Permanent node failure is based on the total energy consumption of that node over time, as a proxy for wear. Node failure is therefore chosen using a Boltzmann distribution\footnote{Where the Boltzmann distribution is defined as $\functionBoltzmann{}{}$} over the lifetime energy usage of an agent.
 			\item Temporary loss of availability of nodes is random and at a constant rate.
-			
 		}
 	\end{itemize}
 	
