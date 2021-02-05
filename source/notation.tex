@@ -1,0 +1,489 @@
+%%%%%%%%%%%%%% 	SYMBOLS		%%%%%%%%%%%%%%%%%
+%                                    		%
+%	Define all abstract set, variable,		%
+%	function, and other generic symbols   	%
+%                               			% %                              				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{ass}{Assumption}
+\newcommand{\assumption}[2]{
+	\begin{ass}{(\textit{#1})}
+		#2
+	\end{ass}
+}
+
+\newcommand{\probability}[1]{
+	P(#1)
+}
+\newcommand{\varSymbol}[3]{
+\ifx \\#2\\
+	\ifx \\#3\\ \lowercase{#1}
+	\else
+	\lowercase{#1}^{#3}
+	\fi
+\else
+	\ifx \\#3\\ \lowercase{#1}_{#2}
+	\else
+		\lowercase{#1}_{#2}^{#3}
+	\fi
+\fi
+}
+
+\newcommand{\optimalVarSymbol}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\ \optimal{\lowercase{#1}}
+	\else
+	\optimal{\lowercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\ \optimal{\lowercase{#1}}\textsubscript{#2}
+	\else
+	\optimal{\lowercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\specialSetSymbol}[3]
+{
+	\ifx\\#2\\ \ifx\\#3\\  \overline{\uppercase{#1}}
+	\else
+	 \overline{\uppercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\  \overline{\uppercase{#1}}\textsubscript{#2}
+	\else
+	 \overline{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\optimalSetSymbol}[3]
+{
+	\ifx\\#2\\ \ifx\\#3\\ \optimal{\uppercase{#1}}
+	\else
+	\optimal{\uppercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\ \optimal{\uppercase{#1}}\textsubscript{#2}
+	\else
+	\optimal{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\estimatedOptimalVarSymbol}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\ \optimal{\widetilde{\lowercase{#1}}}
+	\else
+	\optimal{\widetilde{\lowercase{#1}}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\ \optimal{\widetilde{\lowercase{#1}}}\textsubscript{#2}
+	\else
+	\optimal{\widetilde{\lowercase{#1}}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\estimatedOptimalSetSymbol}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\ \optimal{\widetilde{\uppercase{#1}}}
+	\else \optimal{\widetilde{\uppercase{#1}}}\textsuperscript{#3}
+	\fi
+	\else \ifx\\#3\\ \optimal{\widetilde{\uppercase{#1}}}\textsubscript{#2}
+	\else \optimal{\widetilde{\uppercase{#1}}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+
+
+%%%%%%%%%% FUNCTIONS %%%%%%%%%%
+
+\newcommand{\functionSymbol}[1]{\lowercase{#1}}
+\newcommand{\functionOptimalSymbol}[1]{\lowercase{#1}^*}
+\newcommand{\functionTextSymbol}[1]{\texttt{#1}}
+
+\newcommand{\functionFormalSignature}[2]{
+	\functionSymbol{#1}\colon #2
+}
+
+\newcommand{\functionFormal}[3]{
+	\functionFormalSignature{#1}{#2} \rightarrow #3
+}
+
+\newcommand{\functionGenerator}[2]{
+	#1 \rightarrow #2
+}
+
+\newcommand{\functionDefinition}[2]{
+	#1 = #2
+}
+
+\newcommand{\functionInstance}[3]{
+	\functionSignature{#1}{#2} \rightarrow #3
+}
+
+\newcommand{\functionSignature}[2]{
+\ifx \\#2\\
+	\functionSymbol{#1}
+\else
+	\functionSymbol{#1}(#2)
+\fi
+}
+
+\newcommand{\funcInstance}[2]{
+	\functionSignature{#1}{#2}
+}
+
+
+
+%%%%%%%%%% SETS %%%%%%%%%%
+
+\newcommand{\setSymbol}[3] {
+\ifx\\#2\\\ifx\\#3\\\uppercase{#1}
+\else
+\uppercase{#1}^{#3}
+\fi
+\else
+\ifx\\#3\\\uppercase{#1}_{#2}
+\else
+\uppercase{#1}_{#2}^{#3}
+\fi
+\fi
+}
+
+\newcommand{\varSymbolHat}[3]
+{
+	\ifx \\#2\\
+	\ifx \\#3\\
+	\widehat{\lowercase{#1}}
+	\else
+	\widehat{\lowercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx \\#3\\
+	\widehat{\lowercase{#1}}\textsubscript{#2}
+	\else
+	\widehat{\lowercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+\newcommand{\setSymbolHat}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\
+	\widehat{\uppercase{#1}}
+	\else
+	\widehat{\uppercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\
+	\widehat{\uppercase{#1}}\textsubscript{#2}
+	\else
+	\widehat{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+\newcommand{\varSymbolPlus}[2]
+{
+	\ifx\\#2\\
+	{\lowercase{#1}}\textsuperscript{$\oplus$}
+	\else
+	{\lowercase{#1}}\textsubscript{#2}\textsuperscript{\oplus}
+	\fi
+}
+
+\newcommand{\varSymbolMinus}[2]
+{
+	\ifx\\#2\\
+	{\lowercase{#1}}\textsuperscript{$\ominus$}
+	\else
+	{\lowercase{#1}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+
+\newcommand{\setSymbolPlus}[2]
+{
+	\ifx\\#2\\
+	{\uppercase{#1}}\textsuperscript{$\oplus$}
+	\else
+	{\uppercase{#1}}\textsubscript{#2}\textsuperscript{\oplus}
+	\fi
+}
+
+\newcommand{\setSymbolMinus}[2]
+{
+	\ifx\\#2\\
+	{\uppercase{#1}}\textsuperscript{$\ominus$}
+	\else
+	{\uppercase{#1}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+\newcommand{\setOfSetsSymbolMinus}[2]
+{
+	\ifx\\#2\\
+	{\mathcal{\uppercase{#1}}}\textsuperscript{$\ominus$}
+	\else
+	{\mathcal{\uppercase{#1}}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+\newcommand{\varSymbolHatPlus}[2]
+{
+	\ifx\\#2\\
+	\widehat{\lowercase{#1}}\textsuperscript{$\oplus$}
+	\else
+	\widehat{\lowercase{#1}}\textsubscript{#2}\textsuperscript{\oplus}
+	\fi
+}
+
+\newcommand{\setSymbolHatPlus}[2]
+{
+	\ifx\\#2\\
+	\widehat{\uppercase{#1}}\textsuperscript{$\oplus$}
+	\else
+	\widehat{\uppercase{#1}}\textsubscript{#2}\textsuperscript{\oplus}
+	\fi
+}
+
+\newcommand{\varSymbolHatMinus}[2]
+{
+	\ifx\\#2\\
+	\widehat{\lowercase{#1}}\textsuperscript{$\ominus$}
+	\else
+	\widehat{\lowercase{#1}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+\newcommand{\setSymbolHatMinus}[2]
+{
+	\ifx\\#2\\
+	\widehat{\uppercase{#1}}\textsuperscript{$\ominus$}
+	\else
+	\widehat{\uppercase{#1}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+\newcommand{\setOfSetsSymbolHatMinus}[2]
+{
+	\ifx\\#2\\
+	\widehat{\mathcal{\uppercase{#1}}}\textsuperscript{$\ominus$}
+	\else
+	\widehat{\mathcal{\uppercase{#1}}}\textsubscript{#2}\textsuperscript{$\ominus$}
+	\fi
+}
+
+
+\newcommand{\setOptimalSymbol}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\
+	\optimal{\uppercase{#1}}
+	\else
+	\optimal{\uppercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\
+	\optimal{\uppercase{#1}}\textsubscript{#2}
+	\else
+	\optimal{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\powerSetSymbol}[3]
+{
+	2^{\setSymbol{#1}{#2}{#3}}
+}
+
+\newcommand{\powerSetSymbolP}[3]
+{
+	\ifx \\#2\\ \ifx\\#3\\ \mathcal{P}(\uppercase{#1})
+	\else \mathcal{P}({\uppercase{#1}})\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\ \mathcal{P}({\uppercase{#1}})\textsubscript{#2}
+	\else
+	\mathcal{P}({\uppercase{#1}})\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+
+\newcommand{\setOfSetsSymbol}[3]{\ifx\\#2\\\ifx\\#3\\{\mathcal{\uppercase{#1}}}\else {\mathcal{\uppercase{#1}}}\textsuperscript{#3}\fi\else \ifx\\#3\\{\mathcal{\uppercase{#1}}}\textsubscript{#2}\else{\mathcal{\uppercase{#1}}}\textsubscript{#2}\textsuperscript{#3}\fi\fi}
+
+
+\newcommand{\setOfSetsOptimalSymbol}[3]
+{
+	\ifx\\#2\\ \ifx\\#3\\ \optimal{\mathcal{\uppercase{#1}}}
+	\else
+	\optimal{\mathcal{\uppercase{#1}}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\ \optimal{\mathcal{\uppercase{#1}}}\textsubscript{#2}
+	\else
+	\optimal{\mathcal{\uppercase{#1}}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+
+\newcommand{\optimal}[1]{{#1}^{\ast}}
+
+\newcommand{\setEstimatedSymbol}[3]
+{
+	\ifx\\#2\\
+	\ifx\\#3\\
+	\estimated{\uppercase{#1}}
+	\else
+	\estimated{\uppercase{#1}}\textsuperscript{#3}
+	\fi
+	\else
+	\ifx\\#3\\
+	\estimated{\uppercase{#1}}\textsubscript{#2}
+	\else
+	\estimated{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+\newcommand{\estimated}[1]
+{
+	\widehat{{#1}}
+}
+
+
+
+
+%%%%%%%%%% SCRIPT %%%%%%%%%%
+
+\newcommand{\scriptSymbol}[3]{\ifx\\#2\\
+	\mathcal{\uppercase{#1}}
+	\else
+	\ifx\\#3\\
+	\mathcal{\uppercase{#1}}\textsubscript{#2}
+	\else
+	\mathcal{\uppercase{#1}}\textsubscript{#2}\textsuperscript{#3}
+	\fi
+	\fi
+}
+
+%%%%%%%%%% ACTIONS  %%%%%%%%%%
+
+\newcommand{\action}[2]{
+	$\texttt{#1}(#2)$
+}
+
+%%%%%%%%%% FORMATTING %%%%%%%%%%
+
+\newcommand\capitalise[1]{\capitaliseaux#1\relax}
+\def\capitaliseaux#1#2\relax{\uppercase{#1}\lowercase{#2}}
+
+
+\newcommand{\setBuilder}[3]{
+	#1
+	\IfSubStr{#1}{(}{\funcdef}{=}
+	\lbrace
+	\IfSubStr{#2}{,}{(#2)}{#2}
+	\ifx \\#3\\ \rbrace \else \suchthat #3 \rbrace \fi
+}
+
+\newcommand{\funcdef}{=}
+\newcommand{\matrixdef}{=}
+\newcommand{\funcupdate}{\leftarrow}
+\newcommand{\suchthat}{:\ }
+
+
+% Standard sets
+\newcommand{\setRealNumbers}[2]{\mathbb{R}_{#1}^{#2}}
+\newcommand{\setRealNumbersPositive}[2]{\mathbb{R}_{>0}^{#2}}
+\newcommand{\setRealNumbersNonNegative}[2]{\mathbb{R}_{>=0}^{#2}}
+\newcommand{\setRealNumbersUnit}[2]{\mathbb{R}_{#1}^{#2}[0,1]}
+\newcommand{\setRealNumbersPositiveUnit}[2]{\mathbb{R}_{>0}^{#2}[0,1]}
+\newcommand{\setIntegers}[2]{\mathbb{Z}_{#1}{#2}}
+\newcommand{\setIntegersPositive}[2]{\mathbb{Z}_{+}^{#2}}
+\newcommand{\setIntegersNonNegative}[2]{\mathbb{Z}_{>=0}^{#2}}
+\newcommand{\setNaturalNumbers}[2]{\mathbb{N}_{0}^{#2}}
+\newcommand{\setNaturalNumberPositive}[2]{\mathbb{N}_{}^{*}}
+\newcommand{\varProbability}[2]{\varSymbol{p}{#1}{#2}}
+
+
+% Common
+\newcommand{\varX}[2]{\varSymbol{x}{#1}{#2}}
+\newcommand{\varY}[2]{\varSymbol{y}{#1}{#2}}
+\newcommand{\varZ}[2]{\varSymbol{z}{#1}{#2}}
+\newcommand{\setX}[2]{\setSymbol{x}{#1}{#2}}
+\newcommand{\setY}[2]{\setSymbol{y}{#1}{#2}}
+\newcommand{\setZ}[2]{\setSymbol{z}{#1}{#2}}
+
+\newcommand{\varK}[2]{\varSymbol{k}{#1}{#2}}
+\newcommand{\setK}[2]{\setSymbol{K}{#1}{#2}}
+\newcommand{\varJ}[2]{\varSymbol{j}{#1}{#2}}
+\newcommand{\setJ}[2]{\setSymbol{J}{#1}{#2}}
+\newcommand{\varN}[2]{\varSymbol{n}{#1}{#2}}
+\newcommand{\setN}[2]{\setSymbol{N}{#1}{#2}}
+\newcommand{\varA}[2]{\varSymbol{A}{#1}{#2}}
+\newcommand{\setA}[2]{\setSymbol{A}{#1}{#2}}
+\newcommand{\varB}[2]{\varSymbol{B}{#1}{#2}}
+\newcommand{\setB}[2]{\setSymbol{B}{#1}{#2}}
+
+
+% Functions
+\newcommand{\funcHadamard}[2]{
+	#1 \circ #2
+}
+\newcommand{\funcSumNorm}[1]{
+	\functionTextSymbol{sumnorm}(#1)
+}
+
+
+\newcommand{\functionSumNorm}[1]{
+	#1 \leftarrow \functionTextSymbol{sumnorm}(#1)
+}
+
+\newcommand{\funcMax}[1]{\functionTextSymbol{max}(#1)}
+\newcommand{\funcMaxExtended}[2]{\functionTextSymbol{max}_{\tiny #1}(#2)}
+\newcommand{\funcMin}[1]{\functionTextSymbol{min}(#1)}
+\newcommand{\funcMinExtended}[2]{\functionTextSymbol{min}_{\tiny #1}(#2)}
+\newcommand{\funcBoltzmann}[1]{\functionTextSymbol{boltzmann}(#1)}
+\newcommand{\functionBoltzmann}{
+	P(\varAction{i}{}) = \dfrac{e^{(\varQ{i}{}/\tau)}}{\sum_{j=1}^{N} e^{(\varQ{j}{}/\tau)}}
+}
+
+\newcommand{\argmax}[2]{\underset{#1}{argmax\ }}
+\newcommand{\argmin}[2]{\underset{#1}{argmin\ }}
+
+\newcommand{\funcSize}[1]{\lvert #1 \rvert}
+
+\newcommand{\funcInstanceSoftmaxSymbol}[1]{
+	\sigma(#1)
+}
+\newcommand{\funcSoftMax}[1]{\functionTextSymbol{softmax}(#1)}
+
+\newcommand{\functionNorm}{
+	f(\varX{i}{}) = \dfrac{{\varX{i}{}}}
+	{\sum_{j=1}^{N} {\varX{j}{}}}
+}
+
+\newcommand{\functionSoftMax}{
+	\sigma(\varX{i}{}) = \dfrac{e^{\varX{i}{}}}
+	{\sum_{j=1}^{N} e^{\varX{j}{}}}
+}
+
+
+\newcommand{\functionSoftMaxExtended}[1]{
+	\sigma(#1_{i}^{}) = \dfrac{e^{#1_{i}^{}}}
+	{\sum_{j=1}^{N} e^{#1_{j}^{}}}
+}
+
+
+\newcommand{\funcRand}[1]{\functionTextSymbol{rand}(#1)}
+\newcommand{\functionRand}{
+	P(\varX{i}{}) = U(\varX{i}{})
+}
+
