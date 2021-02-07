@@ -23,12 +23,19 @@
 \newcommand{\varSystemEnergyVariability}[2]{sev_{\varTime{}{}}}
 
 \newcommand{\varAgentEnergyAvailable}[2]{aea_{\varAgent{}{},\varTime{}{}}}
+\newcommand{\functionAgentEnergyTotal}[2]{
+	\functionSignature{aet_{\varAgent{}{},\varTime{}{}}}
+	{\varAgent{#1}{#2}}
+}
+
 \newcommand{\setAgentEnergyAvailable}[2]{\mathrm{AEA}_{\varAgent{}{},\varTime{}{}}}
 \newcommand{\functionSystemEnergyAvailable}[2]{
 	\functionSignature{sea_{\varTime{}{}}}{\setAgents{}{}}
 }
 
-
+	\newcommand{\functionBoltzmannEnergy}{
+	P(\varAgent{i}{}) = \dfrac{e^{(\functionAgentEnergyTotal{i}{}/\tau)}}{\sum_{j=1}^{N} e^{(\functionAgentEnergyTotal{j}{}/\tau)}}
+}
 
 
 
@@ -135,7 +142,42 @@ When not sampling, aggregating, or broadcasting a node recovers energy at a rate
 \end{equation}
 
 \subsubsection{Sensor lifetime in WSN}
-\todo[inline]{TODO}
+We can model the failure of nodes through a simple bathtub model as described by the three phases of node lifespan as seen in Figure \ref{fig:node_reliability_lifespan},
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{node_reliability_lifespan}
+	\caption[Probability of failure with lifetime energy usage for a node]{Probability of failure with lifetime energy usage for a node}
+	\label{fig:node_reliability_lifespan}
+\end{figure}
+
+	
+\begin{itemize}
+	\item Early failure, component failures early in lifespan, decreasing with time.
+	\begin{equation}
+		\varProbability{init}{} = max(0, (1 - \functionAgentEnergyTotal{}{}/\varEnergy{}{init})) \times C_{init}
+	\end{equation}
+	\item Random failures, constant background failure rate.
+	\begin{equation}
+		\varProbability{rand}{} = C_{rand}
+	\end{equation}
+	\item Wear-out failures, increasing failure rate towards the end of a nodes expected lifespan.
+	\begin{equation}
+		\varProbability{wear}{} = max(0, ( \functionAgentEnergyTotal{}{}/\varEnergy{}{wear}))\times C_{wear}
+	\end{equation}
+\end{itemize}
+For each node, we use $\functionAgentEnergyTotal{}{}$ as a proxy for time so the probability of an agent $\varAgent{}{}$ having a permanent failure increases with usage.
+
+\definition[Node failure probability]{
+	
+\begin{equation}
+	\varProbability{fail}{} = \varProbability{init}{} + \varProbability{rand}{} + \varProbability{wear}{}
+\end{equation}
+\begin{equation}
+	\varProbability{fail}{} = \underbrace{max(0, (1 - \functionAgentEnergyTotal{}{}/\varEnergy{}{init})) \times C_{init}}_{\varProbability{init}{}} + \underbrace{C_{rand}}_{\varProbability{rand}{}} + \underbrace{max(0, ( \functionAgentEnergyTotal{}{}/\varEnergy{}{wear}))\times C_{wear}}_{\varProbability{wear}{}}
+\end{equation}
+Where the Boltzmann distribution is defined as $\functionBoltzmannEnergy{}{}$ over the lifetime energy usage of an agent.
+}
 
 \subsection{Coverage and resilience of routing}
 

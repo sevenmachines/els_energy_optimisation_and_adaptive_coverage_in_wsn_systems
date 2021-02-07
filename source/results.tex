@@ -1,6 +1,4 @@
-	\section{Results}
-	
-	\section{Simulation of Environmental Wireless Sensor Networks (E-WSN)}
+\section{Simulation of Environmental Wireless Sensor Networks (E-WSN)}
 	
 	\subsection{System components and layout}
 	
@@ -19,12 +17,13 @@
 		\label{table:real_world_systems_criteria}
 	\end{table}
 	
+
 	\subsection{Assumptions}
 	We make the following assumptions and simplifications.
 	\begin{itemize}{
 			\item Node deployment is randomly distributed across the grid following the uniform distribution or a radial normal distribution.
 			\item Energy harvesting works continuously at constant rate. This assumes consistent solar exposure and limits the simulation to daytime.
-			\item Permanent node failure is based on the total energy consumption of that node over time, as a proxy for wear. Node failure is therefore chosen using a Boltzmann distribution\footnote{Where the Boltzmann distribution is defined as $\functionBoltzmann{}{}$} over the lifetime energy usage of an agent.
+			\item Permanent node failure is based on the total energy consumption of that node over time, as a proxy for wear. Node failure is therefore chosen using a Boltzmann distribution\footnote{Where the Boltzmann distribution is defined as $\functionBoltzmannEnergy{}{}$} over the lifetime energy usage of an agent.
 			\item Temporary loss of availability of nodes is random and at a constant rate.
 		}
 	\end{itemize}
