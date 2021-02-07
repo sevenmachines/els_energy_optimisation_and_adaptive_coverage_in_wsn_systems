@@ -3,8 +3,8 @@
 %%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varTime}[2]{\phi}
 \newcommand{\setTime}[2]{\Phi}
-\newcommand{\varAtomicTask}[2]{tp}
-\newcommand{\varCompositeTask}[2]{\hat{tp}}
+\newcommand{\varAtomicTask}[2]{\varSymbol{tp}{#1}{#2}}
+\newcommand{\varCompositeTask}[2]{\varSymbolHat{tp}{#1}{#2}}
 \newcommand{\varAgent}[2]{g_{#1}^{#2}}
 \newcommand{\setAgents}[2]{G_{#1}^{#2}}
 \newcommand{\varIdleAgent}[2]{\varAgent{i}{}}  
@@ -33,12 +33,26 @@
 	\functionSignature{sea_{\varTime{}{}}}{\setAgents{}{}}
 }
 
-	\newcommand{\functionBoltzmannEnergy}{
-	P(\varAgent{i}{}) = \dfrac{e^{(\functionAgentEnergyTotal{i}{}/\tau)}}{\sum_{j=1}^{N} e^{(\functionAgentEnergyTotal{j}{}/\tau)}}
+\newcommand{\functionProbabilityInit}[2]{
+	\functionSignature{pinit}{\varAgent{}{}}
 }
-
-
-
+\newcommand{\functionProbabilityRand}[2]{
+	\functionSignature{prand}{\varAgent{}{}}
+}
+\newcommand{\functionProbabilityWear}[2]{
+	\functionSignature{pwear}{\varAgent{}{}}
+}
+\newcommand{\functionProbabilityFail}[2]{
+	\functionSignature{pfail}{\varAgent{}{}}
+}
+\newcommand{\varConstantInit}[2]{{C}{INIT}^{#2}}
+\newcommand{\varConstantRand}[2]{{C}{RAND}^{#2}}
+\newcommand{\varConstantWear}[2]{{C}{WEAR}^{#2}}
+\newcommand{\varEnergyInit}[2]{{E}{INIT}^{#2}}
+\newcommand{\varEnergyWear}[2]{{E}{WEAR}^{#2}}
+\newcommand{\functionCompositeTaskCoverage}[2]{
+	\functionSignature{ctc}{\varCompositeTask{}{}, \varCompositeTask{}{*}}
+}
 %%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varSample}[2]{\varSymbol{\psi}{#1}{#2}}
 \newcommand{\setSample}[2]{\setSymbol{\Psi}{#1}{#2}}
@@ -143,40 +157,25 @@ When not sampling, aggregating, or broadcasting a node recovers energy at a rate
 
 \subsubsection{Sensor lifetime in WSN}
 We can model the failure of nodes through a simple bathtub model as described by the three phases of node lifespan as seen in Figure \ref{fig:node_reliability_lifespan},
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{node_reliability_lifespan}
 	\caption[Probability of failure with lifetime energy usage for a node]{Probability of failure with lifetime energy usage for a node}
 	\label{fig:node_reliability_lifespan}
 \end{figure}
-
-	
-\begin{itemize}
-	\item Early failure, component failures early in lifespan, decreasing with time.
-	\begin{equation}
-		\varProbability{init}{} = max(0, (1 - \functionAgentEnergyTotal{}{}/\varEnergy{}{init})) \times C_{init}
-	\end{equation}
-	\item Random failures, constant background failure rate.
-	\begin{equation}
-		\varProbability{rand}{} = C_{rand}
-	\end{equation}
-	\item Wear-out failures, increasing failure rate towards the end of a nodes expected lifespan.
-	\begin{equation}
-		\varProbability{wear}{} = max(0, ( \functionAgentEnergyTotal{}{}/\varEnergy{}{wear}))\times C_{wear}
-	\end{equation}
-\end{itemize}
+\begin{enumerate}
+	\item $\functionProbabilityInit{}{}$, the initial failure probability, component failures early in lifespan, decreasing with time.
+	\item $\functionProbabilityRand{}{}$, the random failure probability, the constant background failure rate.
+	\item $\functionProbabilityWear{}{}$, the wear-out failure probability, the increasing failure rate towards the end of a nodes expected lifespan.
+\end{enumerate}
 For each node, we use $\functionAgentEnergyTotal{}{}$ as a proxy for time so the probability of an agent $\varAgent{}{}$ having a permanent failure increases with usage.
 
-\definition[Node failure probability]{
-	
+\definition[Probability of node failure]{
+	The probability of node failure for an agent $\varAgent{}{}$ is $\functionProbabilityFail{}{}$, the combination of the probabilities of initial, random, and wear-out failures given the agents total energy usage in its lifetime $\functionAgentEnergyTotal{}{}$.
 \begin{equation}
-	\varProbability{fail}{} = \varProbability{init}{} + \varProbability{rand}{} + \varProbability{wear}{}
+	\functionProbabilityFail{}{} = \underbrace{max(0, (1 - \functionAgentEnergyTotal{}{}/\varEnergyInit{}{})) \times \varConstantInit{}{}}_{\functionProbabilityInit{}{}} + \underbrace{\varConstantRand{}{}}_{\functionProbabilityRand{}{}} + \underbrace{max(0, ( \functionAgentEnergyTotal{}{}/\varEnergyWear{}{}))\times \varConstantWear{}{}}_{\functionProbabilityWear{}{}}
 \end{equation}
-\begin{equation}
-	\varProbability{fail}{} = \underbrace{max(0, (1 - \functionAgentEnergyTotal{}{}/\varEnergy{}{init})) \times C_{init}}_{\varProbability{init}{}} + \underbrace{C_{rand}}_{\varProbability{rand}{}} + \underbrace{max(0, ( \functionAgentEnergyTotal{}{}/\varEnergy{}{wear}))\times C_{wear}}_{\varProbability{wear}{}}
-\end{equation}
-Where the Boltzmann distribution is defined as $\functionBoltzmannEnergy{}{}$ over the lifetime energy usage of an agent.
+	Where $\varEnergyInit{}{}{}{}$ is the energy level where initial failures are effectively zero,  and $\varEnergyWear{}{}{}{}$ where wear-out failures become a factor. $\varConstantInit{}{}$, $\varConstantRand{}{}$, and $\varConstantWear{}{}$  are constants chosen to scale the effects of initial failures and wear-out failures respectively.
 }
 
 \subsection{Coverage and resilience of routing}
@@ -184,7 +183,16 @@ Where the Boltzmann distribution is defined as $\functionBoltzmannEnergy{}{}$ ov
 \subsubsection{Coverage}
 
 \begin{definition}[Composite task coverage]
-	Given a composite task $\varCompositeTask{}{} = \lbrace \varAtomicTask{1}{}, \dots, \varAtomicTask{2}{} \rbrace$, the \textit{composite task coverage} of $\varCompositeTask{}{}$ is the fraction of successfully completed atomic tasks of the composite task.
+	Given a composite task $\varCompositeTask{}{}$, and completes or partially completes this task $\varCompositeTask{}{*} \subseteq \varCompositeTask{}{}$ then the \textit{composite task coverage} of $\varCompositeTask{}{}$ is the fraction of successfully completed atomic tasks of the composite task.
+	\begin{equation}
+		\functionCompositeTaskCoverage{}{} = \frac{
+			\funcSize{\varCompositeTask{}{*}
+			}
+		}{
+			\funcSize{\varCompositeTask{}{}
+		}
+	}
+	\end{equation}
 \end{definition}
 
 
