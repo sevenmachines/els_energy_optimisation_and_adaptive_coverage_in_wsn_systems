@@ -1,0 +1,55 @@
+\todo[inline]{PROBLEM - ENERGY}
+\subsection{Energy in the system}
+
+\subsubsection{Availability of energy}
+
+Each agent $\varAgent{}{}$ has a battery that can store energy $\varBatteryEnergy{}{}$ up to a maximum value $\varBatteryEnergyMax{}{}$.
+
+\begin{definition}[Agent energy available]
+	The agent energy available, $\varAgentEnergyAvailable{\varAgent{}{}}{}$, is the fractional energy available to an agent $\varAgent{}{}$ to utilise.
+	\begin{equation}
+		\varAgentEnergyAvailable{}{} = \varBatteryEnergy{}{} / \varBatteryEnergyMax{}{}
+	\end{equation}
+\end{definition}
+
+\begin{definition}[System energy available]
+	The system energy available, $\functionSystemEnergyAvailable{}{}$, is the energy available to all agents $\setAgents{}{}$ in the system as a whole.
+	\begin{equation}
+		\functionSystemEnergyAvailable{}{} 
+		= \sum_{\forall \varAgent{}{} \in \setAgents{}{}} \varAgentEnergyAvailable{\varAgent{i}{}}{}
+	\end{equation}
+	Note, the task energy consumption also includes any orchestration tasks agents execute such as information requests.
+\end{definition}
+
+\begin{definition}[System energy variability]
+	The system energy variability, $\varSystemEnergyVariability{}{}$, is the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of energy available to each agent in the system as a whole at time $\varTime{}{}$.
+	\begin{equation}
+		\varSystemEnergyVariability{}{} 
+		= \sigma^2(\setAgentEnergyAvailable{}{})
+	\end{equation}
+\end{definition}
+
+\subsubsection{Energy consumption}
+
+\begin{definition}[Task energy consumption]
+	The task energy consumption, $\varTaskEnergy{}{}$, is the energy used by all agents in the system in executing a composite task $\varCompositeTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a parent agent $\varParentAgent{}{}$ broadcasting a message to a child agent $\varChildAgent{}{}$, or a child agent replying to a parent. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used an agent receives a message. Finally idle energy, $\varIdleEnergy{}{}$, for any inactive agents $\varIdleAgent{}{}$ in idle, power saving mode, and sleep mode energy $\varIdleEnergy{}{}$ for agents $\varSleepAgent{}{}$ in sleep mode.
+	\begin{equation}
+		\varTaskEnergy{}{} 
+		= \varTransmissionEnergy{}{} \sum (\varParentAgent{}{} + \varChildAgent{}{})
+		+ \varReceiverEnergy{}{} (1 + \sum \varChildAgent{}{})
+		+ \varIdleEnergy{}{} \sum \varIdleAgent{}{}
+		+ \varSleepEnergy{}{} \sum \varSleepAgent{}{}
+	\end{equation}
+\end{definition}
+
+
+
+\begin{definition}[System energy consumption]
+	The system energy consumption, $\varSystemEnergyConsumption{}{}$, is the energy used by all of the $m$ tasks that are completed within the time period $\setTime{}{}$.
+	\begin{equation}
+		\varSystemEnergyConsumption{}{} 
+		= \sum_{1}^{m} \varTaskEnergy{}{}
+	\end{equation}
+	Note, the task energy consumption also includes any orchestration tasks agents execute such as information requests.
+\end{definition}
+

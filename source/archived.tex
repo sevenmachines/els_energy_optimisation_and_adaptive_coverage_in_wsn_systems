@@ -1,0 +1,19 @@
+\subsubsection{Energy recovery}
+
+%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\setEnergyDeltaIdle}[2]{\Delta\setSymbol{E}{\texttt{idle}}{#2}}
+\newcommand{\setEnergyHarvest}[2]{\setSymbol{E}{\texttt{harvest}}{#2}}
+\newcommand{\setEnergyWUR}[2]{\setSymbol{E}{\texttt{idle-wur}}{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+When not sampling, aggregating, or broadcasting a node recovers energy at a rate given by the energy harvesting solar panel minus that lost by having the WUR in standby.
+
+\begin{equation}
+	\setEnergyDeltaIdle{}{}
+	= 
+	\setEnergyHarvest{}{}
+	-
+	\setEnergyWUR{}{}
+\end{equation}
+
+
