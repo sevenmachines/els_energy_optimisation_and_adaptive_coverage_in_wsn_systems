@@ -1,34 +1,40 @@
 \section{Introduction}
 
-\todo[inline]]{Why is the subject/problem area important?}
+\todo[inline]{Why is the subject/problem area important?}
 \textit{Wireless sensor networks (WSNs)} have many applications and research studies in areas such as environmental monitoring, agriculture, and military uses (See Table \ref{table:applications}). More recently, the availability and lower cost of low-power wireless transmitters \citep{902661}, solar-harvesting components \citep{Prauzek2018}, and micro-electro-mechanical systems \citep{1045391} has allowed large deployments sizes and scope of use, expanding their real-world use and opening up new areas for practical research \citep{Kandris2020}.
+
+
+
+\todo[inline]{What are the current solutions, what are the problems and how are we improving them?}
+\textit{centralised}\\
+\textit{decentralised}\\
+\textit{Clustering} \\
+\textit{Hierarchical} \\
+\textit{Reinforcement learning}\\
+\citep{10.1007/978-3-642-11814-2_4, 10.1504/IJCNDS.2012.048871}
+
+
+\todo[inline]{What is the solution and contributions we present?}
+The solution we present here is based on the algorithms previously developed by the authors. We use the \acronymATARIA{}{} algorithm to optimise the task of measurements and coverage, minimise the energy consumption of the network, while adapting to the dynamic nature of WSNs \citep{creech2021dynamic}. Through the \acronymMGRAO{}{} algorithm we enable sensors that are taking measurements to optimise the allocation of their resources to meet the overall system goal \citep{creech2021resource}. By combining and evaluating these algorithms in a simulated WSN deployed in a realistic environment, we show that the overall solution can be successfully utilised to balance the systems' multiple objectives of minimising energy consumption, maximising system lifetime, as well as optimising the quality of the measurement tasks while still maintaining geographical coverage.
+
+In Section \ref{section:background} we look at related research in this area, allowing us to concretely define the problem in Section \ref{section:problem}. Section \ref{section:solution} sets out our solution, followed by definition of the simulated environment and evaluation of the solution in Section \ref{section:experimental}. We close with the summary of our conclusions and future work in Section \ref{section:conclusions}.
+
 
 \begin{table}[h]
 	\footnotesize
-\begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.5\textwidth}|}
-\hline
-Area & References & Summary \\
-\hline
-Ocean monitoring and the marine environment & \cite{Mahdy2008a, Albaladejo2010, 6973877} & XXX \\
-Radiation contamination & \cite{Gomez2015} & XXX \\
- Water quality & \cite{Fang2010} & XXX \\
-Agriculture  & \cite{8745854} & XXX \\
-Volcano monitoring  & \cite{Werner-Allen2006} & XXX \\
-Flood monitoring  & \cite{Castillo-effen2004} & XXX \\
-Military & \cite{6268958} & XXX \\
-\hline
-\end{tabular}
-\caption{Real-world applications of wireless sensor networks}
-\label{table:applications}	
+	\begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.5\textwidth}|}
+		\hline
+		Area & References & Summary \\
+		\hline
+		Ocean monitoring and the marine environment & \cite{Mahdy2008a, Albaladejo2010, 6973877} & XXX \\
+		Radiation contamination & \cite{Gomez2015} & XXX \\
+		Water quality & \cite{Fang2010} & XXX \\
+		Agriculture  & \cite{8745854} & XXX \\
+		Volcano monitoring  & \cite{Werner-Allen2006} & XXX \\
+		Flood monitoring  & \cite{Castillo-effen2004} & XXX \\
+		Military & \cite{6268958} & XXX \\
+		\hline
+	\end{tabular}
+	\caption{Real-world applications of wireless sensor networks}
+	\label{table:applications}	
 \end{table}
-
-\todo[inline]{Why are these important? Uses?}
-
-\todo[inline]{What are the current solutions, what are the problems and how are we improving them?}
-
-\todo[inline]{What is the solution and contributions we present?}
-Based on the algorithms presented by the authors \citep{creech2021dynamic, creech2021resource}.
-\todo[inline]{Summarise the structure of the paper}
-
-
-
