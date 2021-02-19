@@ -22,8 +22,9 @@
 
 %\usepackage[numbers]{natbib}
 %\usepackage[authoryear]{natbib}
-\usepackage[authoryear,longnamesfirst]{natbib}
+\usepackage{natbib}
 \usepackage[textsize=small]{todonotes}
+\usepackage{float}
 \include{notation}
 
 %%%Author macros
@@ -85,8 +86,9 @@
 
 	\maketitle
 	
-	%\input{introduction}
-	%\input{background}
+	\input{introduction}
+	\input{background}
+	%\input{background_extended}
 	\input{problem}
 	\input{problem_system}
 	\input{problem_tasks}
@@ -96,7 +98,7 @@
 	%\input{solution}
 	%\input{results}
 	%\input{conclusions}
-	%\input{references}
+	\input{references}
 	\begin{appendix}
 	\input{symbols}
 	\input{problem_lifecycle}
