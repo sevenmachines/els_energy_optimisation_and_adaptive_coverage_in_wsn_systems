@@ -7,15 +7,18 @@
 
 \todo[inline]{What are the current solutions, what are the problems and how are we improving them?}
 \textit{centralised}\\
+\todo[inline]{Quick centralised reference, this is non-scalable and not robust to hard conditions?}
 \textit{decentralised}\\
-\textit{Clustering} \\
-\textit{Hierarchical} \\
-\textit{Reinforcement learning}\\
-\citep{10.1007/978-3-642-11814-2_4, 10.1504/IJCNDS.2012.048871}
-
+\todo[inline]{Quick decentralised overview, this gives us resilience but we must have autonomous behaviour. Now we have problems in working from local information and coordination.}
+Broadly there are three main categories for decentralisation \citep{10.1007/978-3-642-11814-2_4, 10.1504/IJCNDS.2012.048871},
+\begin{itemize}
+	\item \textit{Clustering}
+	\item \textit{Hierarchical}
+	\item \textit{Reinforcement learning}
+\end{itemize}
 
 \todo[inline]{What is the solution and contributions we present?}
-The solution we present here is based on the algorithms previously developed by the authors. We use the \acronymATARIA{}{} algorithm to optimise the task of measurements and coverage, minimise the energy consumption of the network, while adapting to the dynamic nature of WSNs \citep{creech2021dynamic}. Through the \acronymMGRAO{}{} algorithm we enable sensors that are taking measurements to optimise the allocation of their resources to meet the overall system goal \citep{creech2021resource}. By combining and evaluating these algorithms in a simulated WSN deployed in a realistic environment, we show that the overall solution can be successfully utilised to balance the systems' multiple objectives of minimising energy consumption, maximising system lifetime, as well as optimising the quality of the measurement tasks while still maintaining geographical coverage.
+The solution we present here is based on the following algorithms previously developed by the authors. We use the \acronymATARIA{}{} algorithm to optimise the task of measurements and coverage, minimise the energy consumption of the network, while adapting to the dynamic nature of WSNs \citep{creech2021dynamic}. Through the \acronymMGRAO{}{} algorithm we enable sensors that are taking measurements to optimise the allocation of their resources to meet the overall system goal \citep{creech2021resource}. By combining and evaluating these algorithms in a simulated WSN deployed in a realistic environment, we show that the overall solution can be successfully utilised to balance the systems' multiple objectives of minimising energy consumption, maximising system lifetime, as well as optimising the quality of the measurement tasks while still maintaining geographical coverage.
 
 In Section \ref{section:background} we look at related research in this area, allowing us to concretely define the problem in Section \ref{section:problem}. Section \ref{section:solution} sets out our solution, followed by definition of the simulated environment and evaluation of the solution in Section \ref{section:experimental}. We close with the summary of our conclusions and future work in Section \ref{section:conclusions}.
 
