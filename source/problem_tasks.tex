@@ -1,34 +1,17 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\varMeasurementValue}[2]{\varSymbol{val}{#1}{#2}}
-\newcommand{\varMeasurementAccuracy}[2]{\varSymbol{acc}{#1}{#2}}
-\newcommand{\varLocation}[2]{\varSymbol{p}{#1}{#2}}
-\newcommand{\setLocation}[2]{\setSymbol{P}{#1}{#2}}
-\newcommand{\varEnergy}[2]{\varSymbol{e}{#1}{#2}}
-\newcommand{\setEnergy}[2]{\setSymbol{E}{#1}{#2}}
-\newcommand{\formalMeasurement}[2]{
-	\functionFormal{m}
-	{\setLocation{}{} \times \setEnergy{}{}}
-	{\setRealNumbers{}{} \times \setRealNumbersUnit{}{}}
-}
-
-\subsection{Measurements tasks}
-\todo[inline]{PROBLEM - TASKS}
-A sensor is capable of taking a measurement of the radiation levels in its immediate area. The longer the sample time, the more energy is used, but the more accurate the reading will be \cite{dummy}.
-\begin{definition}[Measurement]
-	A measurement is a mapping $\formalMeasurement{}{}$ such that, at a location $\varLocation{}{}$ using energy $\varEnergy{}{}$, we obtain a tuple of a value $\varMeasurementValue{}{}$ and accuracy $\varMeasurementAccuracy{}{}$.
-\end{definition}
-
-
-\begin{definition}[Atomic task]
-	An \textit{atomic task} $\varAtomicTask{\varLocation{}{}}{}$ is a task to take a measurement at a target location $\varLocation{}{}$. The task can be completed by any agent, no matter its distance from the target point.
-\end{definition}
-
 %%%%%%%%%%%%%%%%%
 \newcommand{\functionAtomicTaskQualitySignature}[2]{
 	\functionSignature{atv_{\varAgent{}{}, \varTime{}{}}} {\varAtomicTask{}{}}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionCompositeTaskQuality}[2]{
+	\functionSignature{ctv_{\setAgents{}{}, \varTime{}{}}} {\varCompositeTask{}{}}
+}
+\newcommand{\functionSystemUtility}[2]{u(t)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Quality of measurement}
+
+\todo[inline]{PROBLEM - TASKS}
+A sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore define the value of the measurement as follows,
+
 \begin{definition}[Atomic task value]
 	The \textit{atomic task value} of an atomic task $\varAtomicTask{}{}$ is a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
 	\begin{equation}
@@ -36,45 +19,9 @@ A sensor is capable of taking a measurement of the radiation levels in its immed
 	\end{equation}
 \end{definition}
 
-\begin{definition}[Composite task]
-	A \textit{composite task}, is composed of $N$ atomic tasks $\varCompositeTask{}{} = \lbrace \varAtomicTask{i}{} \rbrace_{i=0}^N$ where for each of the $i\in N$ grid blocks of the systems geographical grid area.
-\end{definition}
-%%%%%%%%%%%%%%%%%
-\newcommand{\functionCompositeTaskQuality}[2]{
-	\functionSignature{ctv_{\setAgents{}{}, \varTime{}{}}} {\varCompositeTask{}{}}
-}
-
 \begin{definition}[Composite task quality]
 	The \textit{composite task quality} of $\varCompositeTask{}{}$ is a measure of the quality of the atomic tasks that compose it, the remaining energy available to the agents that completed those atomic tasks, and the overall variability of the energy over those agents. 
 	\begin{equation}
-		\functionCompositeTaskQuality{}{} = 
+		\functionCompositeTaskQuality{}{} = XXX
 	\end{equation}
 \end{definition}
-
-
-%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\functionSystemUtility}[2]{u(t)}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{System utility}
-
-The utility of a system is based on the balance between multiple objectives,
-\begin{enumerate}
-	\item Maximise the overall system energy available
-	%\item Minimise the variability of energy available across all system agents
-	\item Maximise the composite task quality
-	\item Maximise the composite task coverage
-\end{enumerate}
-
-\begin{definition}[System utility]
-	
-	\begin{equation}
-		\functionSystemUtility{}{} = \sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
-		\big( 
-		\functionSystemEnergyAvailable{}{}
-		\times \functionCompositeTaskQuality{}{}
-		\times \functionCompositeTaskCoverage{}{}
-		\big)
-	\end{equation}
-\end{definition}
-

@@ -10,6 +10,8 @@
 
 \newcommand{\varAgent}[2]{g_{#1}^{#2}}
 \newcommand{\setAgents}[2]{G_{#1}^{#2}}
+
+\newcommand{\powerSetAgents}[2]{\powerSetSymbol{G_{#1}^{#2}}{}{}}
 \newcommand{\varIdleAgent}[2]{\varAgent{i}{}}  
 \newcommand{\varSleepAgent}[2]{\varAgent{s}{}}  
 \newcommand{\varChildAgent}[2]{\varAgent{c}{}}    
@@ -20,14 +22,28 @@
 \newcommand{\varReceiverEnergy}[2]{RE}
 \newcommand{\varIdleEnergy}[2]{IE}
 \newcommand{\varSleepEnergy}[2]{SE}
-\newcommand{\varSystemEnergyConsumption}[2]{sec_{\setTime{}{}}}
-\newcommand{\varTaskEnergy}[2]{tec_{\varCompositeTask{}{}}}
-\newcommand{\setTaskEnergy}[2]{TEC_{\varCompositeTask{}{}}}
-\newcommand{\varSystemEnergyVariability}[2]{sev_{\varTime{}{}}}
-
-\newcommand{\varAgentEnergyAvailable}[2]{aea_{\varAgent{}{},\varTime{}{}}}
+\newcommand{\functionSystemEnergyConsumption}[2]{
+	\functionSignature{sec}
+	{\setAgents{}{}}
+}
+\newcommand{\functionTaskEnergy}[2]{
+	\functionSignature{tec}
+	{\varAgent{}{}}
+}
+\newcommand{\functionSystemEnergyDistribution}[2]{
+	\functionSignature{sed_{\varTime{}{}}}
+	{\setAgent{}{}}
+}
+\newcommand{\functionSystemEnergyVariability}[2]{
+	\functionSignature{sev_{\varTime{}{}}}
+	{\setAgents{}{}}
+}
+\newcommand{\functionAgentEnergyAvailable}[2]{
+	\functionSignature{aea_{\varTime{}{}}}
+	{\varAgent{}{}}
+}
 \newcommand{\functionAgentEnergyTotal}[2]{
-	\functionSignature{aet_{\varAgent{}{},\varTime{}{}}}
+	\functionSignature{aet_{\varTime{}{}}}
 	{\varAgent{#1}{#2}}
 }
 
