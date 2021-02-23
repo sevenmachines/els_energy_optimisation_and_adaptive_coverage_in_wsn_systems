@@ -22,14 +22,8 @@
 \newcommand{\varReceiverEnergy}[2]{RE}
 \newcommand{\varIdleEnergy}[2]{IE}
 \newcommand{\varSleepEnergy}[2]{SE}
-\newcommand{\functionSystemEnergyConsumption}[2]{
-	\functionSignature{sec}
-	{\setAgents{}{}}
-}
-\newcommand{\functionTaskEnergy}[2]{
-	\functionSignature{tec}
-	{\varAgent{}{}}
-}
+
+
 \newcommand{\functionSystemEnergyDistribution}[2]{
 	\functionSignature{sed_{\varTime{}{}}}
 	{\setAgent{}{}}
@@ -38,18 +32,9 @@
 	\functionSignature{sev_{\varTime{}{}}}
 	{\setAgents{}{}}
 }
-\newcommand{\functionAgentEnergyAvailable}[2]{
-	\functionSignature{aea_{\varTime{}{}}}
-	{\varAgent{}{}}
-}
 \newcommand{\functionAgentEnergyTotal}[2]{
 	\functionSignature{aet_{\varTime{}{}}}
 	{\varAgent{#1}{#2}}
-}
-
-\newcommand{\setAgentEnergyAvailable}[2]{\mathrm{AEA}_{\varAgent{}{},\varTime{}{}}}
-\newcommand{\functionSystemEnergyAvailable}[2]{
-	\functionSignature{sea_{\varTime{}{}}}{\setAgents{}{}}
 }
 
 \newcommand{\functionProbabilityInit}[2]{

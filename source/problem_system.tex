@@ -31,7 +31,7 @@
 \end{figure}
 
 \subsubsection*{Deployment configuration}
-Given a geographical area to monitor, we can overlay a two dimensional grid of real numbers, allowing us to associate a deployed set of nodes, or agents, $\setAgents{}{}$, with a corresponding \textit{location}, $\varLocation{}{} = \formalVarLocation{}{} \in \formalSetLocation{}{}$. on the grid. This describes the \textit{deployment configuration} of those agents, a mapping $\formalDeployment{}{}$.
+Given a geographical area to monitor, we can overlay a two dimensional grid of real numbers, allowing us to associate a deployed set of nodes, or agents, $\setAgents{}{}$, with a corresponding location, $\formalVarLocation{}{} \in \formalSetLocation{}{}$. on the grid. This describes the \textit{deployment configuration} of those agents, a mapping from agents to real valued tuples representing their location,  $\formalDeployment{}{}$.
 
 
 \begin{definition}[Composite task]
@@ -42,15 +42,65 @@ Given a geographical area to monitor, we can overlay a two dimensional grid of r
 	An \textit{atomic task} $\varAtomicTask{\varLocation{}{}}{}$ is a task to take a measurement at a target location $\varLocation{}{}$. The task can be completed by any agent, no matter its distance from the target point.
 \end{definition}
 
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{ra_{\varAgent{}{}}}
+	{\varAtomicTask{}{}}
+}
+\begin{definition}[Task resource allocation]
+	XXX
+\end{definition}
+
+
 \begin{definition}[Demand point]
 	A \textit{demand point} is a specific location associated with an atomic task $\functionTaskDemandPoint{}{}$.
 \end{definition}
 
 
 \subsubsection*{Node roles and task arcs}
-We can distinguish agents by the role they play in a given atomic task. A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results. A \textit{sensing node}, $\varSinkAgent{}{}$, is the agent that executes the atomic task and so performs the sensor measurement. An \textit{active node}, $\varActiveAgent{}{}$, is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent. An \textit{inactive agent} does not participate in the task in any way.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\formalSinkRole}[2]{
+	\functionFormal{sink}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{\powerSetAgents{}{}}
+}
+\newcommand{\formalSenseRole}[2]{
+	\functionFormal{sense}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{\powerSetAgents{}{}}
+}
+\newcommand{\formalActiveRole}[2]{
+	\functionFormal{active}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{\powerSetAgents{}{}}
+}
+\newcommand{\formalIdleRole}[2]{
+	\functionFormal{idle_{\setTime{}{}}}
+	{\setAgents{}{}}
+	{\setAgents{}{}}
+}
+\newcommand{\formalSleepRole}[2]{
+	\functionFormal{sink_{\setTime{}{}}}
+	{\setAgents{}{}}
+	{\setAgents{}{}}
+}
+\newcommand{\functionSinkRole}[2]{\functionSignature{sink}{\varAtomicTask{}{}, \setAgents{}{}}}
+	
+\newcommand{\functionSenseRole}[2]{\functionSignature{sense}{\varAtomicTask{}{}, \setAgents{}{}}}
+\newcommand{\functionActiveRole}[2]{\functionSignature{active}{\varAtomicTask{}{}, \setAgents{}{}}}
+\newcommand{\functionIdleRole}[2]{\functionSignature{idle}{\varAtomicTask{}{}, \setAgents{}{}}}
+\newcommand{\functionSleepRole}[2]{\functionSignature{sleep}{\varAtomicTask{}{}, \setAgents{}{}}}
 
-With these roles in mind, we can now define the \textit{task arc} as a mapping of atomic tasks to ordered sets of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the agent that has received the initial composite task, and the last agent is the agent that executes the atomic task such that, 
+
+We can distinguish agents by the role they play in a given atomic task.
+\begin{itemize}
+	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results, $\formalSinkRole{}{}$.
+	\item A \textit{sensing node} is the agent that executes the atomic task and so performs the sensor measurement, $\formalSenseRole{}{}$.
+	\item An \textit{active node} is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent, $\formalActiveRole{}{}$..
+	\item An \textit{idle node} does not participate in the specific task, but is for other tasks during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
+	\item An \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
+\end{itemize}
+
+With these roles in mind, we can now define the \textit{task arc} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the agent that has received the initial composite task, and the last agent is the agent that executes the atomic task such that, 
 $\functionTaskArc{}{} = \lbrace \varSinkAgent{}{}, \varActiveAgent{i}{}, \varSensingAgent{}{} \rbrace_{i=1}^{n}$. Where there are $n$ active agents sub-allocating the task between the sink and sensing agents.
 
 

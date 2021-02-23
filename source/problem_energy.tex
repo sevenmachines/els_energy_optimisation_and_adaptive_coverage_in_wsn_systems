@@ -1,58 +1,74 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\formalAgentEnergyAvailable}[2]{
+	\functionFormal{fae}
+	{\setAgents{}{}}
+	{\setRealNumbersUnit{}{}}
+}
+\newcommand{\functionAgentEnergyAvailable}[2]{
+	\functionSignature{fae_{\varTime{}{}}}
+	{\varAgent{}{}}
+}
+
 
 \subsection{Energy in the system}
+\newcommand{\functionEnergyVariability}[2]{
+\ifx \\#1\\
+	\functionSignature{ev_{\varTime{}{}}}
+	{\setAgents{}{}}
+\else
+	\functionSignature{ev_{\varTime{}{}}}{#1}
+\fi
+}
+\newcommand{\functionEnergyAvailable}[2]{
+\ifx \\#1\\
+	\functionSignature{ea_{\varTime{}{}}}{\setAgents{}{}}
+\else
+	\functionSignature{ea_{\varTime{}{}}}{#1}
+\fi
+}
 \todo[inline]{PROBLEM - ENERGY}
 \subsubsection{Availability of energy}
 
-Each agent $\varAgent{}{}$ has a battery that can store energy $\varBatteryEnergy{}{}$ up to a maximum value $\varBatteryEnergyMax{}{}$.
-
-\begin{definition}[Agent energy available]
-	The agent energy available is the fractional energy available to an agent $\varAgent{}{}$ to utilise.
+The \textit{fractional agent energy} maps the an agent to its available energy, as a fraction of the batteries' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{energy availability}, as the sum of the fractional agent energy of all agents in a set $\setAgents{}{}$.
 	\begin{equation}
-		\functionAgentEnergyAvailable{}{} = \varBatteryEnergy{}{} / \varBatteryEnergyMax{}{}
-	\end{equation}
-\end{definition}
-
-\begin{definition}[System energy available]
-	The system energy available, $\functionSystemEnergyAvailable{}{}$, is the energy available to all agents $\setAgents{}{}$ in the system as a whole.
-	\begin{equation}
-		\functionSystemEnergyAvailable{}{} 
+		\functionEnergyAvailable{}{} 
 		= \sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}
 	\end{equation}
-	Note, the task energy consumption also includes any orchestration tasks agents execute such as information requests.
-\end{definition}
-	
-\begin{definition}[System energy variability]
-	The \textit{system energy variability} is the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of energy available to each agent in the system as a whole at time $\varTime{}{}$.
+and the \textit{energy variability} as the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of energy available to those agents.
 	\begin{equation}     	
-		\functionSystemEnergyVariability{}{} 
+		\functionEnergyVariability{}{} 
 		= \sigma^2(
 			\lbrace \functionAgentEnergyAvailable{}{}
 			\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
 		)
 	\end{equation}
-\end{definition}
 
-\subsubsection{Energy consumption}
+\newcommand{\functionTaskEnergyConsumption}[2]{
+	\functionSignature{tec}
+	{\varAtomicTask{}{}}
+}
 \todo[inline]{Define task consumption in terms of arc}
-\begin{definition}[Task energy consumption]
-	The task energy consumption is the energy used by all agents in the system in executing a composite task $\varCompositeTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a parent agent $\varParentAgent{}{}$ broadcasting a message to a child agent $\varChildAgent{}{}$, or a child agent replying to a parent. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used an agent receives a message. Finally idle energy, $\varIdleEnergy{}{}$, for any inactive agents $\varIdleAgent{}{}$ in idle, power saving mode, and sleep mode energy $\varIdleEnergy{}{}$ for agents $\varSleepAgent{}{}$ in sleep mode.
-	\begin{equation}
-		\functionTaskEnergy{}{} 
-		= \varTransmissionEnergy{}{} \sum (\varParentAgent{}{} + \varChildAgent{}{})
-		+ \varReceiverEnergy{}{} (1 + \sum \varChildAgent{}{})
-		+ \varIdleEnergy{}{} \sum \varIdleAgent{}{}
-		+ \varSleepEnergy{}{} \sum \varSleepAgent{}{}
-	\end{equation}
-\end{definition}
-
-
-
-\begin{definition}[System energy consumption]
-	The system energy consumption is the energy used by all of the $m$ tasks that are completed within the time period $\setTime{}{}$.
-	\begin{equation}
-		\functionSystemEnergyConsumption{}{} 
-		= \sum_{\forall \varAgent{}{} \in \setAgents{}{}}  \functionTaskEnergy{}{}
-	\end{equation}
-	Note, the task energy consumption also includes any orchestration tasks agents execute such as information requests.
-\end{definition}
+The \textit{task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a parent agent $\varParentAgent{}{}$ broadcasting a message to a child agent $\varChildAgent{}{}$, or a child agent replying to a parent. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used an agent receives a message. Finally idle energy, $\varIdleEnergy{}{}$, for any inactive agents $\varIdleAgent{}{}$ in idle, power saving mode, and sleep mode energy $\varIdleEnergy{}{}$ for agents $\varSleepAgent{}{}$ in sleep mode.
+\begin{equation}
+	\functionTaskEnergyConsumption{}{} 
+	= \varTransmissionEnergy{}{} (2\funcSize{\functionTaskArc{}{}}{} - 1)
+	+ \varReceiverEnergy{}{} (2\funcSize{\functionTaskArc{}{}}{} - 1)
+	
+\end{equation}
+\subsubsection{Energy consumption}
+\newcommand{\functionSystemEnergyConsumption}[2]{
+	\functionSignature{sec}
+	{\setCompositeTask{}{}}
+}
+\todo[inline]{Include orchestration energy?}
+We can then go on to define the \textit{system energy consumption} as the energy used by all of the composite tasks $\setCompositeTask{}{}$ that are completed within a time period $\setTime{}{}$.
+\todo[inline]{This isnt right wrt idle and sleeping, and how it works with tec}
+\begin{equation}
+	\functionSystemEnergyConsumption{}{} 
+	= 
+	\sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
+	\sum_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionTaskEnergyConsumption{}{}
+	+ \varIdleEnergy{}{} \sum \functionIdleRole{}{}
+	+ \varSleepEnergy{}{} \sum \functionSleepRole{}{}
+\end{equation}
 
