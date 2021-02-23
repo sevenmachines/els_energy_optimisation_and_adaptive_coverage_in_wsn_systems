@@ -48,7 +48,7 @@ and the \textit{energy variability} as the variance\footnote{Using the standard 
 	{\varAtomicTask{}{}}
 }
 \todo[inline]{Define task consumption in terms of arc}
-The \textit{task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once.  
+The \textit{task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range. 
 \begin{equation}
 	\functionTaskEnergyConsumption{}{} 
 	= 2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
