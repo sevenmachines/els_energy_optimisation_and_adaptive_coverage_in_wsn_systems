@@ -48,13 +48,13 @@ and the \textit{energy variability} as the variance\footnote{Using the standard 
 	{\varAtomicTask{}{}}
 }
 \todo[inline]{Define task consumption in terms of arc}
-The \textit{task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a parent agent $\varParentAgent{}{}$ broadcasting a message to a child agent $\varChildAgent{}{}$, or a child agent replying to a parent. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used an agent receives a message. Finally idle energy, $\varIdleEnergy{}{}$, for any inactive agents $\varIdleAgent{}{}$ in idle, power saving mode, and sleep mode energy $\varIdleEnergy{}{}$ for agents $\varSleepAgent{}{}$ in sleep mode.
+The \textit{task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once.  
 \begin{equation}
 	\functionTaskEnergyConsumption{}{} 
-	= \varTransmissionEnergy{}{} (2\funcSize{\functionTaskArc{}{}}{} - 1)
-	+ \varReceiverEnergy{}{} (2\funcSize{\functionTaskArc{}{}}{} - 1)
-	
+	= 2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
+	+ 2\varReceiverEnergy{}{} (2 \funcSize{\functionTaskArc{}{}}{} - 1)
 \end{equation}
+Although nodes would still use energy when in an idle power saving mode, or sleep mode, we disregard these for this formulation as we look to optimise the active node power usage only. There are other algorithms that can be used to optimise the cycling of power cell usage \cite{DUMMY}.
 \subsubsection{Energy consumption}
 \newcommand{\functionSystemEnergyConsumption}[2]{
 	\functionSignature{sec}
