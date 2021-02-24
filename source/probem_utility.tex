@@ -1,21 +1,15 @@
 \subsection{System utility}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionSystemUtility}[2]{\functionSignature{u_{\setTime{}{}}}{\setCompositeTask{}{}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo[inline]{Simplify this}
 Given the system goal is balanced between the multiple objectives of, minimising the overall energy used by composite tasks, the energy variance between system agents, while maximising the quality of composite tasks, and the composite task coverage, then the utility of the system is,
 
 \begin{definition}[System utility]
-	
+	The \textit{system utility} over a time period $\setTime{}{}$ is the sum of the values of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
 	\begin{equation}
 		\functionSystemUtility{}{} = \sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
-		\dfrac
-		{
-			 \functionCompositeTaskQuality{}{}
-			\times
-			 \functionCompositeTaskCoverage{}{}
-		} 
-		{
-			\functionSystemEnergyConsumption{}{}
-			\times
-			 \functionSystemEnergyVariability{}{}
-		}
+		\functionCompositeTaskQuality{}{}
 	\end{equation}
 \end{definition}
 

@@ -5,7 +5,6 @@
 \newcommand{\functionCompositeTaskQuality}[2]{
 	\functionSignature{ctv}{\varCompositeTask{}{}}
 }
-\newcommand{\functionSystemUtility}[2]{u(t)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Quality of measurement}
 
@@ -27,8 +26,18 @@ A sensor is capable of taking a measurement of the radiation levels at the locat
 	\begin{equation}
 		\functionCompositeTaskQuality{}{} = 
 		\sum_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
-		\functionEnergyAvailable{\functionTaskArc{}{}}{}
-		+ \functionEnergyVariability{\functionTaskArc{}{}}{}
-		+ \functionAtomicTaskQualitySignature{}{}
+		\big\lbrack
+		\alpha\underbrace{\functionFractionalEnergyAvailable{\functionTaskArc{}{}}{}}_{\text{energy available}}
+		+ \beta\underbrace{\functionEnergyInverseVariability{\functionTaskArc{}{}}{}}_{\text{energy distribution}}
+		+ 
+		\gamma\underbrace{\functionAtomicTaskQualitySignature{}{}}_{\text{task quality}}
+		\big\rbrack
 	\end{equation}
+Where $\alpha$, $\beta$, and $\gamma$, are XXXX that can be chosen to weight the optimisation more strongly between the different factors.
 \end{definition}
+By maximising composite task quality we then will increase,
+\begin{itemize}
+	\item The energy availiable in the system, minimising the overall battery power consumption.
+	\item The distribution of energy use across the nodes. To maximise the usable lifetime of nodes, we want to make sure wear is spread across nodes. 
+	\item The quality of atomic tasks, the will not only improve the accuracy of readings, but will also invoke a penalty of poor task coverage, as failed tasks have the lowest quality.
+\end{itemize}
