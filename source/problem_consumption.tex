@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionTaskEnergyConsumption}[2]{
+	\functionSignature{atec}
+	{\varAtomicTask{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The \textit{atomic task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range. 
+\begin{equation}
+	\functionTaskEnergyConsumption{}{} 
+	= 2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
+	+ 2\varReceiverEnergy{}{} (2 \funcSize{\functionTaskArc{}{}}{} - 1)
+\end{equation}
+\subsubsection{Energy consumption}
+\newcommand{\functionSystemEnergyConsumption}[2]{
+	\functionSignature{ctec}
+	{\setCompositeTask{}{}}
+}
+\todo[inline]{Include orchestration energy?}
+We can then go on to define the \textit{composite task energy consumption} as the energy used by all of the composite tasks $\setCompositeTask{}{}$ that are completed within a time period $\setTime{}{}$.
+\begin{equation}
+	\functionSystemEnergyConsumption{}{} 
+	= 
+	\sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
+	\sum_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionTaskEnergyConsumption{}{}
+\end{equation}
+
+Although nodes would still use energy when in an idle power saving mode, or sleep mode, we disregard these for this formulation as we look to optimise the active node power usage only. There are other algorithms that can be used to optimise the cycling of power cell usage \cite{DUMMY}.

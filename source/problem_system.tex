@@ -4,7 +4,13 @@
 \newcommand{\formalVarLocation}[2]{(x,y)}
 \newcommand{\formalSetLocation}[2]{(\setRealNumbers{}{} \times \setRealNumbers{}{})}
 
-\newcommand{\functionDeployment}[2]{\functionSignature{conf}{\setAgents{}{}}}
+\newcommand{\functionDeployment}[2]{
+\ifx \\1\\
+\functionSignature{conf}{\setAgents{}{}}
+\else
+\functionSignature{conf}{#1}
+\fi 
+}
 \newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbers{}{} \times \setRealNumbers{}{})}}
 \newcommand{\functionTaskArc}[2]{\functionSignature{arc}{\varAtomicTask{}{}}}
 \newcommand{\formalTaskArc}[2]{\functionFormal{arc}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}

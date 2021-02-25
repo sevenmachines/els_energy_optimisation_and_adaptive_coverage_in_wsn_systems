@@ -9,14 +9,14 @@
 \subsubsection*{Quality of measurement}
 
 \todo[inline]{PROBLEM - TASKS}
-\todo[inline]{Task value and composite task value need to be redefined (or mentioned at a high-level), to reflect how their used in the previous papers}
+
 A sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore define the value of the measurement as follows,
-\todo[inline]{Define energy use for task as energy resource allocation}
+
 \begin{definition}[Atomic task quality]
 	The \textit{atomic task quality} of an atomic task $\varAtomicTask{}{}$ is a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
 	\begin{equation}
 		\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
-				\functionTaskDemandPoint{}{} - \functionDeployment{}{}
+				\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{}
 		}{}
 	\end{equation}
 \end{definition}

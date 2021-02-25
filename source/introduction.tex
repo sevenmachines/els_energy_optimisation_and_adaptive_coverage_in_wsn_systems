@@ -4,10 +4,12 @@
 \textit{Wireless sensor networks (WSNs)} have many applications and research studies in areas such as environmental monitoring, agriculture, and military uses (See Table \ref{table:applications}). More recently, the availability and lower cost of low-power wireless transmitters \citep{902661}, solar-harvesting components \citep{Prauzek2018}, and micro-electro-mechanical systems \citep{1045391} has allowed large deployments sizes and scope of use, expanding their real-world use and opening up new areas for practical research \citep{5597912, Kandris2020}.
 
 \todo[inline]{What are the current solutions, what are the problems and how are we improving them?}
-\textit{centralised}\\
+WSNs can be structured with centralised, or decentralised control. With centralisation, the controller node has system-wide knowledge, and so allocates measurement tasks to other nodes, orchestrates their communications, and handles recovery. 
 \todo[inline]{Quick centralised reference, this is non-scalable and not robust to hard conditions?}
-\textit{decentralised}\\
+
+With decentralisation, nodes have a localised knowledge only, and autonomously orchestrate the same functionality, sometimes being organised into groups to increase co-ordination without full centralisation.
 \todo[inline]{Quick decentralised overview, this gives us resilience but we must have autonomous behaviour. Now we have problems in working from local information and coordination.}
+
 Broadly there are three main categories for decentralisation \citep{10.1007/978-3-642-11814-2_4, 10.1504/IJCNDS.2012.048871},
 \begin{itemize}
 	\item \textit{Clustering}
