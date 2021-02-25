@@ -13,10 +13,10 @@
 \subsection{Energy in the system}
 \newcommand{\functionEnergyVariability}[2]{
 \ifx \\#1\\
-	\functionSignature{ev_{\varTime{}{}}}
+	\functionSignature{rev_{\varTime{}{}}}
 	{\setAgents{}{}}
 \else
-	\functionSignature{ev_{\varTime{}{}}}{#1}
+	\functionSignature{rev_{\varTime{}{}}}{#1}
 \fi
 }
 \newcommand{\functionEnergyInverseVariability}[2]{
@@ -27,44 +27,31 @@
 	\functionSignature{eiv_{\varTime{}{}}}{#1}
 	\fi
 }
-\newcommand{\functionFractionalEnergyAvailable}[2]{
+\newcommand{\functionEnergyAvailable}[2]{
 \ifx \\#1\\
-	\functionSignature{fea_{\varTime{}{}}}{\setAgents{}{}}
+	\functionSignature{ea_{\varTime{}{}}}{\setAgents{}{}}
 \else
-	\functionSignature{fea_{\varTime{}{}}}{#1}
+	\functionSignature{ea_{\varTime{}{}}}{#1}
 \fi
 }
 \todo[inline]{PROBLEM - ENERGY}
 \subsubsection{Availability of energy}
 
-The \textit{fractional agent energy} maps the an agent to its available energy, as a fraction of the batteries' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum of the fractional agent energy of all agents in a set $\setAgents{}{}$.
+The \textit{fractional agent energy} maps the an agent to its available energy, as a fraction of the batteries' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum of the agent energy of all agents in a set $\setAgents{}{}$.
 	\begin{equation}
-		\functionFractionalEnergyAvailable{}{} 
+		\functionEnergyAvailable{}{} 
 		= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}}
 		{\funcSize{\setAgents{}{}}}
 	\end{equation}
-and the \textit{energy variability} as the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of energy available to those agents.
+To optimise for distribution of energy usage, we want to minimise the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of $\functionAgentEnergyAvailable{}{}$. As we look to optimise by maximising across multiple goals, and the values of $\functionAgentEnergyAvailable{}{}$ are bounded by $[0, 1]$, we can rephrase this as maximising the distance between the variance and the maximum possible, $1/4$. So we specify the \textit{relative energy variability},
 	\begin{equation}     	
 		\functionEnergyVariability{}{} 
-		= \sigma^2(
+		= \frac{1}{4} - \sigma^2(
 			\lbrace \functionAgentEnergyAvailable{}{}
 			\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
 		)
 	\end{equation}
-In order to optimise across multiple values we will use the \textit{inverse-variability} \footnote{With the usual definition of inverse-variability $\hat{y} =
-	\dfrac{\sum_{i} y_i/\sigma_{i}^2}{\sum_{i} 1/\sigma_{i}^2}$} of the fractional energy values across a set of agents $\setAgents{}{}$, where $\sigma_{\varAgent{}{}}$ is the variance of the fractional agent energy of $\varAgent{}{}$.
-\begin{equation}
-	\functionEnergyInverseVariability{}{}
-	=
-	\dfrac
-	{
-		\sum\limits_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{}{}}{} / \sigma_{\varAgent{}{}}^2
-	}
-	{
-		\sum\limits_{\forall \varAgent{}{} \in \setAgents{}{}} 
-		1/\sigma_{\varAgent{}{}}^2
-	}
-\end{equation}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionTaskEnergyConsumption}[2]{
