@@ -2,9 +2,8 @@
 \label{section:background}
 \todo[inline]{Why environmental WSN?}
 \textit{Wireless sensor networks (WSNs)} are collections of independent battery-powered sensor nodes connected through wireless transmission, used to monitor a geographical area \citep{Akyildiz,Yick2008a}. In many circumstances the areas under study are difficult to access, such as remote locations, ocean-based studies, or contaminated areas. \textit{Environmental wireless sensor networks (E-WSNs)} in particular are characterised by intermittent connectivity between nodes, and harsh environmental conditions that lead to degradation of the network, so that the network must be adaptable in response to these changes \citep{Oliveira2011}. In these circumstances batteries are non-replaceable, and dispersal is ad-hoc, making a high level of autonomous node communication, coordination, and power consumption management, essential. WSNs can consist of static sensor deployments, or as mobile agents, adding to the need for adaptation in the network \citep{ramasamy2017mobile, 4224091}. Sensors are usually small and inexpensive, capable of utilising limited compute and storage resources. They have one or multiple sensing devices to take measurements from the environment, ranging through chemical, optical, thermal, biological, and radioactivity detection. This collected data can then be transmitted to a base station and retransmitted to be stored remotely and analysed.
-
+\todo[inline]{What are the characteristic challenges?}
 In realistic scenarios, there are five key elements that present challenges in deploying and operating a WSN system.
-
 \begin{enumerate}
 \item \textit{Energy consumption.} Each node in a WSN network has limited power available to function supplied by a battery. Depending on the environmental conditions, there may be some form of energy-capture component built into each node, such as solar-harvesting \citep{Prauzek2018}. However, even with this additional energy replenishment, energy is limited, and will eventually be exhausted. Batteries cannot be manually replaced in remote or inhospitable locations, that are often the focus of WSN deployments, so minimising energy consumption is essential \citep{Anastasi2009}. This can be done through the use of low-power components, \citep{4772585, 8108667}, as well as applying energy-aware routing protocols amongst nodes \citep{s90100445}. 
 
@@ -18,11 +17,10 @@ In realistic scenarios, there are five key elements that present challenges in d
 
 \end{enumerate}
 
-\todo[inline]{The use of learning techniques}
-
+\todo[inline]{How are learning techniques applied?}
 With the unknown nature of optimal network formation, task allocation, and resource allocation at initialisation, as well as its variability throughout the lifetime of the system, the use of learning strategies has had active research. Machine learning and reinforcement learning has been applied to many of the key requirements, routing in ad-hoc networks \citep{Nurmi}, allocating tasks such as sensor measurement \citep{doi:10.1155/2014/765182}, balancing the energy consumption \citep{10.1007/978-3-642-11814-2_4, PraveenKumar2019a}, and to the balancing of these multiple system objectives overall \cite{SENGUPTA2013405, s150717572}.
-\todo[inline]{Why are these solutions not good enough?}
 
+\todo[inline]{How this links to our problem definition}
 By setting the system objectives as the minimisation of energy consumption, and the maximisation of system lifetime, measurement quality, and sensor coverage, we can define the problem as a multi-objective learning problem in a distributed multi-agent system. In the next section we formalise the terminology, definitions, and the problem we look to address.
 
 

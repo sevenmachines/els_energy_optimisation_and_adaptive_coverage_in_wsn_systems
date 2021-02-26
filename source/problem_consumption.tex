@@ -4,18 +4,18 @@
 	{\varAtomicTask{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Energy consumption and availability}
 The \textit{atomic task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range. 
 \begin{equation}
 	\functionTaskEnergyConsumption{}{} 
 	= 2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
 	+ 2\varReceiverEnergy{}{} (2 \funcSize{\functionTaskArc{}{}}{} - 1)
 \end{equation}
-\subsubsection{Energy consumption}
+
 \newcommand{\functionSystemEnergyConsumption}[2]{
 	\functionSignature{ctec}
 	{\setCompositeTask{}{}}
 }
-\todo[inline]{Include orchestration energy?}
 We can then go on to define the \textit{composite task energy consumption} as the energy used by all of the composite tasks $\setCompositeTask{}{}$ that are completed within a time period $\setTime{}{}$.
 \begin{equation}
 	\functionSystemEnergyConsumption{}{} 
@@ -25,3 +25,46 @@ We can then go on to define the \textit{composite task energy consumption} as th
 \end{equation}
 
 Although nodes would still use energy when in an idle power saving mode, or sleep mode, we disregard these for this formulation as we look to optimise the active node power usage only. There are other algorithms that can be used to optimise the cycling of power cell usage \cite{DUMMY}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\formalAgentEnergyAvailable}[2]{
+	\functionFormal{fae}
+	{\setAgents{}{}}
+	{\setRealNumbersUnit{}{}}
+}
+\newcommand{\functionAgentEnergyAvailable}[2]{
+	\functionSignature{fae_{\varTime{}{}}}
+	{\varAgent{}{}}
+}
+\newcommand{\functionEnergyVariability}[2]{
+	\ifx \\#1\\
+	\functionSignature{rev_{\varTime{}{}}}
+	{\setAgents{}{}}
+	\else
+	\functionSignature{rev_{\varTime{}{}}}{#1}
+	\fi
+}
+
+\newcommand{\functionEnergyAvailable}[2]{
+	\ifx \\#1\\
+	\functionSignature{ea_{\varTime{}{}}}{\setAgents{}{}}
+	\else
+	\functionSignature{ea_{\varTime{}{}}}{#1}
+	\fi
+}
+The \textit{fractional agent energy} maps the an agent to its available energy, as a fraction of the batteries' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum of the agent energy of all agents in a set $\setAgents{}{}$.
+\begin{equation}
+	\functionEnergyAvailable{}{} 
+	= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}}
+	{\funcSize{\setAgents{}{}}}
+\end{equation}
+To optimise for distribution of energy usage, we want to minimise the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of $\functionAgentEnergyAvailable{}{}$. As we look to optimise by maximising across multiple goals, and the values of $\functionAgentEnergyAvailable{}{}$ are bounded by $[0, 1]$, we can rephrase this as maximising the distance between the variance and the maximum possible, $1/4$. So we specify the \textit{relative energy variability},
+\begin{equation}     	
+	\functionEnergyVariability{}{} 
+	= \frac{1}{4} - \sigma^2(
+	\lbrace \functionAgentEnergyAvailable{}{}
+	\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
+	)
+\end{equation}
+
+

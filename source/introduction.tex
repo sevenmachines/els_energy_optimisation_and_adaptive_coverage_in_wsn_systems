@@ -12,10 +12,16 @@ With decentralisation, nodes have a localised knowledge only, and autonomously o
 	\item \textit{Hierarchical}
 	\item \textit{Reinforcement learning}
 \end{itemize}
-
+\todo[inline]{Integrate the hiearchical diagram and add clustering example}
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.5\linewidth]{WSN_hierarchical_resolution}
+	\caption{Agent system hierarchical neighbourhood resolution: shows one of the possible modes of hierarchical networking that can be formed by the agent system through per-agent local neighbourhood learning. The initial agent passes requests through smaller and smaller neighbourhoods until the granulaity of the data meets that of the request}
+	\label{fig:wsnhierarchicalresolution}
+\end{figure}
 \todo[inline]{What is the solution and contributions we present?}
 The solution we present here is based on the following algorithms previously developed by the authors. We use the \acronymATARIA{}{} algorithm to optimise the task of measurements and coverage, minimise the energy consumption of the network, while adapting to the dynamic nature of WSNs \citep{creech2021dynamic}. Through the \acronymMGRAO{}{} algorithm we enable sensors that are taking measurements to optimise the allocation of their resources to meet the overall system goal \citep{creech2021resource}. By combining and evaluating these algorithms in a simulated WSN deployed in a realistic environment, we show that the overall solution can be successfully utilised to balance the systems' multiple objectives of minimising energy consumption, maximising system lifetime, as well as optimising the quality of the measurement tasks while still maintaining geographical coverage.
-
+\todo[inline]{Structure of paper}
 In Section \ref{section:background} we look at related research in this area, allowing us to concretely define the problem in Section \ref{section:problem}. Section \ref{section:solution} sets out our solution, followed by definition of the simulated environment and evaluation of the solution in Section \ref{section:experimental}. We close with the summary of our conclusions and future work in Section \ref{section:conclusions}.
 
 

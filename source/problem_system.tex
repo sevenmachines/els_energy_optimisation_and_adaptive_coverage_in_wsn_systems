@@ -23,7 +23,19 @@
 
 \newcommand{\varEnergy}[2]{\varSymbol{e}{#1}{#2}}
 \newcommand{\setEnergy}[2]{\setSymbol{E}{#1}{#2}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\varResource}[2]{\varSymbol{r}{#1}{#2}}
+\newcommand{\setResource}[2]{\setSymbol{R}{#1}{#2}}
+\newcommand{\formalTaskResourceAllocation}[2]{
+	\functionFormal{ra_{\varAgent{}{}}}
+	{\setAtomicTask{}{}}
+	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}{}}{}{}}
+}
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{ra_{\varAgent{}{}}}
+	{\varAtomicTask{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,33 +48,13 @@
 \label{fig:gridconcept}
 \end{figure}
 
-\subsubsection*{Deployment configuration}
+\subsection{System definition}
+\todo[inline]{This is a summary of our previous work, so keep it short and reference stuff}
 Given a geographical area to monitor, we can overlay a two dimensional grid of real numbers, allowing us to associate a deployed set of nodes, or agents, $\setAgents{}{}$, with a corresponding location, $\formalVarLocation{}{} \in \formalSetLocation{}{}$. on the grid. This describes the \textit{deployment configuration} of those agents, a mapping from agents to real valued tuples representing their location,  $\formalDeployment{}{}$.
 
+An \textit{atomic task} $\varAtomicTask{}{}$ is a task to take a measurement at a target location, the \textit{demand point} for that measurement $\functionTaskDemandPoint{}{}$, which must be in range of its relevant sensor. A \textit{composite task}, is composed of $N$ atomic tasks $\varCompositeTask{}{} = \lbrace \varAtomicTask{i}{} \rbrace_{i=0}^N$ where for each of the $i\in N$ grid blocks of the systems geographical grid area. At at time $\varTime{}{}$, each agent carrying out a measurement task has a certain amount of resources $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
 
-\begin{definition}[Composite task]
-	A \textit{composite task}, is composed of $N$ atomic tasks $\varCompositeTask{}{} = \lbrace \varAtomicTask{i}{} \rbrace_{i=0}^N$ where for each of the $i\in N$ grid blocks of the systems geographical grid area.
-\end{definition}
-
-\begin{definition}[Atomic task]
-	An \textit{atomic task} $\varAtomicTask{\varLocation{}{}}{}$ is a task to take a measurement at a target location $\varLocation{}{}$. The task can be completed by any agent, no matter its distance from the target point.
-\end{definition}
-
-\newcommand{\functionTaskResourceAllocation}[2]{
-	\functionSignature{ra_{\varAgent{}{}}}
-	{\varAtomicTask{}{}}
-}
-\begin{definition}[Task resource allocation]
-	XXX
-\end{definition}
-
-
-\begin{definition}[Demand point]
-	A \textit{demand point} is a specific location associated with an atomic task $\functionTaskDemandPoint{}{}$.
-\end{definition}
-
-
-\subsubsection*{Node roles and task arcs}
+\subsection{Node roles and task arcs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalSinkRole}[2]{
 	\functionFormal{sink}
@@ -96,7 +88,6 @@ Given a geographical area to monitor, we can overlay a two dimensional grid of r
 \newcommand{\functionIdleRole}[2]{\functionSignature{idle}{\varAtomicTask{}{}, \setAgents{}{}}}
 \newcommand{\functionSleepRole}[2]{\functionSignature{sleep}{\varAtomicTask{}{}, \setAgents{}{}}}
 
-
 We can distinguish agents by the role they play in a given atomic task.
 \begin{itemize}
 	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results, $\formalSinkRole{}{}$.
@@ -105,11 +96,6 @@ We can distinguish agents by the role they play in a given atomic task.
 	\item An \textit{idle node} does not participate in the specific task, but is for other tasks during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
 	\item An \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
 \end{itemize}
-
-With these roles in mind, we can now define the \textit{task arc}
-
-\begin{definition}[Atomic task arc]
-	A \textit{atomic task arc} is a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the agent that has received the initial composite task, and the last agent is the agent that executes the atomic task such that, 
-	$\functionTaskArc{}{} = \lbrace \varSinkAgent{}{}, \varActiveAgent{i}{}, \varSensingAgent{}{} \rbrace_{i=1}^{n}$. Where there are $n$ active agents sub-allocating the task between the sink and sensing agents.
-\end{definition}
+With these roles in mind, we can now define the  \textit{atomic task arc} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the agent that has received the initial composite task, and the last agent is the agent that executes the atomic task such that, 
+$\functionTaskArc{}{} = \lbrace \varSinkAgent{}{}, \varActiveAgent{i}{}, \varSensingAgent{}{} \rbrace_{i=1}^{n}$. Note, generally communications in WSN networks are multi-hop due to the limited broadcast range of nodes, therefore are $n>0$ active agents sub-allocating the task between the sink and sensing agents.
 
