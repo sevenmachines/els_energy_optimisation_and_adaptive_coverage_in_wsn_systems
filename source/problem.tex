@@ -74,4 +74,41 @@
 \newcommand{\setBatteryEnergy}[2]{\setSymbol{E}{#1}{#2}}
 \newcommand{\varBatteryEnergyMax}[2]{\varBatteryEnergy{\varAgent{}{}}{max}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\varLocation}[2]{\varSymbol{loc}{#1}{#2}}
+\newcommand{\setLocation}[2]{\setSymbol{LOC}{#1}{#2}}
+\newcommand{\formalVarLocation}[2]{(x,y)}
+\newcommand{\formalSetLocation}[2]{(\setRealNumbers{}{} \times \setRealNumbers{}{})}
 
+\newcommand{\functionDeployment}[2]{
+	\ifx \\1\\
+	\functionSignature{conf}{\setAgents{}{}}
+	\else
+	\functionSignature{conf}{#1}
+	\fi 
+}
+\newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbers{}{} \times \setRealNumbers{}{})}}
+\newcommand{\functionTaskArc}[2]{\functionSignature{arc}{\varAtomicTask{}{}}}
+\newcommand{\formalTaskArc}[2]{\functionFormal{arc}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}
+\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{dp}{\varAtomicTask{}{}}}
+\newcommand{\formalTaskDemandPoint}[2]{\functionFormal{dp}{\setAtomicTask{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative)}}
+\newcommand{\varActiveAgent}[2]{\varAgent{#1}{\oplus}}
+\newcommand{\varInactiveAgent}[2]{\varAgent{#1}{\ominus}}
+\newcommand{\varSensingAgent}[2]{\varAgent{#1}{\ast}}
+\newcommand{\varSinkAgent}[2]{\varAgent{#1}{\Delta}}
+
+\newcommand{\varEnergy}[2]{\varSymbol{e}{#1}{#2}}
+\newcommand{\setEnergy}[2]{\setSymbol{E}{#1}{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\varResource}[2]{\varSymbol{r}{#1}{#2}}
+\newcommand{\setResource}[2]{\setSymbol{R}{#1}{#2}}
+\newcommand{\formalTaskResourceAllocation}[2]{
+	\functionFormal{ra_{\varAgent{}{}}}
+	{\setAtomicTask{}{}}
+	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}{}}{}{}}
+}
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{ra_{\varAgent{}{}}}
+	{\varAtomicTask{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

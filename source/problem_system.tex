@@ -1,44 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varLocation}[2]{\varSymbol{loc}{#1}{#2}}
-\newcommand{\setLocation}[2]{\setSymbol{LOC}{#1}{#2}}
-\newcommand{\formalVarLocation}[2]{(x,y)}
-\newcommand{\formalSetLocation}[2]{(\setRealNumbers{}{} \times \setRealNumbers{}{})}
-
-\newcommand{\functionDeployment}[2]{
-\ifx \\1\\
-\functionSignature{conf}{\setAgents{}{}}
-\else
-\functionSignature{conf}{#1}
-\fi 
-}
-\newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbers{}{} \times \setRealNumbers{}{})}}
-\newcommand{\functionTaskArc}[2]{\functionSignature{arc}{\varAtomicTask{}{}}}
-\newcommand{\formalTaskArc}[2]{\functionFormal{arc}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}
-\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{dp}{\varAtomicTask{}{}}}
-\newcommand{\formalTaskDemandPoint}[2]{\functionFormal{dp}{\setAtomicTask{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative)}}
-\newcommand{\varActiveAgent}[2]{\varAgent{#1}{\oplus}}
-\newcommand{\varInactiveAgent}[2]{\varAgent{#1}{\ominus}}
-\newcommand{\varSensingAgent}[2]{\varAgent{#1}{\ast}}
-\newcommand{\varSinkAgent}[2]{\varAgent{#1}{\Delta}}
-
-\newcommand{\varEnergy}[2]{\varSymbol{e}{#1}{#2}}
-\newcommand{\setEnergy}[2]{\setSymbol{E}{#1}{#2}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varResource}[2]{\varSymbol{r}{#1}{#2}}
-\newcommand{\setResource}[2]{\setSymbol{R}{#1}{#2}}
-\newcommand{\formalTaskResourceAllocation}[2]{
-	\functionFormal{ra_{\varAgent{}{}}}
-	{\setAtomicTask{}{}}
-	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}{}}{}{}}
-}
-\newcommand{\functionTaskResourceAllocation}[2]{
-	\functionSignature{ra_{\varAgent{}{}}}
-	{\varAtomicTask{}{}}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \todo[inline]{PROBLEM - SYSTEM}
 
 \begin{figure}
@@ -53,13 +12,25 @@
 Given a geographical area to monitor, we can overlay a two dimensional grid of real numbers, allowing us to associate a deployed set of nodes, or agents, $\setAgents{}{}$, with a corresponding location, $\formalVarLocation{}{} \in \formalSetLocation{}{}$. on the grid. This describes the \textit{deployment configuration} of those agents, a mapping from agents to real valued tuples representing their location,  $\formalDeployment{}{}$.
 
 An \textit{atomic task} $\varAtomicTask{}{}$ is a task to take a measurement at a target location, the \textit{demand point} for that measurement $\functionTaskDemandPoint{}{}$, which must be in range of its relevant sensor. A \textit{composite task}, is composed of $N$ atomic tasks $\varCompositeTask{}{} = \lbrace \varAtomicTask{i}{} \rbrace_{i=0}^N$ where for each of the $i\in N$ grid blocks of the systems geographical grid area. At at time $\varTime{}{}$, each agent carrying out a measurement task has a certain amount of resources $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
+\todo[inline]{Summarise system definition}
+We can therefore define the system as a tuple $s = (PG, CG, \setAtomicTask{}{}, \setCompositeTask{}{}, \setResource{}{}, ar, tg)$, where
+\begin{itemize}
+ \item $PG$ is a set of parent agents,
+ \item $CG$ is a set of child agents,
+ \item $TP$ is a set of atomic task types,
+ \item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite task types (sets of atomic task types) that occur in the system,
+ \item $\setResource{}{}$ is a set of resources needed to perform tasks,
+ \item $ar: CG \times R \rightarrow R>=0$ is a mapping from each child agent and each resource to the amount of that resource that
+the agent possesses.
+\item $tg: \setCompositeTask{}{} \rightarrow 2^{PG}$ is a mapping from each composite task type to the group of parent agents that receive and ensure the completion of tasks of that type.
+\end{itemize}
 
 \subsection{Node roles and task arcs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalSinkRole}[2]{
 	\functionFormal{sink}
-	{\setAtomicTask{}{} \times \setAgents{}{}}
-	{\powerSetAgents{}{}}
+	{\setCompositeTask{}{} \times \setAgents{}{}}
+	{\setAgents{}{}}
 }
 \newcommand{\formalSenseRole}[2]{
 	\functionFormal{sense}
@@ -81,7 +52,7 @@ An \textit{atomic task} $\varAtomicTask{}{}$ is a task to take a measurement at 
 	{\setAgents{}{}}
 	{\setAgents{}{}}
 }
-\newcommand{\functionSinkRole}[2]{\functionSignature{sink}{\varAtomicTask{}{}, \setAgents{}{}}}
+\newcommand{\functionSinkRole}[2]{\functionSignature{sink}{\varCompositeTask{}{}, \setAgents{}{}}}
 	
 \newcommand{\functionSenseRole}[2]{\functionSignature{sense}{\varAtomicTask{}{}, \setAgents{}{}}}
 \newcommand{\functionActiveRole}[2]{\functionSignature{active}{\varAtomicTask{}{}, \setAgents{}{}}}
@@ -90,7 +61,7 @@ An \textit{atomic task} $\varAtomicTask{}{}$ is a task to take a measurement at 
 
 We can distinguish agents by the role they play in a given atomic task.
 \begin{itemize}
-	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results, $\formalSinkRole{}{}$.
+	\item A \textit{sink node} of a composite task $\varAtomicTask{}{}$ is the agent that first receives the composite task , and will broadcast the results, $\formalSinkRole{}{}$.
 	\item A \textit{sensing node} is the agent that executes the atomic task and so performs the sensor measurement, $\formalSenseRole{}{}$.
 	\item An \textit{active node} is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent, $\formalActiveRole{}{}$..
 	\item An \textit{idle node} does not participate in the specific task, but is for other tasks during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
