@@ -17,3 +17,16 @@ When not sampling, aggregating, or broadcasting a node recovers energy at a rate
 \end{equation}
 
 
+\begin{table}
+	\begin{tabular}{p{0.1\textwidth}p{0.4\textwidth} p{0.4\textwidth}}
+		\hline
+		\textbf{Criteria} & \textbf{Description} & \textbf{Agent-system element} \\
+		\hline
+		Low energy use & Remote location devices can only recover energy slowly through solar panel charging &  Use link energy consumption values to optimse learning towards efficient neighbourhoods \\
+		Resilience to node failure & Remote and dangerous locations mean human maintenance is either impossible, expensive, or otherwise restricted & Neighbourhood link adaptation algorithms \\	
+		Power consumption distribution & Devices have independent energy recovery mechanisms and would be overwhelmed with too much load. Although other agents would then take over this leads to unstable networks & Link energy consumption value rate accumulation for agents can be used to shape rewards to drive agent local neighbourhood adaptation away from overloaded agents  \\ 
+		\hline
+	\end{tabular}
+	\caption{Key criteria for E-WSN systems}
+	\label{table:real_world_systems_criteria}
+\end{table}
