@@ -1,35 +1,23 @@
-\section{Evaluation of Environmental Wireless Sensor Networks (E-WSN)}
-\label{section:experimental}	
+\todo{Chainge for EWSM}
 
-To define our simulation clearly we will base it on a realistic deployment scenario as covered by Gomez et al \cite{Gomez} and others \cite{Jha2016, Avram}. We will use a UAV to deploy a large number of sensors over a large and remote geographical area, leading to a relatively ad-hoc, randomised placement of devices. They will use solar power cells to maintain enough energy to power themselves over a number of years, making clear the requirement for low power usage. Noting that the transceiver is the significant power drain on these sensors we can see that reducing its utilisation will be one of the keys to managing energy usage. We will design our sensors to use \textit{Wake Up Radio} (WUR) and aim our agent deployment strategy towards minimising its use and range. As mentioned, the other main driver of the way we use the agents to control the sensors will be the resilience and adaptivity of the system over long periods of time, with no human intervention possible. 
-
-We make the following assumptions and simplifications.
-\begin{itemize}{
-		\item Node deployment is randomly distributed across the grid following the uniform distribution or a radial normal distribution.
-		\item Energy harvesting works continuously at constant rate. This assumes consistent solar exposure and limits the simulation to daytime.
-		\item Permanent node failure is based on the total energy consumption of that node over time, as a proxy for wear.
-		\item Temporary loss of availability of nodes is random and at a constant rate.
-	}
-\end{itemize}
-
-
-
-
-Example values in \ref{table:components_energy_usage} show the energy and time costs of varios operations given an hourly sampling period for a node.
-
-
-\begin{table}
-	\begin{tabular}{p{0.5\textwidth}p{0.2\textwidth} p{0.2\textwidth} }
-		\hline
-		Function & power(mW) & time (s) \\
-		\hline
-		Data aquisition (DAQ) & 0.5 & 60 \\
-		Transmission (TX) & 7 & 0.1 \\
-		Broadcast (BX) & 70 & 0.1 \\
-		Idle wake-up-radio (WUR) & 0.07 & 3509 \\
-	\end{tabular}
-	\caption{Component types and energy usage}
-	\label{table:components_energy_usage}
-\end{table}
-
-\todo[inline]{TODO: Results and discussion}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{5_ewsn_durations-system-utility-no-label}
+	\captionsetup{labelfont=bf,singlelinecheck=on}
+	\caption{System utility comparison to the system optimal in the optimal system}
+	\label{fig:5_ewsn_durations-system-utility-no-label}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{5_ewsn_energy-availability}
+	\captionsetup{labelfont=bf,singlelinecheck=on}
+	\caption{Energy available in the system as fraction of maximum}
+	\label{fig:5_ewsn_energy-availability}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{5_ewsn_energy-distribution}
+	\captionsetup{labelfont=bf,singlelinecheck=on}
+	\caption{Energy distribution in the system as fraction of uniform distribution}
+	\label{fig:5_ewsn_energy-distribution}
+\end{figure}

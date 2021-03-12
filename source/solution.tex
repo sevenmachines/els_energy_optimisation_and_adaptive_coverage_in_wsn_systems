@@ -19,7 +19,7 @@ As defined in the previous Section, we seek a method to optimise multiple object
 
 \subsection{Extension to hierarchical task allocation}
 
-XXXX
+To enable agents to form arcs as described we allow atomic tasks to be re-allocated to further agents in order to reach an agent within range of a demand point. The flowchart in Figure \ref{fig:algorithm-flow} shows how this agents utilise \acronymATARIA{}{} and \acronymMGRAO{}{} with these recursive actions enabled. Figure \ref{fig:arc-flow} illustrates an arc where there are two re-allocations needed before a specific atomic task is allocated to an agent whose sensor is in range of the demand point, and can therefore make a measurement.
 
 \todo[inline]{Integrated view of the algorithms plus a flow diagram for illustration}
 
@@ -32,6 +32,6 @@ XXXX
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{arc-flow}
-	\caption{\textbf{Allocation along an arc}. This diagram illustrates how allocations can be relayed along an arc using successive applications of the \acronymATARIA{}{} algorithm.}
+	\caption{\textbf{Allocation along an arc}. This dia gram illustrates how allocations can be relayed along an arc using successive applications of the \acronymATARIA{}{} algorithm.}
 	\label{fig:arc-flow}
 \end{figure}
