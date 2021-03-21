@@ -12,21 +12,18 @@ We make the following assumptions and simplifications.
 	}
 \end{itemize}
 
-
-
-
 Example values in \ref{table:components_energy_usage} show the energy and time costs of varios operations given an hourly sampling period for a node.
 
 
 \begin{table}[h]
-	\begin{tabular}{p{0.5\textwidth}p{0.2\textwidth} p{0.2\textwidth} }
+	\begin{tabular}{p{0.3\textwidth}p{0.2\textwidth} p{0.2\textwidth} p{0.2\textwidth}}
 		\hline
-		Function & power(mW) & time (s) \\
+		Function & power(mW) & time (s) & energy (mJ)\\
 		\hline
-		Data aquisition (DAQ) & 0.5 & 60 \\
-		Transmission (TX) & 7 & 0.1 \\
-		Broadcast (BX) & 70 & 0.1 \\
-		Idle wake-up-radio (WUR) & 0.07 & 3509 \\
+		Data acquisition (\symbolDataAcquisition{}{}) & 0.5 & 60 & 30 \\
+		Transmission (\symbolTransmission{}{}) & 7 & 0.1 & 0.7 \\
+		Receiver (\symbolReceiver{}{}) & 70 & 0.1 & 0.7 \\
+		Idle wake-up-radio (\symbolWakeUpRadio{}{}) & 0.07 & 3509 & 246  \\
 	\end{tabular}
 	\caption{Component types and energy usage}
 	\label{table:components_energy_usage}
