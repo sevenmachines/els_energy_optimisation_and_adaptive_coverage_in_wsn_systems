@@ -1,0 +1,91 @@
+\newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
+\newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
+\newcommand{\pushline}{\Indp}% Indent
+\newcommand{\popline}{\Indm\dosemic}% Undent
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}% Remove line number for one line
+\begin{algorithm}[ht]
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The \acronymWSNOptimisation{}{} algorithm - Sink agents}}
+	\label{alg:wsn_optimisation_sink}
+	{
+		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
+		\nonl \;
+		
+		\KwResult{$\functionCompositeTaskValue{}{}$ , The composite task value}
+		\nonl \;
+		
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$}
+		{
+			\tcp{Execute action through \acronymATARIA{}{}}
+			
+			\uIf{action is alloc?}
+			{
+				XXX
+			}
+			\ElseIf{action is info?}{
+				YYY
+			}
+			\ElseIf{action is info?}{
+				YYY
+			}
+			\ElseIf{action is link?}{
+				YYY
+			}
+			
+			\uIf{$\varAtomicTask{}{}$ is complete?}
+			{
+				XXX
+			}
+			\ElseIf{}{
+				YYY
+			}
+		}
+		\Return{$XXX$\label{algline:return}}
+	}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The \acronymWSNOptimisation{}{} algorithm - Arc agents} }
+	\label{alg:wsn_optimisation_arc}
+	{
+		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
+		\nonl \;
+		
+		\KwResult{$\functionCompositeTaskValue{}{}$ , The composite task value}
+		\nonl \;
+		
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$}
+		{
+			\tcp{Execute action through \acronymATARIA{}{}}
+			
+			\uIf{action is alloc?}
+			{
+				XXX
+			}
+			\ElseIf{action is info?}{
+				YYY
+			}
+			\ElseIf{action is info?}{
+				YYY
+			}
+			\ElseIf{action is link?}{
+				YYY
+			}
+			
+			\uIf{$\varAtomicTask{}{}$ is complete?}
+			{
+				XXX
+			}
+			\ElseIf{}{
+				YYY
+			}
+		}
+		\Return{$XXX$\label{algline:return}}
+	}
+\end{algorithm}
