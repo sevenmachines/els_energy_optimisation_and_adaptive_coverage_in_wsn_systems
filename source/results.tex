@@ -1,38 +1,9 @@
+\subsection{Results}
 \todo[inline]{Chainge for EWSM}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{5_ctv-optimal-ctv}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{System utility comparison to the system optimal in the optimal system}
-	\label{fig:5_ctv-optimal-ctv}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{5_ctv-statistics-energy-available}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Energy available in the system as percentage of the theoretical optimal}
-	\label{fig:5_ctv-statistics-energy-available}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\linewidth]{5.19_ctv-quality-energy}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Quality compared to system optimal}
-	\label{fig:5.19_ctv-quality-energy}
-\end{figure}
+We simulated four systems to evaluate the algorithms. The \simulationSimple{}{} system had equal weighting for each of the CTV components $\alpha, \beta, \gamma$. Each of the $13$ nodes was able to connect to $3$ other nodes to allocate measurement tasks. The sink node was given $5$ measurement tasks, with each node being able to perform these tasks with increasing quality dependant on their closeness to the demand point associated with the task. $3$ sets of the same measurement tasks were given to the same sink node before one episode was complete and the batteries of all nodes in the system was allowed to recharge fully (Figure\ref{fig:balanced_simulation}). 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{5_ctv-arc-depth}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Arc depth}
-	\label{fig:5_ctv-arc-depth}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{5_ctv-task-distribution}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Task distribution}
-	\label{fig:5_ctv-task-distribution}
-\end{figure}
+The \simulationExtended{}{} system had CTV component weighting where each of the relevant properties were given an $80\%$ dominance over the value of CTV value. The sink node was given $10$ measurements to allocate, with no repetition. It was also placed at a significantly large distance from the demand points associated with the tasks, which the other $25$ nodes in the system could then receive and allocate or execute. This system gave a contrasting choice between allocating tasks in such a way that task value could be maximised, but at the cost of longer arcs and therefore energy usage, or lower task values, and lower energy consumption. This allowed the comparison of the learning algorithms given different CTV weightings (Figure\ref{fig:unbalanced_simulation})
+
+Labels and descriptions for the algorithms are shown in Table \ref{table:summary_of_algorithms}, with configuration in Table \ref{table:summary_of_configurations}. Results for the \algorithmBalanced{}{} algorithm in the \simulationSimple{}{} system, and the \algorithmEnergy{}{}, \algorithmQuality{}{}, \algorithmDistribution{}{} algorithms in the \simulationExtended{}{} system are shown in Tables \ref{table:results_balanced} and \ref{table:results_unbalanced} respectively.
+\todo[inline]{explain the results table and graph comparisons here}

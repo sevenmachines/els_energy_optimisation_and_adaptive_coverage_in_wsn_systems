@@ -1,20 +1,37 @@
-\todo[inline]{TODO: Change for EWSN experiment labels}
-\begin{table}[h]
+\subsection{Restults - Tables}
 
+\begin{table}[h]
 	\begin{tabular}
 		{|p{0.15\textwidth}|p{0.75\textwidth}|}
 		\hline
 		\textbf{Algorithm} & \textbf{Summary}\\
 		\hline
-		\simulationEWSN{}{} &  EWSN optimisation algorithm with balanced objectives. \\
-		\simulationEWSNEnergy{}{} & EWSN optimisation algorithm with 2x bias for energy consumption minimisation \\
-		\simulationEWSNQuality{}{} & EWSN optimisation algorithm with 2x bias for task quality maximisation. \\
-		\simulationEWSNDistribution{}{} & EWSN optimisation algorithm with 2x bias for energy distribution maximisation. \\
+		\algorithmBalanced{}{} &  EWSN optimisation algorithm with balanced objectives. \\
+		\algorithmEnergy{}{} & EWSN optimisation algorithm with an $80\%$ bias for energy consumption minimisation \\
+		\algorithmQuality{}{} & EWSN optimisation algorithm with an $80\%$ bias for task quality maximisation. \\
+		\algorithmDistribution{}{} & EWSN optimisation algorithm with an $80\%$ bias for energy distribution maximisation. \\
 		\hline
 	\end{tabular}
 	\captionsetup{labelfont=bf,singlelinecheck=on}
 \caption{Summary of algorithm labels}
 \label{table:summary_of_algorithms}
+\end{table}
+
+\begin{table}[h]
+	\begin{tabular}
+		{|p{0.15\textwidth}|p{0.75\textwidth}|}
+		\hline
+		\textbf{Algorithm} & \textbf{Summary}\\
+		\hline
+		\algorithmBalanced{}{} & XXX  \\
+		\algorithmEnergy{}{} & XXX \\
+		\algorithmQuality{}{} & XXX \\
+		\algorithmDistribution{}{} &  XXX \\
+		\hline
+	\end{tabular}
+	\captionsetup{labelfont=bf,singlelinecheck=on}
+	\caption{Summary of configurations}
+	\label{table:summary_of_configurations}
 \end{table}
 
 \label{section:tables_results}
@@ -25,16 +42,31 @@
 			|p{0.3\textwidth}|p{0.6\textwidth}|
 		}
 		\hline
-		\textbf{Algorithm} & \textbf{\% performance decrease from \simulationOptimal{}{}} \\
+		\textbf{Algorithm} & \textbf{XXX} \\
 		\hline
-		\simulationEWSN{}{} & $XXX\%$  \\
-		\simulationEWSNEnergy{}{} & $XXX\%$ \\
-		\simulationEWSNQuality{}{} & $XXX\%$ \\
-		\simulationEWSNDistribution{}{} &  $XXX\%$ \\
+		\algorithmBalanced{}{} & $XXX\%$  \\
 		\hline
 	\end{tabular}
 \centering
 \captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
-\caption{Experimental results for the stable system after 100 episodes}
-\label{table:experimental_results_stable}
+\caption{Experimental results for the \simulationSimple{}{} system after 500 episodes}
+\label{table:results_balanced}
+\end{table}
+\begin{table}[H]
+	
+	\begin{tabular}{
+			|p{0.3\textwidth}|p{0.6\textwidth}|
+		}
+		\hline
+		\textbf{Algorithm} & \textbf{XXX} \\
+		\hline
+		\algorithmEnergy{}{} & $XXX\%$ \\
+		\algorithmQuality{}{} & $XXX\%$ \\
+		\algorithmDistribution{}{} &  $XXX\%$ \\
+		\hline
+	\end{tabular}
+	\centering
+	\captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
+	\caption{Experimental results for the \simulationExtended{}{} system after 100 episodes}
+	\label{table:results_unbalanced}
 \end{table}
