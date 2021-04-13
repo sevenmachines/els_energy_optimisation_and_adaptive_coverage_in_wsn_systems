@@ -1,4 +1,4 @@
-\subsection{Analyisis}
+\subsection{Analysis}
 
 As seen in Figure \ref{5_ctv-optimal-ctv}, the \algorithmBalanced{}{} algorithm in the simple system optimises the system utility by $XXX\%$, from $XXX\%$ in the first episode through to $XXX\%$ by episode $500$.
 \begin{figure}[ht]
@@ -73,5 +73,12 @@ We see the ability of the algorithm to weight its optimisation between task qual
 	\includegraphics[width=0.7\linewidth]{5.19c_ctv-task-distribution-baseline-comparison}
 	\caption{}
 	\label{fig:5}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{result-types}
+	\caption{Three sample arc patterns in the \simulationExtended{}{} system. In the \algorithmEnergy{}{}-optimised configuration (a), the sensing agents are near the sync agent. Energy use is minimised but the measurements task-values are low. In the \algorithmQuality{}{}-optimised configuration (b) the sensing agents are close to the demand points, maximising the task-values, however there is an increase in energy usage as they are more distant from the sink, with increased arc-length. In the \algorithmDistribution{}{}-optimised configuration (c), sensing agents are a mix of close and further away from the demand points, with an the agents participating in the arcs changing with different measurements}
+	\label{fig:result-types}
 \end{figure}
 
