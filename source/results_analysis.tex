@@ -1,79 +1,55 @@
 \subsection{Analysis}
-
-As seen in Figure \ref{5_ctv-optimal-ctv}, the \algorithmBalanced{}{} algorithm in the simple system optimises the system utility by $XXX\%$, from $XXX\%$ in the first episode through to $XXX\%$ by episode $500$.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\linewidth]{5_ctv-optimal-ctv}
+	\includegraphics[width=0.7\linewidth]{5balanced_ctv-optimal-ctv}
 	\captionsetup{labelfont=bf,singlelinecheck=on}
 	\caption{System utility compared to the theoretical maximum for the \simulationSimple{}{} system. The algorithms work to increase this value, which impacts the task values, energy consumption, and distribution depending on the weighting given to those various components}
 	\label{fig:5_ctv-optimal-ctv}
 \end{figure}
-In Figures \ref{fig:5_ctv-statistics-energy-available}, \ref{fig:5_ctv-quality}, we see the impact of the CTV optimisation on task values and available system energy. The average quality of the measurement tasks as compared to the optimal quality available in the sytem given the agents distance from the respective tasks' demand points. Over the systems' lifetime this is increased from $XXX\%$ to $XXX\%$. Similarly as the algorithm improves the routing for task allocation, the energy consumption of the system is reduced, the available energy going from  $XXX\%$ to $XXX\%$. These results demonstrate the the algorithm meets the described problems requirements of allocating tasks to increase their value, while optimising the energy usage as it does so.
- 
-\todo[inline]{Need a quality fdiagram here}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\linewidth]{5_ctv-statistics-energy-available}
+	\includegraphics[width=0.7\linewidth]{5balanced_ctv-optimal-ctv-gain}
 	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Energy available in the \simulationSimple{}{} system as percentage of the maximum possible. Higher values show a more efficient use of agents to complete tasks, but may not give the best task values overall}
-	\label{fig:5_ctv-statistics-energy-available}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\linewidth]{5_ctv-arc-depth}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{The average depth of arcs in the \simulationSimple{}{} system. Longer arcs allow sink agents to reach sensing agents that are closer to the task demand point, at the cost of greater energy usage}
-	\label{fig:5_ctv-arc-depth}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\linewidth]{5_ctv-task-distribution}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{The task distribution in the system. Higher values spread energy usage across the system better, increasing the systems' lifetime}
-	\label{fig:5_ctv-task-distribution}
-\end{figure}
-
-We see the ability of the algorithm to weight its optimisation between task quality, energy availability, and distribution given varying values for the $\alpha, \beta, \gamma$ parameters in Figures \ref{fig:5.19_ctv-quality-energy} and  \ref{XXX}. Figure \ref{fig:5.19_ctv-quality-energy} shows the task quality/energy availability of the system. As values range higher, this means that quality is being preferentially optimised for over energy availability. As expected, the \algorithmQuality{}{} algorithm, with its high $\gamma$ value increases this fraction from $XXX\%$ to $XXX\%$ over the system lifetme, whereas the \algorithmEnergy{}{} algorithm moves from only $XXX\%$ to $XXX\%$, a comparatively small increase. As seen, system utility, the sum of CTVs, and energy availability are optimised in both these systems, however it is the relative increase in the task quality and energy availability that is different, showing that the CTV used within the algorithm optimises across these multiple objectives flexibly. 
-
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{5.19a_ctv-quality-energy-baseline-comparison}
 	\caption{}
-	\label{fig:5}
+	\label{fig:5_ctv-optimal-ctv-gain}
 \end{figure}
-\begin{figure}
+
+As seen in Figure \ref{fig:5_ctv-optimal-ctv-gain}, the \algorithmBalanced{}{} algorithm in the simple system optimises the system utility to \resultsCTVBalancedEnd{}{} of the theoretical maximum, a \resultsCTVBalancedDiff{}{} gain over the systems' lifetime. In the \simulationExtended{}{} system with the \algorithmBalancedExt{}{} optimisation algorithm we see task values optimised by \resultsCTVBalancedExtDiff{}{} over the $500$ episodes to \resultsCTVBalancedExtEnd{}{}.
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{5.19_ctv-statistics-energy-available-comparison}
-	\caption{}
-	\label{fig:5}
+	\includegraphics[width=0.7\linewidth]{5balanced_ctv-statistics-energy-available}
+	\captionsetup{labelfont=bf,singlelinecheck=on}
+	\caption{Energy available in the \simulationSimple{}{} and \simulationExtended{}{} systems as percentage of the maximum possible. Higher values show a more efficient use of agents to complete tasks, but may not give the best task values overall}
+	\label{fig:ctv-statistics-energy-available}
 \end{figure}
+The energy available in the systems overall is shown in Figure \ref{fig:ctv-statistics-energy-available}. As the algorithm improves the routing for task allocation, the energy consumption of the system is reduced, the available energy going from \resultsEnergyBalancedStart{}{} to \resultsEnergyBalancedEnd{}{} in the \simulationSimple{}{} system, and by \resultsEnergyBalancedExtDiff{}{} to \resultsEnergyBalancedExtEnd{}{} in the \simulationExtended{}{} one.
+
+Note that the task values theoretical maximum becomes less statistically likely to be achievable the larger the system due to the ad-hoc, random layout of the nodes. Importantly however, the task-values themselves are shown to optimised by the algorithm. In contrast for energy availability, in larger systems there is more options for forming arcs, and more nodes that are not involved, so the  energy consumption as a fraction of energy overall is lessened. In both the \simulationSimple{}{} and \simulationExtended{}{} systems though, we see the energy availability in the system overall increasing with system time.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{5.19_ctv-quality-energy-baseline-comparison}
-	\caption{}
-	\label{fig:5}
+	\caption{Task quality to energy available ratio in the \simulationExtended{}{} system, with \algorithmEnergy{}{} as the baseline}
+	\label{fig:ctv-quality-energy-baseline-comparison}
 \end{figure}
+
+We now look at the extended system in detail to examine how the algorithm vary the balance  of optimisation over the CTV components, allowing multiple-objectives to be targeted. Figure 	\ref{fig:ctv-quality-energy-baseline-comparison} shows the task quality to energy availability ratio. 
+As quality is preferentially optimised for over energy availability, values range higher. The \algorithmQuality{}{} algorithm, with its higher $\gamma$ value, optimises for task values by \resultsQEQualityEnd{}{} over the \algorithmEnergy{}{} algorithm, and the \algorithmDistribution{}{} algorithm by \resultsQEDistDiff{}{}. 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{5.19_ctv-task-distribution-comparison}
-	\caption{}
-	\label{fig:5}
+	\caption{Task distribution in the \simulationExtended{}{} system}
+	\label{fig:ctv-task-distribution-comparison}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{5.19_ctv-arc-depth-comparison}
-	\caption{}
-	\label{fig:5}
+	\caption{Comparison of arc-depths in the \simulationExtended{}{} system}
+	\label{fig:ctv-arc-depth-comparison}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{5.19c_ctv-task-distribution-baseline-comparison}
-	\caption{}
-	\label{fig:5}
-\end{figure}
+The task distribution of the \algorithmDistribution{}{} algorithm, shown in Figure 	\ref{fig:ctv-task-distribution-comparison}, remains relatively steady throughout the system lifetime at \resultsTaskDistDistStart{}{} - \resultsTaskDistDistEnd{}{}, a drop of \resultsTaskDistDistPercent{}{}. The \algorithmQuality{}{} algorithm starts slightly lower than this at \resultsTaskDistQualityStart{}{} and falls \resultsTaskDistQualityPercent{}{} to \resultsTaskDistQualityEnd{}{}. Notably the \algorithmEnergy{}{} algorithm starts and remains at a significantly lower distribution than both these algorithms at \resultsTaskDistEnergyEnd{}{}, dropping \resultsTaskDistEnergydPercent{}{}. Figure
+\ref{fig:ctv-arc-depth-comparison} shows the related effect on arc-depths for each algorithm. The \algorithmQuality{}{} and \algorithmDistribution{}{} algorithms have relatively stable arc depths at \resultsArcDepthQualityEnd{}{} and \resultsArcDepthDistEnd{}{} respectively. The average arc-depth of the \algorithmEnergy{}{} algorithm however drops from \resultsArcDepthEnergyStart{}{} to  \resultsArcDepthEnergyEnd{}{} over the systems' lifetime, a \resultsArcDepthEnergyPercent{}{} decrease.
 
 \begin{figure}
 	\centering
@@ -81,4 +57,9 @@ We see the ability of the algorithm to weight its optimisation between task qual
 	\caption{Three sample arc patterns in the \simulationExtended{}{} system. In the \algorithmEnergy{}{}-optimised configuration (a), the sensing agents are near the sync agent. Energy use is minimised but the measurements task-values are low. In the \algorithmQuality{}{}-optimised configuration (b) the sensing agents are close to the demand points, maximising the task-values, however there is an increase in energy usage as they are more distant from the sink, with increased arc-length. In the \algorithmDistribution{}{}-optimised configuration (c), sensing agents are a mix of close and further away from the demand points, with an the agents participating in the arcs changing with different measurements}
 	\label{fig:result-types}
 \end{figure}
+Relating these results to the systems in Figure \ref{fig:result-types}, the \algorithmEnergy{}{} algorithm is close to configuration in Figure \ref{fig:result-types}$(a)$, where energy consumption is reduced by using shorter arc-lengths and so, the amount of energy used by agents in the system to broadcast task re-allocations. The cost of this is that the tasks are completed to a lower quality. In Figure \ref{fig:result-types}$(c)$, arc-lengths are large so that tasks can be completed by agents close to their demand points, increasing task quality as well as consumption, as seen in the results for the \algorithmQuality{}{} algorithm. The configuration in Figure \ref{fig:result-types}$(b)$ explains the results seen with the \algorithmDistribution{}{} algorithm, where tasks are completed by an increased number of different agents with different arc-lengths and task qualities, giving a greater distribution of task completions and energy usage, but with more energy consumption overall than the \algorithmEnergy{}{} algorithm, and less task-quality than the \algorithmQuality{}{} algorithm.
+
+\todo[inline]{We probably need a quick demonstration of coverage here....}
+
+As seen both the \simulationSimple{}{} and \simulationExtended{}{} system configurations, utility and energy availability are both optimised by the algorithm, showing it achieves two of the main goals for applications in WSN. Additionally, the results of the \algorithmEnergy{}{}, \algorithmQuality{}{}, and \algorithmDistribution{}{}-optimised algorithms in the \simulationExtended{}{} system show that we can adapt the balance of the CTV components through varying values of $\alpha$, $\beta$, and $\gamma$, to achieve an adaptive multi-objective optimisation of the system.
 

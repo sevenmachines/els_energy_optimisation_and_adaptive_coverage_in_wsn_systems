@@ -12,6 +12,7 @@
 
 A sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore define the \textit{atomic task quality} of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
 	\begin{equation}
+	\label{eq:atomic_task_quality}
 		\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
 				\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{}
 		}{}
@@ -25,6 +26,7 @@ By maximising composite task quality we then look to increase,
 \end{itemize}
  Therefore the \textit{composite task value} of $\varCompositeTask{}{}$ is defined with these multiple objectives, weighted with values $\alpha$, $\beta$, and $\gamma$, to set the balance between the objectives for optimisation.
 	\begin{equation}
+		\label{eq:ctv}
 		\functionCompositeTaskValue{}{} = 
 		\sum_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
 		\big\lbrack
@@ -36,6 +38,7 @@ By maximising composite task quality we then look to increase,
 	\end{equation}
 We so define the overall \textit{system utility} over a time period $\setTime{}{}$ as the sum of the values of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
 	\begin{equation}
+		\label{eq:system_utility}
 		\functionSystemUtility{}{} = \sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
 		\functionCompositeTaskValue{}{}
 	\end{equation}
