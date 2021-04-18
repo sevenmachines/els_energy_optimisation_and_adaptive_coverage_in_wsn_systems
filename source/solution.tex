@@ -1,21 +1,12 @@
 \section{Solving the multi-objective WSN problem}
 \label{section:solution}
-As defined in the previous Section, we seek a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in 
+As defined in the previous Section, we seek a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in \ref{XXX}
+\todo[inline]{Reference to preprints? here}
 
-\subsection{Optimising for task allocation with system exploration}
-\todo[inline]{Summary of ATARIA algorithm, connected to our problem notation, why we use it and the outcome}
+\subsection{Optimisation algorithms for task allocation and resource allocation}
+The \acronymATARIAExtended{}{} algorithm will enable agents in the system to learn the best agents to allocate tasks to to obtain the best composite task values, as well as explore the system for other agents, and adapt to impacts and outages. Each agent $\varAgent{}{}$ in the network is required to maintain two main data sets. Firstly, \textit{Q-value mappings} $qm(g, typea(AT^{\ominus}))$, where $typea$ maps each of the unallocated atomic tasks $AT^{\ominus}$ to its type. This is a set of values mapped to actions the agent can take. These are used by the \acronymATARIA{}{} algorithm to select actions based on the learned outcomes of previous actions. Secondly, the set of \textit{action samples}, $\Sigma$, the historical $\functionCompositeTaskValue{}{}$ values collected as the agent completed past composite tasks. Using these inputs the \acronymATARIA{}{} algorithm will learn to select actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values.
 
-Firstly, the \acronymATARIAExtended{}{} algorithm will enable agents in the system to learn the best agents to allocate tasks to to obtain the best composite task values, as well as explore the system for other agents, and adapt to impacts and outages.
-
-Each agent $\varAgent{}{}$ in the network is required to maintain two main data sets. Firstly, \textit{Q-value mappings} $qm(g, typea(AT^{\ominus}))$, where $typea$ maps each of the unallocated atomic tasks $AT^{\ominus}$ to its type. This is a set of values mapped to actions the agent can take. These are used by the \acronymATARIA{}{} algorithm to select actions based on the learned outcomes of previous actions. Secondly, the set of \textit{action samples}, $\Sigma$, the historical $\functionCompositeTaskValue{}{}$ values collected as the agent completed past composite tasks. Using these inputs the \acronymATARIA{}{} algorithm will learn to select actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values.
-
-
-\subsection{Resource allocation in agents taking measurements}
-\todo[inline]{Summary of MGRAO algorithm, connected to our problem notation, why we use it and the outcome}
-
-The second, the \acronymMGRAOExtended{}{} algorithm, helps agents executing measurement tasks allocate their resources to optimise the composite task value as well.
-
-For this algorithm each agent maintains a matrix of values, $PW_{cg,r}$ , the \textit{resource allocation weights matrix}, that maps the its resources, in this case energy, to the atomic task types it can complete. In addition, there is the The \textit{eligibility trace matrix}, $E_{cg}$, a set of values that measures how recent each element in the resource weights matrix impacted an atomic task value.
+The \acronymMGRAOExtended{}{} algorithm, helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. For this algorithm each agent maintains a matrix of values, $PW_{cg,r}$ , the \textit{resource allocation weights matrix}, that maps the its resources, in this case energy, to the atomic task types it can complete. In addition, there is the The \textit{eligibility trace matrix}, $E_{cg}$, a set of values that measures how recent each element in the resource weights matrix impacted an atomic task value.
 
 
 \subsection{Extension to hierarchical task allocation}
@@ -30,7 +21,7 @@ To enable agents to form arcs as described we allow atomic tasks to be re-alloca
 \end{figure}
 
 \subsection{Algorithm for optimising hierarchical task allocation in networks of agents}
-
+\todo[inline]{DOesnt really need a name}
 The \acronymWSNOptimisationExtended{}{} algorithm is defined in Algorithms \ref{alg:wsn_optimisation_sink}
 and \ref{alg:wsn_optimisation_arc}, which are split for clarity. The flowchart in Figure \ref{fig:algorithm-flow} shows how this agents utilise \acronymATARIA{}{} and \acronymMGRAO{}{} with these recursive actions enabled. 
 
