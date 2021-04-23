@@ -1,31 +1,15 @@
-\begin{table}[h]
-	\begin{tabular}
-		{|p{0.25\textwidth}|p{0.70\textwidth}|}
-		\hline
-		\textbf{Algorithm} & \textbf{Summary}\\
-		\hline
-		\algorithmBalanced{}{} &  EWSN optimisation algorithm with balanced objectives. \\
-		\algorithmEnergy{}{} & EWSN optimisation algorithm with an $80\%$ bias for energy consumption minimisation \\
-		\algorithmQuality{}{} & EWSN optimisation algorithm with an $80\%$ bias for task quality maximisation. \\
-		\algorithmDistribution{}{} & EWSN optimisation algorithm with an $80\%$ bias for energy distribution maximisation. \\
-		\hline
-	\end{tabular}
-	\captionsetup{labelfont=bf,singlelinecheck=on}
-	\caption{Summary of algorithm labels}
-	\label{table:summary_of_algorithms}
-\end{table}
 
 \begin{table}[h]
 	\begin{tabular}
-		{|p{0.25\textwidth}|p{0.70\textwidth}|}
+		{|p{0.12\textwidth}|p{0.51\textwidth}|p{0.05\textwidth}|p{0.05\textwidth}|p{0.15\textwidth}|}
 		\hline
-		\textbf{Algorithm} & \textbf{Summary}\\
+		\textbf{Algorithm} & \textbf{Summary} & \textbf{Node count} & \textbf{Atomic tasks}  & \textbf{$(\alpha,\beta,\gamma)$}\\
 		\hline
-		\algorithmBalanced{}{} & XXX  \\
-		\algorithmBalancedExt{}{} & XXX  \\
-		\algorithmEnergy{}{} & XXX \\
-		\algorithmQuality{}{} & XXX \\
-		\algorithmDistribution{}{} &  XXX \\
+		\algorithmBalanced{}{} &  EWSN optimisation algorithm with balanced objectives. & $10$  & $(5,5,5)$   & $(0.33,0.33,0.33)$  \\
+		\algorithmBalancedExt{}{} &  EWSN optimisation algorithm with balanced objectives. & $25$ & $10$    & $(0.33,0.33,0.33)$  \\
+		\algorithmEnergy{}{} & EWSN with $80\%$ bias for energy consumption minimisation  & $25$ & $10$   & $(0.80,0.10,0.10)$  \\
+		\algorithmQuality{}{} & EWSN with $80\%$ bias for task quality maximisation. & $25$ & $10$   & $(0.10,0.80,0.10)$  \\
+		\algorithmDistribution{}{} & EWSN with $80\%$ bias for energy distribution maximisation. & $25$ & $10$  & $(0.10,0.10,0.80)$  \\
 		\hline
 	\end{tabular}
 	\captionsetup{labelfont=bf,singlelinecheck=on}
@@ -41,29 +25,16 @@
 		\hline
 		\textbf{Algorithm} & \textbf{CTV $\%$ of optimal} & \textbf{CTV $\%$ of energy available} & \textbf{Quality/energy available fraction} & \textbf{Average arc depth} & \textbf{Energy distribution}\\
 		\hline
-		\algorithmBalanced{}{} & $XXX\%$  & $XXX\%$& $XXX\%$& $XXX\%$& $XXX\%$\\
+		\algorithmBalanced{}{} & \resultsCTVBalancedEnd{}{}   & \resultsEnergyBalancedEnd{}{} &  &  & \\ 
+		\algorithmBalancedExt{}{} & \resultsCTVBalancedExtEnd{}{}  & \resultsEnergyBalancedExtEnd{}{} &  &  & \\
 		\hline
-	\end{tabular}
-	\centering
-	\captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
-	\caption{Experimental results for the \simulationSimple{}{} system after 500 episodes}
-	\label{table:results_balanced}
-\end{table}
-\begin{table}[H]
-	\begin{tabular}{
-			|p{0.25\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|
-		}
-		\hline
-		\textbf{Algorithm} & \textbf{CTV $\%$ of optimal} & \textbf{CTV $\%$ of energy available} & \textbf{Quality/energy available fraction} & \textbf{Average arc depth} & \textbf{Energy distribution}\\
-		\hline
-		\algorithmBalancedExt{}{} & $XXX\%$  & $XXX\%$& $XXX\%$& $XXX\%$& $XXX\%$\\
-		\algorithmEnergy{}{} & $XXX\%$  & $XXX\%$& $XXX\%$& $XXX\%$& $XXX\%$\\
-		\algorithmQuality{}{} & $XXX\%$  & $XXX\%$& $XXX\%$& $XXX\%$& $XXX\%$\\
-		\algorithmDistribution{}{} & $XXX\%$  & $XXX\%$& $XXX\%$& $XXX\%$& $XXX\%$\\
-		\hline
-	\end{tabular}
-	\centering
-	\captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
-	\caption{Experimental results for the \simulationExtended{}{} system after 100 episodes}
-	\label{table:results_unbalanced}
+		\algorithmEnergy{}{} &    &  &  n/a  & \resultsArcDepthEnergyEnd{}{} & \resultsTaskDistEnergyEnd{}{}\\
+		\algorithmQuality{}{} &    &  & \resultsQEQualityDiff{}{} & \resultsArcDepthQualityEnd{}{} & \resultsTaskDistQualityEnd{}{} \\
+		\algorithmDistribution{}{} &    & & \resultsQEDistDiff{}{} & \resultsArcDepthDistEnd{}{} & \resultsTaskDistDistEnd{}{}\\
+	\hline
+\end{tabular}
+\centering
+\captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
+\caption{Experimental results for the \simulationSimple{}{} system after 500 episodes}
+\label{table:results}
 \end{table}
