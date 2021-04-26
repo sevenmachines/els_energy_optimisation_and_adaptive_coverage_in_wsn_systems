@@ -1,15 +1,9 @@
 \section{Conclusions and future work}
 \label{section:conclusions}
 
-\subsection{What we did}
-This works looked at the application of the previously described \acronymATARIA{}{} and \acronymMGRAO{}{} algorithms (\ref{XXX}) and their application to wireless sensor network optimisation in dynamic and challenging environments.
-\todo[inline]{What we showed}
+This work detailed and evaluated the novel \acronymWSNOptimisation{}{} algorithm, a combination of the previously described \acronymATARIA{}{} and \acronymMGRAO{}{} algorithms, with extension to hierarchical multi-agent systems. In particular, in their application to wireless sensor network optimisation in dynamic and challenging environments. The algorithm targeted optimisation of the energy available in the system, increasing system lifetime through through task and energy distribution, and the quality of task completion. The algorithm was evaluated on a model WSN system based on a realistic situation where nodes would be randomly dispersed into a geographical area, where maintenance and management is challenging due to harsh or dangerous conditions. The utility of the system was then optimised for sensors taking multiple measurements within the environment, where the quality of the measurement is dependent on the sensors distance to the demand point of the measurement task. Our evaluation showed that the \acronymWSNOptimisation{}{} algorithm optimised the task quality, energy available, and distribution in the system as describe in Section \ref{section:results}, and that these components could be varied in their priorities through altering the $\alpha$, $\beta$ and $\gamma$ values of the CTV function, Equation \ref{eq:ctv}. This allowed the algorithm to balance across these different properties in the given systems and optimise for these multiple objectives in different ratios. 
 
-\todo[inline]{What use is this}
-As the evaluation has shown, the algorithm described optimised both the utility and energy availability of the realistic WSN systems detailed in Section \ref{section:results}. Through use of multiple objectives of energy availablity, distribution, and task value, as defined in Section \ref{XXX}, we were able to show through evaluation in the simulated system that these properties could be prioritised for optimisation. Using this flexibility, the algorithm could be configured to optimise the WSN system to target these desired outcomes.
- 
-\todo[inline]{What further applications or extensions are possible}
-There are a number of applications in WSN in which the agents involved are mobile, such as in Vehicle ad-hoc networks (VANET) \ref{XXX}. 
+Although the evaluation of the algorithm has been shown in a realistic scenario, the systems represented are still relatively simplistic, and small scale. Future work would look at implementing the algorithm in a larger scale network through simulation, as well as in the real-world, testing how the algorithm performs in a complex environment. There are a number of applications in WSN in which the agents involved are mobile, such as in Mobile and Vehicle ad-hoc networks (MANET/VANET) \ref{XXX}. As both the \acronymATARIA{}{} and \acronymMGRAO{}{} algorithms are designed to handle dynamic environments, where optimisation targets are non-stationary, we expect that the \acronymWSNOptimisation{}{} algorithm will also be able to applicable in these systems. As such evaluation could be extend to simulations with mobile nodes, and tested in real-world vehicle-to-vehicle communications (V2X) \ref{XXX}.
 
 
   

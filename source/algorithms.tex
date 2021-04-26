@@ -1,3 +1,27 @@
+\subsection{Algorithm for optimising hierarchical task allocation in networks of agents}
+
+The \acronymWSNOptimisationExtended{}{} algorithm is defined in Algorithms \ref{alg:wsn_optimisation_sink}
+and \ref{alg:wsn_optimisation_arc}, which are split for clarity. The flowchart in Figure \ref{fig:algorithm-flow} shows how this agents utilise \acronymATARIA{}{} and \acronymMGRAO{}{} with these recursive actions enabled. 
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{algorithm-flow-sink}
+		\caption{Sink agent flow}
+		\label{fig:algorithm-flow-sink}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering	\includegraphics[width=0.9\linewidth]{algorithm-flow-arc}
+		\caption{Arc agent flow}
+		\label{fig:algorithm-flow-arc}
+	\end{subfigure}
+	\caption{\textbf{\acronymWSNOptimisation{}{}} - Flow chart of combined \acronymATARIA{}{}/\acronymMGRAO{}{} execution. The two algorithms are combined together to allow recursive allocation of tasks and learning of the network.}
+	\label{fig:algorithm-flow}
+\end{figure}
+We formally define the \acronymWSNOptimisation{}{} algorithm in two parts, Algorithm \ref{alg:wsn_optimisation_sink} for sink agents receiving composite tasks, and Algorithm \ref{alg:wsn_optimisation_arc} for other agents that form the arc for a task.
+
+In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimisation_sink}, the sink agent receives a composite task $\varCompositeTask{}{}$ comprising of multiple atomic tasks $\varAtomicTask{}{}$ to be completed. For each of these atomic tasks the sink agent runs the \acronymATARIA{}{} algorithm to select an action (Line \ref{ataria:select}). It can execute the atomic task itself (Line \ref{ataria:exec}), or allocate it to another agent it knows about to complete (Line \ref{ataria:alloc}), in both cases receiving an atomic task quality value of $\functionAtomicTaskQualitySignature{}{}$. If the action selected is one of $\functionInfo{}{}$ or $\functionLink{}{}$, those actions are carried out without any task executions. Once all atomic tasks have completed, the algorithm can then execute $\functionCompositeTaskValue{}{}$ using the arc and task quality knowledge it know has (Line \ref{ataria:return}).
+
 \newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
 \newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
 \newcommand{\pushline}{\Indp}% Indent
@@ -8,84 +32,67 @@
 	\DontPrintSemicolon
 	\footnotesize
 	
-	\caption{\textbf{The \acronymWSNOptimisation{}{} algorithm - Sink agents}}
+	\caption{\textbf{The \acronymWSNOptimisationSink{}{} algorithm}}
 	\label{alg:wsn_optimisation_sink}
 	{
 		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
 		\nonl \;
 		
-		\KwResult{$\functionCompositeTaskValue{}{}$ , The composite task value}
-		\nonl \;
-		
-		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$}
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
-			\tcp{Execute action through \acronymATARIA{}{}}
-			
-			\uIf{action is alloc?}
+			\tcp{Select action through \acronymATARIA{}{}}
+			$\varAction{}{} \leftarrow \functionATARIA{}{}$ \label{ataria:select} \;	
+			\uIf{$\varAction{}{} = \functionExec{}{}$?}
 			{
-				XXX
+				\tcp{Execute task $\varAtomicTask{}{}$ and get an atomic task quality} 
+				$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionExec{}{}$ \label{ataria:exec}\;
 			}
-			\ElseIf{action is info?}{
-				YYY
+			\uElseIf{$\varAction{}{} = \functionAlloc{}{}$?}{
+				\tcp{allocate task $\varAtomicTask{}{}$ to agent $\varAgent{}{}$}
+				$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionAlloc{}{}$\label{ataria:alloc} \;
 			}
-			\ElseIf{action is info?}{
-				YYY
+			\uElseIf{$\varAction{}{} = \functionInfo{}{}$?}{
+				\tcp{request information on system agents from agent $\varAgent{}{}$}
+				$\functionInfo{}{}$ \label{ataria:info}\;
 			}
-			\ElseIf{action is link?}{
-				YYY
-			}
-			
-			\uIf{$\varAtomicTask{}{}$ is complete?}
-			{
-				XXX
-			}
-			\ElseIf{}{
-				YYY
+			\uElseIf{$\varAction{}{} = \functionLink{}{}$?}{
+				\tcp{allocate resources to information on to agent $\varAgent{}{}$ and maintaining network connection}
+				$\functionLink{}{}$ \label{ataria:link}\;
 			}
 		}
-		\Return{$XXX$\label{algline:return}}
+		\todo[inline]{How are rewards and MGRAO distributed here?}
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
+		{
+			\tcp{Run MGROA update}
+			$\functionMGRAOUpdate{}{}$ \;	
+		}
 	}
 \end{algorithm}
-
+The \acronymWSNOptimisationArc{}{} algorithm, Algorithm \ref{alg:wsn_optimisation_arc} 
+\todo[inline]{HERE}
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
 	\footnotesize
 	
-	\caption{\textbf{The \acronymWSNOptimisation{}{} algorithm - Arc agents} }
+	\caption{\textbf{The \acronymWSNOptimisationArc{}{} algorithm } }
 	\label{alg:wsn_optimisation_arc}
 	{
-		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
+		\KwIn{ $\varAtomicTask{}{}$ , The atomic task to be completed}
+		\KwIn{$\epsilon$, The arc exploration factor $[0,1]$.}	
+		\KwResult{$\functionAtomicTaskQualitySignature{}{}$ , The atomic task quality of $\varAtomicTask{}{}$}
 		\nonl \;
-		
-		\KwResult{$\functionCompositeTaskValue{}{}$ , The composite task value}
-		\nonl \;
-		
-		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$}
+
+		\uIf{$random() < \epsilon$?\label{mgrao:random}}
 		{
-			\tcp{Execute action through \acronymATARIA{}{}}
-			
-			\uIf{action is alloc?}
-			{
-				XXX
-			}
-			\ElseIf{action is info?}{
-				YYY
-			}
-			\ElseIf{action is info?}{
-				YYY
-			}
-			\ElseIf{action is link?}{
-				YYY
-			}
-			
-			\uIf{$\varAtomicTask{}{}$ is complete?}
-			{
-				XXX
-			}
-			\ElseIf{}{
-				YYY
-			}
+			\tcp{Select an allocation action through \acronymATARIA{}{}}
+			$\functionAlloc{}{} \leftarrow \functionATARIA{}{}$\label{mgrao:select}\;	
+			\tcp{allocate task $\varAtomicTask{}{}$ to agent $\varAgent{}{}$}
+			$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionAlloc{}{}$ \label{mgrao:alloc}\;
 		}
-		\Return{$XXX$\label{algline:return}}
+		\uElse{
+			\tcp{execute task $\varAtomicTask{}{}$}
+			$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionExec{}{}$ \label{mgrao:exec}\;
+		}
+	\Return{$\functionAtomicTaskQualitySignature{}{}$\label{mgrao:return}} \;
 	}
 \end{algorithm}

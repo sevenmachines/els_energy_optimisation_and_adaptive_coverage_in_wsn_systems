@@ -1,13 +1,68 @@
 \section{Solving the multi-objective WSN problem}
 \label{section:solution}
-As defined in the previous Section, we seek a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in \ref{XXX}
-\todo[inline]{Reference to preprints? here}
+As defined in the previous Section, we seek a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in \cite{creech2021dynamic, creech2021resource}.
 
 \subsection{Optimisation algorithms for task allocation and resource allocation}
-The \acronymATARIAExtended{}{} algorithm will enable agents in the system to learn the best agents to allocate tasks to to obtain the best composite task values, as well as explore the system for other agents, and adapt to impacts and outages. Each agent $\varAgent{}{}$ in the network is required to maintain two main data sets. Firstly, \textit{Q-value mappings} $qm(g, typea(AT^{\ominus}))$, where $typea$ maps each of the unallocated atomic tasks $AT^{\ominus}$ to its type. This is a set of values mapped to actions the agent can take. These are used by the \acronymATARIA{}{} algorithm to select actions based on the learned outcomes of previous actions. Secondly, the set of \textit{action samples}, $\Sigma$, the historical $\functionCompositeTaskValue{}{}$ values collected as the agent completed past composite tasks. Using these inputs the \acronymATARIA{}{} algorithm will learn to select actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values.
+%%%%%%%%%%%%%%%%
+\newcommand{\varAction}[2]{\varSymbol{a}{#1}{#2}}
+\newcommand{\functionExec}[2]{\texttt{exec}(\varAtomicTask{}{})}
+\newcommand{\functionAlloc}[2]{\texttt{alloc}(\varAtomicTask{}{}, \varAgent{}{})}
+\newcommand{\functionInfo}[2]{\texttt{info}(\varAgent{}{})}
+\newcommand{\functionLink}[2]{\texttt{link}(\varAgent{}{})}
+\newcommand{\functionATARIA}[2]{
+	\functionSignature{
+		ataria_{\varAgent{}{}}
+	}{
+		\varAtomicTask{}{}, \varAgent{self}{}
+	}
+}	
+\newcommand{\formalATARIA}[2]{
+	\functionFormal{\texttt{ataria}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{
+	\texttt{exec}(\setAtomicTask{}{})
+	\times \texttt{alloc}(\setAtomicTask{}{}, \setAgents{}{})
+	\times \texttt{info}(\setAgents{}{})
+	\times \texttt{link}(\setAgents{}{})
+}
+}
+\newcommand{\functionMGRAO}[2]{\texttt{mgrao}(\varAtomicTask{}{}, \varAgent{self}{})}
+\newcommand{\formalMGRAO}[2]{
+	\functionFormal{\texttt{mgrao}_{\varAgent{}{}}}
+	{XXXX}
+	{
+		XXXX
+	}
+}
+\newcommand{\functionMGRAOUpdate}[2]{
+	\texttt{mgrao-update}
+	(\varAtomicTask{}{}, \functionTaskArc{}{}, atv(ct, at))}
+%%%%%%%%%%%%
+	
+The \acronymATARIAExtended{}{} algorithm enables agents in the system to learn the best actions to take given their current state. This ranges from deciding which other agents to allocate tasks to and obtain the best composite task values, to exploring the system for other agents, and adapting connectivity to handle network disruption. An agent uses the \acronymATARIA{}{} algorithm to choose an action to take, which can be one of the following,
+\begin{enumerate}
+	\item $\functionExec{}{}$, The agent will execute the atomic task $\varAtomicTask{}{}$ itself.
+	\item $\functionAlloc{}{}$, the agent will allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
+	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
+	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection.
+\end{enumerate}
+The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values. We simplify the details of 
+the algorithm as the following function, which will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$.
+\begin{equation}
+	\label{eq:ataria}
+	\formalATARIA{}{}
+\end{equation}
 
-The \acronymMGRAOExtended{}{} algorithm, helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. For this algorithm each agent maintains a matrix of values, $PW_{cg,r}$ , the \textit{resource allocation weights matrix}, that maps the its resources, in this case energy, to the atomic task types it can complete. In addition, there is the The \textit{eligibility trace matrix}, $E_{cg}$, a set of values that measures how recent each element in the resource weights matrix impacted an atomic task value.
-
+The \acronymMGRAOExtended{}{} algorithm helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. 
+\begin{equation}
+	\label{eq:mgrao}
+	\formalMGRAO{}{}
+\end{equation}
+\todo[inline]{Dedine MGRAO upadte here}
+Definition 3.14 (Component tasks absolute value). The absolute value of each component atomic task of a composite
+task ˆ𝑡 executed at time 𝜙 is expressed by a mapping from the atomic tasks comprising ˆ𝑡 to the actual value provided
+by that task according to the quality of the composite task and the proportional value of the atomic task within the
+composite, 𝑎𝑡𝑣 : 𝑇ˆ ×𝑇 → R, such that 𝑎𝑡𝑣 (𝑡ˆ, 𝑡 ) = 𝑡𝑎𝑞𝜙 (𝑡ˆ)𝑐𝑡𝑣 (𝑡 )
 
 \subsection{Extension to hierarchical task allocation}
 
@@ -15,29 +70,8 @@ To enable agents to form arcs as described we allow atomic tasks to be re-alloca
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\linewidth]{arc-flow}
+	\includegraphics[width=0.8\linewidth]{arc-flow}
 	\caption{\textbf{Allocation along an arc}. This diagram illustrates how allocations can be relayed along an arc using successive applications of the \acronymATARIA{}{} algorithm.}
 	\label{fig:arc-flow}
 \end{figure}
 
-\subsection{Algorithm for optimising hierarchical task allocation in networks of agents}
-\todo[inline]{DOesnt really need a name}
-The \acronymWSNOptimisationExtended{}{} algorithm is defined in Algorithms \ref{alg:wsn_optimisation_sink}
-and \ref{alg:wsn_optimisation_arc}, which are split for clarity. The flowchart in Figure \ref{fig:algorithm-flow} shows how this agents utilise \acronymATARIA{}{} and \acronymMGRAO{}{} with these recursive actions enabled. 
-
-\begin{figure}[ht]
-	\centering
-\begin{subfigure}{.49\textwidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{algorithm-flow-sink}
-	\caption{Sink agent flow}
-	\label{fig:algorithm-flow-sink}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-	\centering	\includegraphics[width=0.9\linewidth]{algorithm-flow-arc}
-	\caption{Arc agent flow}
-	\label{fig:algorithm-flow-arc}
-\end{subfigure}
-	\caption{\textbf{\acronymWSNOptimisation{}{}} - Flow chart of combined \acronymATARIA{}{}/\acronymMGRAO{}{} execution. The two algorithms are combined together to allow recursive allocation of tasks and learning of the network.}
-\label{fig:algorithm-flow}
-\end{figure}
