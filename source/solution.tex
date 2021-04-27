@@ -29,9 +29,9 @@ As defined in the previous Section, we seek a method to optimise multiple object
 \newcommand{\functionMGRAO}[2]{\texttt{mgrao}(\varAtomicTask{}{}, \varAgent{self}{})}
 \newcommand{\formalMGRAO}[2]{
 	\functionFormal{\texttt{mgrao}_{\varAgent{}{}}}
-	{XXXX}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
 	{
-		XXXX
+		\setRealNumbers{}{}
 	}
 }
 \newcommand{\functionMGRAOUpdate}[2]{
@@ -46,19 +46,9 @@ The \acronymATARIAExtended{}{} algorithm enables agents in the system to learn t
 	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
 	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection.
 \end{enumerate}
-The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values. We simplify the details of 
-the algorithm as the following function, which will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$.
-\begin{equation}
-	\label{eq:ataria}
-	\formalATARIA{}{}
-\end{equation}
+The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values through the updating of Q-values in its temporal-update algorithm. The algorithm will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$, and knows of other agents $\setAgents{}{}$. $\label{eq:ataria}\formalATARIA{}{}$.
+The \acronymMGRAOExtended{}{} algorithm helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. This has two parts, an update algorithm that adjust weights of resources based on received atomic task values, and the application of these weights to generate the task execution quality itself. The update algorithm will update the resource weightings for an agent, given the type of an atomic task it completed, and the absolute task value of that task to another agents' composite task, $\label{eq:mgrao}\formalMGRAO{}{}$.
 
-The \acronymMGRAOExtended{}{} algorithm helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. 
-\begin{equation}
-	\label{eq:mgrao}
-	\formalMGRAO{}{}
-\end{equation}
-\todo[inline]{Dedine MGRAO upadte here}
 
 
 \subsection{Extension to hierarchical task allocation}
