@@ -60,10 +60,11 @@ In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimis
 				$\functionLink{}{}$ \label{ataria:link}\;
 			}
 		}
-		\todo[inline]{How are rewards and MGRAO distributed here?}
 		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
-			\tcp{Run MGROA update}
+			\tcp{Target update at the last agent in the arc, the agent that completed the atomic task}
+			$\varAgent{}{} \leftarrow \functionTaskArc{}{}[-1]$ \;
+			\tcp{Run MGROA update for target agent using each atomic tasks value}
 			$\functionMGRAOUpdate{}{}$ \;	
 		}
 	}

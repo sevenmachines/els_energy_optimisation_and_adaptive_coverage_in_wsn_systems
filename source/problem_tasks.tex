@@ -3,43 +3,51 @@
 	\functionSignature{q_{\varAgent{}{}, \varTime{}{}}} {\varAtomicTask{}{}}
 }
 \newcommand{\functionCompositeTaskValue}[2]{
-	\functionSignature{ctv}{\varCompositeTask{}{}}
+	\functionSignature{ctv}{\varAtomicTask{}{}}
 }
 
-\newcommand{\functionSystemUtility}[2]{\functionSignature{u_{\setTime{}{}}}{\setCompositeTask{}{}}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionSystemUtility}[2]{\functionSignature{u}{\setTime{}{}}}
+%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionCompositeTaskQuality}[2]{
+	\functionSignature{taq_\varTime{}{}}{\varCompositeTask{}{}}
+}
+\newcommand{\functionTaskAbsoluteValue}[2]{
+	\functionSignature{atv}{\varCompositeTask{}{}, \varAtomicTask{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
+\todo[inline]{Citation required for task quality and distance relation}
+An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
+\begin{equation}
+\label{eq:atomic_task_quality}
+	\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
+			\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{}
+	}{}
+\end{equation}
+The \textit{composite task value}, the proportional value of an atomic task $\varAtomicTask{}{}$ to the corresponding composite task $\varCompositeTask{}{}$, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives. Firstly, the energy available in the system, therefore minimising the overall battery power consumption. Secondly, the distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system. Lastly, the quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. Therefore the \textit{composite task value} of a composite task $\varCompositeTask{}{}$ is defined with these multiple objectives,
+\begin{equation}
+	\label{eq:ctv}
+	\functionCompositeTaskValue{}{} = 
+	\alpha\underbrace{\functionEnergyAvailable{\functionTaskArc{}{}}{}}_{\text{energy available}}
+	+ \beta\underbrace{\functionEnergyVariability{\functionTaskArc{}{}}{}}_{\text{energy distribution}}
+	+ 
+	\gamma\underbrace{\functionAtomicTaskQualitySignature{}{}}_{\text{task quality}}
+\end{equation}
+Where $\alpha$, $\beta$, and $\gamma$ are variables chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. With the composite task value calculated after its completion  at a time $\varTime{}{}$, we can then calculate \textit{composite task quality} as the combination of each atomic tasks quality and its value to the composite task,
+\begin{equation}
+\functionCompositeTaskQuality{}{} = \sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
+\functionCompositeTaskValue{}{}\functionAtomicTaskQualitySignature{}{}	
+\end{equation}
+Finally we can define each atomic task absolute value to the system as the product of the respective composite tasks' quality and the relative contribution of the atomic task to that quality,
+\begin{equation}
+	\functionTaskAbsoluteValue{}{} = 
+	\functionCompositeTaskQuality{}{}\functionCompositeTaskValue{}{}
+\end{equation}
 
-A sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore define the \textit{atomic task quality} of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
-	\begin{equation}
-	\label{eq:atomic_task_quality}
-		\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
-				\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{}
-		}{}
-	\end{equation}
-The overall value of a composite task will not only be dependent on the quality of the corresponding atomic tasks, but is also on additional system wide objectives.
-By maximising composite task quality we then look to increase,
-\begin{itemize}
-	\item The energy availiable in the system, minimising the overall battery power consumption.
-	\item The distribution of energy use across the nodes. To maximise the usable lifetime of nodes, we want to make sure wear is spread across nodes. 
-	\item The quality of atomic tasks, the will not only improve the accuracy of readings, but will also invoke a penalty of poor task coverage, as failed tasks have the lowest quality.
-\end{itemize}
- Therefore the \textit{composite task value} of $\varCompositeTask{}{}$ is defined with these multiple objectives, weighted with values $\alpha$, $\beta$, and $\gamma$, to set the balance between the objectives for optimisation.
-	\begin{equation}
-		\label{eq:ctv}
-		\functionCompositeTaskValue{}{} = 
-		\sum_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
-		\big\lbrack
-		\alpha\underbrace{\functionEnergyAvailable{\functionTaskArc{}{}}{}}_{\text{energy available}}
-		+ \beta\underbrace{\functionEnergyVariability{\functionTaskArc{}{}}{}}_{\text{energy distribution}}
-		+ 
-		\gamma\underbrace{\functionAtomicTaskQualitySignature{}{}}_{\text{task quality}}
-		\big\rbrack
-	\end{equation}
-\todo[inline]{Need to define atv here}
-We so define the overall \textit{system utility} over a time period $\setTime{}{}$ as the sum of the values of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
+We so define the overall \textit{system utility} over a time period $\setTime{}{}$ as the sum of the composite task qualities of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
 	\begin{equation}
 		\label{eq:system_utility}
-		\functionSystemUtility{}{} = \sum_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
-		\functionCompositeTaskValue{}{}
+		\functionSystemUtility{}{} = \sum\limits_{\varTime{}{} \in \setTime{}{}}
+		\sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{\setTime{}{}}{}}
+		\functionCompositeTaskQuality{}{}
 	\end{equation}

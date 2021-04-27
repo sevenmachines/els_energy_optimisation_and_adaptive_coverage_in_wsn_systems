@@ -35,8 +35,8 @@ As defined in the previous Section, we seek a method to optimise multiple object
 	}
 }
 \newcommand{\functionMGRAOUpdate}[2]{
-	\texttt{mgrao-update}
-	(\varAtomicTask{}{}, \functionTaskArc{}{}, atv(ct, at))}
+	\texttt{mgrao-update}_{\varAgent{}{}}
+	(\varAtomicTask{}{}, \functionTaskAbsoluteValue{}{})}
 %%%%%%%%%%%%
 	
 The \acronymATARIAExtended{}{} algorithm enables agents in the system to learn the best actions to take given their current state. This ranges from deciding which other agents to allocate tasks to and obtain the best composite task values, to exploring the system for other agents, and adapting connectivity to handle network disruption. An agent uses the \acronymATARIA{}{} algorithm to choose an action to take, which can be one of the following,
@@ -59,10 +59,7 @@ The \acronymMGRAOExtended{}{} algorithm helps agents executing measurement tasks
 	\formalMGRAO{}{}
 \end{equation}
 \todo[inline]{Dedine MGRAO upadte here}
-Definition 3.14 (Component tasks absolute value). The absolute value of each component atomic task of a composite
-task ˆ𝑡 executed at time 𝜙 is expressed by a mapping from the atomic tasks comprising ˆ𝑡 to the actual value provided
-by that task according to the quality of the composite task and the proportional value of the atomic task within the
-composite, 𝑎𝑡𝑣 : 𝑇ˆ ×𝑇 → R, such that 𝑎𝑡𝑣 (𝑡ˆ, 𝑡 ) = 𝑡𝑎𝑞𝜙 (𝑡ˆ)𝑐𝑡𝑣 (𝑡 )
+
 
 \subsection{Extension to hierarchical task allocation}
 

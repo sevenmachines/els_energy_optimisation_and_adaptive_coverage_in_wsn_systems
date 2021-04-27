@@ -30,3 +30,18 @@ When not sampling, aggregating, or broadcasting a node recovers energy at a rate
 	\caption{Key criteria for E-WSN systems}
 	\label{table:real_world_systems_criteria}
 \end{table}
+Example values in \ref{table:components_energy_usage} show the energy and time costs of varios operations given an hourly sampling period for a node.
+\begin{table}[ht]
+	\begin{tabular}{p{0.3\textwidth}p{0.2\textwidth} p{0.2\textwidth} p{0.2\textwidth}}
+		\hline
+		\textbf{Function} & \textbf{power(mW)} & \textbf{time (s)} & \textbf{energy (mJ)}\\
+		\hline
+		Data acquisition (\symbolDataAcquisition{}{}) & 0.5 & 60 & 30 \\
+		Transmission (\symbolTransmission{}{}) & 7 & 0.1 & 0.7 \\
+		Receiver (\symbolReceiver{}{}) & 70 & 0.1 & 0.7 \\
+		Idle wake-up-radio (\symbolWakeUpRadio{}{}) & 0.07 & 3509 & 246  \\
+		\hline
+	\end{tabular}
+	\caption{Component types and energy usage}
+	\label{table:components_energy_usage}
+\end{table}
