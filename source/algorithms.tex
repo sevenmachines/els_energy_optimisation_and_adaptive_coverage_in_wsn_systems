@@ -63,7 +63,7 @@ In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimis
 		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
 			\tcp{Target update at the last agent in the arc, the agent that completed the atomic task}
-			$\varAgent{}{} \leftarrow \functionTaskArc{}{}[-1]$ \label{wsnsink:arc_last}\;
+			$\varAgent{}{} \leftarrow \functionSenseRole{}{}$ \label{wsnsink:arc_last}\;
 			\tcp{Run MGROA update for target agent using each atomic tasks value}
 			$\functionMGRAOUpdate{}{}$ \label{wsnsink:mgrao}\;	
 		}

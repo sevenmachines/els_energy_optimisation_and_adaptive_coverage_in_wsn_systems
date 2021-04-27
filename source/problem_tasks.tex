@@ -16,8 +16,8 @@
 }
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
-\todo[inline]{Citation required for task quality and distance relation}
-An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be \cite{dummy}. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
+
+An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
 \begin{equation}
 \label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{

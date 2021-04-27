@@ -17,7 +17,6 @@
 
 A WSN system is comprised of a set of \textit{agents}, equipped with \textit{sensors}. Tasks are types and can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Composite tasks are allocated from outside the system throughout its lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
 
-\todo[inline]{Atomic task type?}
 We can therefore define the system as a tuple $\langle \setAtomicTask{}{}, \setCompositeTask{}{},  \setAgents{}{}, \setResource{}{} \rangle$, where
 \begin{itemize}
  \item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
@@ -37,7 +36,7 @@ The system has a geographical area to monitor defined by a two dimensional grid 
 	{\setAgents{}{}}
 }
 \newcommand{\formalSenseRole}[2]{
-	\functionFormal{sense}
+	\functionFormal{sensor}
 	{\setAtomicTask{}{}}
 	{\setAgents{}{}}
 }
@@ -58,7 +57,7 @@ The system has a geographical area to monitor defined by a two dimensional grid 
 }
 \newcommand{\functionSinkRole}[2]{\functionSignature{sink}{\varAtomicTask{}{}}}
 	
-\newcommand{\functionSenseRole}[2]{\functionSignature{sense}{\varAtomicTask{}{}}}
+\newcommand{\functionSenseRole}[2]{\functionSignature{sensor}{\varAtomicTask{}{}}}
 \newcommand{\functionActiveRole}[2]{\functionSignature{active_{#1}}{\varAtomicTask{}{}}}
 \newcommand{\functionIdleRole}[2]{\functionSignature{idle}{\varAtomicTask{}{}}}
 \newcommand{\functionSleepRole}[2]{\functionSignature{sleep}{\varAtomicTask{}{}}}
@@ -72,5 +71,5 @@ To simplify discussion of task execution we distinguish agents by the role they 
 	\item An \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
 \end{itemize}
 With these roles in mind, we can now define the  \textit{atomic task arc} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the agent that has received the initial composite task, and the last agent is the agent that executes the atomic task, with the sequence of agents in-between relaying the atomic task \footnote{Note, generally communications in WSN networks are multi-hop due to the limited broadcast range of nodes, therefore are $n>0$ active agents sub-allocating the task between the sink and sensing agents.} such that 
-$\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n}$.
+$\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n}$. Note, we also use index notation to 
 
