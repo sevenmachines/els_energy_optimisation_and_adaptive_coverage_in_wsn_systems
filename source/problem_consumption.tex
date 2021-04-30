@@ -1,5 +1,5 @@
 \subsection{Energy consumption and availability}
-The \textit{atomic task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. Transmission energy, $\varTransmissionEnergy{}{}$, the power used by a node to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy is the energy used by an agent to receives a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range so that the energy use per-atomic task is
+The \textit{atomic task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. This is composed of transmission energies, $\varTransmissionEnergy{}{}$, the power used by nodes to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used by an agent to receive a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the arc twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range so that the energy use per-atomic task is
 \begin{equation}
 2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
 	+ 2\varReceiverEnergy{}{} (2 \funcSize{\functionTaskArc{}{}}{} - 1)
@@ -38,7 +38,7 @@ The \textit{fractional agent energy} maps the an agent to its available energy, 
 	= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}}
 	{\funcSize{\setAgents{}{}}}
 \end{equation}
-To optimise for distribution of energy usage we minimise the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the fractional agent energy values. As we look to optimise by maximising across multiple goals, and the values of $\functionAgentEnergyAvailable{}{}$ are bounded by $[0, 1]$, we can rephrase this as maximising the distance between the variance and the maximum possible, $1/4$. So we specify the \textit{relative energy variability},
+To optimise for distribution of energy usage we minimise the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the fractional agent energy values. As we look to optimise by maximising across multiple goals, and the values of $\functionAgentEnergyAvailable{}{}$ are bounded by $[0, 1]$, we can rephrase this as maximising the distance between the variance and the maximum possible, $1/4$. So we use the \textit{relative energy variability} as our distribution measurement,
 \begin{equation}     	
 	\functionEnergyVariability{}{} 
 	= \frac{1}{4} - \sigma^2(
