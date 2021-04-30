@@ -1,7 +1,6 @@
-\todo[inline]{REVIEW 1: HERE}
 \section{Solving the multi-objective WSN problem}
 \label{section:solution}
-As defined in the previous Section, we seek a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in \cite{creech2021dynamic, creech2021resource}.
+As defined in the previous section, we are looking for a method to optimise multiple objectives in our WSN system. To do so we will incorporate two algorithms, the \acronymATARIAExtended{}{} and \acronymMGRAOExtended{}{} algorithms. We give the high-level purpose and requirements of each algorithm in the next sections, however, full details and theoretical justification can be found in \cite{creech2021dynamic, creech2021resource}.
 
 \subsection{Optimisation algorithms for task allocation and resource allocation}
 %%%%%%%%%%%%%%%%
@@ -27,9 +26,9 @@ As defined in the previous Section, we seek a method to optimise multiple object
 	\times \texttt{link}(\setAgents{}{})
 }
 }
-\newcommand{\functionMGRAO}[2]{\texttt{mgrao}(\varAtomicTask{}{}, \varAgent{self}{})}
-\newcommand{\formalMGRAO}[2]{
-	\functionFormal{\texttt{mgrao}_{\varAgent{}{}}}
+\newcommand{\functionMGRAOWeighting}[2]{\texttt{mgrao-weight}(\varAtomicTask{}{}, \varAgent{self}{})}
+\newcommand{\formalMGRAOWeighting}[2]{
+	\functionFormal{\texttt{mgrao-weight}_{\varAgent{}{}}}
 	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
 	{
 		\setRealNumbers{}{}
@@ -38,22 +37,30 @@ As defined in the previous Section, we seek a method to optimise multiple object
 \newcommand{\functionMGRAOUpdate}[2]{
 	\texttt{mgrao-update}_{\varAgent{}{}}
 	(\varAtomicTask{}{}, \functionTaskAbsoluteValue{}{})}
+\newcommand{\formalMGRAOUpdate}[2]{
+	\functionFormal{\texttt{mgrao-update}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
+	{
+		\setRealNumbers{}{}
+	}
+}
 %%%%%%%%%%%%
 	
-The \acronymATARIAExtended{}{} algorithm enables agents in the system to learn the best actions to take given their current state. This ranges from deciding which other agents to allocate tasks to and obtain the best composite task values, to exploring the system for other agents, and adapting connectivity to handle network disruption. An agent uses the \acronymATARIA{}{} algorithm to choose an action to take, which can be one of the following,
+The \acronymATARIA{}{} algorithm enables agents in the system to learn the best actions to take given their current state. This ranges from deciding which other agents to allocate tasks to and obtain the best composite task values, to exploring the system for other agents, while adapting connectivity to handle network disruption. An agent uses the \acronymATARIA{}{} algorithm to choose an action to take, which can be one of the following,
 \begin{enumerate}
 	\item $\functionExec{}{}$, The agent will execute the atomic task $\varAtomicTask{}{}$ itself.
 	\item $\functionAlloc{}{}$, the agent will allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
 	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
 	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection.
 \end{enumerate}
-The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values through the updating of Q-values in its temporal-update algorithm. The algorithm will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$, and knows of other agents $\setAgents{}{}$. $\label{eq:ataria}\formalATARIA{}{}$.
-The \acronymMGRAOExtended{}{} algorithm helps agents executing measurement tasks allocate their resources to optimise the composite task value as well. This has two parts, an update algorithm that adjust weights of resources based on received atomic task values, and the application of these weights to generate the task execution quality itself. The update algorithm will update the resource weightings for an agent, given the type of an atomic task it completed, and the absolute task value of that task to another agents' composite task, $\label{eq:mgrao}\formalMGRAO{}{}$.
-
-
+The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values through the updating of Q-values in its temporal-update algorithm. The algorithm will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$, and knows of other agents $\setAgents{}{}$ through the function,
+\begin{equation}
+\label{eq:ataria}\formalATARIA{}{}
+\end{equation}
+The \acronymMGRAO{}{} algorithm helps agents executing atomic tasks allocate their resources to optimise the corresponding composite task value. This has two parts, an update algorithm that adjust weights of resources based on received atomic task values, $\label{eq:mgrao_update}\formalMGRAOUpdate{}{}$,  and the application of these weights to generate the task execution quality itself, $\label{eq:mgrao_weighting}\formalMGRAOWeighting{}{}$. The update algorithm will change the resource weightings for an agent, $\functionAgentResources{}{}$, given the type of an atomic task completed, and the its absolute task value to the corresponding composite task. The weighting algorithm simply returns the resource weighting for calculation of an atomic tasks' quality $\functionAtomicTaskQualitySignature{}{}$ on its completion.
 
 \subsection{Extension to hierarchical task allocation}
-
+\todo[inline]{REVIEW 1: HERE}
 To enable agents to form arcs as described we allow atomic tasks to be re-allocated to further agents in order to reach an agent within range of a demand point. Figure \ref{fig:arc-flow} illustrates an arc where there are two re-allocations needed before a specific atomic task is allocated to an agent whose sensor is in range of the demand point, and can therefore make a measurement.
 
 \begin{figure}[ht]
