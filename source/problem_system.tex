@@ -1,9 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\setSinkAgents}[2]{\setSymbol{SG}{#1}{#2}}
 \newcommand{\formalAgentResources}[2]{
 	\functionFormal{ar}
 	{\setAgents{}{} \times \setRealNumbers{}{}}
 	{\setRealNumbersNonNegative{}{}}
 }
+\newcommand{\formalSinkMapping}[2]{
+	\functionFormal{sg}
+	{\setCompositeTask{}{}}
+	{\powerSetSymbol{\setSinkAgents{#1}{#2}}{}{}}
+}
+
 
 
 \begin{figure}
@@ -15,18 +22,21 @@
 
 \subsection{Tasks and resources}
 
-Tasks are types and can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Composite tasks are allocated from outside the system throughout its lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
+In our assumed system there is a geographical area to monitor defined by a two dimensional grid of real numbers on which a set of agents $\setAgents{}{}$ are distributed randomly. The \textit{deployment configuration} is a mapping from agents to their respective locations on this grid, $\formalDeployment{}{}$. Agents perform tasks, which are typed. These can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Each atomic task targets a measurement at a location on this grid, its \textit{demand point} $\functionTaskDemandPoint{}{}$.
 
-We can therefore define the system as a tuple $\langle \setAtomicTask{}{}, \setCompositeTask{}{},  \setAgents{}{}, \setResource{}{} \rangle$, where
+Composite tasks are allocated from outside the system to sink nodes, throughout the systems lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
+
+We can therefore define the system as a tuple $\langle \setAtomicTask{}{}, \setCompositeTask{}{},  \setAgents{}{}, \setResource{}{}, ar, sg, conf \rangle$, where
 \begin{itemize}
- \item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
- \item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
- \item $\setAgents{}{}$ is a set of agents;
- \item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
+	\item $\setAgents{}{}$ is a set of agents in the system that can complete tasks;
+	\item $\setSinkAgents{}{} \subset \setAgents{}{}$ is a set of sink nodes, agents that can receive composite tasks from external to the system;
+	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
+	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
+	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
+	  \item $\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
+	\item $\formalSinkMapping{}{}$ is a mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type.
+	\item $\formalDeployment{}{}$: is a mapping of each agent to their location in the system.
 \end{itemize}
-
-\subsection{Distribution and location}
-The system has a geographical area to monitor defined by a two dimensional grid of real numbers on which agents are distributed randomly such as is common in environmental settings. The \textit{deployment configuration} is a mapping from agents to their respective locations on this grid, $\formalDeployment{}{}$. Each atomic task targets a measurement at a location on this grid, its \textit{demand point} $\functionTaskDemandPoint{}{}$.
 
 \subsection{Node roles and task arcs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
