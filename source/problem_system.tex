@@ -9,13 +9,13 @@
 \begin{figure}
 \centering 
 \includegraphics[width=0.9\linewidth, trim={25pt 0pt 24pt 0pt, clip}]{grid_concept}
-\caption[WSN deployment terminology]{WSN deployment terminology}
-\label{fig:gridconcept}
+\caption[WSN deployment terminology]{WSN components and terminology}
+\label{fig:grid_concept}
 \end{figure}
 
-\subsection{Agents, tasks, and resources}
+\subsection{Tasks and resources}
 
-A WSN system is comprised of a set of \textit{agents}, equipped with \textit{sensors}. Tasks are types and can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Composite tasks are allocated from outside the system throughout its lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
+Tasks are types and can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Composite tasks are allocated from outside the system throughout its lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, in this case energy, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
 
 We can therefore define the system as a tuple $\langle \setAtomicTask{}{}, \setCompositeTask{}{},  \setAgents{}{}, \setResource{}{} \rangle$, where
 \begin{itemize}
