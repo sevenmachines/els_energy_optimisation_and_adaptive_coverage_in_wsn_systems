@@ -25,7 +25,7 @@
 
 \subsection{Tasks and resources}
 
-In our assumed system there is a geographical area to monitor defined by a two dimensional grid of real numbers on which a set of agents $\setAgents{}{}$ are distributed randomly. The \textit{deployment configuration} is a mapping from agents to their respective locations on this grid, $\formalDeployment{}{}$. Agents perform tasks, which are typed. These can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Each atomic task targets a measurement at a location on this grid, its \textit{demand point} $\functionTaskDemandPoint{}{}$.
+In our assumed system there is a geographical area to monitor defined by a two dimensional grid of real numbers on which a set of agents $\setAgents{}{}$ are distributed randomly. The \textit{deployment configuration} is a mapping from agents to their respective locations on this grid, $\formalDeployment{}{}$. Agents perform tasks, which are typed. These can be either \textit{atomic tasks}, for individual measurements, or \textit{composite tasks}, composed of sets of atomic tasks. Each atomic task $\varAtomicTask{}{}$ targets a measurement at a location on this grid, its \textit{demand point} $\functionTaskDemandPoint{}{}$.
 
 Composite tasks are allocated from outside the system to sink nodes, throughout the systems lifetime. These composite tasks are then decomposed by agents and the corresponding atomic tasks either completed by that agent, or allocated to other agents to complete or relay to further agents. Completing atomic tasks requires \textit{resources}, such as energy, of which an agent has a fixed amount defined by $\formalAgentResources{}{}$. At at time $\varTime{}{}$, each agent carrying out an atomic task has a certain amount of the resources it possesses $\varResource{}{}$, assigned to completion of tasks of that type, given by $\formalTaskResourceAllocation{}{}$
 
@@ -79,9 +79,9 @@ To simplify discussion of task execution we distinguish agents by the role they 
 \begin{itemize}
 	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results, $\formalSinkRole{}{}$.
 	\item A \textit{sensing node} is the agent that executes the atomic task and so performs the sensor measurement, $\formalSenseRole{}{}$.
-	\item An \textit{active node} is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent, $\formalActiveRole{}{}$..
+	\item An \textit{active node} is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent, $\formalActiveRole{}{}$.
 	\item An \textit{idle node} does not participate in the specific task, but does in other tasks in the system during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
-	\item An \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
+	\item A \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
 \end{itemize}
-With these roles in mind, we can now define the  \textit{ task arc} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the sink node that has received the initial composite task, and the last agent is the sensing agent that executes the atomic task, with the sequence of agents in-between relaying the atomic task. So that, for an arc of length $n$, we have
+With these roles in mind, we can now define the  \textit{ task arc} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the sink node that has received the initial composite task, and the last agent is the sensing agent that executes the atomic task, with the sequence of agents in-between relaying the atomic task. So for an arc of length $n$, we have
 $\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n-1}$. 

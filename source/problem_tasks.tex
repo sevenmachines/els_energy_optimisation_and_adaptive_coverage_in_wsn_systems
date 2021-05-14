@@ -17,7 +17,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
 
-An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the tasks' demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
+An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the task's demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
 \begin{equation}
 \label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
@@ -33,12 +33,12 @@ The \textit{composite task value}, the proportional value of an atomic task $\va
 	+ 
 	\gamma\underbrace{\functionAtomicTaskQualitySignature{}{}}_{\text{task quality}}
 \end{equation}
-Where $\alpha$, $\beta$, and $\gamma$ are variables chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. With the composite task value calculated after its completion  at a time $\varTime{}{}$, we can then calculate \textit{composite task quality} as the combination of each atomic tasks quality and its value to the composite task,
+where $\alpha$, $\beta$, and $\gamma$ are variables chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. With the composite task value calculated after its completion  at a time $\varTime{}{}$, we can then calculate \textit{composite task quality} as the combination of each atomic task's quality and its value to the composite task,
 \begin{equation}
 \functionCompositeTaskQuality{}{} = \sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
 \functionCompositeTaskValue{}{}\functionAtomicTaskQualitySignature{}{}	
 \end{equation}
-Finally we can define each atomic task absolute value to the system as the product of the respective composite tasks' quality and the relative contribution of the atomic task to that quality,
+Finally we can define each atomic task's absolute value to the system as the product of the respective composite task's quality and the relative contribution of the atomic task to that quality,
 \begin{equation}
 	\functionTaskAbsoluteValue{}{} = 
 	\functionCompositeTaskQuality{}{}\functionCompositeTaskValue{}{}
