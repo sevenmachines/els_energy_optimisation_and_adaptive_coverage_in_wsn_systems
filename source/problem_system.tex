@@ -37,7 +37,7 @@ We can therefore define the system as a tuple $\langle \setAtomicTask{}{}, \setC
 	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
 	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
 	  \item $\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
-	\item $\formalSinkMapping{}{}$ is a mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type.
+	\item $\formalSinkMapping{}{}$ is a static mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type, fixed on system initialisation.
 	\item $\formalDeployment{}{}$: is a mapping of each agent to their location in the system.
 \end{itemize}
 
