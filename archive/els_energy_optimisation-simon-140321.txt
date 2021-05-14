@@ -42,6 +42,4 @@ Section 4.2
 
 "Once all atomic tasks have completed" - This case may not occur if info/link actions are chosen for some tasks. Recalling Section 3.5, it may also not happen if there are 'impacts'. So you additionally need to explain how the algorithm processes the case where not all atomic tasks are completed. Also, you need to explain what 'impacts' mean in the context of the algorithm to complete the link to Section 3.
 
-"and run the MG-RAO update algorithm on the last agent in the arc" - For what purpose?
 
-"This will be repeatedly run until the task in completed an atomic task quality can be returned" - Something wrong with the English here. I don't understand what you mean.

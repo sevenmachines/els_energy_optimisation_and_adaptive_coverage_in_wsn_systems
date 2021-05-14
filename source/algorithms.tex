@@ -81,7 +81,7 @@ In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimis
 	}
 \end{algorithm}
 
-The \acronymWSNOptimisationArc{}{} algorithm (Algorithm \ref{alg:wsn_optimisation_arc}) will complete an atomic task and return its quality, either by executing the task itself (Line \ref{wsnarc:exec}), or re-allocating to another agent (Line \ref{wsnarc:alloc}). The \acronymATARIA{}{} algorithm is run and an action selected (Line \ref{wsnarc:select}) as in the \acronymWSNOptimisationSink{}{} algorithm. This will be repeatedly run until the task in completed an atomic task quality can be returned (Line \ref{wsnarc:exec}).
+The \acronymWSNOptimisationArc{}{} algorithm (Algorithm \ref{alg:wsn_optimisation_arc}) will complete an atomic task and return its quality, either by executing the task itself (Line \ref{wsnarc:exec}), or re-allocating to another agent (Line \ref{wsnarc:alloc}). The \acronymATARIA{}{} algorithm is run and an action selected (Line \ref{wsnarc:select}), in the same way as in the \acronymWSNOptimisationSink{}{} algorithm. The selection and execution of actions using the \acronymATARIA{}{} algorithm is repeated until the task in completed an atomic task quality can be returned (Line \ref{wsnarc:exec}).
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
 	\footnotesize
