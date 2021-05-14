@@ -1,0 +1,88 @@
+It would be good to show explicitly in this section that you are tackling the requirements from Section 2, i.e. that your problem specification comes from those requirements rather than being made up and that you are addressing them all. This will require you to refer back to the Section 2 requirements. It could also help if the relevant Section 3 subsections followed the same order as the requirements list in Section 2 so the reader can match them up.
+
+Throughout, you have some multi-letter terms that have strange spacing because of LaTeX maths mode, e.g. see "dp" in Section 3.1, "TE" and "fae" in Section 3.4. You can use \mathit{...} to get better looking results. I assume this may apply to later sections too.
+
+Intro
+====
+"we define our WSN system in terms of agents... we go on to look at the roles different agents play" - You are talking here as if the reader knows what agents mean in this context, but you haven't said. At the start of Section 3.1, you clarify that "A WSN system is comprised of a set of nodes or agents". But:
+ (a) You need to say agents are the same as nodes earlier, i.e. when you first use the new term 'agent'.
+ (b) If nodes and agents are the same thing then why are you using two terms for the same thing in your paper? This is surely just confusing.
+ (c) Are they really the same thing anyway? Intuitively, a node is a structural thing, e.g. the hardware, whereas an agent is something that acts, e.g. the software controller.
+
+"the resilience of the network to impacts and failures" - What are 'impacts'?
+
+Section 3.1
+====
+"Requests for measurement from outside the WSN are received from a capable agent" - I didn't understand this. Why is the agent outside the WSN? What is a 'capable agent' and does this imply other agents are 'incapable'?
+
+Section 3.2
+====
+Paragraph 1: "agents G are distributed randomly" - Do you really mean randomly? If so, why? Or do you mean arbitrarily?
+
+Paragraph 2: "Composite tasks are allocated from outside the system to sink nodes... These composite tasks are then decomposed by agents" - Which agents? The ones that are/that control the sink nodes?
+
+Paragraph 2: There are confusing formalisations in this paragraph, which are stated much more clearly in the formal definition of a system in paragraph 3. Maybe you should just remove the formalisms from paragraph 2? Specifically, the following are unclear:
+ - "ar: G x Real -> Real>=0" - What is the left-hand Real referring to? It is not clear from the text.
+ - "a certain amount of the resources it possesses r" - It is unclear from the sentence what this variable r refers to (one amount? a set of amounts? a function from resource to amount?) and the variable doesn't seem to be used in any formalisation anyway.
+ - "ra_g: AT -> 2^RxReal" - This needs more explanation as the text does not make it's meaning clear. Variable R is undefined.
+
+Paragraph 3: List the parameters (AT, CT, G...) in the same order in the tuple and the list of definitions below it.
+
+Paragraph 3: "ar: G x Real -> Real" - I assume the left-hand "Real" should be "R" (or else I don't understand).
+
+Section 3.3
+====
+Paragraph 1: It is unclear what you are saying is claimed in or taken from source "(Gupta and Sinha, 2014)".
+
+Paragraph 2, item 1: Why would a sink node "broadcast" the results rather than just return them to the requester?
+
+Paragraph 2, item 5: "A sleeping node... sink_phi" - Shouldn't it be called "sleeping_phi" or similar?
+
+Paragraph 3: "for an arc of length n, we have..." - There appears to be n+1 nodes in the given arc not n: 1 sink node, n-1 active nodes and 1 sensor node. 
+
+Section 3.4
+====
+"The atomic task energy consumption... is composed of transmission energies... Receiver energy, RE, is..." - This doesn't make sense as writtens. I assume it should be one sentence, so that atomic task energy consumption is composed of both transmission energy and receiver energy. As written, receiver energy has no connection to atomic task energy.
+
+Formula (1): I don't understand what kind of thing "TE" and "RE" are and so can't interpret the formula. As the symbols are written in capitals, I would assume they are sets, but in this formula they seem to be applied as functions to an integer value. If so, why? What does the function do and what is its signature? From the paragraph above, I assumed they were neither sets nor functions but constant values, i.e. the energy required by one node to send/receive one transmission. But if that's correct and I should read the formula as just a sum of multiplications, then why is RE multiplied by 4 (i.e. 2 times the arc length, then 2 times the energy)?
+
+You do not mention any energy required for sensing. Given that sensing is the atomic task purpose and you list sensing as a role of a node in Section 3.3, it is not intuitive why sensing requires no energy.
+
+Section 3.5
+====
+"Since network impacts will mean that some nodes will not be able to be allocated an atomic task" - Why? What is a 'network impact'?
+
+"...an agent trying to complete a composite task may not be able to do so." - Why? I don't see how this follows from the claim above. If one node can't perform a task, why can't another node do so (even if to different quality)? There seems argument missing.
+
+"We can therefore use the proportion of atomic tasks... that are completed successfully as a measure" - I don't see how this follows from what came before. Why 'therefore'?
+
+"how well it has adapted to impact" - Before you referred to "impacts" like they were a set of events/things, but now you refer to "impact" without an article (the/an). What does it mean?
+
+"For each completed composite task..." - How do we define a composite task as being completed or not? Your implication here is that completion of a composite task doesn't depend on completion of its atomic components (else your coverage metric doesn't make sense), so what does it depend on?
+
+Section 3.6
+====
+Formula (5): What is phi? It is not defined. Also, it is only used on the left-hand side of the equation, so that implies it is not necessary at all and can be removed (i.e. the right-hand side of the equation is not dependent on phi anyway).
+
+Formula (5): The multiplied terms are in different units, so how do you normalise these? If you measured the distance in metres or in millimetres, this would radically change the weighting given to the energy term in the quality measure.
+
+Paragraph 2: "The composite task value, the proportional value of an atomic task" - It seems confusing to call the variable "composite task" if it is about an atomic task not a composite task. I seem to remember in the previous paper, we used the term "component task value" to refer to an atomic task's value in the context of (as a component of) a composite one.
+
+Paragraph 2: "The composite task value... will not only be dependent on the quality of the atomic task, but also on additional system wide objectives" - OK, but why? You have not explained this.
+
+Paragraph 2: The sentences starting "Firstly", "Secondly" and "Lastly" are not complete grammatical English sentences.
+
+Paragraph 2: Therefore, the composite task value of a composite task ct" - Term "ct" does not appear in Formula (6), so what is it for?
+
+Formula (7): Term "g" appears on the right-hand side but where does it come from? It is not on the left-hand side nor a term introduced in the sum iteration. The equation is therefore incomplete and couldn't be implemented.
+
+Formulae (7) and (8) seem to imply that ctv(at) sums to 1 for the atomic tasks of any given composite task, as they are treated like proportions, but I can't see why this would necessarily hold from anything written.
+
+There were quite a few missing or misplaced apostrophes in this section. I've fixed them, but please take care.
+
+Section 3.7
+====
+"In doing the system" - Something wrong here.
+
+Objective 4 ("Maintaining coverage") does not appear to be included in the calculation of utility u(Phi), unlike the other objectives. It is unclear how this objective is "implicitly optimised".
+
