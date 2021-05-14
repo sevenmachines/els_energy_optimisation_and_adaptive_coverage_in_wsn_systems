@@ -59,11 +59,11 @@ The \acronymATARIA{}{} algorithm learns to select the actions that generate the 
 \label{eq:ataria}\formalATARIA{}{}
 \end{equation}
 
-To enable agents to form arcs we allow atomic tasks that have been allocated to an agent to be either executed by that agent, or re-allocated to further agents, through running the \acronymATARIA{}{} algorithm. Figure \ref{fig:arc-flow} illustrates an arc where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
+To enable agents to form task-paths we allow atomic tasks that have been allocated to an agent to be either executed by that agent, or re-allocated to further agents, through running the \acronymATARIA{}{} algorithm. Figure \ref{fig:arc-flow} illustrates a task-path where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{arc-flow}
-	\caption{\textbf{Allocation along an arc}. This diagram illustrates how allocations can be relayed along an arc using successive applications of the \acronymATARIA{}{} algorithm.}
+	\caption{\textbf{Allocation along a task-path}. This diagram illustrates how allocations can be relayed along a task-path using successive applications of the \acronymATARIA{}{} algorithm.}
 	\label{fig:arc-flow}
 \end{figure}
 

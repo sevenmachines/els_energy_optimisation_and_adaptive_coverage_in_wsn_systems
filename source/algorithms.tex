@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionANHTAO}[2]{
-	\functionSignature{\texttt{anhtao-arc}}{\varAtomicTask{}{}, \varAgent{}{}}
+	\functionSignature{\texttt{anhtao-path}}{\varAtomicTask{}{}, \varAgent{}{}}
 }
 
 \subsection{Algorithm for optimising hierarchical task allocation in networks of agents}
@@ -17,15 +17,15 @@ and \ref{alg:wsn_optimisation_arc}, which are split for clarity. The flowchart i
 	\end{subfigure} \hfill%
 	\begin{subfigure}{.49\textwidth}
 		\centering	\includegraphics[width=0.9\linewidth,trim={25pt 0pt 25pt 0pt, clip}]{algorithm-flow-arc}
-		\caption{Arc agent flow}
+		\caption{Task-path agent flow}
 		\label{fig:algorithm-flow-arc}
 	\end{subfigure}
 	\caption{\textbf{\acronymWSNOptimisation{}{}} - Flow chart of combined \acronymATARIA{}{}/\acronymMGRAO{}{} execution. The two algorithms are combined together to allow recursive allocation of tasks and learning of the network.}
 	\label{fig:algorithm-flow}
 \end{figure}
-We formally define the \acronymWSNOptimisation{}{} algorithm in two parts, Algorithm \ref{alg:wsn_optimisation_sink} for sink agents receiving composite tasks, and Algorithm \ref{alg:wsn_optimisation_arc} for other agents that form the arc for a task.
+We formally define the \acronymWSNOptimisation{}{} algorithm in two parts, Algorithm \ref{alg:wsn_optimisation_sink} for sink agents receiving composite tasks, and Algorithm \ref{alg:wsn_optimisation_arc} for other agents that form the task-path for a task.
 
-In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimisation_sink}, the sink agent receives a composite task $\varCompositeTask{}{}$ comprising of multiple atomic tasks $\varAtomicTask{}{}$ to be completed. For each of these atomic tasks the sink agent runs the \acronymATARIA{}{} algorithm to select an action (Line \ref{wsnsink:select}). It can execute the atomic task itself (Line \ref{wsnsink:exec}), using the \acronymMGRAO{}{} algorithm to determine the resources that will be allocated to its completion, or allocate it to another agent it knows about to complete using the \acronymWSNOptimisationArc{}{} algorithm (Line \ref{wsnsink:alloc}) . In both cases, the sink agent receives an atomic task quality value of $\functionAtomicTaskQualitySignature{}{}$ and removes the atomic task from the list of tasks to complete. If the action selected is one of $\functionInfo{}{}$ or $\functionLink{}{}$, those actions are carried out without any task executions. Once all atomic tasks have completed, each atomic tasks' proportional value to the composite task is calculated. For each atomic task, the corresponding value is sent to the last agent in the atomic tasks' arc so that each sensor agent can carry out an \acronymMGRAO{}{}-update (Lines \ref{wsnsink:arc_last} and \ref{wsnsink:mgrao}). 
+In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimisation_sink}, the sink agent receives a composite task $\varCompositeTask{}{}$ comprising of multiple atomic tasks $\varAtomicTask{}{}$ to be completed. For each of these atomic tasks the sink agent runs the \acronymATARIA{}{} algorithm to select an action (Line \ref{wsnsink:select}). It can execute the atomic task itself (Line \ref{wsnsink:exec}), using the \acronymMGRAO{}{} algorithm to determine the resources that will be allocated to its completion,   m or allocate it to another agent it knows about to complete using the \acronymWSNOptimisationArc{}{} algorithm (Line \ref{wsnsink:alloc}) . In both cases, the sink agent receives an atomic task quality value of $\functionAtomicTaskQualitySignature{}{}$ and removes the atomic task from the list of tasks to complete. If the action selected is one of $\functionInfo{}{}$ or $\functionLink{}{}$, those actions are carried out without any task executions. Once all atomic tasks have completed, each atomic tasks' proportional value to the composite task is calculated. For each atomic task, the corresponding value is sent to the last agent in the atomic tasks' task-path so that each sensor agent can carry out an \acronymMGRAO{}{}-update (Lines \ref{wsnsink:arc_last} and \ref{wsnsink:mgrao}). 
 
 \newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
 \newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
@@ -72,7 +72,7 @@ In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimis
 		}
 		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
-			\tcp{Target update at the last agent in the arc, the agent that completed the atomic task}
+			\tcp{Target update at the last agent in the task-path, the agent that completed the atomic task}
 			$\varAgent{}{} \leftarrow \functionSenseRole{}{}$ \label{wsnsink:arc_last}\;
 			\tcp{Send the sensor agent the atomic task value to run the MGRAO update}
 			$\functionMGRAOUpdate{}{}$ \label{wsnsink:mgrao}\;	
