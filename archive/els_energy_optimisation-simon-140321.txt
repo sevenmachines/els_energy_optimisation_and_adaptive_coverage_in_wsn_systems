@@ -1,0 +1,47 @@
+Comments for Section 4.
+
+I understand you were unsure whether the level of detail was right for this paper. My feeling is that there needs to be more. As a reviewer, I could not assess how the algorithm (with its components from other papers) works and so whether it makes sense for addressing the problem as specified. The paper does not seem complete with so much detail missing.
+
+I suggest you consider:
+ - Restructuring to start with the high-level algorithm and only then introduce its components (the algorithms from other papers) when needed for a given step. At the moment you start Section 4 by saying what you won't be saying, which takes the focus away from the actual contribution of this paper (AN-HTAO).
+ - Give the pseudocode of ATA-RIA and MG-RAO, even if in the appendix, to make the paper technically complete. The captions of those algorithm figures can include a citation to the relevant paper for the full explanation.
+ - In the Section 4 text, give an intuitive summary of each of ATA-RIA and MG-RAO as enumerated steps so that the reader can understand how they function. At the moment, what they do is much too vague (especially ATA-RIA).
+
+Section 4.1
+====
+I could not connect the description of ATA-RIA to the problem as specified in Section 3.
+ - "...learn the best actions to take given their current state". It is not clear what "state" refers to in the context of the WSN.
+ - "the agent will request information from another agent'. What information? Where is this covered in Section 3?
+ - "the agent will allocate resources to hold information on the agent g". Where is this use of resources covered in Section 3?
+
+"The ATA-RIA algorithm learns..." - You need to clarify when this happens. Do you mean "Through repeated execution each time it is called, the ATA-RIA algorithm learns..." or "Through training before the WSN is deployed, the ATA-RIA algorithms learns..." Further to this, as a reviewer I would question how ATA-RIA can learn given the information provided to it in AN-HTAO. How can it learn when it is just given an atomic task and an agent self-identifier each iteration (line 3 of Algorithm 1)? Where is the data from which to learn whether what it did was correct/optimal?
+
+"The MG-RAO algorithms helps agents executing atomic tasks" - I think it is too vague to say "helps" when explaining an algorithm. You need to say what it does (i.e. how it helps).
+
+"The MG-RAO algorithm... adjusts weights of resources". What are "weights of resources"? I don't find this covered in Section 3. If part of the functioning of the algorithm it needs to be (intuitively) explained here.
+
+The mgrao-weight_g algorithm introduced in the text does not appear to be called at all from AN-HTAO. If it is not used, then no need to mention or explain it in this paper. If it is used, then it should be called somewhere.
+
+Figure 3
+====
+It would help to refer to the algorithms more specifically in the activity boxes. I assume box (2) should be "the ATA-RIA sink node algorithm" and boxes (3) and (5) should be "the ATA-RIA active node algorithm". Should the latter also apply to box (6)? At the moment, the algorithm followed in that box is not clear.
+
+Box (3): "its Q-value for executing is low" - What does this mean? It does not seem connected to the paper text and "Q-value" is not used elsewhere. Also "its" should be "it is" (or at least "it's").
+
+Section 4.2
+====
+"The flowchart in Figure 4 shows how this agents" - I assume you mean "these agents" but also I wasn't clear which agents you are referring to?
+
+"utilise ATA-RIA and MG-RAO with these recursive actions enabled" - I didn't understand what you meant at at all by this.
+
+"Algorithm 1 is for sink agents... and Algorithm 2 for other agents that form the arc for a task." - In Section 3.3, you named these 'sink nodes' and 'active nodes', so you should remain consistent with these terms.
+
+"In both cases, the sink agent receives an atomic task quality value" - Do you mean "In both cases, once the task is completed, the sink agent receives..."? As I understand, the value only exists after the task is done.
+
+"If the action selected is one of info(g) or link(g), those actions are carried out without any task executions." - So that means that an atomic task is abandoned (never executed nor allocated elsewhere) if info/link are the chosen action? That seems unintuitive and should be expanded on as to why.
+
+"Once all atomic tasks have completed" - This case may not occur if info/link actions are chosen for some tasks. Recalling Section 3.5, it may also not happen if there are 'impacts'. So you additionally need to explain how the algorithm processes the case where not all atomic tasks are completed. Also, you need to explain what 'impacts' mean in the context of the algorithm to complete the link to Section 3.
+
+"and run the MG-RAO update algorithm on the last agent in the arc" - For what purpose?
+
+"This will be repeatedly run until the task in completed an atomic task quality can be returned" - Something wrong with the English here. I don't understand what you mean.
