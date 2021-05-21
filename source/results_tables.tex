@@ -1,11 +1,12 @@
 
 \begin{table}[h]
 	\begin{tabular}
-		{|p{0.12\textwidth}|p{0.51\textwidth}|p{0.05\textwidth}|p{0.05\textwidth}|p{0.15\textwidth}|}
+		{|p{0.18\textwidth}|p{0.48\textwidth}|p{0.04\textwidth}|p{0.05\textwidth}|p{0.12\textwidth}|}
 		\hline
 		\textbf{Algorithm} & \textbf{Summary} & \textbf{Node count} & \textbf{Atomic tasks}  & \textbf{$(\alpha,\beta,\gamma)$}\\
 		\hline
 		\algorithmBalanced{}{} &  EWSN optimisation algorithm with balanced objectives. & $10$  & $(5,5,5)$   & $(0.33,0.33,0.33)$  \\
+		\algorithmQRouting{}{} &  Q-learning algorithm optimising task-paths network routes.  & $10$  & $(5,5,5)$   & $(0.5,0.5,0.0)$  \\
 		\algorithmBalancedExt{}{} &  EWSN optimisation algorithm with balanced objectives. & $25$ & $10$    & $(0.33,0.33,0.33)$  \\
 		\algorithmEnergy{}{} & EWSN with $80\%$ bias for energy consumption minimisation  & $25$ & $10$   & $(0.80,0.10,0.10)$  \\
 		\algorithmQuality{}{} & EWSN with $80\%$ bias for task quality maximisation. & $25$ & $10$   & $(0.10,0.80,0.10)$  \\
@@ -17,24 +18,50 @@
 	\label{table:summary_of_configurations}
 \end{table}
 
-\label{section:tables_results}
-\begin{table}[H]
+\begin{table}[ht]
+	\centering
 	\begin{tabular}{
-			|p{0.25\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|
+			|p{0.22\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|p{0.12\textwidth}|
 		}
-		\hline
-		\textbf{Algorithm} & \textbf{CTV $\%$ of optimal} & \textbf{$\%$ of energy available} & \textbf{Quality/energy available fraction} & \textbf{Average task-path depth} & \textbf{Energy distribution}\\
-		\hline
-		\algorithmBalanced{}{} & \resultsCTVBalancedEnd{}{}   & \resultsEnergyBalancedEnd{}{} &  &  & \\ 
-		\algorithmBalancedExt{}{} & \resultsCTVBalancedExtEnd{}{}  & \resultsEnergyBalancedExtEnd{}{} &  &  & \\
-		\hline
-		\algorithmEnergy{}{} &    &  &  n/a  & \resultsArcDepthEnergyEnd{}{} & \resultsTaskDistEnergyEnd{}{}\\
-		\algorithmQuality{}{} &    &  & \resultsQEQualityDiff{}{} & \resultsArcDepthQualityEnd{}{} & \resultsTaskDistQualityEnd{}{} \\
-		\algorithmDistribution{}{} &    & & \resultsQEDistDiff{}{} & \resultsArcDepthDistEnd{}{} & \resultsTaskDistDistEnd{}{}\\
+\hline
+		\textbf{Algorithm}
+			& \textbf{CTV $\%$ of optimal}
+			& \textbf{$\%$ of energy available} 
+			& \textbf{Quality/energy available fraction} 
+			& \textbf{Average task-path depth}
+			& \textbf{Energy distribution} \\
+\hline
+		\algorithmBalanced{}{}
+			& \resultsCTVBalancedEnd{}{} 
+			& \resultsEnergyBalancedEnd{}{}
+			& & & \\
+		\algorithmQRouting{}{}
+			& \resultsCTVQRoutingEnd{}{} 
+			& \resultsEnergyQRoutingEnd{}{} 
+			& & & \\
+	%	\algorithmBalancedExt{}{}
+		%	& \resultsCTVBalancedExtEnd{}{} 
+	%		& \resultsEnergyBalancedExtEnd{}{}
+	%		& & & \\
+	\hline
+	\algorithmEnergy{}{} 
+		& & 
+		&  n/a  
+		& \resultsArcDepthEnergyEnd{}{} 
+		& \resultsTaskDistEnergyEnd{}{} \\
+	\algorithmQuality{}{} 
+		& & 
+		& \resultsQEQualityDiff{}{} 
+		& \resultsArcDepthQualityEnd{}{} 
+		& \resultsTaskDistQualityEnd{}{} \\
+	\algorithmDistribution{}{}
+		& & 
+		& \resultsQEDistDiff{}{} 
+		& \resultsArcDepthDistEnd{}{} 
+		& \resultsTaskDistDistEnd{}{} \\
 	\hline
 \end{tabular}
-\centering
 \captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
-\caption{Experimental results for each system after 500 episodes}
+\caption{Experimental results for after 500 episodes}
 \label{table:results}
 \end{table}
