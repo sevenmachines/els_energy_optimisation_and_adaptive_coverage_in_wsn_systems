@@ -10,15 +10,20 @@
 \newcommand{\acronymWSNOptimisationArc}[2]{AN-HTAO (Task-path agents)}
 \newcommand{\acronymWSNOptimisationArcExtended}[2]{agent networks with hierarchical task allocation optimisation, arc agents (\acronymWSNOptimisationArc{}{})}
 
-\newcommand{\simulationSimple}[2]{simple}
-\newcommand{\simulationExtended}[2]{extended}
+\newcommand{\simulationSimple}[2]{\texttt{simple}}
+\newcommand{\simulationExtended}[2]{\texttt{extended}}
+\newcommand{\simulationNodeFailure}[2]{\texttt{node-failure}}
 
-\newcommand{\algorithmBalanced}[2]{an-htao}
-\newcommand{\algorithmBalancedExt}[2]{an-htao (extended)}
-\newcommand{\algorithmEnergy}[2]{energy (\algorithmBalanced{}{})}
-\newcommand{\algorithmQuality}[2]{quality (\algorithmBalanced{}{})}
-\newcommand{\algorithmDistribution}[2]{distribution (\algorithmBalanced{}{})}
-{}
 
+\newcommand{\algorithmSymbol}[2]{#1}
+\newcommand{\algorithmBalanced}[2]{\algorithmSymbol{an-htao}{}}
+\newcommand{\algorithmBalancedExt}[2]{\algorithmSymbol{an-htao (extended)}{}}
+\newcommand{\algorithmNodeFailure}[2]{\algorithmSymbol{an-htao (failure)}{}}
+\newcommand{\algorithmEnergy}[2]{\algorithmSymbol{an-htao (energy)}{}}
+\newcommand{\algorithmQuality}[2]{\algorithmSymbol{an-htao (quality)}{}}
+\newcommand{\algorithmDistribution}[2]{\algorithmSymbol{an-htao (distribution)}{}}
+\newcommand{\algorithmQRouting}[2]{\algorithmSymbol{q-routing}}
+
+\newcommand{\algorithmBaseline}{\algorithmQRouting{}{}}
 \newcommand{\acronymQRouting}[2]{Q-Routing}
-\newcommand{\algorithmQRouting}[2]{q-routing}
+

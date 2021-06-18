@@ -6,6 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Since network impacts will mean that some nodes will not be able to be allocated an atomic task, temporarily or permanently, an agent trying to complete a composite task may not be able to do so. We can therefore use the proportion of atomic tasks of a given composite task that are completed successfully as a measure of how resilient the network is, how well it has adapted to impact and loss of nodes. For each completed composite task $\varCompositeTask{}{}$, we have a corresponding set of successfully completed atomic tasks, $\varCompositeTask{}{*} \subseteq \varCompositeTask{}{}$, so the \textit{coverage} of $\varCompositeTask{}{}$ is simply  $\funcSize{\varCompositeTask{}{*}}/\funcSize{\varCompositeTask{}{}}$. We can use this to measure the \textit{system coverage} over a time period $\setTime{}{}$, the average coverage of all composite tasks completed in during that period
 \begin{equation}
+	\label{eq:coverage}
 	\functionSystemCoverage{}{} = \sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}} \frac{ \funcSize{\varCompositeTask{}{*}}/\funcSize{\varCompositeTask{}{}}}{\funcSize{\setCompositeTask{}{}}{}}
 \end{equation}
 
