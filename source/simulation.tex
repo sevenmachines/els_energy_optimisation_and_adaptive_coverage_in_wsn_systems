@@ -15,6 +15,7 @@
 
 The simulation framework to evaluate the algorithms' performance was based on a realistic deployment scenario as covered by  \cite{Gomez2015} and others \citep{Jha2016, Avram}. In this scenario a UAV is used to deploy a large number of sensors over a expansive and remote geographical area, giving an ad-hoc, randomised placement of devices. Solar power cells are used to maintain enough energy to power the sensors over a number of years, given low enough power consumption. 
 
+\subsection{System configurations}
 We simulated three systems and evaluated the algorithm in different configurations (See Figure \ref{fig:system-types}).  
 \begin{enumerate}
 	\item The \simulationSimple{}{} system simulates a basic environment examining energy and quality optimisation, with  equal weighting for each of the CTV components $\alpha, \beta, \gamma$ (Eq. \ref{eq:ctv}). $1$ sink node and $10$ other nodes were distributed randomly in the system, each one initially connected to $3$ other nodes that were randomly chosen with a bias towards closer located nodes\footnote{

@@ -93,7 +93,7 @@
 	\begin{minipage}{.49\textwidth}
 	\centering
 	\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{5.19_ctv-task-distribution-comparison}
-	\caption{The variance of unique sensor agents completing \newline atomic tasks \newline in the \simulationExtended{}{} system.}
+	\caption{The variance of unique sensor agents completing \newline atomic tasks  in the \simulationExtended{}{} system.}
 		\label{fig:extended_task_distribution}
 \end{minipage}
 \end{figure}
@@ -108,27 +108,17 @@
 \begin{minipage}{.49\textwidth}
 \end{minipage}
 \end{figure}
-\todo[inline]{START HERE}
 
-\todo[inline]{CTV and energy optimisation better than q-routing}
+\subsection{System utility and energy availability optimisation}
+As seen in Figures \ref{fig:simple_ctv} and \ref{fig:simple_energy} , the \algorithmBalanced{}{} algorithm optimises the system utility by \resultsSimpleCTVBalancedDiff{}{}  in the \simulationSimple{}{} system over $1000$ episodes, compared to \resultsSimpleCTVQRoutingDiff{}{} for the \algorithmQRouting{}{} algorithm. Energy availability also increases by \resultsSimpleEnergyBalancedDiff{}{} for \algorithmBalanced{}{} algorithm and \resultsSimpleEnergyQRoutingDiff{}{} for \algorithmQRouting{}{}. Over the lifetime of the system the \algorithmBalanced{}{} algorithm accumulates \resultsSimpleCumulativeCTVComparison{}{} more system utility than \algorithmQRouting{}{} and \resultsSimpleCumulativeEnergyComparison{}{} more energy availability (Figures \ref{fig:simple_cumulative_ctv} and \ref{fig:simple_cumulative_energy} ). These results demonstrate that the performance of \acronymWSNOptimisation{}{} even in a stable system is an improvement on \acronymQRouting{}{}
 
-As seen in Figure \ref{fig:5_ctv-optimal-ctv-gain}, the \algorithmBalanced{}{} algorithm optimises the utility by \resultsCTVBalancedDiff{}{}  in the \simulationSimple{}{} system and by \resultsCTVBalancedExtDiff{}{} in the \simulationExtended{}{} system over the $1000$ episodes. The energy available in the systems overall is shown in Figure \ref{fig:ctv-statistics-energy-available}. As the algorithm improves the routing for task allocation, the energy consumption of the system is reduced, the available energy going from \resultsEnergyBalancedStart{}{} to \resultsEnergyBalancedEnd{}{} in the \simulationSimple{}{} system, and by \resultsEnergyBalancedExtStart{}{} to \resultsEnergyBalancedExtEnd{}{} in the \simulationExtended{}{} one. Note that the task values theoretical maximum becomes less statistically likely to be achievable the larger the system due to the ad-hoc, random layout of the nodes. Importantly however, the task-values themselves are shown to optimised by the algorithm. In contrast, for energy availability, in larger systems there is more possible task-path configurations that can complete tasks, and more nodes that are not involved, so the  energy consumption as a fraction of energy overall is reduced. In both the \simulationSimple{}{} and \simulationExtended{}{} systems though, we see the energy availability in the system overall increasing with system time.
+\subsection{Node loss impact on coverage and optimisation}
 
-\todo[inline]{Impact on CTV and energy is less in an-htao and recovers better}
-
-From Figure \ref{fig:node_failure_failed_agents} we can see that, in the \simulationNodeFailure{}{} system,  \resultsNodeFailureFailedAgentsBalancedDiff{}{} of agents on average in the system fail during the disruptive episode range of $20-40$. The coverage  of tasks using the \algorithmBalanced{}{} algorithm falls by \resultsNodeFailureCoverageBalancedDiff{}{} during this period, $5.5\%$ less of a fall than the \resultsNodeFailureCoverageQRoutingDiff{}{} of the \algorithmQRouting{}{} algorithm. The ability of the \algorithmBalanced{}{} algorithm to absorb node failure better than the \algorithmQRouting{}{} algorithm is also seen in the drop in both system utility, \resultsNodeFailureCTVBalancedImpactDiff{}{} as compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}, and for the energy available, \resultsNodeFailureCTVBalancedImpactDiff{}{} compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}.
+From Figure \ref{fig:node_failure_failed_agents} we can see that, in the \simulationNodeFailure{}{} system, as we gradually simulate the failure of nodes from episode $20-40$,  \resultsNodeFailureFailedAgentsBalancedDiff{}{} of them become unavailable. The coverage  of tasks using the \algorithmBalanced{}{} algorithm falls by \resultsNodeFailureCoverageBalancedDiff{}{} during this period, $5.5\%$ less than the \resultsNodeFailureCoverageQRoutingDiff{}{} drop of the \algorithmQRouting{}{} algorithm. The ability of the \algorithmBalanced{}{} algorithm to absorb node failure better than the \algorithmQRouting{}{} algorithm is also seen in both the impact on system utility, \resultsNodeFailureCTVBalancedImpactDiff{}{} as compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}, and for the energy available, \resultsNodeFailureCTVBalancedImpactDiff{}{} compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}.
 
 
-	\label{fig:node_failure_failed_agents}
+\subsection{Algorithm adaptability and system behaviour}
 
-\label{fig:node_failure_coverage}
-\label{fig:node_failure_ctv}
-\label{fig:node_failure_cumulative_ctv}
-\label{fig:node_failure_energy}
-\label{fig:node_failure_cumulative_energy}
-
-
-\todo[inline]{CTV balance effects system optimisation behaviour}
 We now look at the extended system in detail to examine how the algorithm vary the balance  of optimisation over the CTV components, allowing multiple-objectives to be targeted. Figure 	\ref{fig:ctv-quality-energy-baseline-comparison} shows the task quality to energy availability ratio. 
 As quality is preferentially optimised for over energy availability, values range higher. The \algorithmQuality{}{} algorithm, with its higher $\gamma$ value, optimises for task values by \resultsQEQualityEnd{}{} over the \algorithmEnergy{}{} algorithm, and the \algorithmDistribution{}{} algorithm by \resultsQEDistDiff{}{}. 
 
@@ -144,4 +134,7 @@ In Figure \ref{fig:ctv-task-distribution-comparison} we see how completed atomic
 
 Relating these results to the systems in Figure \ref{fig:result-types}, the \algorithmEnergy{}{} algorithm is close to configuration in Figure \ref{fig:result-types}$(a)$, where energy consumption is reduced by using shorter task-paths and so, the amount of energy used by agents in the system to broadcast task re-allocations. The cost of this is that the tasks are completed to a lower quality. In Figure \ref{fig:result-types}$(c)$, task-path depths are large so that tasks can be completed by agents close to their demand points, increasing task quality as well as consumption, as seen in the results for the \algorithmQuality{}{} algorithm. The configuration in Figure \ref{fig:result-types}$(b)$ explains the results seen with the \algorithmDistribution{}{} algorithm, where tasks are completed by an increased number of different agents with different task-path depths and task qualities, giving a greater distribution of task completions and energy usage, but with more energy consumption overall than the \algorithmEnergy{}{} algorithm, and less task-quality than the \algorithmQuality{}{} algorithm.
 
+\subsection{Summary and comparison}
 As seen both the \simulationSimple{}{} and \simulationExtended{}{} system configurations, utility and energy availability are both optimised by the algorithm, showing it achieves two of the main goals for applications in WSN. Additionally, the results of the \algorithmEnergy{}{}, \algorithmQuality{}{}, and \algorithmDistribution{}{}-optimised algorithms in the \simulationExtended{}{} system show that we can adapt the balance of the CTV components through varying values of $\alpha$, $\beta$, and $\gamma$, to achieve an adaptive multi-objective optimisation of the system.
+
+With a CTV balance optimised solely to minimise energy consumption, i.e. $(\alpha=1,\beta=0,\gamma=0)$, the \acronymWSNOptimisation{}{} algorithm behaves similarly to energy-aware algorithms applied to WSN. In this configuration comparisons can be made with algorithms such as PEGASIS \citep{Lindsey2002}, or more closely to Q-routing algorithms like Q-probabilistic routing \citep{Arroyo-Valles2007}. However, the task allocation and resource optimisation component of the \acronymWSNOptimisation{}{} algorithm is not accounted for in these implementations so provides only a comparison for the energy and route adaptation properties. 
