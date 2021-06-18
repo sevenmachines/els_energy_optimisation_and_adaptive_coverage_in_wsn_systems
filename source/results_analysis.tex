@@ -3,14 +3,14 @@
 		\centering
 		\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{520balanced_statistics-optimal-ctv}
 		\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Average CTV per-episode in the \simulationSimple{}{} system.}
+		\caption{Average system utility per-episode in the \simulationSimple{}{} system.}
 		\label{fig:simple_ctv}
 	\end{minipage}
 	\begin{minipage}{.49\textwidth}
 		\centering
 		\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{520comparison_statistics-optimal-ctv-comparison-cumulative}
 		\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Cumulative CTV in the \simulationSimple{}{} system.}
+		\caption{Cumulative system utility in the \simulationSimple{}{} system.}
 		\label{fig:simple_cumulative_ctv}
 	\end{minipage}\hfill% 
 \end{figure}
@@ -54,14 +54,14 @@
 		\centering
 		\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{7balanced_statistics-optimal-ctv}
 		\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Average CTV per-episode in the \newline \simulationExtended{}{} system.}
+		\caption{Average system utility per-episode in the \newline \simulationNodeFailure{}{} system.}
 		\label{fig:node_failure_ctv}
 \end{minipage}
 \begin{minipage}{.49\textwidth}
 	\centering
 	\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{7comparison_statistics-optimal-ctv-comparison-cumulative}
 	\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Cumulative CTV in the \simulationExtended{}{}\newline system.}
+		\caption{Cumulative system utility in the \simulationNodeFailure{}{}\newline system.}
 		\label{fig:node_failure_cumulative_ctv}
 \end{minipage}\hfill% 
 \end{figure}
@@ -71,14 +71,14 @@
 		\centering
 		\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{7balanced_statistics-energy-available}
 		\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Percentage energy available per-episode \newline in the \simulationExtended{}{} system.}
+		\caption{Percentage energy available per-episode \newline in the \simulationNodeFailure{}{} system.}
 		\label{fig:node_failure_energy}
 	\end{minipage}
 	\begin{minipage}{.49\textwidth}
 		\centering
 		\includegraphics[width=1.0\linewidth,trim={25pt 0pt 50pt 0pt},clip]{7comparison_statistics-energy-available-baseline-comparison-cumulative}
 		\captionsetup{labelfont=bf,singlelinecheck=on}
-		\caption{Cumulative percentage energy available \newline in the \simulationExtended{}{} system.}
+		\caption{Cumulative percentage energy available \newline in the \simulationNodeFailure{}{} system.}
 		\label{fig:node_failure_cumulative_energy}
 	\end{minipage}\hfill% 
 \end{figure}
@@ -108,9 +108,27 @@
 \begin{minipage}{.49\textwidth}
 \end{minipage}
 \end{figure}
+\todo[inline]{START HERE}
 
-As seen in Figure \ref{fig:5_ctv-optimal-ctv-gain}, the \algorithmBalanced{}{} algorithm optimises the utility by \resultsCTVBalancedDiff{}{}  in the \simulationSimple{}{} system and by \resultsCTVBalancedExtDiff{}{} in the \simulationExtended{}{} system over the $500$ episodes. The energy available in the systems overall is shown in Figure \ref{fig:ctv-statistics-energy-available}. As the algorithm improves the routing for task allocation, the energy consumption of the system is reduced, the available energy going from \resultsEnergyBalancedStart{}{} to \resultsEnergyBalancedEnd{}{} in the \simulationSimple{}{} system, and by \resultsEnergyBalancedExtStart{}{} to \resultsEnergyBalancedExtEnd{}{} in the \simulationExtended{}{} one. Note that the task values theoretical maximum becomes less statistically likely to be achievable the larger the system due to the ad-hoc, random layout of the nodes. Importantly however, the task-values themselves are shown to optimised by the algorithm. In contrast, for energy availability, in larger systems there is more possible task-path configurations that can complete tasks, and more nodes that are not involved, so the  energy consumption as a fraction of energy overall is reduced. In both the \simulationSimple{}{} and \simulationExtended{}{} systems though, we see the energy availability in the system overall increasing with system time.
+\todo[inline]{CTV and energy optimisation better than q-routing}
 
+As seen in Figure \ref{fig:5_ctv-optimal-ctv-gain}, the \algorithmBalanced{}{} algorithm optimises the utility by \resultsCTVBalancedDiff{}{}  in the \simulationSimple{}{} system and by \resultsCTVBalancedExtDiff{}{} in the \simulationExtended{}{} system over the $1000$ episodes. The energy available in the systems overall is shown in Figure \ref{fig:ctv-statistics-energy-available}. As the algorithm improves the routing for task allocation, the energy consumption of the system is reduced, the available energy going from \resultsEnergyBalancedStart{}{} to \resultsEnergyBalancedEnd{}{} in the \simulationSimple{}{} system, and by \resultsEnergyBalancedExtStart{}{} to \resultsEnergyBalancedExtEnd{}{} in the \simulationExtended{}{} one. Note that the task values theoretical maximum becomes less statistically likely to be achievable the larger the system due to the ad-hoc, random layout of the nodes. Importantly however, the task-values themselves are shown to optimised by the algorithm. In contrast, for energy availability, in larger systems there is more possible task-path configurations that can complete tasks, and more nodes that are not involved, so the  energy consumption as a fraction of energy overall is reduced. In both the \simulationSimple{}{} and \simulationExtended{}{} systems though, we see the energy availability in the system overall increasing with system time.
+
+\todo[inline]{Impact on CTV and energy is less in an-htao and recovers better}
+
+From Figure \ref{fig:node_failure_failed_agents} we can see that, in the \simulationNodeFailure{}{} system,  \resultsNodeFailureFailedAgentsBalancedDiff{}{} of agents on average in the system fail during the disruptive episode range of $20-40$. The coverage  of tasks using the \algorithmBalanced{}{} algorithm falls by \resultsNodeFailureCoverageBalancedDiff{}{} during this period, $5.5\%$ less of a fall than the \resultsNodeFailureCoverageQRoutingDiff{}{} of the \algorithmQRouting{}{} algorithm. The ability of the \algorithmBalanced{}{} algorithm to absorb node failure better than the \algorithmQRouting{}{} algorithm is also seen in the drop in both system utility, \resultsNodeFailureCTVBalancedImpactDiff{}{} as compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}, and for the energy available, \resultsNodeFailureCTVBalancedImpactDiff{}{} compared to \resultsNodeFailureCTVQRoutingImpactDiff{}{}.
+
+
+	\label{fig:node_failure_failed_agents}
+
+\label{fig:node_failure_coverage}
+\label{fig:node_failure_ctv}
+\label{fig:node_failure_cumulative_ctv}
+\label{fig:node_failure_energy}
+\label{fig:node_failure_cumulative_energy}
+
+
+\todo[inline]{CTV balance effects system optimisation behaviour}
 We now look at the extended system in detail to examine how the algorithm vary the balance  of optimisation over the CTV components, allowing multiple-objectives to be targeted. Figure 	\ref{fig:ctv-quality-energy-baseline-comparison} shows the task quality to energy availability ratio. 
 As quality is preferentially optimised for over energy availability, values range higher. The \algorithmQuality{}{} algorithm, with its higher $\gamma$ value, optimises for task values by \resultsQEQualityEnd{}{} over the \algorithmEnergy{}{} algorithm, and the \algorithmDistribution{}{} algorithm by \resultsQEDistDiff{}{}. 
 
