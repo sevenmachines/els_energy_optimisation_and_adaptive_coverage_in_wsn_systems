@@ -84,13 +84,13 @@ In our assumed system there is a geographical area to monitor  on which a set of
 \newcommand{\functionIdleRole}[2]{\functionSignature{idle}{\varAtomicTask{}{}}}
 \newcommand{\functionSleepRole}[2]{\functionSignature{sleep}{\varAtomicTask{}{}}}
 
-To simplify discussion of task execution we distinguish agents by the role they play in a given atomic task. These roles will also define the energy used by the nodes in executing a composite task and component atomic tasks \citep{Gupta2014}.
+To simplify discussion of task execution we distinguish agents by the role they play in a given atomic task. These roles will also define the energy used by the nodes in executing a composite task and their component atomic tasks.
 \begin{itemize}
-	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will broadcast the results, $\formalSinkRole{}{}$.
+	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ is the agent that first receives the corresponding composite task, and will return the results, $\formalSinkRole{}{}$.
 	\item A \textit{sensing node} is the agent that executes the atomic task and so performs the sensor measurement, $\formalSenseRole{}{}$.
 	\item An \textit{active node} is an agent that participates in sub-allocating, or routing, that task, but is neither a sink agent nor a sensing agent, $\formalActiveRole{}{}$.
 	\item An \textit{idle node} does not participate in the specific task, but does in other tasks in the system during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
 	\item A \textit{sleeping node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
 \end{itemize}
 With these roles in mind, we can now define the  \textit{task-path} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is the sink node that has received the initial composite task, and the last agent is the sensing agent that executes the atomic task, with the sequence of agents in-between relaying the atomic task. So for a task path of depth $n$, we have
-$\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n-1}$. 
+$\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n-2}$. 

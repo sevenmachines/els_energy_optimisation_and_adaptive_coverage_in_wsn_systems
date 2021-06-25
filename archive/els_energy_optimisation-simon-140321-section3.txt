@@ -61,11 +61,22 @@ Section 3.3
 ====
 Paragraph 1: It is unclear what you are saying is claimed in or taken from source "(Gupta and Sinha, 2014)".
 
+[X] Removed, lost relevance after a previous edit
+
+
 Paragraph 2, item 1: Why would a sink node "broadcast" the results rather than just return them to the requester?
+
+[X] just 'return'
+
 
 Paragraph 2, item 5: "A sleeping node... sink_phi" - Shouldn't it be called "sleeping_phi" or similar?
 
+[X] Fixed
+
 Paragraph 3: "for an arc of length n, we have..." - There appears to be n+1 nodes in the given arc not n: 1 sink node, n-1 active nodes and 1 sensor node. 
+
+[X] Fixed
+
 
 Section 3.4
 ====
