@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%
 \newcommand{\functionAtomicTaskQualitySignature}[2]{
-	\functionSignature{q_{\varAgent{}{}, \varTime{}{}}} {\varAtomicTask{}{}}
+	\functionSignature{q} {\varAtomicTask{}{}, \varAgent{}{}}
 }
 \newcommand{\functionCompositeTaskValue}[2]{
 	\functionSignature{ctv}{\varAtomicTask{}{}}
@@ -14,23 +14,30 @@
 \newcommand{\functionTaskAbsoluteValue}[2]{
 	\functionSignature{atv}{\varCompositeTask{}{}, \varAtomicTask{}{}}
 }
+
+\newcommand{\functionRelativeDistance}[2]{
+	\functionSignature{dist}{\varAtomicTask{}{}, \varAgent{}{}}
+}
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
 
-An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks' demand point.  In addition, the longer the sample time of the measurement the more energy is used, but the more accurate the reading will be. Therefore,  we specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of resources used to make the measurement. 
-
+An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks' demand point.  In addition, the longer the sample time of the measurement the more accurate the reading will be, however,  more energy is used. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 
-		\frac
-		{\functionTaskResourceAllocation{}{}}
-		{\funcSize{
-				\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{} 
-			}{} }
+	{\functionTaskResourceAllocation{}{}}
+	\bigg ( 1 - \frac{\funcSize{
+			\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{} 
+		}{}}{{\sqrt{2}}}\bigg )
 \end{equation}
 
-
-The \textit{component task value}, the proportional value of an atomic task $\varAtomicTask{}{}$ to the corresponding composite task $\varCompositeTask{}{}$, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives. Firstly, the energy available in the system, therefore minimising the overall battery power consumption. Secondly, the distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system. Lastly, the quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. Therefore the \textit{composite task value} of a composite task $\varCompositeTask{}{}$ is defined with these multiple objectives,
+The proportional value of an atomic task to the corresponding composite task, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives such as,
+\begin{enumerate}
+	\item The energy available in the system, therefore minimising the overall battery power consumption. 
+	\item The distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system.
+	\item The quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. 
+\end{enumerate}
+Therefore we define an atomic tasks' \textit{component task value} with these multiple objectives included as terms,
 \begin{equation}
 	\label{eq:ctv}
 	\functionCompositeTaskValue{}{} = 

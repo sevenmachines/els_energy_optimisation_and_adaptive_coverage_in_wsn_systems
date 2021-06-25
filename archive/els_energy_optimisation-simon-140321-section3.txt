@@ -100,25 +100,50 @@ Section 3.5
 
 "For each completed composite task..." - How do we define a composite task as being completed or not? Your implication here is that completion of a composite task doesn't depend on completion of its atomic components (else your coverage metric doesn't make sense), so what does it depend on?
 
+[X] Redefined all of this
+
+
 Section 3.6
 ====
 Formula (5): What is phi? It is not defined. Also, it is only used on the left-hand side of the equation, so that implies it is not necessary at all and can be removed (i.e. the right-hand side of the equation is not dependent on phi anyway).
 
+[X] Removed
+
+
 Formula (5): The multiplied terms are in different units, so how do you normalise these? If you measured the distance in metres or in millimetres, this would radically change the weighting given to the energy term in the quality measure.
 
+[X] Normalised using the unit length of the location grid as a whole
+
+
+
 Paragraph 2: "The composite task value, the proportional value of an atomic task" - It seems confusing to call the variable "composite task" if it is about an atomic task not a composite task. I seem to remember in the previous paper, we used the term "component task value" to refer to an atomic task's value in the context of (as a component of) a composite one.
+
+[X] My confused terminology
+
 
 Paragraph 2: "The composite task value... will not only be dependent on the quality of the atomic task, but also on additional system wide objectives" - OK, but why? You have not explained this.
 
 Paragraph 2: The sentences starting "Firstly", "Secondly" and "Lastly" are not complete grammatical English sentences.
 
+[X] Replaced with an enumerated list
+
 Paragraph 2: Therefore, the composite task value of a composite task ct" - Term "ct" does not appear in Formula (6), so what is it for?
+
+[X] Dropped
 
 Formula (7): Term "g" appears on the right-hand side but where does it come from? It is not on the left-hand side nor a term introduced in the sum iteration. The equation is therefore incomplete and couldn't be implemented.
 
+[X] Removed
+
+
 Formulae (7) and (8) seem to imply that ctv(at) sums to 1 for the atomic tasks of any given composite task, as they are treated like proportions, but I can't see why this would necessarily hold from anything written.
 
+[X] alpha, beta and gamma are proportions, so sum to one. ctv should be in the range [0, 1], not necessarilly sum to one?
+
+
 There were quite a few missing or misplaced apostrophes in this section. I've fixed them, but please take care.
+
+[X] Thanks!
 
 Section 3.7
 ====
