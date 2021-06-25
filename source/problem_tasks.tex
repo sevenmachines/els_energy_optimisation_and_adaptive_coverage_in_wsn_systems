@@ -17,14 +17,20 @@
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
 
-An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks demand point. For example, a sensor is capable of taking a measurement of the radiation levels at the location of its sensor, which may be a distance away from the task's demand point. In addition, the longer the sample time the more energy is used, but the more accurate the reading will be. We therefore specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of energy used to make the measurement.
+An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}, a quality that is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks' demand point.  In addition, the longer the sample time of the measurement the more energy is used, but the more accurate the reading will be. Therefore,  we specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a function of the distance of the task from the requested position, and the amount of resources used to make the measurement. 
+
 \begin{equation}
-\label{eq:atomic_task_quality}
-	\functionAtomicTaskQualitySignature{}{} = \functionTaskResourceAllocation{}{} \times \funcSize{
-			\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{}
-	}{}
+	\label{eq:atomic_task_quality}
+	\functionAtomicTaskQualitySignature{}{} = 
+		\frac
+		{\functionTaskResourceAllocation{}{}}
+		{\funcSize{
+				\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{} 
+			}{} }
 \end{equation}
-The \textit{composite task value}, the proportional value of an atomic task $\varAtomicTask{}{}$ to the corresponding composite task $\varCompositeTask{}{}$, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives. Firstly, the energy available in the system, therefore minimising the overall battery power consumption. Secondly, the distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system. Lastly, the quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. Therefore the \textit{composite task value} of a composite task $\varCompositeTask{}{}$ is defined with these multiple objectives,
+
+
+The \textit{component task value}, the proportional value of an atomic task $\varAtomicTask{}{}$ to the corresponding composite task $\varCompositeTask{}{}$, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives. Firstly, the energy available in the system, therefore minimising the overall battery power consumption. Secondly, the distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system. Lastly, the quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. Therefore the \textit{composite task value} of a composite task $\varCompositeTask{}{}$ is defined with these multiple objectives,
 \begin{equation}
 	\label{eq:ctv}
 	\functionCompositeTaskValue{}{} = 
