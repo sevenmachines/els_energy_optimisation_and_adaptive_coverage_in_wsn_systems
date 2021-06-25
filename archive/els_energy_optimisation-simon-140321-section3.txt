@@ -2,39 +2,60 @@ It would be good to show explicitly in this section that you are tackling the re
 
 Throughout, you have some multi-letter terms that have strange spacing because of LaTeX maths mode, e.g. see "dp" in Section 3.1, "TE" and "fae" in Section 3.4. You can use \mathit{...} to get better looking results. I assume this may apply to later sections too.
 
+
 Intro
-====
-XXX 
+==== 
 
 "we define our WSN system in terms of agents... we go on to look at the roles different agents play" - You are talking here as if the reader knows what agents mean in this context, but you haven't said. At the start of Section 3.1, you clarify that "A WSN system is comprised of a set of nodes or agents". But:
  (a) You need to say agents are the same as nodes earlier, i.e. when you first use the new term 'agent'.
  (b) If nodes and agents are the same thing then why are you using two terms for the same thing in your paper? This is surely just confusing.
  (c) Are they really the same thing anyway? Intuitively, a node is a structural thing, e.g. the hardware, whereas an agent is something that acts, e.g. the software controller.
 
+[X] Made these definitions clearer
+
 "the resilience of the network to impacts and failures" - What are 'impacts'?
+
+[X] Made these definitions clearer
 
 Section 3.1
 ====
 
-XXX 
 
 "Requests for measurement from outside the WSN are received from a capable agent" - I didn't understand this. Why is the agent outside the WSN? What is a 'capable agent' and does this imply other agents are 'incapable'?
+
+[X] Badd wording, cleared up
 
 
 Section 3.2
 ====
 Paragraph 1: "agents G are distributed randomly" - Do you really mean randomly? If so, why? Or do you mean arbitrarily?
 
+[X] Think I mean randomly, like aerial distribution scenarios, included citation and example.
+
+
 Paragraph 2: "Composite tasks are allocated from outside the system to sink nodes... These composite tasks are then decomposed by agents" - Which agents? The ones that are/that control the sink nodes?
+
+[X] Cleaned up nodes/agents confusion
+
+
 
 Paragraph 2: There are confusing formalisations in this paragraph, which are stated much more clearly in the formal definition of a system in paragraph 3. Maybe you should just remove the formalisms from paragraph 2? Specifically, the following are unclear:
  - "ar: G x Real -> Real>=0" - What is the left-hand Real referring to? It is not clear from the text.
  - "a certain amount of the resources it possesses r" - It is unclear from the sentence what this variable r refers to (one amount? a set of amounts? a function from resource to amount?) and the variable doesn't seem to be used in any formalisation anyway.
  - "ra_g: AT -> 2^RxReal" - This needs more explanation as the text does not make it's meaning clear. Variable R is undefined.
 
+[X] Removed formal stuff from 3.2 paragrah 2 and tidied up 
+
+
 Paragraph 3: List the parameters (AT, CT, G...) in the same order in the tuple and the list of definitions below it.
 
+[X] Reordered
+
+
 Paragraph 3: "ar: G x Real -> Real" - I assume the left-hand "Real" should be "R" (or else I don't understand).
+
+[X] Fixed
+
 
 Section 3.3
 ====

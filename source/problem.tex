@@ -92,11 +92,11 @@
 	\functionSignature{conf}{#1}
 	\fi 
 }
-\newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbers{}{} \times \setRealNumbers{}{})}}
+\newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
 \newcommand{\functionTaskArc}[2]{\functionSignature{path}{\varAtomicTask{}{}}}
 \newcommand{\formalTaskArc}[2]{\functionFormal{path}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}
 \newcommand{\functionTaskDemandPoint}[2]{\functionSignature{dp}{\varAtomicTask{}{}}}
-\newcommand{\formalTaskDemandPoint}[2]{\functionFormal{dp}{\setAtomicTask{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative)}}
+\newcommand{\formalTaskDemandPoint}[2]{\functionFormal{dp}{\setAtomicTask{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
 \newcommand{\varActiveAgent}[2]{\varAgent{#1}{\oplus}}
 \newcommand{\varInactiveAgent}[2]{\varAgent{#1}{\ominus}}
 \newcommand{\varSensingAgent}[2]{\varAgent{#1}{\ast}}
@@ -108,12 +108,12 @@
 \newcommand{\varResource}[2]{\varSymbol{r}{#1}{#2}}
 \newcommand{\setResource}[2]{\setSymbol{R}{#1}{#2}}
 \newcommand{\formalTaskResourceAllocation}[2]{
-	\functionFormal{ra_{\varAgent{}{}}}
-	{\setAtomicTask{}{}}
+	\functionFormal{ra}
+	{\setAgents{}{} \times \setAtomicTask{}{}}
 	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}{}}{}{}}
 }
 \newcommand{\functionTaskResourceAllocation}[2]{
-	\functionSignature{ra_{\varAgent{}{}}}
-	{\varAtomicTask{}{}}
+	\functionSignature{ra}
+	{\varAgent{}{}, \varAtomicTask{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
