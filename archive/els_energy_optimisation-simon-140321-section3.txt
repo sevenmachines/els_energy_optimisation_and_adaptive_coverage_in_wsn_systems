@@ -4,6 +4,8 @@ Throughout, you have some multi-letter terms that have strange spacing because o
 
 Intro
 ====
+XXX 
+
 "we define our WSN system in terms of agents... we go on to look at the roles different agents play" - You are talking here as if the reader knows what agents mean in this context, but you haven't said. At the start of Section 3.1, you clarify that "A WSN system is comprised of a set of nodes or agents". But:
  (a) You need to say agents are the same as nodes earlier, i.e. when you first use the new term 'agent'.
  (b) If nodes and agents are the same thing then why are you using two terms for the same thing in your paper? This is surely just confusing.
@@ -13,9 +15,11 @@ Intro
 
 Section 3.1
 ====
+
+XXX 
+
 "Requests for measurement from outside the WSN are received from a capable agent" - I didn't understand this. Why is the agent outside the WSN? What is a 'capable agent' and does this imply other agents are 'incapable'?
 
->
 
 Section 3.2
 ====
