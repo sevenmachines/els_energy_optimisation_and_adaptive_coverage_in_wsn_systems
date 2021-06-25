@@ -61,7 +61,7 @@ Section 3.3
 ====
 Paragraph 1: It is unclear what you are saying is claimed in or taken from source "(Gupta and Sinha, 2014)".
 
-[X] Removed, lost relevance after a previous edit
+[X] Removed, lost relevance after a previous edit	
 
 
 Paragraph 2, item 1: Why would a sink node "broadcast" the results rather than just return them to the requester?
@@ -85,6 +85,8 @@ Section 3.4
 Formula (1): I don't understand what kind of thing "TE" and "RE" are and so can't interpret the formula. As the symbols are written in capitals, I would assume they are sets, but in this formula they seem to be applied as functions to an integer value. If so, why? What does the function do and what is its signature? From the paragraph above, I assumed they were neither sets nor functions but constant values, i.e. the energy required by one node to send/receive one transmission. But if that's correct and I should read the formula as just a sum of multiplications, then why is RE multiplied by 4 (i.e. 2 times the arc length, then 2 times the energy)?
 
 You do not mention any energy required for sensing. Given that sensing is the atomic task purpose and you list sensing as a role of a node in Section 3.3, it is not intuitive why sensing requires no energy.
+
+[X] Rewritten
 
 Section 3.5
 ====

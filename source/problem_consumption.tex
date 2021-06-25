@@ -1,9 +1,27 @@
 \subsection{Energy consumption and availability}
-The \textit{atomic task energy consumption} is the energy used by all agents in the system in executing an atomic task $\varAtomicTask{}{}$. This is composed of transmission energies, $\varTransmissionEnergy{}{}$, the power used by nodes to  broadcast a message to allocate a task to another node, or reply with a task result. Receiver energy, $\varReceiverEnergy{}{}$, is the energy used by an agent to receive a message. Both transmission and receiving in an atomic task sequence of allocations involve all members of the task-path twice, apart from the sink and sensing nodes which will only transmit and receive once. Note, we make the assumption that the energy of a broadcast of receipt of a message is independent of range so that the energy use per-atomic task is
-\begin{equation}
-2\varTransmissionEnergy{}{} (\funcSize{\functionTaskArc{}{}}{} - 1)
-	+ 2\varReceiverEnergy{}{} (2 \funcSize{\functionTaskArc{}{}}{} - 1)
-\end{equation}
+The \textit{atomic task energy consumption} is the energy used by the nodes in the system in executing an atomic task. This is composed of,
+ \begin{itemize}
+ 	\item \textit{Transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 
+ 	\item \textit{Receiver energy}, $\varReceiverEnergy{}{}$, the energy used by a node to receive a message. 
+ 	 \item \textit{Sensor energy}, $\varSensorEnergy{}{}$,the energy used by a node to execute an atomic measurement task.
+ \end{itemize}
+For simplification, we assume that these values are constants in a given system. In which case, for a given task-path, the combined energy usage will be,
+\begin{align}
+\functionAtomicTaskEnergyConsumptionSignature{}{} 
+&= 
+\underbrace{(\varTransmissionEnergy{}{} + \varReceiverEnergy{}{})}_{\text{sink node}}
++ \underbrace{
+	2 (\varTransmissionEnergy{}{} + \varReceiverEnergy{}{})
+ 	(\funcSize{(\functionTaskArc{}{}}{} -2)
+}_{\text{active nodes}}
++ \underbrace{
+	 (
+	 	\varTransmissionEnergy{}{}
+	 	+ \varReceiverEnergy{}{}
+	 	+ \varSensorEnergy{}{}
+	 )
+ }_{\text{sensor node}}  
+\end{align}
 Although nodes would still use energy when in an idle power saving mode, or sleep mode, we disregard these for this formulation as we look to optimise the active node power usage only. There are other algorithms that can be used to optimise the cycling of power cell usage \citep{Escolar2014}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
