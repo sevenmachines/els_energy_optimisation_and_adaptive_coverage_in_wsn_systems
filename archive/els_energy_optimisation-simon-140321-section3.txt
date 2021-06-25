@@ -15,6 +15,8 @@ Section 3.1
 ====
 "Requests for measurement from outside the WSN are received from a capable agent" - I didn't understand this. Why is the agent outside the WSN? What is a 'capable agent' and does this imply other agents are 'incapable'?
 
+>
+
 Section 3.2
 ====
 Paragraph 1: "agents G are distributed randomly" - Do you really mean randomly? If so, why? Or do you mean arbitrarily?
