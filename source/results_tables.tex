@@ -23,44 +23,44 @@
 \begin{table}[ht]
 	\centering
 \begin{tabular}{
-			|p{0.18\textwidth}|p{0.11\textwidth}|p{0.11\textwidth}|p{0.11\textwidth}|p{0.09\textwidth}|p{0.11\textwidth}|p{0.10\textwidth}|
+			|p{0.18\textwidth}|p{0.10\textwidth}|p{0.09\textwidth}|p{0.11\textwidth}|p{0.13\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|
 		}
 \hline
 \textbf{Algorithm}
 	& \textbf{CTV \newline (average)}
-	& \textbf{CTV \newline(impact loss)}
+	& \textbf{CTV \newline(impact)}
 	& \textbf{CTV \newline(cumulative)}
 	& \textbf{Energy \newline (average)}
-	& \textbf{Energy \newline (impact loss)}
+	& \textbf{Energy \newline (impact)}
 	& \textbf{Energy  \newline(cumulative)} \\
 \hline
 		\algorithmBalancedSimple{}{}
-			& \resultsSimpleCTVBalancedEnd{}{} 
+			& \resultsSimpleCTVBalancedStart{}{} $\rightarrow$  \resultsSimpleCTVBalancedEnd{}{} 
 			& n/a
 			& \resultsSimpleCumulativeCTVComparison{}{}
-			& \resultsSimpleEnergyBalancedEnd{}{}
+			& \resultsSimpleEnergyBalancedStart{}{} $\rightarrow$  \resultsSimpleEnergyBalancedEnd{}{}
 			& n/a
 			& \resultsSimpleCumulativeEnergyComparison{}{} \\
 		\algorithmQRoutingSimple{}{} 
-			& \resultsSimpleCTVQRoutingEnd{}{} 
+			& \resultsSimpleCTVQRoutingStart{}{} $\rightarrow$  \resultsSimpleCTVQRoutingEnd{}{} 
 			& n/a
 			& $0.0$
-			& \resultsSimpleEnergyQRoutingEnd{}{}
+			& \resultsSimpleEnergyQRoutingStart{}{} $\rightarrow$  \resultsSimpleEnergyQRoutingEnd{}{}
 			& n/a
 			& $0.0$ \\
 			
 		\algorithmFailure{}{} 
-		& \resultsNodeFailureCTVBalancedEnd{}{} 
+		& \resultsNodeFailureCTVBalancedStart{}{}  $\rightarrow$  \resultsNodeFailureCTVBalancedEnd{}{} 
 		& \resultsNodeFailureCTVBalancedImpactDiff{}{}
 		& \resultsNodeFailureCumulativeCTVComparison{}{}
-		& \resultsNodeFailureEnergyBalancedEnd{}{}
+		& \resultsNodeFailureEnergyBalancedStart{}{} $\rightarrow$  \resultsNodeFailureEnergyBalancedEnd{}{}
 		& \resultsNodeFailureEnergyBalancedImpactDiff{}{} 
 		& \resultsNodeFailureCumulativeEnergyComparison{}{} \\
 		\algorithmQRoutingFailure{}{} 
-		& \resultsNodeFailureCTVQRoutingEnd{}{} 
+		& \resultsNodeFailureCTVQRoutingStart{}{} $\rightarrow$  \resultsNodeFailureCTVQRoutingEnd{}{} 
 		& \resultsNodeFailureCTVQRoutingImpactDiff{}{}
 		& $0.0$
-		& \resultsNodeFailureEnergyQRoutingEnd{}{}
+		& \resultsNodeFailureEnergyQRoutingEnd{}{}  $\rightarrow$  \resultsNodeFailureEnergyQRoutingEnd{}{}
 		& \resultsNodeFailureEnergyQRoutingImpactDiff{}{}
 		& $0.0$ \\
 \hline
