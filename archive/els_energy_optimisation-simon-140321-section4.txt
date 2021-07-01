@@ -28,18 +28,25 @@ It would help to refer to the algorithms more specifically in the activity boxes
 
 Box (3): "its Q-value for executing is low" - What does this mean? It does not seem connected to the paper text and "Q-value" is not used elsewhere. Also "its" should be "it is" (or at least "it's").
 
+[X] Reworded
 Section 4.2
 ====
 "The flowchart in Figure 4 shows how this agents" - I assume you mean "these agents" but also I wasn't clear which agents you are referring to?
+[X] Refined
 
 "utilise ATA-RIA and MG-RAO with these recursive actions enabled" - I didn't understand what you meant at at all by this.
+[X] Seems to have gone now in another edit
+
 
 "Algorithm 1 is for sink agents... and Algorithm 2 for other agents that form the arc for a task." - In Section 3.3, you named these 'sink nodes' and 'active nodes', so you should remain consistent with these terms.
+[x] To sink nodes and task-path agents
 
 "In both cases, the sink agent receives an atomic task quality value" - Do you mean "In both cases, once the task is completed, the sink agent receives..."? As I understand, the value only exists after the task is done.
+[X] Changed
 
 "If the action selected is one of info(g) or link(g), those actions are carried out without any task executions." - So that means that an atomic task is abandoned (never executed nor allocated elsewhere) if info/link are the chosen action? That seems unintuitive and should be expanded on as to why.
+[X] Explained
 
 "Once all atomic tasks have completed" - This case may not occur if info/link actions are chosen for some tasks. Recalling Section 3.5, it may also not happen if there are 'impacts'. So you additionally need to explain how the algorithm processes the case where not all atomic tasks are completed. Also, you need to explain what 'impacts' mean in the context of the algorithm to complete the link to Section 3.
-
+[X] Section 3 has been reworded to differentiate between 'completed' and 'successfully completed' in terms of coverage. So atomic tasks always complete, but not always at a high enough quality to be considered successful or relevant.
 
