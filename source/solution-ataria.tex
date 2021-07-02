@@ -76,9 +76,17 @@ The \acronymATARIA{}{} algorithm enables agents in the system to learn the best 
 \end{enumerate}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{ataria-simplified}
-	\caption{\textbf{Simplified \acronymATARIA{}{} flowchart}. XXX.}
-	\label{fig:arc-flow}
+	\includegraphics[width=0.8\linewidth, trim={65pt 0pt 65pt 0pt, clip}]{ataria-simplified}
+	\caption{\textbf{Simplified \acronymATARIA{}{} flowchart}. The diagram shows the decision-making and actions taken by an agent using the \acronymATARIA{}{}  algorithm. \newline
+		\textbf{(1)} The agent starts with the current tasks is has to process. \newline
+		\textbf{(2-3)} If the task is a request for information, the agent returns details of an agent from its knowledge base to the requester. \newline
+		\textbf{(4)} Otherwise, an action is chosen using the RT-ARP sub-algorithm. This algorithm selects the optimal action given the agents current state, based on a set of Q-learning values derived from past actions, and historical rewards.  \newline
+		\textbf{(5)} If the selected action is an \texttt{exec} action, the agent simply executes the task itself. \newline
+		\textbf{(6)} If the action is an \texttt{alloc} action, the task is allocated to another agent to complete, chosen from the agents' neighbourhood. \newline
+		\textbf{(7-9)} For an \texttt{info} action, the agent will send a request to another agent in its neighbourhood to return information on additional agents in the system. If the information it gets back increases its knowledge base beyond the size limit, it will judge which is the least important information using the SAS-KR algorithm, and remove that from its knowledge base. \newline
+		\textbf{(10-13)} For a \texttt{link} action, the agent will link the selected agent from its knowledge base into its neighbourhood. It will perform any pruning required to maintain the neighbourhood within its resource limitations by choosing to remove the agent that has provided the least task quality in the past. \newline
+}
+	\label{fig:ataria-simplified}
 \end{figure}
 
 The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values through the updating of Q-values in its temporal-update algorithm. The algorithm will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$, and knows of other agents $\setAgents{}{}$ through the function,
