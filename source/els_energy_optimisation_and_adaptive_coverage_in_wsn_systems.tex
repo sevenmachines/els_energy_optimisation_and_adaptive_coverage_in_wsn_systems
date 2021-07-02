@@ -43,6 +43,13 @@
 \tsc{DE}
 %%%
 
+\newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
+\newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
+\newcommand{\pushline}{\Indp}% Indent
+\newcommand{\popline}{\Indm\dosemic}% Undent
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}% Remove line number for one line
+
 \begin{document}
 	\let\WriteBookmarks\relax
 	\def\floatpagepagefraction{1}
@@ -102,6 +109,9 @@
 	\input{problem_coverage}
 	\input{problem_definition}
 	\input{solution}
+	\input{solution-anhtao}
+	\input{solution-ataria}
+	\input{solution-mgrao}
 	\input{algorithms}
 	\input{simulation}
 	\input{results}

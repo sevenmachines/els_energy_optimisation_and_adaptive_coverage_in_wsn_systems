@@ -1,20 +1,51 @@
 \subsection{The \acronymATARIA{}{} algorithm \citep{creech2021dynamic}}
 \label{appendix:algorithm-ataria}
 
+\newcommand{\acronymNeighbourhood}[2]{\texttt{neighbourhood}}
+\newcommand{\acronymActionSamples}[2]{\texttt{action-samples}}
+\newcommand{\acronymQValues}[2]{\texttt{q-values}}
+\newcommand{\acronymKnowledge}[2]{\texttt{knowledge}}
+\newcommand{\varTargetAgent}[2]{\varAgent{}{*}}
+
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
 	\footnotesize
 	
-	\caption{\textbf{The \acronymATARIA{}{} algorithm}}
+	\caption{\textbf{The simplified \acronymATARIA{}{} algorithm}}
 	\label{alg:ataria}
 	{
-		\KwIn{ $XXX$ , XXX}
-
-		\KwResult{$XXX$ , XXX}
+		\KwIn{ $\varAgent{}{}$ , The agent allocated the atomic task}
+		\KwIn{ $\varAtomicTask{}{}$ , An atomic task}
+		\KwIn{ $\acronymNeighbourhood{}{}$ , The \acronymNeighbourhood{}{} of agent $\varAgent{}{}$}
+		\KwIn{ $\acronymKnowledge{}{}$ , The \acronymKnowledge{}{} of agent $\varAgent{}{}$}
+		\KwIn{ $\acronymQValues{}{}$ , The \acronymQValues{}{} of agent $\varAgent{}{}$}
+		\KwIn{ $\acronymActionSamples{}{}$ , The \acronymActionSamples{}{} of agent $\varAgent{}{}$}
+\nonl
+\;
+		\KwResult{\acronymNeighbourhood{}{} , The updated neighbourhood values for $\varAgent{}{}$}
+		\KwResult{\acronymKnowledge{}{} , The updated knowledge values for $\varAgent{}{}$}
+		\KwResult{\acronymQValues{}{} , The updated q-value mappings values for $\varAgent{}{}$}
+		\KwResult{\acronymActionSamples{}{} , The updated action-samples values for $\varAgent{}{}$}
 		\nonl
 		\;
-		\tcp{XXX}
-		$XXX$ \;
-		\Return{$XXX$}
+
+			Select an action $\varAction{}{}$, with an optional target agent $\varTargetAgent{}{}$, using RT-ARP \;
+			\uIf{action is $\functionExec{}{}$ }{
+				$\varAgent{}{}$ executes the atomic task \;
+			}
+			\uElseIf{action is $\functionAlloc{\varAtomicTask{}{}}{\varTargetAgent{}{}}$}{
+				allocate the atomic task to agent $\varTargetAgent{}{}$ \;
+			}
+			\uElseIf{action is $\functionInfo{\varTargetAgent{}{}}{}$ }{
+				add an agent learned about from $\varTargetAgent{}{}$ to $\varAgent{}{}$'s knowledge\;
+				prune agent $\varAgent{}{}$'s knowledge  based on its resource limits \;			}
+			\uElseIf{action is $\functionLink{\varTargetAgent{}{}}{}$}{
+				add agent $\varTargetAgent{}{}$ to $\varAgent{}{}$'s neighbourhood \;
+				prune agent $\varAgent{}{}$'s neighbourhood  based on its resource limits \;
+		}
+		update the \acronymQValues{}{} for actions \;
+		update the TQSM \;
+		update the \acronymActionSamples{}{} \;
+		\Return{$\acronymNeighbourhood{}{}$, $\acronymKnowledge{}{}$, $\acronymQValues{}{}$, $\acronymActionSamples{}{}$}
 	}
 \end{algorithm}

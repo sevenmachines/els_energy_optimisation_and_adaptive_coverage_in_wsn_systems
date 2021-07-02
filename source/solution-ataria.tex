@@ -1,0 +1,95 @@
+\subsection{Optimisation algorithms for task allocation and resource allocation}
+\label{section:algorithm_summaries}
+%%%%%%%%%%%%%%%%
+\newcommand{\varAction}[2]{\varSymbol{a}{#1}{#2}}
+\newcommand{\functionExec}[2]{
+	\ifx &#1&
+	\texttt{exec}(\varAtomicTask{}{})
+	\else
+	\texttt{exec}(#1, #2)
+	\fi
+}
+\newcommand{\functionAlloc}[2]{
+	\ifx &#1&
+	\texttt{alloc}(\varAtomicTask{}{}, \varAgent{}{})
+	\else
+	\texttt{alloc}(#1, #2)
+	\fi
+}
+\newcommand{\functionInfo}[2]{
+	\ifx &#1&
+	\texttt{info}(\varAgent{}{})
+	\else
+	\texttt{info}(#1)
+	\fi
+}
+\newcommand{\functionLink}[2]{
+	\ifx &#1&
+	\texttt{link}(\varAgent{}{})
+	\else
+	\texttt{link}(#1)
+	\fi
+}
+\newcommand{\functionATARIA}[2]{
+	\functionSignature{
+		ataria_{\varAgent{}{}}
+	}{
+		\varAtomicTask{}{}, \varAgent{self}{}
+	}
+}	
+\newcommand{\formalATARIA}[2]{
+	\functionFormal{\texttt{ataria}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{
+		\texttt{exec}(\setAtomicTask{}{})
+		\times \texttt{alloc}(\setAtomicTask{}{}, \setAgents{}{})
+		\times \texttt{info}(\setAgents{}{})
+		\times \texttt{link}(\setAgents{}{})
+	}
+}
+\newcommand{\functionMGRAOWeighting}[2]{\texttt{mgrao-weight}(\varAtomicTask{}{}, \varAgent{self}{})}
+\newcommand{\formalMGRAOWeighting}[2]{
+	\functionFormal{\texttt{mgrao-weight}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
+	{
+		\setRealNumbers{}{}
+	}
+}
+\newcommand{\functionMGRAOUpdate}[2]{
+	\texttt{mgrao-update}_{\varAgent{}{}}
+	(\varAtomicTask{}{}, \functionTaskAbsoluteValue{}{})}
+\newcommand{\formalMGRAOUpdate}[2]{
+	\functionFormal{\texttt{mgrao-update}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
+	{
+		\setRealNumbers{}{}
+	}
+}
+%%%%%%%%%%%%
+
+The \acronymATARIA{}{} algorithm enables agents in the system to learn the best actions to take given their current state. This ranges from deciding which other agents to allocate tasks to and obtain the best composite task values, to exploring the system for other agents, while adapting connectivity to handle network disruption. An agent uses the \acronymATARIA{}{} algorithm to choose an action to take, which can be one of the following,
+\begin{enumerate}
+	\item $\functionExec{}{}$, The agent will execute the atomic task $\varAtomicTask{}{}$ itself.
+	\item $\functionAlloc{}{}$, the agent will allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
+	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
+	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection.
+\end{enumerate}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{ataria-simplified}
+	\caption{\textbf{Simplified \acronymATARIA{}{} flowchart}. XXX.}
+	\label{fig:arc-flow}
+\end{figure}
+
+The \acronymATARIA{}{} algorithm learns to select the actions that generate the best composite task values, and adapt the choice of action depending on how good the composite task values are in comparison to the historical values through the updating of Q-values in its temporal-update algorithm. The algorithm will select one of the possible actions for the agent $\varAgent{}{}$, given it has non-completed, allocated tasks $\setAtomicTask{}{}$, and knows of other agents $\setAgents{}{}$ through the function,
+\begin{equation}
+	\label{eq:ataria}\formalATARIA{}{}
+\end{equation}
+
+To enable agents to form task-paths we allow atomic tasks that have been allocated to an agent to be either executed by that agent, or re-allocated to further agents, through running the \acronymATARIA{}{} algorithm. Figure \ref{fig:arc-flow} illustrates a task-path where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{arc-flow}
+	\caption{\textbf{Allocation along a task-path}. This diagram illustrates how allocations can be relayed along a task-path using successive applications of the \acronymATARIA{}{} algorithm.}
+	\label{fig:arc-flow}
+\end{figure}
