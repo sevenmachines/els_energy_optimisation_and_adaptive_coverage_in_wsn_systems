@@ -32,10 +32,25 @@
 }
 \newcommand{\functionATARIA}[2]{
 	\functionSignature{
-		ataria_{\varAgent{}{}}
+		\texttt{ataria}
 	}{
-		\varAtomicTask{}{}, \varAgent{self}{}
+		\varAgent{}{}, \varAtomicTask{}{}
 	}
+}	
+\newcommand{\varTaskValue}[2]{taskval}
+\newcommand{\functionATARIAAction}[2]{
+\ifx &#1&
+	\functionSignature{\texttt{ataria-action}}{\varAgent{}{}, \varAtomicTask{}{}}
+\else
+	\functionSignature{\texttt{ataria-action}}{\varAgent{#1}{}, \varAtomicTask{#2}{}}
+\fi
+}	
+\newcommand{\functionATARIAUpdate}[2]{
+\ifx &#1&
+\functionSignature{\texttt{ataria-update}}{\varAgent{}{}, \varTaskValue{}{\varAtomicTask{}{}, \varTaskValue{}{}}}
+\else
+\functionSignature{\texttt{ataria-update}}{\varAgent{#1}{}, \varAtomicTask{#2}{}, \varTaskValue{}{}}
+\fi
 }	
 \newcommand{\formalATARIA}[2]{
 	\functionFormal{\texttt{ataria}_{\varAgent{}{}}}
@@ -56,8 +71,12 @@
 	}
 }
 \newcommand{\functionMGRAOUpdate}[2]{
-	\texttt{mgrao-update}_{\varAgent{}{}}
-	(\varAtomicTask{}{}, \functionTaskAbsoluteValue{}{})}
+\ifx &#1&
+	\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \functionTaskAbsoluteValue{}{}}
+\else
+\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \functionTaskAbsoluteValue{}{}}
+\fi
+}
 \newcommand{\formalMGRAOUpdate}[2]{
 	\functionFormal{\texttt{mgrao-update}_{\varAgent{}{}}}
 	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
@@ -80,11 +99,12 @@ The \acronymATARIA{}{} algorithm enables agents in the system to learn the best 
 	\caption{\textbf{Simplified \acronymATARIA{}{} flowchart}. The diagram shows the decision-making and actions taken by an agent using the \acronymATARIA{}{}  algorithm. \newline
 		\textbf{(1)} The agent starts with the current tasks is has to process. \newline
 		\textbf{(2-3)} If the task is a request for information, the agent returns details of an agent from its knowledge base to the requester. \newline
-		\textbf{(4)} Otherwise, an action is chosen using the RT-ARP sub-algorithm. This algorithm selects the optimal action given the agents current state, based on a set of Q-learning values derived from past actions, and historical rewards.  \newline
-		\textbf{(5)} If the selected action is an \texttt{exec} action, the agent simply executes the task itself. \newline
-		\textbf{(6)} If the action is an \texttt{alloc} action, the task is allocated to another agent to complete, chosen from the agents' neighbourhood. \newline
-		\textbf{(7-9)} For an \texttt{info} action, the agent will send a request to another agent in its neighbourhood to return information on additional agents in the system. If the information it gets back increases its knowledge base beyond the size limit, it will judge which is the least important information using the SAS-KR algorithm, and remove that from its knowledge base. \newline
-		\textbf{(10-13)} For a \texttt{link} action, the agent will link the selected agent from its knowledge base into its neighbourhood. It will perform any pruning required to maintain the neighbourhood within its resource limitations by choosing to remove the agent that has provided the least task quality in the past. \newline
+		\textbf{(4-5)} If the task is a reward sent to the agent for completing a previous atomic task, the Q-values for the agents state-actions are updated. \newline
+		\textbf{(6)} Otherwise, an action is chosen using the RT-ARP sub-algorithm. This algorithm selects the optimal action given the agents current state, based on a set of Q-learning values derived from past actions, and historical rewards.  \newline
+		\textbf{(7)} If the selected action is an \texttt{exec} action, the agent simply executes the task itself. \newline
+		\textbf{(8)} If the action is an \texttt{alloc} action, the task is allocated to another agent to complete, chosen from the agents' neighbourhood. \newline
+		\textbf{(9-11)} For an \texttt{info} action, the agent will send a request to another agent in its neighbourhood to return information on additional agents in the system. If the information it gets back increases its knowledge base beyond the size limit, it will judge which is the least important information using the SAS-KR algorithm, and remove that from its knowledge base. \newline
+		\textbf{(12-15)} For a \texttt{link} action, the agent will link the selected agent from its knowledge base into its neighbourhood. It will perform any pruning required to maintain the neighbourhood within its resource limitations by choosing to remove the agent that has provided the least task quality in the past. \newline
 }
 	\label{fig:ataria-simplified}
 \end{figure}

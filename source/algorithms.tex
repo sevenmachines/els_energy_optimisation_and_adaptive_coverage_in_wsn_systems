@@ -16,41 +16,33 @@ Once all atomic tasks have completed, each atomic tasks' proportional value to t
 	\label{alg:wsn_optimisation_sink}
 	{
 		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
-		\KwIn{ $\varAgent{self}{}$ , The sink agent completing the composite task}
+		\KwIn{ $\varAgent{}{}$ , The sink agent completing the composite task}
 		\KwResult{$\functionCompositeTaskQuality{}{}{}{}$ , The composite task quality of $\varCompositeTask{}{}$}		\nonl \;
 		\tcp{Copy set of atomic tasks to list of incomplete tasks}
 		$ctactive \leftarrow \varCompositeTask{}{}$ \label{wsnsink:copy}\;
 		\For{$\varAtomicTask{}{} \in ctactive$\label{wsnsink:composite_tasks}}
 		{
-			\tcp{Select action through \acronymATARIA{}{}}
-			$\varAction{}{} \leftarrow \functionATARIA{}{}$ \label{wsnsink:select} \;	
-			\uIf{$\varAction{}{} = \functionExec{}{}$?}
+			\tcp{Select and execute action through \acronymATARIA{}{}}
+			$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnsink:select} \;	
+			\If{$\varAction{}{} = \functionExec{}{} || \varAction{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
 			{
-				\tcp{Execute task $\varAtomicTask{}{}$ and get an atomic task quality} 
-				$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionExec{}{}$ \label{wsnsink:exec}\;
-				\tcp{Remove atomic task from incomplete task list}
+				\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, remove atomic task from incomplete task list}
 				$ctactive{}{} \leftarrow ctactive - \lbrace \varAtomicTask{}{} \rbrace$ \label{wsnsink:exec_remove}\;
-			}
-			\uElseIf{$\varAction{}{} = \functionAlloc{}{}$?}{
-				\tcp{allocate task $\varAtomicTask{}{}$ to agent} $\functionAtomicTaskQualitySignature{}{} \leftarrow \functionANHTAO{}{}$\label{wsnsink:alloc} \;
-				\tcp{Remove atomic task from incomplete task list}
-				$ctactive{}{} \leftarrow ctactive{}{} - \lbrace \varAtomicTask{}{} \rbrace$ \label{wsnsink:alloc_remove}\;
-			}
-			\uElseIf{$\varAction{}{} = \functionInfo{}{}$?}{
-				\tcp{request information on system agents from agent $\varAgent{}{}$}
-				$\functionInfo{}{}$ \label{wsnsink:info}\;
-			}
-			\uElseIf{$\varAction{}{} = \functionLink{}{}$?}{
-				\tcp{allocate resources to information on to agent $\varAgent{}{}$ and maintaining network connection}
-				$\functionLink{}{}$ \label{wsnsink:link}\;
 			}
 		}
 		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
-			\tcp{Target update at the last agent in the task-path, the agent that completed the atomic task}
-			$\varAgent{}{} \leftarrow \functionSenseRole{}{}$ \label{wsnsink:arc_last}\;
-			\tcp{Send the sensor agent the atomic task value to run the MGRAO update}
-			$\functionMGRAOUpdate{}{}$ \label{wsnsink:mgrao}\;	
+			\tcp{Send a proportion of the absolute task value for the atomic task to each agent in its task-path}
+			\ForEach{$\varAgent{'}{}\in \functionTaskArc{}{}$}{
+				\tcp{Update the Q-values for actions taken by agents in each atomic tasks' task-path}
+				$\varTaskValue{}{} \leftarrow \functionTaskAbsoluteValue{}{}
+				$ \label{wsnsink:ataria-taskval}\;	
+				$\functionSignature{\texttt{ataria-update}}{
+					\varAgent{}{'}, \varAtomicTask{}{}, \frac{\varTaskValue{}{}}{\funcSize{\varCompositeTask{}{}}}
+				}$ \label{wsnsink:ataria-update}\;	
+			}
+			\tcp{Send the agent that completed the atomic task the absolute task value to run the MGRAO update}
+			$\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \varTaskValue{}{}}$ \label{wsnsink:mgrao}\;	
 		}
 		\Return{$\functionCompositeTaskQuality{}{}{}{}$}
 	}
@@ -65,36 +57,21 @@ The \acronymWSNOptimisationArc{}{} algorithm (Algorithm \ref{alg:wsn_optimisatio
 	\label{alg:wsn_optimisation_arc}
 	{
 		\KwIn{ $\varAtomicTask{}{}$ , The atomic task to be completed}
-		\KwIn{ $\varAgent{self}{}$ , The agent completing the composite task}
+		\KwIn{ $\varAgent{}{}$ , The agent completing the atomic task}
 		\KwResult{$\functionAtomicTaskQualitySignature{}{}$ , The atomic task quality of $\varAtomicTask{}{}$}
 		\nonl \;
 		
 		$taskComplete \leftarrow False$ \;
 		\While{$\neg taskComplete$ }{
-		\tcp{Select action through \acronymATARIA{}{}}
-		$\varAction{}{} \leftarrow \functionATARIA{}{}$ \label{wsnarc:select} \;	
-		\uIf{$\varAction{}{} = \functionExec{}{}$?}
+		\tcp{Select and execute action through \acronymATARIA{}{}}
+		$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnarc:select} \;
+		\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, mark it complete}
+		\uIf{$\varAction{}{} = \functionExec{}{} || \varAction{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
 		{
-			\tcp{Execute task $\varAtomicTask{}{}$ and get an atomic task quality} 
-			$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionExec{}{}$ \label{wsnarc:exec}\;
 			$taskComplete \leftarrow True$ \;
-		}
-		\uElseIf{$\varAction{}{} = \functionAlloc{}{}$?}{
-			\tcp{allocate task $\varAtomicTask{}{}$ to agent} $\functionAtomicTaskQualitySignature{}{} \leftarrow \functionANHTAO{}{}$\label{wsnarc:alloc} \;
-			
-			\tcp{allocate task $\varAtomicTask{}{}$ to agent $\varAgent{}{}$}
-			$\functionAtomicTaskQualitySignature{}{} \leftarrow \functionAlloc{}{}$\label{wsnarc:alloc} \;
-			$taskComplete \leftarrow True$ \;
-			}
-		\uElseIf{$\varAction{}{} = \functionInfo{}{}$?}{
-			\tcp{request information on system agents from agent $\varAgent{}{}$}
-			$\functionInfo{}{}$ \label{wsnarc:info}\;
-		}
-		\uElseIf{$\varAction{}{} = \functionLink{}{}$?}{
-			\tcp{allocate resources to information on to agent $\varAgent{}{}$ and maintaining network connection}
-			$\functionLink{}{}$ \label{wsnarc:link}\;
 		}
 	}
+	\tcp{Return the task quality of the atomic task completion}
 	\Return{$\functionAtomicTaskQualitySignature{}{}$\label{wsnarc:return}} \;
 	}
 \end{algorithm}
