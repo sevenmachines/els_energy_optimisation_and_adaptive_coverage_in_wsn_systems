@@ -94,6 +94,9 @@
 	\input{common-definitions}
 	\input{common-notation}
 	\input{common-results}
+		\input{algorithm-common}
+	\input{algorithm-ataria-notation}
+	\input{algorithm-mgrao-notation}
 	\newtheorem{thm}{Theorem}
 	\newdefinition{definition}{Definition}
 	\maketitle
@@ -103,18 +106,21 @@
 	\input{problem}
 	\input{problem_introduction}
 	\input{problem_system}
+	\input{problem_actions}
 	\input{problem_consumption}
 	%\input{problem_energy}
 
 	\input{problem_tasks}
+
 	\input{probem_utility}
 	\input{problem_coverage}
 	\input{problem_definition}
 	\input{solution}
 	\input{solution-anhtao}
+	\input{algorithms}
 	\input{solution-ataria}
 	\input{solution-mgrao}
-	\input{algorithms}
+
 	\input{simulation}
 	\input{results}
 	\input{results_tables}
@@ -122,18 +128,18 @@
 	\input{results_comparisons}
 	\input{conclusions}
 	\input{references}
-\newpage
+	\FloatBarrier
+	\newpage
 	\begin{appendix}
-	\section{Algorithms}
 \label{appendix:algorithms}
 %	\input{algorithm-ataria-simple}
-	\input{algorithm-common}
-	\input{algorithm-ataria-notation}
-	\input{algorithm-ataria}
-	\FloatBarrier
+
+			\input{algorithm-ataria}
+
 %	\input{algorithm-mgrao-simple}
-		\input{algorithm-mgrao-notation}
-		\input{algorithm-mgrao}
+
+	\FloatBarrier
+	\input{algorithm-mgrao}
 	\end{appendix}
 				
 \end{document}

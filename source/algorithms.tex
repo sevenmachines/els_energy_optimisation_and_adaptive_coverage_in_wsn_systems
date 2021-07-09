@@ -2,6 +2,7 @@
 
 We formally define the \acronymWSNOptimisation{}{} algorithm in two parts, Algorithm \ref{alg:wsn_optimisation_sink} for sink node agents receiving composite tasks, and Algorithm \ref{alg:wsn_optimisation_arc} for other agents belonging to the task-path for an atomic task.
 
+\todo[inline]{Rewrite walkthrough to new algorithm standard and labelling}
 In the \acronymWSNOptimisationSink{}{} algorithm, Algorithm \ref{alg:wsn_optimisation_sink}, the sink node receives a composite task $\varCompositeTask{}{}$ comprising of multiple atomic tasks $\varAtomicTask{}{}$ to be completed. For each of these atomic tasks the sink node agent runs the \acronymATARIA{}{} algorithm to select an action (Line \ref{wsnsink:select}). It can execute the atomic task itself (Line \ref{wsnsink:exec}), using the \acronymMGRAO{}{} algorithm to determine the resources that will be allocated to its completion, or allocate it to another agent it knows about to complete using the \acronymWSNOptimisationArc{}{} algorithm (Line \ref{wsnsink:alloc}). In both cases, once the task is completed, the sink node agent receives an atomic task quality value of $\functionAtomicTaskQualitySignature{}{}$ and removes the atomic task from the list of tasks to complete. 
 
 If a $\functionInfo{}{}$ or $\functionLink{}{}$ action is executed, there is no effect on atomic task execution or allocation in that step, and the algorithm loops round to choose another action using \acronymATARIA{}{}.
@@ -24,9 +25,9 @@ Once all atomic tasks have completed, each atomic tasks' proportional value to t
 		{
 			\tcp{Select and execute action through \acronymATARIA{}{}}
 			$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnsink:select} \;	
-			\If{$\varAction{}{} = \functionExec{}{} || \varAction{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
+			\uIf{$ \functionAgentActionType{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
 			{
-				\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, remove atomic task from incomplete task list}
+				\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, remove atomic task from active task list}
 				$ctactive{}{} \leftarrow ctactive - \lbrace \varAtomicTask{}{} \rbrace$ \label{wsnsink:exec_remove}\;
 			}
 		}
@@ -66,7 +67,7 @@ The \acronymWSNOptimisationArc{}{} algorithm (Algorithm \ref{alg:wsn_optimisatio
 		\tcp{Select and execute action through \acronymATARIA{}{}}
 		$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnarc:select} \;
 		\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, mark it complete}
-		\uIf{$\varAction{}{} = \functionExec{}{} || \varAction{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
+		\uIf{$\functionAgentActionType{}{} = \functionExec{}{} \lor \functionAgentActionType{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
 		{
 			$taskComplete \leftarrow True$ \;
 		}

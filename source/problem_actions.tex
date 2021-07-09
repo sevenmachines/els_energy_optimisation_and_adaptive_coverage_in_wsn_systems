@@ -1,0 +1,10 @@
+\subsection{Agent actions}
+
+Agents in the system can perform \textit{actions}, given an action $\varAction{}{}$ we can define the function $\functionAgentActionType{}{}$ as a mapping from the action to one of the action-types below, 
+
+\begin{enumerate}
+	\item $\functionExec{}{}$, The agent will execute the atomic task $\varAtomicTask{}{}$ itself, this may require some of its available resources.
+	\item $\functionAlloc{}{}$, the agent will allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
+	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
+	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection. It can only allocate tasks to agents that it has a link to.
+\end{enumerate}

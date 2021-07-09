@@ -540,3 +540,88 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%
+\newcommand{\varAction}[2]{\varSymbol{a}{#1}{#2}}
+\newcommand{\functionExec}[2]{
+	\ifx &#1&
+	\texttt{exec}(\varAtomicTask{}{})
+	\else
+	\texttt{exec}(#1, #2)
+	\fi
+}
+\newcommand{\functionAlloc}[2]{
+	\ifx &#1&
+	\texttt{alloc}(\varAtomicTask{}{}, \varAgent{}{})
+	\else
+	\texttt{alloc}(#1, #2)
+	\fi
+}
+\newcommand{\functionInfo}[2]{
+	\ifx &#1&
+	\texttt{info}(\varAgent{}{})
+	\else
+	\texttt{info}(#1)
+	\fi
+}
+\newcommand{\functionLink}[2]{
+	\ifx &#1&
+	\texttt{link}(\varAgent{}{})
+	\else
+	\texttt{link}(#1)
+	\fi
+}
+\newcommand{\functionATARIA}[2]{
+	\functionSignature{
+		\texttt{ataria}
+	}{
+		\varAgent{}{}, \varAtomicTask{}{}
+	}
+}	
+\newcommand{\varTaskValue}[2]{taskval}
+\newcommand{\functionATARIAAction}[2]{
+	\ifx &#1&
+	\functionSignature{\texttt{ataria-action}}{\varAgent{}{}, \varAtomicTask{}{}}
+	\else
+	\functionSignature{\texttt{ataria-action}}{\varAgent{#1}{}, \varAtomicTask{#2}{}}
+	\fi
+}	
+\newcommand{\functionATARIAUpdate}[2]{
+	\ifx &#1&
+	\functionSignature{\texttt{ataria-update}}{\varAgent{}{}, \varTaskValue{}{\varAtomicTask{}{}, \varTaskValue{}{}}}
+	\else
+	\functionSignature{\texttt{ataria-update}}{\varAgent{#1}{}, \varAtomicTask{#2}{}, \varTaskValue{}{}}
+	\fi
+}	
+\newcommand{\formalATARIA}[2]{
+	\functionFormal{\texttt{ataria}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setAgents{}{}}
+	{
+		\texttt{exec}(\setAtomicTask{}{})
+		\times \texttt{alloc}(\setAtomicTask{}{}, \setAgents{}{})
+		\times \texttt{info}(\setAgents{}{})
+		\times \texttt{link}(\setAgents{}{})
+	}
+}
+\newcommand{\functionMGRAOWeighting}[2]{\texttt{mgrao-weight}(\varAtomicTask{}{}, \varAgent{}{})}
+\newcommand{\formalMGRAOWeighting}[2]{
+	\functionFormal{\texttt{mgrao-weight}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
+	{
+		\setRealNumbers{}{}
+	}
+}
+\newcommand{\functionMGRAOUpdate}[2]{
+	\ifx &#1&
+	\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \functionTaskAbsoluteValue{}{}}
+	\else
+	\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \functionTaskAbsoluteValue{}{}}
+	\fi
+}
+\newcommand{\formalMGRAOUpdate}[2]{
+	\functionFormal{\texttt{mgrao-update}_{\varAgent{}{}}}
+	{\setAtomicTask{}{} \times \setRealNumbers{}{}}
+	{
+		\setRealNumbers{}{}
+	}
+}
+%%%%%%%%%%%%
