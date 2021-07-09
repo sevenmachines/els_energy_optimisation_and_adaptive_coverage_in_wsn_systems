@@ -1,0 +1,208 @@
+\newcommand{\matrixSymbol}[3] {
+	\ifx\\#2\\\ifx\\#3\\\textbf{\uppercase{#1}}
+	\else
+	\uppercase{\textbf{#1}}^{#3}
+	\fi
+	\else
+	\ifx\\#3\\\uppercase{\textbf{#1}}_{#2}
+	\else
+	\uppercase{\textbf{#1}}_{#2}^{#3}
+	\fi
+	\fi
+}
+
+
+
+
+
+\newcommand{\varSystem}{s}
+%\newcommand{\varParentAgent}[2]{\ifx \\#1\\ pg \else pg_{#1}^{#2} \fi}
+%\newcommand{\setParentAgent}[2]{\ifx \\#1\\ PG \else PG_{#1}^{#2} \fi}
+%\newcommand{\varChildAgent}[2]{\ifx \\#1\\ cg \else cg_{#1}^{#2} \fi}
+%\newcommand{\setChildAgent}[2]{\ifx \\#1\\ CG \else CG_{#1}^{#2} \fi}
+\newcommand{\powerSetParentAgent}{2^{PG}}
+%\newcommand{\varAtomicTaskType}[2]{\ifx \\#1\\ tp \else tp_{#1}^{#2} \fi}
+%\newcommand{\setAtomicTaskType}[2]{\ifx \\#1\\ TP \else TP_{#1}^{#2} \fi}
+%\newcommand{\varCompositeTaskType}[2]{\ifx \\#1\\ \hat{tp} \else \hat{tp}_{#1}^{#2} \fi}
+%\newcommand{\setCompositeTaskType}[2]{\ifx \\#1\\ \hat{TP} \else \hat{TP}_{#1}^{#2} \fi}
+\newcommand{\powerSetTaskTypes}{2^{\setAtomicTaskType{}{}}}
+\newcommand{\varCapabilityMap}{q}
+\newcommand{\varAtomicTaskQuality}[2]{\varCapabilityMap_{\varChildAgent{}{}}}
+
+\newcommand{\varTaskGroupMap}{tg}
+%\newcommand{\varAtomicTask}{t}
+%\newcommand{\setAtomicTask}{T}
+\newcommand{\powerSetTasks}{2^T}
+\newcommand{\varAtomicTaskInstanceDetails}{\pi}
+%\newcommand{\varCompositeTask}{\hat{t}}
+%\newcommand{\setCompositeTask}{\hat{T}}
+\newcommand{\atomicTaskTypeFunction}{type_a}
+\newcommand{\compositeTaskTypeFunction}{type_c}
+\newcommand{\varFrequencyFunction}{tf}
+%\newcommand{\varResource}[2]{\ifx \\#1\\ r \else r_{#1}^{#2} \fi}
+%\newcommand{\setResource}{R}
+\newcommand{\varResourceMap}{ar}
+\newcommand{\setResourceAssignment}{2^{\setResource{}{} \times \mathbb{R}_{>=0}}}
+\newcommand{\varTaskAllocation}{tl}
+\newcommand{\setPossibleAllocation}{2^{\setChildAgent{}{} \times \setAtomicTask{}{}}}
+\newcommand{\varComponentTasksResult}{ctr}
+\newcommand{\powersetTaskResult}{2^{\setAtomicTask{}{} \times \mathbb{R}}}
+\newcommand{\varTaskAllocationQuality}{taq}
+\newcommand{\varComponentTasksValue}{ctv}
+\newcommand{\varResourceWeighting}[2]{\ifx \\#1\\ w \else w_{#1}^{#2} \fi}
+\newcommand{\setResourceWeighting}{W}
+\newcommand{\varResourceAllocation}{ra}
+\newcommand{\setResourceAllocation}{RA}
+\newcommand{\sysResourceAllocation}{sra}
+%\newcommand{\varTime}{\phi}
+%\newcommand{\setTime}{\Phi}
+\newcommand{\absoluteTaskValue}{atv}
+\newcommand{\functionAbsoluteTaskValue}[2]{
+	\functionSignature{\absoluteTaskValue{}{}}{\varCompositeTask{#1}{}, \varAtomicTask{#2}{}}
+}
+\newcommand{\formalResourceAllocation}[2]{
+	\functionFormal{\varResourceAllocation_{\varChildAgent{}{}}{}}{\setAtomicTask{}{}}{\setResourceAssignment{}{}}
+}
+\newcommand{\functionResourceAllocation}[2]{
+	\functionSignature{\varResourceAllocation_{\varChildAgent{}{}}{}}
+	{\varAtomicTask{}{}}
+}
+\newcommand{\formalResourceMap}[2]{
+	\functionFormal{\varResourceMap{}{}}
+	{\setChildAgent{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionResourceMap}[2]{
+	\functionSignature{\varResourceMap{}{}}
+	{\varChildAgent{}{}, \varResource{}{}}	
+}
+
+
+%%%%%%%%%%%%%%%%%%%
+\newcommand{\formalPAG}{pag_{\varChildAgent{}{}}}
+\newcommand{\functionPAG}[2]{
+	\ifx \\#1\\
+	\formalPAG(\varParentAgent{}{})
+	\else
+	\formalPAG(#1)
+	\fi
+}
+\newcommand{\functionPAGSet}[2]{
+	\ifx \\#1\\
+	\formalPAG(\setParentAgent{}{})
+	\else
+	\formalPAG(\setParentAgent{#1}{#2})
+	\fi
+}
+
+\newcommand{\formalPGroup}[2]{
+	\functionFormal{pgroup_{\varChildAgent{}{}}}{\setParentAgent{}{}}{\powerSetParentAgent{}{}}
+}
+\newcommand{\functionPGroup}[2]{
+	\ifx \\#1\\
+	\functionSignature{pgroup_{\varChildAgent{}{}}}{\varParentAgent{}{}}
+	\else
+	\functionSignature{pgroup_{\varChildAgent{}{}}}{#1}
+	\fi
+}
+\newcommand{\functionPGroupSet}[2]{
+	\functionPGroup{\setParentAgent{}{}}{}
+}
+\newcommand{\formalPAGResourceWeighting}{
+	\functionFormal
+	{pgw_{\varChildAgent{}{}, \varResource{}{}, \varTime{}{}}}
+	{\functionPGroupSet{}{} \times \setAtomicTaskType{}{}}
+	{ \mathbb{R}}
+}
+
+\newcommand{\functionPAGResourceWeighting}[2]{
+	\functionSignature
+	{pgw_{\varChildAgent{}{}, \varResource{}{}, \varTime{}{}}}
+	{\setParentAgent{#1}{}, \setAtomicTaskType{#2}{}}
+}
+\newcommand{\setResourceWeight}[2]{
+	\setSymbol{W}{\varChildAgent{}{}, \varResource{}{}}{#2}
+}
+\newcommand{\matrixResourceWeight}[2]{
+	\matrixSymbol{PW}{\varChildAgent{}{}, \varResource{}{}}{#2}
+}
+\newcommand{\varPAGResourceWeight}[2]{
+	{pw}_{\setParentAgent{#1}{}, \varAtomicTaskType{#2}{}}
+}
+\newcommand{\setPAGResourceWeight}[2]{
+	{pw}_{\setParentAgent{#1}{}, \setAtomicTaskType{#2}{}}
+}
+\newcommand{\varParentTaskIndex}{pti_{\varChildAgent{}{}}}
+\newcommand{\formalFunctionParentTaskIndex}{
+	\functionFormal{\varParentTaskIndex{}{}}
+	{\setParentAgent{}{} \times \setAtomicTaskType{}{}}
+	{\setIntegersPositive{}{} \times \setIntegersPositive{}{}}
+}
+\newcommand{\functionParentTaskIndex}{
+	\functionSignature
+	{\varParentTaskIndex{}{}}
+	{\varParentAgent{}{}, \varAtomicTaskType{}{}}
+}
+
+%%%%%%%%% NOTATION %%%%%%%%%%
+\newcommand{\formalPAGSampleCount}{
+	\functionFormal{pags_{\varChildAgent{}{}, \varTime{}{}}{}}
+	{\setParentAgent{}{}}
+	{\setIntegersNonNegative{}{}}
+}
+\newcommand{\functionPAGSampleCount}[2]{
+	\ifx \\#1\\
+	\functionSignature{pags_{\varChildAgent{}{},\varTime{}{}}{}}
+	{\setParentAgent{}{}}
+	\else
+	\functionSignature{pags_{\varChildAgent{}{},\varTime{}{}}{}}
+	{#1}
+	\fi
+}
+%%%%%%%%% NOTATION %%%%%%%%%%
+\newcommand{\varKullbackLiebler}{dkl}
+\newcommand{\functionKullbackLiebler}[2]{\varKullbackLiebler(\setParentAgent{#1}{})}
+%%%%%%%%% NOTATION %%%%%%%%%%
+\newcommand{\setWeightBlending}{B_{\varChildAgent{}{}}}
+
+\providecommand{\functionSumNormSymbol}[2]{\texttt{norm}{#1}{#2}}
+\providecommand{\functionSumNormSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{\functionSumNormSymbol{}{}}
+	{\setX{}{}}
+	\else
+	\functionSignature{\functionSumNormSymbol{}{}}
+	{#1}
+}
+\newcommand{\functionSumNormRowSymbol}[2]{\texttt{norm}{#1}{#2}}
+\newcommand{\functionSoftmaxSymbol}[2]{\varSymbol{\sigma}{#1}{#2}}
+\newcommand{\functionSoftmaxSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{\functionSoftmaxSymbol{}{}}
+	{\varX{}{}}
+	\else
+	\functionSignature{\functionSoftmaxSymbol{}{}}
+	{#1}
+}
+\newcommand{\functionSoftmaxSet}[2]{
+	\sigma(X) = \lbrace \frac{e^{x_i}}{\sum_{j=1}^{\funcSize{X}} e^{x_j}}\rbrace_{\forall x_i \in X}
+}
+
+\newcommand{\varCombinedResourceWeights}{crw}
+\newcommand{\formalFunctionCombinedResourceWeights}{crw_{\varChildAgent{}{}}}
+\newcommand{\formalFunctionCombinedResourceWeightsSignature}{\formalFunctionCombinedResourceWeights(\setWeightBlending{}{}, \matrixResourceWeight{}{})}
+\newcommand{\functionCombinedResourceWeightsSignature}{\formalFunctionCombinedResourceWeights(\setWeightBlending{}{}, \matrixResourceWeight{}{})}
+\newcommand{\matrixCombinedResourceWeights}{\matrixSymbol{C}}
+\newcommand{\varEligibilityTrace}[2]{\varSymbol{e}{#1}{#2}}
+\newcommand{\matrixEligibilityTrace}[2]{\matrixSymbol{E}{\varChildAgent{}{}}{#2}}
+\newcommand{\functionEligibilityTraceUpdateSignature}[2]{
+	\functionSignature{etu}
+	{
+		\matrixEligibilityTrace{}{}, \varParentAgent{}{},
+		\varAtomicTaskType{}{},
+		\gamma
+	}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

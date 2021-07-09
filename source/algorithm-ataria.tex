@@ -1,51 +1,223 @@
 \subsection{The \acronymATARIA{}{} algorithm \citep{creech2021dynamic}}
 \label{appendix:algorithm-ataria}
 
-\newcommand{\acronymNeighbourhood}[2]{\texttt{neighbourhood}}
-\newcommand{\acronymActionSamples}[2]{\texttt{action-samples}}
-\newcommand{\acronymQValues}[2]{\texttt{q-values}}
-\newcommand{\acronymKnowledge}[2]{\texttt{knowledge}}
-\newcommand{\varTargetAgent}[2]{\varAgent{}{*}}
-
-\begin{algorithm}[ht]
+\begin{algorithm}
 	\DontPrintSemicolon
 	\footnotesize
 	
-	\caption{\textbf{The simplified \acronymATARIA{}{} algorithm}}
-	\label{alg:ataria}
+	\caption{\textbf{The \acronymTaskAllocationExtended{}{} algorithm}}
+	\label{alg:task_allocation}
 	{
-		\KwIn{ $\varAgent{}{}$ , The agent allocated the atomic task}
-		\KwIn{ $\varAtomicTask{}{}$ , An atomic task}
-		\KwIn{ $\acronymNeighbourhood{}{}$ , The \acronymNeighbourhood{}{} of agent $\varAgent{}{}$}
-		\KwIn{ $\acronymKnowledge{}{}$ , The \acronymKnowledge{}{} of agent $\varAgent{}{}$}
-		\KwIn{ $\acronymQValues{}{}$ , The \acronymQValues{}{} of agent $\varAgent{}{}$}
-		\KwIn{ $\acronymActionSamples{}{}$ , The \acronymActionSamples{}{} of agent $\varAgent{}{}$}
-\nonl
-\;
-		\KwResult{\acronymNeighbourhood{}{} , The updated neighbourhood values for $\varAgent{}{}$}
-		\KwResult{\acronymKnowledge{}{} , The updated knowledge values for $\varAgent{}{}$}
-		\KwResult{\acronymQValues{}{} , The updated q-value mappings values for $\varAgent{}{}$}
-		\KwResult{\acronymActionSamples{}{} , The updated action-samples values for $\varAgent{}{}$}
-		\nonl
-		\;
-
-			Select an action $\varAction{}{}$, with an optional target agent $\varTargetAgent{}{}$, using RT-ARP \;
-			\uIf{action is $\functionExec{}{}$ }{
-				$\varAgent{}{}$ executes the atomic task \;
+		\KwIn{ $\varAgent{}{}$ , The agent allocated the composite task}
+		\KwIn{ $\varCompositeTask{}{}$ , The composite task allocated to the agent}
+		\KwIn{$\setAtomicTaskUnallocated{}{}$, The composite tasks currently unallocated atomic tasks}	\KwIn{$\functionInstanceQMappingSignature{}{}$, the Q-values mappings for agent $\varAgent{}{}$ }
+		\KwIn{$\setRiskAction{}{}$, The potential change on neighbourhoods on taking an action.}
+		\KwIn{$\setRewardSet{\varAgent{}{}}{}$, the TQSM matrix of summarised reward trends for agent $\varAgent{}{}$}
+		\KwIn{\defVarLearningRate{}{}{}}
+		\KwIn{\defVarDiscountFactor{}{}{}}
+		\KwIn{\defVarUncertainInformationThreshold{max}{}{}}
+		\KwIn{$\setActionSample{}{}$, The set of action samples}
+		\nonl \;
+		
+		\KwResult{$\functionNeighbourhoodSignature{}{}$, updates to the neighbourhood of agent $\varAgent{}{}$}
+		\KwResult{$\functionKnowledgeSignature{}{}$, updates to the knowledge base of agent $\varAgent{}{}$}
+		\KwResult{$\functionInstanceQMappingSignature{}{}$, updates to the Q-mapping of agent $\varAgent{}{}$}
+		\KwResult{$\setActionSample{}{}$, updates to the set of action samples}
+		\nonl \;
+		
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{} $}
+		{
+			\tcp{Execute atomic task if agent has capabilities} 		
+			\uIf{$\functionAgentActionType{}{} \in \functionAgentCapability{}{}$ \label{ataria:hascapability}}
+			{
+				$\functionActionExecSignature{}{}$\; \label{ataria:doexec}
+				\If {$\varAtomicTask{}{}$ is successfully completed}
+				{
+					$\varCompositeTask{}{} \leftarrow \varCompositeTask{}{} - \lbrace \varAtomicTask{}{} \rbrace$ \;
+				}\label{ataria:hascapabilityend}
 			}
-			\uElseIf{action is $\functionAlloc{\varAtomicTask{}{}}{\varTargetAgent{}{}}$}{
-				allocate the atomic task to agent $\varTargetAgent{}{}$ \;
+			\Else{
+				\tcp{Select an action given unallocated tasks}
+				$\functionRAT{}{}$ \; \label{ataria:dortrap}
+				
+				\uIf{$\functionAgentActionType{}{} = \functionActionAllocSignature{}{}$\label{ataria:hasalloc}}
+				{
+					$\functionActionAllocSignature{}{}$\; \label{ataria:doalloc}
+					
+					\If {$\varAtomicTask{}{}$ is successfully completed}
+					{
+						$\varCompositeTask{}{} \leftarrow \varCompositeTask{}{} - \lbrace \varAtomicTask{}{} \rbrace$ \;
+					}
+				}\label{ataria:hasallocend}
+				\uElseIf{$\functionAgentActionType{}{} = \functionActionInfoSignature{}{}$\label{ataria:hasinfo}}
+				{
+					\tcp{Get new agent $\varK{}{}$ from action}
+					$\varK{}{} \funcupdate \functionActionInfoSignature{}{}$\;\label{ataria:doinfo}
+					
+					$\functionKnowledgeSignature{}{} \leftarrow \functionKnowledgeSignature{}{} \cup \lbrace \varK{}{} \rbrace$\;\label{ataria:addknowledge}
+					\tcp{Prune knowledge base}
+					$\functionSASSignature{}{}$ \label{ataria:dosaskr}
+				}\label{ataria:hasinfoend}
+				\uElseIf{$\functionAgentActionType{}{} = \functionActionLinkSignature{}{}$}{
+					\tcp{Add new agent to neighbourhood}
+					$\functionActionLinkSignature{}{}$\;\label{ataria:haslink}
+					
+					\tcp{Prune neighbourhood based on resources}
+					$\functionNPruneSignature{}{}$\label{ataria:donprune}
+				}\label{ataria:haslinkend}
 			}
-			\uElseIf{action is $\functionInfo{\varTargetAgent{}{}}{}$ }{
-				add an agent learned about from $\varTargetAgent{}{}$ to $\varAgent{}{}$'s knowledge\;
-				prune agent $\varAgent{}{}$'s knowledge  based on its resource limits \;			}
-			\uElseIf{action is $\functionLink{\varTargetAgent{}{}}{}$}{
-				add agent $\varTargetAgent{}{}$ to $\varAgent{}{}$'s neighbourhood \;
-				prune agent $\varAgent{}{}$'s neighbourhood  based on its resource limits \;
+			\tcp{Update Q-value mappings with reward}
+			$\functionInstanceQMappingSignature{}{} \leftarrow \functionTDUpdateSignature{}{}$\;\label{ataria:updateq}
+			\tcp{Use the quality value to update the TQSM}
+			$\functionUpdateTQSMSignature{}{}$\;\label{ataria:updatetqsm}
+			\tcp{Update action samples}
+			$\setActionSample{}{} \leftarrow \setActionSample{}{} \cup \lbrace (\varAction{}{}, \varSampleTime{}{}, \varAtomicTaskQualityValue{}{}) \rbrace$\label{ataria:updatesamples}
 		}
-		update the \acronymQValues{}{} for actions \;
-		update the TQSM \;
-		update the \acronymActionSamples{}{} \;
-		\Return{$\acronymNeighbourhood{}{}$, $\acronymKnowledge{}{}$, $\acronymQValues{}{}$, $\acronymActionSamples{}{}$}
+
+		\Return{$(\functionNeighbourhoodSignature{}{},  \functionKnowledgeSignature{}{}, \functionInstanceQMappingSignature{}{}, \setActionSample{}{})$\label{ataria:return}}
 	}
 \end{algorithm}
+
+\begin{algorithm}
+	\SetAlgoLined
+	\DontPrintSemicolon
+	\footnotesize
+	\caption{\textbf{The \acronymRewardTrendsExtended{}{} algorithm}}
+	
+	\label{alg:reward_trends}
+	{ % RTARP
+		\KwIn{$\setAtomicTaskUnallocated{}{}$, the set of unallocated atomic tasks of agent $\varAgent{}{}$}
+		\KwIn{$\setRiskAction{}{}$, the action-risk values for the available actions}
+		\KwIn{$\setRewardSet{}{}$, the \acronymRewardSet{}{} used to generate the transformation function}
+		\KwIn{$\varExploreBase{}{}$, the base exploration factor for the learning algorithm}
+		\nonl \;
+		
+		\KwResult{$\varAction{}{}$, the action for the agent to carry out}
+		
+		\nonl \;
+		$(\setAction{}{},\setQ{}{}) \funcupdate \functionInstanceQMappingSignature{}{}$ \;
+		\tcp{Scale Q-values element-wise using impact-transformation}
+		$(\setAction{}{}, \setQ{}{})
+		\funcupdate
+		(	\setAction{}{},
+		\setQ{}{}
+		\funcHadamard{}{} \functionImpactTransformationSignature{\setRiskAction{}{}}{}
+		)$ \;\label{rtrap:it}
+		$(\setAction{}{}, \setQ{}{})
+		\funcupdate
+		(
+		\setAction{}{},
+		\funcSumNorm{\setQ{}{}})$ \;\label{rtrap:qtrans}
+		
+		\tcp{Calculate the impact exploration factor}
+		$\varExploreImpact{}{} \funcupdate \functionImpactTransformationSignature{0.5}{}$ \;\label{rtrap:expcalc}
+		
+		\tcp{Scale the base exploration value}
+		$\varExplore{}{} \funcupdate{}{} \varExploreBase{}{} \times \varExploreImpact{}{}$ \;\label{rtrap:expscale}
+		
+		\tcp{Select best action or explore with boltzmann selection}
+		\uIf{$\funcRand{\mathbb{R} [0, 1]} < \varExplore{}{}$}
+		{
+			$\tupleQ{}{}
+			\funcupdate \max_q{(\setAction{}{}, \setQ{}{})}$ \;\label{rtrap:actbest}
+		}
+		\Else{
+			$\tupleQ{}{} \funcupdate
+			\texttt{boltzmann}_q{(\setAction{}{}, \setQ{}{})}$ \;\label{rtrap:actrand}
+		}
+		\Return $\varAction{}{}$ 
+	}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetAlgoLined
+	\DontPrintSemicolon
+	\footnotesize
+	\caption{\textbf{The \acronymMemoryRetentionExtended{}{} algorithm}}
+	\label{alg:state_action_subspace_memory_retention}
+	{ % SASKR
+		\KwIn{$\setAtomicTaskUnallocated{}{}$, the set of unallocated atomic tasks of agent $\varAgent{}{}$}
+		\KwIn{$\functionNeighbourhoodSignature{}{}$, the neighbourhood of agent $\varAgent{}{}$}
+		\KwIn{$\functionKnowledgeSignature{}{}$, the knowledge base of agent $\varAgent{}{}$}
+		\KwIn{$\setActionSample{}{}$, the set of action samples}
+		\KwIn{$\functionInstanceQMappingSignature{}{}$, the Q-values for agent $\varAgent{}{}$ }
+		\KwIn{\defVarUncertainInformationThreshold{min}{}{}}
+		\nonl \;
+		\KwResult{$\functionKnowledgeSignature{}{}$, updates to the knowledge of agent $\varAgent{}{}$}
+		\KwResult{$\setActionSample{}{}$, updates to the action samples}
+		\KwResult{$\functionInstanceQMappingSignature{}{}$, updates to the Q-mappings of agent $\varAgent{}{}$}
+		\nonl \;
+		
+		\tcp{For all Q-values with unavailable actions}
+		\For{$\tupleQ{}{} \in \setUnavailableQ{}{}$ \label{saskr:actionunavailable}}
+		{
+			{	
+				\tcp{Test the action meets the \acronymInformationRetentionThreshold}
+				\If{$\functionUncertainInformationSignature{}{} < \varUncertainInformationThreshold{}{}$\label{saskr:checkretention}} 
+				{
+					\tcp{Remove all samples of action $\varAction{}{}$}
+					$\setActionSample{}{}
+					\leftarrow \setActionSample{}{}
+					-
+					\lbrace (\varAction{}{}, \varSampleTime{}{}, \varSampleValue{}{})
+					\suchthat
+					(\varAction{}{}, \varSampleTime{}{}, \varSampleValue{}{}) \in \functionActionSampleSelectorSignature{}{} \rbrace$ \; \label{saskr:removesamples}
+					\tcp{Remove actions learned Q-values}
+					$\functionInstanceQMappingSignature{}{} \funcupdate \functionInstanceQMappingSignature{}{} - \lbrace \tupleQ{}{} \rbrace$\; \label{saskr:removeactions}
+					\tcp{Remove agents in $\varAgent{}{}$'s knowledge that are not targets of any action in $\setQ{}{}$}
+					$\setX{}{} = 
+					\lbrace \varX{}{}
+					\suchthat
+					\forall \tupleQ{}{} \in \setQ{}{}, \varX{}{} \in \functionKnowledgeSignature{}{},
+					\varAction{}{} \not \in \setNeighbourhoodTargetActions{\varAgent{}{}}{\varX{}{}}{}\rbrace$ \; \label{saskr:removeagents}
+					$\functionKnowledgeSignature{}{} \funcupdate \functionKnowledgeSignature{}{} - \setX{}{}$\label{saskr:updateknowledge}
+				}
+			}
+		}
+		\tcp{Check if knowledge size exceeds resource limit} 
+		\While{ $\funcSize{\functionKnowledgeSignature{}{}} > \functionAgentKnowledgeConstraint{}{}$\label{saskr:checklimit}} 
+		{
+			\tcp{Remove a random agent in the knowledge base but not neighbourhood}
+			$\functionKnowledgeSignature{}{} \leftarrow \functionKnowledgeSignature{}{} - \funcRand{\functionKnowledgeSignature{}{} - \functionNeighbourhoodSignature{}{}}$ \;\label{saskr:removerand}	
+		}
+		
+		\Return{$(\functionKnowledgeSignature{}{}, \setActionSample{}{},\functionInstanceQMappingSignature{}{})$}\label{saskr:return}
+	}
+\end{algorithm}
+\begin{algorithm}
+	\SetAlgoLined
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The \acronymNeighbourhoodPruningAlgorithmExtended{}{} algorithm}}
+	\label{alg:neighbourhood_pruning}
+	{
+		\KwIn{$\functionNeighbourhoodSignature{}{}$, the neighbourhood of the agent.}
+		%	\KwIn{ \defSetKnowledge{}{}{}}
+		\KwIn{$\setActionSample{}{}$, The set of action samples}
+		\nonl \;
+		
+		\KwResult{$\functionNeighbourhoodSignature{}{}$, the updated neighbourhood of the agent.}
+		\nonl \;
+		
+		\tcp{Check if neighbourhood size exceeds resource limit} 
+		\While{ $\funcSize{\functionNeighbourhoodSignature{}{}} > \functionAgentNeighbourhoodConstraint{}{}$ \label{nprune:checklimit}}
+		{
+			\uIf{$\funcSize{\setAgentActionSamples{}{}} > 0$ \label{nprune:havesamples}}{
+				
+				\tcp{Find the neighbour agent that has returned the lowest total quality}
+				$\varNeighbour{}{} \leftarrow \functionMQNSignature{}{}$\; \label{nprune:lowestneighbour}
+			}
+			\Else{
+				\tcp{Choose a random neighbour agent}
+				$\varNeighbour{}{} \leftarrow \funcRand{\functionNeighbourhoodSignature{}{}} $ \;\label{nprune:randomneighbour}
+			}
+			\tcp{Remove the neighbour agent}
+			$\functionNeighbourhoodSignature{}{} \leftarrow \functionNeighbourhoodSignature{}{} - \lbrace \varNeighbour{}{} \rbrace$ \;\label{nprune:removeneighbour}
+			
+		}
+		\Return{$\functionNeighbourhoodSignature{}{}$\label{nprune:return}}
+	}
+\end{algorithm}
+
+

@@ -20,7 +20,7 @@ Once all atomic tasks have completed, each atomic tasks' proportional value to t
 		\KwResult{$\functionCompositeTaskQuality{}{}{}{}$ , The composite task quality of $\varCompositeTask{}{}$}		\nonl \;
 		\tcp{Copy set of atomic tasks to list of incomplete tasks}
 		$ctactive \leftarrow \varCompositeTask{}{}$ \label{wsnsink:copy}\;
-		\For{$\varAtomicTask{}{} \in ctactive$\label{wsnsink:composite_tasks}}
+		\ForEach{$\varAtomicTask{}{} \in ctactive$\label{wsnsink:composite_tasks}}
 		{
 			\tcp{Select and execute action through \acronymATARIA{}{}}
 			$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnsink:select} \;	
@@ -30,10 +30,10 @@ Once all atomic tasks have completed, each atomic tasks' proportional value to t
 				$ctactive{}{} \leftarrow ctactive - \lbrace \varAtomicTask{}{} \rbrace$ \label{wsnsink:exec_remove}\;
 			}
 		}
-		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
+		\ForEach{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
 		{
 			\tcp{Send a proportion of the absolute task value for the atomic task to each agent in its task-path}
-			\ForEach{$\varAgent{'}{}\in \functionTaskArc{}{}$}{
+			\ForEach{$\varAgent{}{'}\in \functionTaskArc{}{}$}{
 				\tcp{Update the Q-values for actions taken by agents in each atomic tasks' task-path}
 				$\varTaskValue{}{} \leftarrow \functionTaskAbsoluteValue{}{}
 				$ \label{wsnsink:ataria-taskval}\;	
@@ -42,7 +42,7 @@ Once all atomic tasks have completed, each atomic tasks' proportional value to t
 				}$ \label{wsnsink:ataria-update}\;	
 			}
 			\tcp{Send the agent that completed the atomic task the absolute task value to run the MGRAO update}
-			$\functionSignature{\texttt{mgrao-update}}{\varAgent{}{}, \varAtomicTask{}{}, \varTaskValue{}{}}$ \label{wsnsink:mgrao}\;	
+			$\functionSignature{\texttt{mgrao-update}}{\functionSinkRole{}{}, \varAtomicTask{}{}, \varTaskValue{}{}}$ \label{wsnsink:mgrao}\;	
 		}
 		\Return{$\functionCompositeTaskQuality{}{}{}{}$}
 	}

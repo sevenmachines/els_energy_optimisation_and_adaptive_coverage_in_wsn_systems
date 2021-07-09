@@ -1,19 +1,58 @@
 \subsection{The \acronymMGRAO{}{} algorithm \citep{creech2021resource}}
 \label{appendix:algorithm-mgrao}
 
-\begin{algorithm}[ht]
+\begin{algorithm}
+	\SetAlgoLined
+	\DontPrintSemicolon
+	
+	\footnotesize
+	{
+		\KwIn{$\varAtomicTaskType{}{}$, The task type completed}
+		\KwIn{$\varParentAgent{}{}$, The parent agent that allocated the task}	
+		\KwIn{$\matrixEligibilityTrace{}{}$, The eligibility trace}		\KwIn{$\matrixResourceWeight{}{}$, The resource allocation weights matrix}
+		\KwIn{$\absoluteTaskValue{}{}(\varCompositeTask{}{}, \varAtomicTask{}{})$, The absolute value for the completed task}
+		
+		\KwIn{$\varLearningRate{}{}$, The learning rate}
+		\KwIn{$\gamma$, The decay rate}
+				\nonl \;
+		\KwResult{$\matrixResourceWeight{}{}$, The updated resource allocation weights matrix}
+				\nonl \;
+		\tcp{Update the eligibility trace}
+		$\matrixEligibilityTrace{}{} \funcupdate\functionInstanceQMappingSignature \functionEligibilityTraceUpdateSignature{}{}$ \;
+		\tcp{Apply the eligibility trace to resource weights}
+		$\matrixResourceWeight{}{} \funcupdate \matrixResourceWeight{}{} + \varLearningRate{}{} \absoluteTaskValue(\varCompositeTask{}{}, \varAtomicTask{}{}) \matrixEligibilityTrace{}{}$ \; 
+		\tcp{Sum-normalise resource weight matrix rows}
+		$\matrixResourceWeight{}{} \leftarrow \functionSumNormSignature{\matrixResourceWeight{}{}}{}$ \;
+		\Return $\matrixResourceWeight{}{}$	\;
+	}
+	\caption{The \acronymResourceAllocationAlgorithmExtended{}{} update algorithm}
+	\label{alg:multi_channel_priority_optimisation_by_functional_approximation_update}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetAlgoLined
 	\DontPrintSemicolon
 	\footnotesize
-	\caption{\textbf{The \acronymMGRAO{}{} algorithm}}
-	\label{alg:mgrao}
 	{
-		\KwIn{ $XXX$ , XXX}
+		\KwIn{$\varAtomicTaskType{}{}$, The task type being performed}
+		\KwIn{$\varChildAgent{}{}$, The child agent that is performing the task}
+		\KwIn{$\varParentAgent{}{}$, The parent agent that allocated the task}
+		\KwIn{$\varResource{}{}$, The resource requiring allocation}
+		\KwIn{$\matrixResourceWeight{}{}$, The resource allocation weights matrix}
+				\nonl \;
+		\KwResult{The resource weight transformed task quality}
+				\nonl \;
 		
-		\KwResult{$XXX$ , XXX}
-		\nonl
-		\;
-		\tcp{XXX}
-		$XXX$ \;
-		\Return{$XXX$}
+		\tcp{Find the index in the resource matrix}
+		$(i, j) \funcupdate \functionParentTaskIndex{}{}$ \;
+		\tcp{Calculate the combined resource weights}
+		$\matrixCombinedResourceWeights{}{} \funcupdate \functionCombinedResourceWeightsSignature{}{}$ \;
+		
+		\tcp{Retrieve the resource weighting for $\varAtomicTaskType{}{}$}
+		$\varResourceWeighting{\varChildAgent{}{},\varTime{}{}}{} \funcupdate \matrixCombinedResourceWeights{}{}_{j}$ \;
+		\tcp{Return the resource allocation for tasks of this type}
+		\Return $(\varResource{}{}, \varResourceWeighting{\varChildAgent{}{},\varTime{}{}}{} \times \functionResourceMap{}{})$ \;
 	}
+	\caption{The \acronymResourceAllocationAlgorithmExtended{}{} weighting algorithm}
+	\label{alg:multi_channel_priority_optimisation_by_functional_approximation}
 \end{algorithm}

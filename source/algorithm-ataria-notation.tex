@@ -1,0 +1,542 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\varAtomicTask}[2]{\varSymbol{at}{#1}{#2}}
+%\newcommand{\setAtomicTask}[2]{\setSymbol{at}{#1}{#2}}
+%\newcommand{\varCompositeTask}[2]{\varSymbol{ct}{#1}{#2}}
+%\newcommand{\setCompositeTask}[2]{\setSymbol{ct}{#1}{#2}}
+%\newcommand{\varAgent}[2]{\varSymbol{g}{#1}{#2}}
+%\newcommand{\varChildAgent}[2]{\varSymbol{g}{c}{#2}}
+%\newcommand{\varParentAgent}[2]{\varSymbol{g}{p}{#2}}
+%\newcommand{\varAction}[2]{\varSymbol{A}{#1}{#2}}
+
+\newcommand{\setAtomicTaskSubset}[2]{\setSymbol{at'}{#1}{#2}}
+\newcommand{\setAtomicTaskSys}[2]{\setSymbol{at}{sys}{#2}}
+\newcommand{\varAtomicTaskType}[2]{\varSymbol{ap}{#1}{#2}}
+\newcommand{\setAtomicTaskType}[2]{\setSymbol{ap}{#1}{#2}}
+\newcommand{\functionAtomicTaskMappingSymbol}[2]{\functionSymbol{type_a}}
+\newcommand{\functionAtomicTaskMapping}[2]{\functionSymbol{type_a}(#1)}
+
+\newcommand{\varCompositeTaskType}[2]{\varSymbol{cp}{#1}{#2}}
+\newcommand{\setCompositeTaskType}[2]{\setSymbol{CP}{#1}{#2}}
+\newcommand{\functionCompositeTaskMappingSymbol}[2]{\functionSymbol{type_c}}
+\newcommand{\functionCompositeTaskMapping}[2]{\functionSymbol{type_c}(#1)}
+
+\newcommand{\setAgent}[2]{\setSymbol{G}{#1}{#2}}
+
+\newcommand{\setChildAgent}[2]{\setSymbol{G}{c}{#2}}
+
+\newcommand{\setParentAgent}[2]{\setSymbol{G}{p}{#2}}
+\newcommand{\setAgentSubset}[2]{\setSymbol{G'}{#1}{#2}}
+\newcommand{\setAgentSys}[2]{\setSymbol{G}{sys}{#2}}
+\newcommand{\powerSetAgent}[2]{\powerSetSymbol{G}{#1}{#2}}
+
+
+\newcommand{\setAction}[2]{\setSymbol{A}{#1}{#2}}
+\newcommand{\setNeighbourhoodTargetActions}[2]{
+	\ifx \\#1\\
+	\setAction{g \succ \setAgent{}{}}{}
+	\else
+	\setAction{#1 \succ #2}{}
+	\fi
+}
+\newcommand{\setJointSystemAllocation}[2]{\setSymbol{AL}{#1}{#2}}
+\newcommand{\setJointSystemAllocationSubset}[2]{\setSymbol{AL'}{#1}{#2}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tupleAgent}[2]{\langle c,r, \delta_n, \delta_k \rangle}
+\newcommand{\varAgentCapability}[2]{\varSymbol{c}{#1}{#2}}
+\newcommand{\functionAgentCapability}[2]{\functionSignature{\varAgentCapability{}{}}{\varAgent{}{}}{#2}}
+\newcommand{\varAgentResponsiblity}[2]{\varSymbol{r}{#1}{#2}}
+\newcommand{\varAgentNeighbourhoodConstraint}[2]{\delta_n}
+\newcommand{\functionAgentNeighbourhoodConstraint}[2]{\functionSignature{\varAgentNeighbourhoodConstraint{}{}}{\varAgent{}{}}{#2}}
+\newcommand{\varAgentKnowledgeConstraint}[2]{\delta_k}
+\newcommand{\functionAgentKnowledgeConstraint}[2]{\functionSignature{\varAgentKnowledgeConstraint{}{}}{\varAgent{}{}}{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionNeighbourhoodSignature}[2]{
+	\ifx \\#1\\
+	\setSymbol{N}{}{}(\varAgent{}{})
+	\else
+	\setSymbol{N}{}{}(#1)
+	\fi
+}
+\newcommand{\functionKnowledgeSignature}[2]{
+	\ifx \\#1\\
+	\setSymbol{K}{}{}(\varAgent{}{})
+	\else
+	\setSymbol{K}{}{}(#1)
+	\fi
+}
+\newcommand{\tupleAllocation}[2]{\langle \{at\}, t, g ,a\rangle}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionNISignature}[2]{
+	\functionSignature{NI}
+	{
+		\setAtomicTask{}{},
+		\setX{}{},
+		\setY{}{},
+		\setJointSystemAllocation{}{}
+	}
+}
+
+
+\newcommand{\functionMNISignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{MNI}{
+		\setAtomicTask{}{},
+		\setK{}{},
+		\setJointSystemAllocation{}{}
+	}
+	\else
+	\functionSignature{MNI}{#1}
+	\fi
+}
+
+\newcommand{\functionKISignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{KI}
+	{
+		\setAtomicTask{}{},
+		\setJ{}{},
+		\setK{}{},
+		\setJointSystemAllocation{}{}
+	}
+	\else
+	\functionSignature{KI}{#1}
+	\fi
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varProbabilityNeighbourhoodDelta}{
+	\varSymbol{p}{N_{x \cap y}}{}
+}
+\newcommand{\varProbabilityKnowledgeDelta}{
+	\varSymbol{p}{K_{j \cap k}}{}
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionAISignature}[2]{
+	\functionSignature{AI}
+	{
+		\setAtomicTask{}{},
+		\setX{}{},
+		\setY{}{},
+		\setJ{}{},
+		\setK{}{},
+		\setJointSystemAllocation{}{}
+	}
+}
+\newcommand{\functionAIEstimatedSignature}[2]{
+	\functionSignature{\estimated{AI}}
+	{
+		\setAtomicTask{}{},
+		\setX{}{},
+		\setY{}{},
+		\setJ{}{},
+		\setK{}{},
+		\setJointSystemAllocation{}{}
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\setRiskAction}[2]{\setSymbol{W}{#1}{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionSymbolOLMetric}[2]{
+	d_{#1}^{#2}
+}
+
+\newcommand{\functionOLMetricLocalSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{d_{\texttt{loc}}^{#2}}
+	{
+		\varAgent{}{},
+		\setAtomicTask{}{},
+		\setAgent{}{},
+		\setJointSystemAllocation{}{}
+	}
+	\else
+	\functionSignature{d_{\texttt{loc}}^{#2}}
+	{#1}
+	\fi
+}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionOLMetricSystemSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{d_{\texttt{sys}}^{#2}}
+	{
+		\varAgent{}{},
+		\setAtomicTask{}{},
+		\setAgent{}{},
+		\setJointSystemAllocation{}{}
+	}
+	\else
+	\functionSignature{d_{\texttt{sys}}^{#2}}
+	{#1}
+	\fi
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\setRewardSet}[2]{\setSymbol{\Lambda}{#1}{#2}}
+
+\newcommand{\defSetRewardSet}[3]{ $\setRewardSet{#1}{#2}$, The \acronymRewardSet{}, a matrix of sum    marised quality trends#3.}
+\newcommand{\functionUpdateTQSMSignature}[2]{
+	\functionSignature{\texttt{UPDATETQSM}}{\setRewardSet{\varAgent{}{}}{}, \varAtomicTaskQualityValue{}{}}
+}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionImpactInterpolationSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{II}
+	{\varX{}{}}
+	\else
+	\functionSignature{II}
+	{#1}
+	\fi
+}
+\newcommand{\varDecay}[2]{\varSymbol{\delta}{#1}{#2}}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionImpactTransformationSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{IT}
+	{\varX{}{}}
+	\else
+	\functionSignature{IT}
+	{#1}
+	\fi
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varExplore}[2]{\varSymbol{\epsilon}{#1}{#2}}
+\newcommand{\varRiskAction}[2]{\varSymbol{\texttt{w}}{#1}{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionActionAllocSignature}[2]{ALLOC(g, at, n)}
+\newcommand{\functionActionExecSignature}[2]{EXEC(g, at)}
+\newcommand{\functionActionInfoSignature}[2]{INFO(g, t, n)}
+\newcommand{\functionActionLinkSignature}[2]{LINK(g, k)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%
+\newcommand{\setAgentActions}[2]{\setAction{\varAgent{}{}}{}}
+\newcommand{\functionAgentActionType}[2]{
+	\ifx \\#1\\
+	\functionSignature{category}{\varAction{}{}}
+	\else
+	\functionSignature{category}{#1}
+	\fi
+}
+\newcommand{\varActionType}[2]{\functionAgentActionType{\varAction{}{}}{}}
+\newcommand{\setActionType}[2]{\functionAgentActionType{\setAction{}{}}{}}
+
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varActionSample}[2]{\varSymbol{\psi}{#1}{#2}}
+\newcommand{\varSampleTime}[2]{\varSymbol{t}{#1}{#2}}
+\newcommand{\varSampleValue}[2]{\varAtomicTaskQualityValue{#1}{#2}}
+\newcommand{\setActionSample}[2]{\setSymbol{\Psi}{#1}{#2}}
+\newcommand{\functionActionSampleSelectorSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{S}
+	{\setActionSample{}{}, \setAction{}{}}
+	\else
+	\functionSignature{S}
+	{#1}
+	\fi
+}
+\newcommand{\setAgentActionSamples}[2]{
+	\setActionSample{\varAgent{}{}}{}
+}
+\newcommand{\functionLastActionSampleSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{LS}{
+		\setActionSample{}{}, \setAction{}{}
+	}{}
+	\else
+	\functionSignature{LS}{#1}
+	\fi
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\functionUncertainInformationSymbol}[2]{\functionSymbol{MV}{#1}{#2}}
+
+\newcommand{\functionUncertainInformationSignature}{
+	\functionSignature{\functionUncertainInformationSymbol{}{}}
+	{
+		\setActionSample{}{}, \varAction{}{}, \varSampleTime{}{}
+	}
+}
+
+\newcommand{\varUncertainInformationThreshold}[2]{
+	\varSymbol{\hat\mu}{\texttt{min}}{#2}
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionNeighbourhoodQualitySignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{NQ}{
+		\setActionSample{}{}, \varAgent{}{}, \setAgent{}{}
+	}
+	\else
+	\functionSignature{NQ}{#1}
+	\fi
+}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionMQNSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{MQN}
+	{\setActionSample{}{}, \varAgent{}{}}
+	\else
+	\functionSignature{MQN}
+	{#1}
+	\fi
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varQ}[2]{\varSymbol{{q}}{#1}{#2}}
+\newcommand{\setQ}[2]{\setSymbol{{Q}}{#1}{#2}}
+\newcommand{\tupleQ}[2]{
+	(\varAction{}{}, \varQ{}{})
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionQMappingSignature}[2]{
+	\ifx \\#1\\
+	\functionSignature{QM}
+	{\setAgent{}{}, \setAtomicTaskType{#1}{}}
+	\else
+	\functionSignature{QM}
+	{#1}
+	\fi
+}
+\newcommand{\formalQMapping}[2]{
+	\functionFormal{qm}{\setAgent{}{} \times \setAtomicTaskType{}{}}{\setQ{}{}}
+}
+\newcommand{\functionQMappingIndexedSignature}[3]{
+	\ifx \\#1\\
+	\functionSignature{QM}
+	{\setAgent{}{}, \setAtomicTaskTypeUnallocated{#1}{}}
+	\else
+	\functionSignature{QM_{#3}}
+	{#1}
+	\fi
+}
+\newcommand{\functionInstanceQMappingSignature}[2]{
+	\functionQMappingSignature
+	{\varAgent{}{}, \setAtomicTaskTypeUnallocated{#1}{}}{}
+}
+
+\newcommand{\functionInstanceQMappingIndexedSignature}[3]{
+	\functionQMappingIndexedSignature
+	{\varAgent{}{}, \setAtomicTaskTypeUnallocated{#1}{}}
+	{}
+	{#3}
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\setAvailableActions}[2]{\setSymbol{A}{#1}{\oplus}}
+\newcommand{\setUnavailableActions}[1]{\setSymbol{A}{#1}{\ominus}}
+\newcommand{\setAvailableQ}[2]{\setSymbol{{Q}}{#1}{\oplus}}
+\newcommand{\setUnavailableQ}[2]{\setSymbol{{Q}}{#1}{\ominus}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\setAtomicTaskUnallocated}[2]{\setSymbolMinus{AT}{#1}{#2}}
+\newcommand{\setAtomicTaskTypeUnallocated}[2]{
+	\functionAtomicTaskMapping{\setAtomicTaskUnallocated{}{}}{}
+}
+\newcommand{\functionSymbolTD}[2]{
+	\functionSymbol{TD}
+}
+\newcommand{\functionTDUpdateSignature}[2]{
+	\functionSignature{\functionSymbolTD{}{}}
+	{
+		\varAgent{}{}, \setAtomicTaskTypeUnallocated{t}{},
+		\setAtomicTaskTypeUnallocated{t+1}{},
+		\varAtomicTaskQualityValue{}{},
+		\varLearningRate{}{}, \varDiscountFactor{}{}
+	}
+}
+\newcommand{\varDiscountFactor}[2]{\lambda}
+
+\newcommand{\varLearningRate}[2]{\alpha}
+\newcommand{\functionTDUpdate}{
+	\functionInstanceQMappingIndexedSignature{}{}{t}
+	\funcupdate
+	(1 - \varLearningRate{}{})\underbrace{
+		\functionInstanceQMappingIndexedSignature{}{}{t}}_{
+		\texttt{current}
+	} + \varLearningRate{}{} \overbrace{
+		\lbrack \varAtomicTaskQualityValue{}{} + \varDiscountFactor{}{} \underbrace{
+			\texttt{max}_{\varAction{}{}}\ \functionInstanceQMappingIndexedSignature{}{}{t+1}
+		}_{
+			\texttt{future estimate}} \rbrack}^{\texttt{learned value}
+	}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionSASSignature}[2]{
+	\text{\acronymMemoryRetention{}} (\setAtomicTaskUnallocated{}{},
+	\functionNeighbourhoodSignature{}{}, \functionKnowledgeSignature{}{},
+	\setAgentActionSamples{}{}, \varUncertainInformationThreshold{max}{})
+}
+\newcommand{\functionSAS}[2]{
+	\functionKnowledgeSignature{}{} \leftarrow \funcSAS{}{}
+}
+
+\newcommand{\functionNPruneSignature}{
+	\acronymNeighbourhoodPruningAlgorithm(
+	\functionNeighbourhoodSignature{}{},
+	\setActionSample{}{}
+	)
+}
+
+\newcommand{\functionNPrune}{
+	\functionNeighbourhoodSignature{}{} \leftarrow \functionNPruneSignature{}{}
+}
+
+\newcommand{\functionRATSignature}[2]{
+	\text{\acronymRewardTrends{}}(\setAtomicTaskTypeUnallocated{}{}, \setRiskAction{}{}, \setRewardSet{}{}, \varExplore{base}{})
+}
+\newcommand{\functionRAT}[2]{
+	\varAction{}{} \leftarrow \functionRATSignature{}{}
+}
+
+\newcommand{\functionRTARP}{
+	\functionFormal {\acronymRewardTrends{}{} }
+	{
+		(\setAgent{}{}, \setCompositeTaskTypeUnallocated{}{}, \setRiskAction{}{}, \setRewardSet{}{})
+	}
+	{
+		\setAction {} {}
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varNeighbour}[2]{
+	\varSymbol{n}{}{}
+}
+\newcommand{\defVarDiscountFactor}[3]{$\varDiscountFactor{#1}{#2}$, a value $\setRealNumbersPositiveUnit{}{}$, weighting importance of future rewards#3}
+\newcommand{\defVarLearningRate}[3]{$\varLearningRate{#1}{#2}$, a value $\setRealNumbersPositiveUnit{}{}$, weighting the rate of Q-value update#3}
+\newcommand{\defSetRiskAction}[3]{$\setRiskAction{#1}{#2}$, The potential change on neighbourhoods on taking an action#3.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varExploreBase}[2]{
+	\varExplore{\texttt{base}}{}
+}
+\newcommand{\varExploreImpact}[2]{
+	\varExplore{\texttt{ief}}{}
+}
+\newcommand{\setQTransformed}[2]{
+	\setQ{tr}{}
+}
+\newcommand{\acronymInformationRetentionThreshold}{information retention threshold}
+\newcommand{\defVarUncertainInformationThreshold}[3]{ $\varUncertainInformationThreshold{}{}$,  The \acronymInformationRetentionThreshold#3.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionAtomicAllocationSymbol}[1]{\functionSignature{al}{#1}}
+\newcommand{\formalAtomicAllocation}[2]{
+	\functionFormal{\functionAtomicAllocationSymbol{}{}}
+	{\setAtomicTask{}{} \times  \setAgent{}{}}
+	{\powerSetSymbol{\setAtomicTask{}{} \times \setAgent{}{}}{}{}}
+}
+\newcommand{\functionAtomicAllocationSignature}[2]{
+	\ifx \\#1\\
+	\functionAtomicAllocationSymbol{\setAtomicTask{}{}, \setAgent{}{}}{}
+	\else
+	\functionAtomicAllocationSymbol{#1}{}
+	\fi
+}
+\newcommand{\functionAtomicAllocationSubsetSignature}[2]{
+	\ifx \\#1\\
+	\functionAtomicAllocationSymbol
+	{\setAtomicTaskSubset{}{}, \setAgentSubset{}{}}
+	\else
+	\functionAtomicAllocationSymbol
+	{#1}
+	\fi
+}
+\newcommand{\functionInstanceAtomicAllocationSignature}[2]{
+	\ifx \\#1\\
+	\functionAtomicAllocationSymbol
+	{\varAtomicTask{}{}, \varAgent{}{}}
+	\else
+	\functionAtomicAllocationSymbol
+	{#1}
+	\fi
+}
+\newcommand{\functionAtomicAllocationIndexedSignature}[2]{
+	\ifx \\#2\\
+	\functionSignature{al_{#1}}
+	{\varAtomicTask{#1}{}, \setAgent{#1}{}}
+	\else
+	\functionSignature{al_{#1}}
+	{#2}
+	\fi
+}
+\newcommand{\functionAtomicAllocationOptimalNeighbourhoodSignature}[2]{
+	\functionSignature
+	{\optimal{al}}
+	{\setAtomicTask{}{}, \functionNeighbourhoodSignature{}{}}
+}
+
+\newcommand{\functionJointSystemAllocationSignature}[2]{
+	\functionSignature{JL}{\setAtomicTaskSys{}{}, \setAgentSys}
+}
+\newcommand{\functionAgentJointAllocationSignature}[2]{
+	\functionSignature{JL}{\setAtomicTask{}{}, \varAgent{}{}}
+}
+
+
+\newcommand{\setConcurrentAllocations}{
+	\funcSize{\setJointSystemAllocation{\varAgent{}{}}{}
+	}
+}
+%%%%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%
+\newcommand{\varAtomicTaskQualityValue}[2]{\varSymbol{\omega}{#1}{#2}}
+\newcommand{\functionSymbolAtomicQuality}[2]{\functionSymbol{\omega_g}{}{#2}}
+
+\newcommand{\formalAtomicTaskQuality}[2]{
+	\functionFormal{\functionSymbolAtomicQuality{}{}}
+	{\setAtomicTaskType{}{} \times \setNaturalNumbers{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionJointAtomicQualitySignature}[2]{
+	\functionSignature{jq}{\setAtomicTask{}{}, \setAgent{}{}}
+}
+\newcommand{\functionQLSignature}[2]{
+	\functionSignature{QL}
+	{\setAtomicTask{}{}, \setAgent{}{}, \setJointSystemAllocation{}{}}
+}
+\newcommand{\functionQLSubsetSignature}[2]{
+	\functionSignature{QL}
+	{\setAtomicTask{}{}, \setAgentSubset{}{}, \setJointSystemAllocation{}{}}
+}
+\newcommand{\functionQLSingleSignature}[2]{
+	\functionSignature{QL}
+	{
+		\functionAtomicAllocationIndexedSignature{}{\varAtomicTask{}{}, \varAgent{}{}}, \setJointSystemAllocation{}{}
+	}
+}
+
+\newcommand{\varSystemUtility}{u}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

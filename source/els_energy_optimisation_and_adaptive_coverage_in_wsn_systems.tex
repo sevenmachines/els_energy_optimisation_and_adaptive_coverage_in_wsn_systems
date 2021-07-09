@@ -30,6 +30,8 @@
 \usepackage{graphicx}
 \usepackage[]{caption}
 \usepackage{subcaption}
+\usepackage{placeins}
+
 \include{notation}
 
 %\newcommand*{\DEBUG}{}%
@@ -120,11 +122,18 @@
 	\input{results_comparisons}
 	\input{conclusions}
 	\input{references}
+\newpage
 	\begin{appendix}
-	%\section{Algorithms}
-	%\label{appendix:algorithms}
-	%\input{algorithm-ataria}
-	%\input{algorithm-mgrao}
+	\section{Algorithms}
+\label{appendix:algorithms}
+%	\input{algorithm-ataria-simple}
+	\input{algorithm-common}
+	\input{algorithm-ataria-notation}
+	\input{algorithm-ataria}
+	\FloatBarrier
+%	\input{algorithm-mgrao-simple}
+		\input{algorithm-mgrao-notation}
+		\input{algorithm-mgrao}
 	\end{appendix}
 				
 \end{document}
