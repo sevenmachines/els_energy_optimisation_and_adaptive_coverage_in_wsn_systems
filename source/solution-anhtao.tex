@@ -4,7 +4,9 @@
 }
 
 \subsection{Optimising hierarchical task allocation in networks of agents}
+\label{section:solution_anhtao}
 
+\todo[inline]{Make this more a clear definition of ANHTAO}
 To successfully complete a composite task, a sink agent needs to receive composite tasks from an external source, decompose them into atomic tasks, and allocate these to other agents. These agents must choose whether to execute the tasks themselves, utilising their available resources, or allocate them to further agents, extending the task-path.  When sink agents complete a composite task they will then adapt their Q-values to optimise their actions, as well as of those agents on the task-path, given the absolute task values of the completed atomic tasks. To illustrate this, Figure \ref{fig:arc-flow} shows a task-path where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
 \begin{figure}[ht]
 	\centering

@@ -26,5 +26,6 @@ The sink node was given $3$ composite tasks to complete sequentially, each consi
 
 The \simulationNodeFailure{}{} system introduced random node failures to the system over time, showing how each algorithm maintains coverage and optimises for quality and energy while some node availability is lost. The simulation ran for $100$ episodes, where for each episode between $20$ and $40$  a randomly chosen single node might fail with probability $0.25$. Once a node failed, it was unresponsive for all further episodes. 
 
- As a comparison we use the \acronymQRouting{}{} algorithm, a Q-learning based algorithm  used to optimise network routes based on energy consumption and task quality equally \citep{XXX, XXX}.
- \todo[inline]{REF HERE}
+As a comparison we use the \acronymQRouting{}{} algorithm \citep{Boyan}, with a reward function based on energy consumption and task quality equally similar to Equation \ref{eq:ctv}.
+
+ 

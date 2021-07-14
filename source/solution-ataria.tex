@@ -1,6 +1,5 @@
 \subsection{Optimising task allocation using the \acronymATARIA{}{} algorithm}
-
-\label{section:algorithm_summaries}
+\label{section:solution_ataria}
 
 The \acronymATARIA{}{} algorithm enables agents in the system to choose the best actions to take given their current tasks. It does so while assuming each agent has limited resources, such as compute or memory, so can only maintain knowledge of,  and interact with,  a subset of agents in the system at a point in time. In a system containing agents $\setAgents{}{}$, an individual agent has a knowledge base $\functionKnowledgeSignature{}{}$, the set of agents it knows about, and neighbourhood $\functionNeighbourhoodSignature{}{}$, the set of agents it can allocated tasks to. Each agent maintains a set of Q-values, a tuple of actions it can take in a given state, with the probability that the action is the best one to take. The  Q-mapping function $\functionQMappingSignature{}{}$ maps the set of unallocated tasks to this set, allowing the agent to choose which action to take next. When a composite task is completed, the algorithm updates the Q-values of the agents involved from the task value so that the optimal actions can be learned.
 
