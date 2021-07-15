@@ -6,16 +6,23 @@
 \subsection{Optimising hierarchical task allocation in networks of agents}
 \label{section:solution_anhtao}
 
-\todo[inline]{Make this more a clear definition of ANHTAO}
-To successfully complete a composite task, a sink agent needs to receive composite tasks from an external source, decompose them into atomic tasks, and allocate these to other agents. These agents must choose whether to execute the tasks themselves, utilising their available resources, or allocate them to further agents, extending the task-path.  When sink agents complete a composite task they will then adapt their Q-values to optimise their actions, as well as of those agents on the task-path, given the absolute task values of the completed atomic tasks. To illustrate this, Figure \ref{fig:arc-flow} shows a task-path where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
+The \acronymWSNOptimisationExtended{}{} algorithm overall looks to optimise the system utility as described in Equation \ref{eq:system_utility}. 
+To successfully complete a composite task, a sink agent needs to receive composite tasks from an external source, decompose them into atomic tasks, and allocate these to other agents. These agents must choose whether to execute the tasks themselves, utilising their available resources, or allocate them to further agents, extending the task-path.  To illustrate this, Figure \ref{fig:arc-flow} shows a task-path where there are two re-allocations made before a specific atomic task is allocated to an agent that completes the task by taking a measurement.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\linewidth, trim={72pt 0pt 62pt 0pt, clip}]{arc-flow}
 	\caption{\textbf{Allocation along a task-path}. This diagram illustrates how allocations can be relayed along a task-path using successive applications of the \acronymATARIA{}{} algorithm.}
 	\label{fig:arc-flow}
 \end{figure}
+The \acronymWSNOptimisation{}{} algorithm optimises this process  in 3 main ways,
+\begin{enumerate}
+	\item \textit{Selecting actions.} When agents have a composite or atomic task allocated to them, the can choose from a range of actions \footnote{See Section \ref{section:actions}}. By utilising Q-learning techniques, with absolute task values as the reward function, \acronymWSNOptimisation{}{} adapts the probability of agents' taking actions to optimise these values, increasing the overall system utility. 
+	
+	\item \textit{Resource allocation.} As an agent completes an atomic task it will use some resources to do so. The \acronymWSNOptimisation{}{} algorithm predicts the optimal allocation of these resources for an agent, allowing it to complete the incoming tasks to the best qualities overall.
+	
+	\item \textit{Forming task-paths. }The algorithm allows agents to allocate atomic tasks to other agents recursively, and distributes the reward for completing these tasks across these task paths to optimise the actions that were taken by all agents involved.
+\end{enumerate}
 The high-level flowchart in Figure \ref{fig:algorithm-flow}(a) shows how sink node agents decompose composite tasks, choose actions to take, allocate atomic tasks, and return results. In Figure \ref{fig:algorithm-flow}(b) we can see how agents in a task-path choose actions, and how they execute or re-allocate the atomic tasks they have been allocated.
-
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{.49\textwidth}
@@ -32,3 +39,83 @@ The high-level flowchart in Figure \ref{fig:algorithm-flow}(a) shows how sink no
 	\caption{\textbf{\acronymWSNOptimisation{}{} execution flowchart.} Shows how \acronymWSNOptimisation{}{} combines the \acronymATARIA{}{} and \acronymMGRAO{}{} algorithms and enables recursive allocation of tasks.}
 	\label{fig:algorithm-flow}
 \end{figure}
+We formally define the \acronymWSNOptimisation{}{} algorithm in two parts for clarity, the \acronymWSNOptimisationSink{}{} and \acronymWSNOptimisationArc{}{} algorithms.
+\paragraph{\acronymWSNOptimisationSink{}{}}
+Initially, the sink node receives a composite task $\varCompositeTask{}{}$ comprising of multiple atomic tasks $\varAtomicTask{}{}$ to be completed, see Algorithm \ref{alg:wsn_optimisation_sink}. While these atomic tasks are not complete or allocated, the sink node agent runs the \acronymATARIA{}{} algorithm to select an action (Line \ref{wsnsink:select}).  If the action chosen is to execute the atomic task itself, $\functionExec{}{}$, the algorithm uses the \acronymMGRAO{}{} algorithm to determine the resources that will be allocated to the tasks' completion. An $\functionAlloc{}{}$ action will allocate it to another agent it knows about to complete using the \acronymWSNOptimisationArc{}{} algorithm. In both cases, the task is removed from the active list  (Line \ref{wsnsink:exec_remove}). If a $\functionInfo{}{}$ or $\functionLink{}{}$ action is executed, these will update the agents' neighbourhood and knowledge base respectively using the \acronymATARIA{}{} algorithm. There is no effect on atomic task execution or allocation in that case, and the algorithm loops round to choose another action. The selection and execution of actions using the \acronymATARIA{}{} algorithm is repeated until the tasks are either executed or allocated. Once all the atomic tasks are allocated, the sink node must wait for them to complete (Line \ref{wsnsink:wait}). When all the atomic tasks have completed, each atomic tasks' absolute task value to the composite task is calculated (Line \ref{wsnsink:ataria-taskval}). All of the agents in the task-path of each atomic task have their Q-values updated for the actions they took in completing each task (Line \ref{wsnsink:ataria-update}). Finally, for each atomic task, the corresponding absolute task value is sent to the last agent in the atomic tasks' task-path so that each sensor agent can carry out an \acronymMGRAO{}{}-update to re-allocate its resources to increase the tasks' value in the future (Line \ref{wsnsink:mgrao}).
+\paragraph*{\acronymWSNOptimisationArc{}{} }
+This part of the algorithm, shown in Algorithm \ref{alg:wsn_optimisation_arc}, will complete an atomic task and return its quality, either by executing the task itself, or re-allocating to another agent.  Once again,  the \acronymATARIA{}{} algorithm is used to repeatedly select actions until the atomic task is either executed or allocated (Line \ref{wsnarc:select}). After waiting for the atomic task to be completed (Line \ref{wsnarc:wait}),  an atomic task quality is returned (Line \ref{wsnarc:wait}).
+
+ \begin{algorithm}[ht]
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The \acronymWSNOptimisationSink{}{} algorithm}}
+	\label{alg:wsn_optimisation_sink}
+	{
+		\KwIn{ $\varCompositeTask{}{}$ , The composite task set}
+		\KwIn{ $\varAgent{}{}$ , The sink agent completing the composite task}
+		\KwResult{$\functionCompositeTaskQuality{}{}{}{}$ , The composite task quality of $\varCompositeTask{}{}$}		\nonl \;
+		\tcp{Copy set of atomic tasks to list of incomplete tasks}
+		$ctactive \leftarrow \varCompositeTask{}{}$ \label{wsnsink:copy}\;
+		\ForEach{$\varAtomicTask{}{} \in ctactive$\label{wsnsink:composite_tasks}}
+		{
+			\tcp{Select and execute action through \acronymATARIA{}{}}
+			$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnsink:select} \;	
+			\If{$\functionAgentActionType{}{} = \functionExec{}{} \lor  \functionAgentActionType{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
+			{
+				\tcp{If the action was completed by agent $\varAgent{}{}$ or by allocating to another agent $\varAgent{}{'}$, remove atomic task from active task list}
+				$ctactive{}{} \leftarrow ctactive - \lbrace \varAtomicTask{}{} \rbrace$ \label{wsnsink:exec_remove}\;
+			}
+		}
+		\tcp{Wait for all the atomic tasks in the composite task to be completed}
+		\While{ $\functionNotComplete{\varCompositeTask{}{}}{}$}{
+			$\functionWait{}{}$ \label{wsnsink:wait}\; 
+		}
+		\ForEach{$\varAtomicTask{}{} \in \varCompositeTask{}{}$\label{ataria:composite_tasks}}
+		{
+			\tcp{Calculate each atomic tasks' absolute task value}
+			$\varTaskValue{}{} \leftarrow \functionTaskAbsoluteValue{}{}
+			$ \label{wsnsink:ataria-taskval}\;	
+			\tcp{Send a proportion of the absolute task value for the atomic task to each agent in its task-path}
+			\ForEach{$\varAgent{}{'}\in \functionTaskArc{}{}$}{
+				\tcp{Update the Q-values for actions taken by agents in each atomic tasks' task-path}
+				$\functionSignature{\texttt{ataria-update}}{
+					\varAgent{}{'}, \varAtomicTask{}{}, \frac{\varTaskValue{}{}}{\funcSize{\varCompositeTask{}{}}}
+				}$ \label{wsnsink:ataria-update}\;	
+			}
+			\tcp{Send the agent that completed the atomic task the absolute task value to run the MGRAO update}
+			$\functionSignature{\texttt{mgrao-update}}{\functionSinkRole{}{}, \varAtomicTask{}{}, \varTaskValue{}{}}$ \label{wsnsink:mgrao}\;	
+		}
+		\Return{$\functionCompositeTaskQuality{}{}{}{}$}
+	}
+\end{algorithm}
+\begin{algorithm}[ht]
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The \acronymWSNOptimisationArc{}{} algorithm } }
+	\label{alg:wsn_optimisation_arc}
+	{
+		\KwIn{ $\varAtomicTask{}{}$ , The atomic task to be completed}
+		\KwIn{ $\varAgent{}{}$ , The agent completing the atomic task}
+		\KwResult{$\functionAtomicTaskQualitySignature{}{}$ , The atomic task quality of $\varAtomicTask{}{}$}
+		\nonl \;
+		
+		$taskAllocated \leftarrow False$ \;
+		\While{$\neg taskAllocated$ }{
+			\tcp{Select and execute action through \acronymATARIA{}{}}
+			$\varAction{}{} \leftarrow \functionATARIAAction{}{}$ \label{wsnarc:select} \;
+			\tcp{If the action was executed by agent $\varAgent{}{}$ or allocated to another agent $\varAgent{}{'}$, mark it allocated}
+			\uIf{$\functionAgentActionType{}{} = \functionExec{}{} \lor \functionAgentActionType{}{} = \functionAlloc{\varAtomicTask{}{}}{\varAgent{}{'}}$?}
+			{
+				$taskAllocated \leftarrow True$ \;
+			}
+		}
+		\tcp{Wait for the atomic task to be completed}
+		\While{ $\functionNotComplete{\varAtomicTask{}{}}{}$}{
+			$\functionWait{}{}$ \label{wsnarc:wait}\; 
+		}
+		\tcp{Return the task quality of the atomic task completion}
+		\Return{$\functionAtomicTaskQualitySignature{}{}$\label{wsnarc:return}} \;
+	}
+\end{algorithm}
