@@ -1,13 +1,13 @@
 \subsection{Energy consumption and availability}
 \label{section:energy_consumption}
-\todo[inline]{HERE}
-The \textit{atomic task energy consumption} is the energy used by the nodes in the system in executing an atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. This is composed of,
+
+We quantify an \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. This is composed of,
  \begin{itemize}
  	\item \textit{Transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 
  	\item \textit{Receiver energy}, $\varReceiverEnergy{}{}$, the energy used by a node to receive a message. 
  	 \item \textit{Sensor energy}, $\varSensorEnergy{}{}$,the energy used by a node to execute an atomic measurement task.
  \end{itemize}
-For simplification, we assume that these values are constants in a given system. In which case, for a given task-path, the combined energy usage will be,
+For simplification, we assume that these values are constants in a given system. For a given task-path, the combined energy usage will be,
 \begin{align}
 \functionAtomicTaskEnergyConsumptionSignature{}{} 
 &= 
@@ -28,12 +28,12 @@ Although nodes would still use energy when in an idle power saving mode, or slee
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalAgentEnergyAvailable}[2]{
-	\functionFormal{fae}
+	\functionFormal{\mathit{fe}}
 	{\setAgents{}{}}
 	{\setRealNumbersUnit{}{}}
 }
 \newcommand{\functionAgentEnergyAvailable}[2]{
-	\functionSignature{fae_{\varTime{}{}}}
+	\functionSignature{\mathit{fe}_{\varTime{}{}}}
 	{\varAgent{}{}}
 }
 \newcommand{\functionEnergyVariability}[2]{
@@ -52,7 +52,7 @@ Although nodes would still use energy when in an idle power saving mode, or slee
 	\functionSignature{ea_{\varTime{}{}}}{#1}
 	\fi
 }
-The \textit{fractional agent energy} maps an agent to its available energy, as a fraction of the batteries' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
+The \textit{fractional agent energy} maps an agent to its available energy, as a fraction of its energy sources maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
 \begin{equation}
 	\functionEnergyAvailable{}{} 
 	= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}}

@@ -1,11 +1,21 @@
 %%%%%%%%%%%%%%%%%
 \newcommand{\functionAtomicTaskQualitySignature}[2]{
+\ifx&#1&
 	\functionSignature{q} {\varAtomicTask{}{}, \varAgent{}{}}
+\else
+\functionSignature{q}{#1, #2}
+\fi
 }
-\newcommand{\functionCompositeTaskValue}[2]{
-	\functionSignature{ctv}{\varAtomicTask{}{}}
+\newcommand{\functionAtomicTaskQualitySensor}[2]{
+	\functionSignature{q} {\varAtomicTask{}{}, \functionSenseRole{}{}}
 }
 
+\newcommand{\functionComponentTaskValue}[2]{
+	\functionSignature{ctv}{\varAtomicTask{}{}}
+}
+\newcommand{\formalComponentTaskValue}[2]{
+	\functionFormal{ctv}{\setAtomicTask{}{}}{\setRealNumbersNonNegative{}{}}
+}
 \newcommand{\functionSystemUtility}[2]{\functionSignature{u}{\setTime{}{}}}
 %%%%%%%%%%%%%%%%%%%
 \newcommand{\functionCompositeTaskQuality}[2]{
@@ -32,33 +42,31 @@ An agent that takes a measurement will complete that task with a certain \textit
 		}{}}{{\sqrt{2}}}\bigg )
 \end{equation}
 
-The proportional value of an atomic task to the corresponding composite task, will not only be dependent on the quality of the atomic task, but also on additional system wide objectives. In a WSN system we want to maximise values for multiple objectives such as,
-\begin{enumerate}
-	\item The energy available in the system, therefore minimising the overall battery power consumption. 
-	\item The distribution of energy use across the nodes, which will spread component wear across nodes and so maximise the usable lifetime of the system.
-	\item The quality of atomic tasks, which not only improves the accuracy of readings, but will also invoke a penalty of poor task coverage as failed tasks have lower quality. 
-\end{enumerate}
-Therefore we define an atomic tasks' \textit{component task value} with these multiple objectives included as terms,
+When a composite task is completed, the value of an atomic task to its final outcome can be measured. This may be dependent on factors such as whether or not it replicated a nearby result, making it less valuable than an atomic task that uniquely covered a demand point for example. We define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task to the fractional value of each of them to a composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
+
+The quality of a composite task will not only be dependent on the value of its atomic tasks, but also on how well nodes in their respective task-paths have minimised energy usage, and energy distribution. Therefore we define the \textit{composite task quality} with these multiple objectives included as terms,
 \begin{equation}
 	\label{eq:ctv}
-	\functionCompositeTaskValue{}{} = 
+	\functionCompositeTaskQuality{}{} = 
+	\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
+	\big\lbrack
 	\alpha\underbrace{\functionEnergyAvailable{\functionTaskArc{}{}}{}}_{\text{energy available}}
 	+ \beta\underbrace{\functionEnergyVariability{\functionTaskArc{}{}}{}}_{\text{energy distribution}}
 	+ 
-	\gamma\underbrace{\functionAtomicTaskQualitySignature{}{}}_{\text{task quality}}
+	\gamma\underbrace{
+		\functionComponentTaskValue{}{}
+		\functionAtomicTaskQualitySignature{\varAtomicTask{}{}}{\functionSenseRole{}{}}
+	}_{\text{task quality}}
+\big\rbrack
 \end{equation}
-where $\alpha$, $\beta$, and $\gamma$ are variables chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. With the composite task value calculated after its completion  at a time $\varTime{}{}$, we can then calculate \textit{composite task quality} as the combination of each atomic task's quality and its value to the composite task,
-\begin{equation}
-\functionCompositeTaskQuality{}{} = \sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
-\functionCompositeTaskValue{}{}\functionAtomicTaskQualitySignature{}{}	
-\end{equation}
-Finally we can define each atomic task's absolute value to the system as the product of the respective composite task's quality and the relative contribution of the atomic task to that quality,
+where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. We then define each atomic task's absolute value to the system as the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality,
 \begin{equation}
 	\functionTaskAbsoluteValue{}{} = 
-	\functionCompositeTaskQuality{}{}\functionCompositeTaskValue{}{}
+	\functionCompositeTaskQuality{}{}
+	\functionAtomicTaskQualitySignature{}{}
 \end{equation}
 
-We so define the overall \textit{ utility} of the system over a time period $\setTime{}{}$ as the sum of the composite task qualities of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
+The overall \textit{ utility} of the system over a time period $\setTime{}{}$ will then be the sum of the composite task qualities of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
 	\begin{equation}
 		\label{eq:system_utility}
 		\functionSystemUtility{}{} = \sum\limits_{\varTime{}{} \in \setTime{}{}}

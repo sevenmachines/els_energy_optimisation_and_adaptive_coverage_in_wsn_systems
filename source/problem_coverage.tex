@@ -32,11 +32,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-When the quality of the completion of an atomic task falls below a certain level, the result may no longer be useful. As an example, we could have a system where a large number of sensor nodes are deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. Taking a measurement $1$ metre away from a demand point is likely to be close to the demand points' actual value, whereas $100$ metres away it may be uncorrelated, and not be a useful measurement. The distance at which this is likely to occur is highly dependent on the type of task performed, the environment it is in, and the desired system behaviour.
-
-To formalise this concept, we set a value $\varQualityMin{}{}$ to be the \textit{quality threshold} above which an atomic task is considered successful, and the set of \textit{successful atomic tasks} as, $\formalTasksSuccess{}{}$ where $\functionAtomicTaskQualitySignature{}{} > \varQualityMin{}{}$ for all $\varAtomicTask{}{} \in \setCompositeTask{}{'}$. 
-
-
+When the quality of the completion of an atomic task falls below a certain level, the result may no longer be useful. As an example, we could have a system where a large number of sensor nodes are deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. Taking a measurement $1$ metre away from a demand point is likely to be close to the demand points' actual value, whereas $100$ metres away it may be uncorrelated, and not be a useful measurement. The distance at which this is likely to occur is highly dependent on the type of task performed, the environment it is in, and the desired system behaviour. To formalise this concept, we set a value $\varQualityMin{}{}$ to be the \textit{quality threshold} above which an atomic task is considered successful, and the set of \textit{successful atomic tasks} as, $\formalTasksSuccess{}{}$ where $\functionAtomicTaskQualitySensor{}{} > \varQualityMin{}{}$ for all $\varAtomicTask{}{} \in \setCompositeTask{}{'}$. 
 
 
 We define the systems' \textit{ coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} as the proportion of successfully completed atomic tasks in the set of completed composite tasks over a time period $\setTime{}{}$.
