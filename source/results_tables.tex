@@ -23,44 +23,45 @@
 \begin{table}[ht]
 	\centering
 \begin{tabular}{
-			|p{0.18\textwidth}|p{0.10\textwidth}|p{0.09\textwidth}|p{0.11\textwidth}|p{0.13\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|
+			|p{0.18\textwidth}|p{0.05\textwidth}|p{0.05\textwidth}|p{0.09\textwidth}|p{0.11\textwidth}|p{0.06\textwidth}|p{0.06\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|
 		}
 \hline
 \textbf{Algorithm}
-	& \textbf{CTV \newline (average)}
+	& \multicolumn{2}{c|}{\textbf{CTV \newline (average)}}
 	& \textbf{CTV \newline(impact)}
 	& \textbf{CTV \newline(cumulative)}
-	& \textbf{Energy \newline (average)}
+	& \multicolumn{2}{c|}{\textbf{Energy \newline (average)}}
 	& \textbf{Energy \newline (impact)}
 	& \textbf{Energy  \newline(cumulative)} \\
+\hline & \textbf{start} & \textbf{finish }& & & \textbf{start} & \textbf{finish} & &  \\
 \hline
 		\algorithmBalancedSimple{}{}
-			& \resultsSimpleCTVBalancedStart{}{} $\rightarrow$  \resultsSimpleCTVBalancedEnd{}{} 
+			& \resultsSimpleCTVBalancedStart{}{} &  \resultsSimpleCTVBalancedEnd{}{} 
 			& n/a
 			& \resultsSimpleCumulativeCTVComparison{}{}
-			& \resultsSimpleEnergyBalancedStart{}{} $\rightarrow$  \resultsSimpleEnergyBalancedEnd{}{}
+			& \resultsSimpleEnergyBalancedStart{}{} &  \resultsSimpleEnergyBalancedEnd{}{}
 			& n/a
 			& \resultsSimpleCumulativeEnergyComparison{}{} \\
 		\algorithmQRoutingSimple{}{} 
-			& \resultsSimpleCTVQRoutingStart{}{} $\rightarrow$  \resultsSimpleCTVQRoutingEnd{}{} 
+			& \resultsSimpleCTVQRoutingStart{}{} &  \resultsSimpleCTVQRoutingEnd{}{} 
 			& n/a
 			& $0.0$
-			& \resultsSimpleEnergyQRoutingStart{}{} $\rightarrow$  \resultsSimpleEnergyQRoutingEnd{}{}
+			& \resultsSimpleEnergyQRoutingStart{}{} &  \resultsSimpleEnergyQRoutingEnd{}{}
 			& n/a
 			& $0.0$ \\
 			
 		\algorithmFailure{}{} 
-		& \resultsNodeFailureCTVBalancedStart{}{}  $\rightarrow$  \resultsNodeFailureCTVBalancedEnd{}{} 
+		& \resultsNodeFailureCTVBalancedStart{}{}  &  \resultsNodeFailureCTVBalancedEnd{}{} 
 		& \resultsNodeFailureCTVBalancedImpactDiff{}{}
 		& \resultsNodeFailureCumulativeCTVComparison{}{}
-		& \resultsNodeFailureEnergyBalancedStart{}{} $\rightarrow$  \resultsNodeFailureEnergyBalancedEnd{}{}
+		& \resultsNodeFailureEnergyBalancedStart{}{} &  \resultsNodeFailureEnergyBalancedEnd{}{}
 		& \resultsNodeFailureEnergyBalancedImpactDiff{}{} 
 		& \resultsNodeFailureCumulativeEnergyComparison{}{} \\
 		\algorithmQRoutingFailure{}{} 
-		& \resultsNodeFailureCTVQRoutingStart{}{} $\rightarrow$  \resultsNodeFailureCTVQRoutingEnd{}{} 
+		& \resultsNodeFailureCTVQRoutingStart{}{} &  \resultsNodeFailureCTVQRoutingEnd{}{} 
 		& \resultsNodeFailureCTVQRoutingImpactDiff{}{}
 		& $0.0$
-		& \resultsNodeFailureEnergyQRoutingEnd{}{}  $\rightarrow$  \resultsNodeFailureEnergyQRoutingEnd{}{}
+		& \resultsNodeFailureEnergyQRoutingEnd{}{}  &   \resultsNodeFailureEnergyQRoutingEnd{}{}
 		& \resultsNodeFailureEnergyQRoutingImpactDiff{}{}
 		& $0.0$ \\
 \hline

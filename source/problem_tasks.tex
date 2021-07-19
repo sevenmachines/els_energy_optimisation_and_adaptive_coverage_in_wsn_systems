@@ -32,7 +32,7 @@
 \subsection{Task quality and system utility}
 \label{section:task_quality}
 
-An agent that takes a measurement will complete that task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}. This is dependant on the resources it has dedicated to tasks of that type, and its distance to the tasks' demand point.  In addition, the longer the sample time of the measurement the more accurate the reading will be, however,  more energy is used. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
+An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. In this case, this is dependant on the resources it has dedicated to tasks of that type, and the nodes distance to the tasks' demand point.  For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 
@@ -42,7 +42,7 @@ An agent that takes a measurement will complete that task with a certain \textit
 		}{}}{{\sqrt{2}}}\bigg )
 \end{equation}
 
-When a composite task is completed, the value of an atomic task to its final outcome can be measured. This may be dependent on factors such as whether or not it replicated a nearby result, making it less valuable than an atomic task that uniquely covered a demand point for example. We define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task to the fractional value of each of them to a composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
+When a composite task is completed, the value of an atomic task to its final outcome can be measured. This is not the same as task quality, at it may be dependent on factors such as whether or not it replicated a nearby result, making it less valuable than if it uniquely covered a demand point. We define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task of a composite task to the fractional value of each of them to the composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
 
 The quality of a composite task will not only be dependent on the value of its atomic tasks, but also on how well nodes in their respective task-paths have minimised energy usage, and energy distribution. Therefore we define the \textit{composite task quality} with these multiple objectives included as terms,
 \begin{equation}
@@ -59,7 +59,7 @@ The quality of a composite task will not only be dependent on the value of its a
 	}_{\text{task quality}}
 \big\rbrack
 \end{equation}
-where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. We then define each atomic task's absolute value to the system as the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality,
+where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. Each \textit{atomic task's absolute value} to the system will then be the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality,
 \begin{equation}
 	\functionTaskAbsoluteValue{}{} = 
 	\functionCompositeTaskQuality{}{}
