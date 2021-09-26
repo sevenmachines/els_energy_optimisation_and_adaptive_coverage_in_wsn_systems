@@ -1,0 +1,132 @@
+Hi Niall, 
+
+I've read through the first part of your WSN journal paper, but I already have lots of questions for Section 3. As this means I'm not clear on some of your problem definition, it seems best to get these addressed before I look at the other sections and judge whether the solution meets that problem.
+
+Title
+=====
+The title seems to say less than the paper then goes on to describe, i.e. from Sections 1 and 2 it seems to be not just about energy and task quality. Shouldn't it be something like "Multi-objective optimisation in WSN systems" or "Optimisation for competing demands in WSN systems" or something like that?
+
+Abstract
+========
+"a 15.9% system utility improvement" compared to what?
+
+Section 1
+=========
+"Todo list" above the section heading
+
+Paragraph 2: "help them optimise" - Optimise what? You haven't yet said that there's something needing to be optimised (you shouldn't assume the reader has read the abstract before this section). This issue continues in paragraph 3 ("fail to optimise well or get trapped in local optima") before you afterwards mention something that could be optimised (energy efficiency and system lifetime).
+
+Paragraph 3: "communicates with the central controller" => "communicate with the central controller"
+
+Paragraph 3: "fail to optimise well" => "fail to optimise" (it is not clear on what measure you would compare optimisations)
+
+Section 2
+=========
+Second list, item 2: It is odd that it ends with a citation to Mihaylov et al. when you are talking about what the focus of your own is (and you aren't called Mihaylov). It is not clear what the citation is providing the source for.
+
+Second list, item 3: The last sentence is overly complex and seems to be describing optimisation for two competing things (quality of task completion and utility of the system overall). I suggest it should be reduced to something like "The algorithm should be able to learn the allocation of resources at each node that optimises overall system utility."
+
+You imply (paragraph 3) that two research groups, Li and Zhang 2009 and Sengupta et al. 2013, have provided solutions to multi-objective optimisation in WSNs. It's not clear how the goal of this paper as expressed in the final paragraph differs from that. If so, what don't they solve that you will?
+
+Section 3
+=========
+Opening list: For neatness of the sentence, please un-capitalise "Nodes", "Agents", "Tasks" and "Resources" and consistently end the first three items with commas or semi-colons (personally I'd use semi-colons as each item is a long clause).
+
+Final sentence of intro: "in in"
+
+Reading through Section 3, it feels like there is something missing before Section 3.1 on the characteristics of the environment into which the WSN is deployed. There are hints of things given along the way, but no coherent list of assumptions. In particular, I'm thinking of things like the 'location grid' in Section 3.6 and the opening sentences of Section 3.7 on the relation between spatial distance and radiation levels (i.e. a gradual change over space).
+
+Section 3.1
+===========
+Figure 2 seems inconsistent with the text early in the section.
+ - How can there be nodes that are distinctly 'sensor nodes' when you say every node has 'one or more sensors'? When you say "...a final measurement is made by a sensor node" do you mean "a sensor node *for that task*", i.e. it is a role played for a given task rather than a distinct kind of node?  If it is meant to be a role within a task, 'sensor node' sounds like a type rather than a role, so there may be a better name to use.
+ - When every node has an agent by your definition, then why are some elements in the figure called nodes and others (apparently of the same kind) called agents? 
+ - Why does one agent (and possibly by implication other agents) have a 'broadcast radius of node' shown, but this broadcast radius is not mentioned as a property of an agent or node in the text?
+
+What happens to the measurement, e.g. is it stored by the sensor node, or communicated by the sensor node directly out of the system, or back along the task-path to the sink node, or along a potentially different path to the sink node, or something else? While I know you go on to explain more detail in later sections, it seems odd to omit the end of the description of what happens to a request at this point.
+
+Section 3.2
+===========
+In multiple places, there seems confusion between 'agents' and 'nodes', e.g. in paragraph 1, it seems odd to say that the deployment configuration maps agents to locations when agents are 'ethereal' software. Shouldn't it be nodes that are mapped to locations? Or in the system definition, you say "sink nodes, agents the can receive composite tasks" as if nodes are the same as or a subclass of agents which contradicts what you said in Section 3.1.
+
+You need to decide whether you need two distinct concepts with different terms (node for the hardware, agent for the software) or one term because the distinction doesn't matter for your paper. If you have two distinct concepts, then you can't use the terms interchangeably: they refer to different things. If you don't want to distinguish then you need to (a) say that's what you're going to do (e.g. in Section 3.1 say that the distinction between agents and nodes is not important so you will use 'agent' from now on), and (b) only use your chosen term and not the other.
+
+Paragraph 1: "them being either executed" should be "then..."
+
+Paragraph 1: You say that completing atomic tasks requires resources, but you do not mention whether communication between agents requires resources. This feels like an obvious reviewer question: either say that it does or say why it is OK to not include that in the model.
+
+In the system definition, ra is defined as mapping each 'type of atomic task' to a resource amount, but in the formalisation it mapping from AT, which is defined as a 'set of atomic tasks' not of 'set of types of atomic tasks'. It may be just a language issue, but it is confusing and needs clarifying.
+
+You say "We define the agent-based system..." but to clarify I think you mean "... at an instant of time"? That is, it is a state of the system rather than the persistent system structure? Otherwise, ra couldn't change for example. Alternatively, you could separately define a 'system' as the definition of a system structure containing all the constant elements of your current definition and a time-dependent 'system state' containing the dynamic elements.
+
+When you say "Completing atomic tasks requires resources, such as energy, of which a node has a fixed amount" it is ambiguous what you mean by 'fixed amount'. As a reader I would naturally assume, given your discussion of irreplaceable batteries and energy usage in Section 2, that each node has 'a given initial amount' which reduces as it performs each task - but does 'fixed' then mean that every node has the same initial amount? Or you could mean that it always has the same amount because whenever it uses energy it is replaced somehow - so each node effectively has infinite energy but only a certain amount to pump into something at any one instant. Either way, you need to clarify.
+
+Do you need to set SG? You can seemingly define function sg as mapping to G rather than SG. As 'sink node' is just a role played for an atomic task (as said in Section 3.3) rather than a special type of agent, it seems inconsistent to define a special set for them.
+
+There is an issue that the system definition is both complex, having 10 terms in the tuple, and apparently incomplete because lots of things are mentioned in the following sections that appear to be part of the system but are not in the definition: links, information, transmission energy, etc. Why, for example, is conf part of the system definition but e_trans is not? I wonder if you could present things differently:
+ - A system is defined by the fixed sets and constants that are independent of any given agent or task: (G, AT, CT, R, e_trans, ...)
+ - Everything else is presented separately from the system definition as a function returning some property of an agent, task or resource, i.e. you separately define each of ar, ra, sg, conf, sink, sensor, etc. That is, you are presenting as if the values returned by these functions are already present in the system by being attributes of the function's inputs (which are agents/tasks/resources in a given system) but the functions themselves are independent of any given system.
+
+Section 3.3
+===========
+This is clearer than in Section 3.1, but the use of terms seems inconsistent again. In Section 3.1, nodes were hardware while agents were software. In Section 3.2, the terms were interchangeable. In Section 3.3, nodes are roles that agents can play with regard to an atomic task. This is too confusing - there needs to be some consistency.
+
+The distinction between idle node and sleep node roles for an atomic task seems odd, as neither appears to have any part in the completion of the task. This is just a note not necessarily a point of concern - maybe the reason for distinguishing them becomes clearer later in the paper.
+
+As said for Section 3.1, I still don't understand what happens to the measurement once it is taken.
+
+Section 3.4
+===========
+Given what you said about failures in Section 2, for alloc(at,g) do you mean that "the agent will *attempt* to allocate the atomic task..."?
+
+It is unclear what 'information' an agent could request with info(g). No exchange of information is described in earlier sections, and agents do not obviously hold information according to the system definition in Section 3.2.
+
+Links seem mentioned out of the blue here without adequate explanation. If the resources allocated to atomic task types are part of the system definition, why are an agent's links not part of that definition? Where do you formalise a link and say what it is?
+
+Section 3.5
+===========
+For neatness of presenting the opening list sentence, see my comment above for the Section 3 intro as the same applies.
+
+In the equation for atec, why does the sensor node use transmission energy? There is no mention of transmission by the sensor node in Section 3.3 I think?
+
+You distinguish energy used in "idle power saving mode" and "sleep mode", but this seems very confusing given what you said in Section 3.3. You said that for an atomic task, an "idle node" was one that was completing some atomic task just not this one, meaning it will be transmitting, receiving and/or sensing. So how can there be an "idle power saving mode"?
+
+Paragraph 3 sentence 1: You are missing an apostrophe from "sources" and it is confusing whether you mean source's or sources'?
+
+Isn't energy just one resource that an agent can have and use for tasks? You gave it as the example of a resource in Section 3.2. If so, why is there a section (Section 3.5) on just one particular resource type? Are you implying that this type of resource is always an element of R for every system (and if so, where do you say this)? You define energy as being used for things other than enacting an atomic task - transmission and receiving - so are other resources also used up by these actions? In Section 3.2, you define ra as giving the resources allocated to 'completing' task types, but does 'completing' include receiving, transmitting and sensing, or only sensing? If the latter, then where is the allocation of resources for receiving and transmitting? If it is correct that you want to highlight a particular kind of resource, then it would be good to give that resource a name, e.g. $energy \in R$.
+
+The mapping between the actions of Section 3.4 and the energy consuming 'things' of Section 3.5 is not clear. Maybe the actions in 3.4 are 'application-level' actions that need to be mapped down to the 'network-level' actions they require, e.g. alloc(at,g_2) by agent g_1 requires a trans() action by g_1 and (if successful) a recv() action by g_2? What energy does establishing or maintaining a connection (link(g)) require?
+
+I assume function fe relates to functions ar and ra, e.g. fe = ra/ar? If so, this should be made explicit. If not, then it is not currently clear why not.
+
+Equation (2) uses symbol fe_phi but that has not been defined, only fe.
+
+Section 3.6
+===========
+2nd sentence: either the apostrophes are wrong or I don't understand something. "the nodes distance to the tasks' demand point". Is "nodes distance" an undefined variable or do you mean "node's distance" or "nodes' distance"? When you say "tasks' demand point" that means multiple tasks have the same demand point?
+
+"As the location grid has unit length" - Does it? Did you say that earlier and I missed it? Why would it? Do you mean that each side has unit length or that the grid has unit area? If the former, then that means your research only applies to square-shaped problem areas? What does it mean for there to be an outer edge to the map on which nodes are located, such that it could be given a fixed length/area? Is it the limits of what would be asked to be sensed in a composite task?
+
+You should explain equation (4) in the text. It is not trivial to understand what it is saying just be looking at the maths.
+
+Paragraph 2: I suggest that you clarify "replicated a nearby result". If it was only nearby and not the same demand point, then is it really replicating it?
+
+Paragraph 3: As in Section 3.5, I'm unclear how the fact that energy is a resource and so influences atomic quality fits with energy availability and distribution being separate components added to calculate composite task quality. Maybe this will be clarified by addressing the comments on Section 3.5.
+
+Section 3.7
+===========
+The 'success' function is weird. Its signature uses a type AT' which you have not defined: I assume you just mean AT? It maps a single atomic task to another single atomic task (assuming AT' = AT) but the text description talks about a 'set'. You also mentioned undefined set CT', which looks like it should be another set of composite tasks like CT but you treat it as a set of atomic tasks. From the text description, I guess you mean to say something like $AT_success \subset AT$ is the set of successful atomic tasks where, $\forall at \in AT_success q(at, sensor(at)) > e$?
+
+Equation (8) also seems wrong. It has Phi as a parameter on the left-hand side but it is not used on the right-hand side. Also CT is the set of all composite tasks in the system by your definition. So the right-hand side is not the successful completion in time period Phi, it is the success over the whole lifetime of the system.
+
+(8) also seems unnecessarily complicated: if every atomic task is only in one composite task, then the fact that they are grouped into composite tasks doesn't seem relevant to calculating coverage, i.e. the composition of atomic tasks into groups has no relevance to coverage. You could just as well write: sum over at \in AT, |AT_success|/|AT| (or success(at) instead of AT_success if you don't agree with my comment above).
+
+Paragraph 3: You mention the 'percentage failure of nodes' but where is this defined in the problem specification? What effect does failure have? As I understand it from the paragraph, failed nodes do not recover - if so, where is this characteristic specified?
+
+Paragraph 3: "a the minimum"
+
+Section 3.8
+===========
+For neatness of presenting the list sentence, see my comment above for the Section 3 intro as the same applies.
+
+There seems two ways to read this section and neither seems valid. You could be saying that (i) each of the four objectives is separate and you are trying to optimise against each separately and so will weight each of the four separately in judging success; or (ii) the four objectives are combined into the weighted sum of system utility which defines how you judge success. But if (i) is what you intend, then why have you defined taq() and system utility u() functions which already seem to give a weighted sum of the first three items; also, how should item 3 be interpreted when it seems to set an independent measure for each atomic task. Or if (ii) is what you intend, then something is wrong because item 4 is not included in the system utility weighted sum, function u(). I don't understand how the overall success metric is defined.
