@@ -3,6 +3,7 @@
 
 \textit{Wireless sensor networks (WSNs)} are collections of independent, battery-powered nodes connected through wireless transmission, often used to monitor a geographical area using sensors \citep{Akyildiz,Yick2008a}. In many circumstances the areas under study are difficult to access, such as remote locations, ocean-based studies, or contaminated areas. \textit{Environmental wireless sensor networks (E-WSNs)} in particular are characterised by intermittent connectivity between nodes, and harsh environmental conditions that lead to degradation of the network, so that it must adapt in response to these changes to maintain its functionality \citep{Oliveira2011}. The energy sources for nodes are commonly non-replaceable batteries, and the nodes' dispersal ad-hoc, making a high level of autonomous communication, coordination, and power consumption management, essential. WSNs can consist of static sensor deployments, or as mobile agents, adding to the need for adaptation in the network \citep{ramasamy2017mobile, 4224091}. Sensors are usually small and inexpensive, capable of utilising limited compute and storage resources. They have one or multiple sensing devices to take measurements from the environment, ranging through chemical, optical, thermal, biological, and radioactivity detection. This collected data can then be transmitted to a base station and retransmitted to be stored remotely and analysed.
 
+\subsection{Requirements for a WSN}
 In realistic scenarios, there are five key requirements that each present challenges in deploying and operating a WSN system.
 \begin{enumerate}
 \item \label{requirement:energy}\textit{Energy consumption.} Each node in a WSN network has limited power available to function supplied by a battery. Depending on the environmental conditions, there may be some form of energy-capture component built into each node, such as solar-harvesting \citep{Prauzek2018}. However, even with this additional energy replenishment, energy is limited, and will eventually be exhausted. Batteries cannot be manually replaced in remote or inhospitable locations, that are often the focus of WSN deployments, so minimising energy consumption is essential \citep{Anastasi2009}. This can be done through the use of low-power components, \citep{4772585, 8108667}, as well as applying energy-aware routing protocols amongst nodes \citep{s90100445}. 
@@ -17,20 +18,14 @@ In realistic scenarios, there are five key requirements that each present challe
 \end{enumerate}
 To summarise, we require that WSNs minimise their energy usage, distribute component usage to increase their working lifetime, provide measurements of sufficient quality that cover the required area, and adapt to network disruptions to maintain these properties.
 
+\subsection{Algorithmic approaches}
 The best network connectivity, task allocation strategy, and assignment of resource by agents are unknown at system initialisation. These values may also vary throughout the systems' lifetime. Due to this, there has been increasing research into algorithms utilising reinforcement learning techniques that can learn these values as the system evolves \citep{Al-Rawi2015}. These broadly contain two main challenges. First, how algorithms can best learn to optimise across multiple system goals. Second, how agents' share information and cooperate to connect their localised actions to the broader system goals. In the first case, an approach has been to enhance network routing protocols with Q-learning, using a reward function that consider multiple factors including residual energy, link distance, and hop count, to select better routes while increasing the lifetime of the network and energy efficiency \citep{Guo2019}. 
 
+\subsubsection{Evolutionary algorithms}
 \reviewquestionopen{You imply (paragraph 3) that two research groups, Li and Zhang 2009 and Sengupta et al. 2013, have provided solutions to multi-objective optimisation in WSNs. It's not clear how the goal of this paper as expressed in the final paragraph differs from that. If so, what don't they solve that you will?
 }
 
 \reviewtodo{
-	Why not DE?
- \begin{itemize}
-	\item Each agents optimal actions are often unique, ie localised environmental location or sensing conditions.
-	\item Need to communicate significant amounts of information
-	\item Centralise population evolution calculations
-	\item Nodes are heterogenous, even if homogenous in specification, localised conditions, placement, and functionality over time will differentiate them. 
-\end{itemize}
-
 Multi-Objective Differential Evolution with Adaptive Control of Parameters and Operators \citep{Ke2011}\\
 A Brief Review on Multi-objective Differential Evolution \citep{Mohd2020}\\
 Differential Evolution: A survey of theoretical analyses \citep{Opara2019}\\
@@ -47,9 +42,7 @@ Differential Evolution for Lifetime Maximization of Heterogeneous Wireless Senso
 }
 
 
-This problem of optimising WSN systems across multiple objectives is further detailed in work by \cite{ s150717572}, with the multi-objective evolutionary algorithm techniques developed going on to be integrated into algorithms for the WSN domain \citep{4633340,SENGUPTA2013405}. 
-
-\textit{Differential evolutionary (DE)} \cite{XXX} techniques have proven a simple and effective way of optimising multi-agent systems \cite{XXX}, and have been utilised in both multi-objective \cite{XXX}, and non-stationary \cite{XXX} systems. However, there are a number of factors that can make DE less applicable in real-world situations;
+This problem of optimising WSN systems across multiple objectives is further detailed in work by \cite{ s150717572}, with the multi-objective evolutionary algorithm techniques developed going on to be integrated into algorithms for the WSN domain \citep{4633340,SENGUPTA2013405}. In particular, \textit{Differential evolution (DE)} \cite{XXX} techniques have proven a simple and effective way of optimising multi-agent systems \cite{XXX}, and have been utilised in both multi-objective \cite{XXX}, and non-stationary \cite{XXX} systems. However, there are a number of factors that can make DE less applicable in real-world situations;
 \begin{enumerate}
 	\item \textit{Occlusion and obstruction} Nodes in a WSN may be obstructed by other objects or weather effects in an environment, making some actions less optimal or even possible. e.g, a transmission action blocked by a rock.
 
@@ -59,10 +52,13 @@ This problem of optimising WSN systems across multiple objectives is further det
 	
 	\item \textit{Heterogeneity of nodes} Nodes may be homogenous in specification at system initialisation, however, localised conditions, ad-hoc placement, and changing functionality over time, differentiates their capabilities and optimal actions over time. e.g, the degradation in transmission power as a nodes battery wears.
 	
-	\item \textit{Uniqueness due to location} Each nodes' optimal actions are often unique, for example, localised sensing conditions. e.g. a node in an ocean-based WSN may have its temperature sensor placed in a strong current, with rapidly variable readings.  
+	\item \textit{Uniqueness due to location} Each nodes' optimal actions are often unique, for example, localised sensing conditions. e.g. a node in an ocean-based WSN may have its temperature sensor placed in a strong current, with rapidly variable readings.
+	
+	\item \textit{Mobility} Nodes may be mobile to different degrees, with this changing throughout the systems lifetime. A nodes optimal policy one moment may change as its mobility changes, and two identical nodes may have widely different optimal actions to take based on their speed and direction of movement. e.g \todo[inline]{Put an example here}  
 \end{enumerate}
 For these reasons, we focus on distributed reinforcement learning techniques.
 
+\subsubsection{Distributed reinforcement learning}
 For the second problem, there has been work looking at cooperative Q-learning between nodes for better task scheduling and energy consumption \citep{doi:10.1155/2014/765182}. Due to the increased resources and computation required to coordinate amongst multiple agents and form cooperative behaviours, we look more to approaches using decentralised, autonomous agents learning from localised knowledge only \citep{10.1007/978-3-642-11814-2_4}.  This utilises the idea of individual agents optimising energy usage within a small neighbourhood of nearby nodes to optimise the energy consumption of the system as a whole. 
 
 Each of these solutions mentioned above cover elements of the desired behaviours of a WSN. We take these key concepts from that work and build upon them.
@@ -80,6 +76,7 @@ Each of these solutions mentioned above cover elements of the desired behaviours
 	\item \textit{The allocation of node resources}. As described, nodes in a WSN have limited resources with which to complete their tasks. Each nodes' preference of how its available resources are allocated amongst the tasks allocated to it will have an effect on task completion quality. The algorithm should be able to learn the allocation of resources at each node that optimises overall system utility. 
 \end{enumerate}
 
+\subsection{Summary}
 We look to improve on previous work by developing an algorithm that is able to cover all of the key requirements described above effectively, while still giving flexibility in the optimisation balance between each of them. By setting the system objectives as the minimisation of energy consumption, and the maximisation of system lifetime, measurement quality, and sensor coverage, we can define the problem as a multi-objective learning problem in a distributed multi-agent system. In the next section we formalise the terminology, definitions, and the problem we look to address.
 
 
