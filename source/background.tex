@@ -47,7 +47,23 @@ Differential Evolution for Lifetime Maximization of Heterogeneous Wireless Senso
 }
 
 
-This problem of optimising WSN systems across multiple objectives is further detailed in work by \cite{ s150717572}, with the multi-objective evolutionary algorithm techniques developed going on to be integrated into algorithms for the WSN domain \citep{4633340,SENGUPTA2013405}. For the second problem, there has been work looking at cooperative Q-learning between nodes for better task scheduling and energy consumption \citep{doi:10.1155/2014/765182}. Due to the increased resources and computation required to coordinate amongst multiple agents and form cooperative behaviours, we look more to approaches using decentralised, autonomous agents learning from localised knowledge only \citep{10.1007/978-3-642-11814-2_4}.  This utilises the idea of individual agents optimising energy usage within a small neighbourhood of nearby nodes to optimise the energy consumption of the system as a whole. 
+This problem of optimising WSN systems across multiple objectives is further detailed in work by \cite{ s150717572}, with the multi-objective evolutionary algorithm techniques developed going on to be integrated into algorithms for the WSN domain \citep{4633340,SENGUPTA2013405}. 
+
+\textit{Differential evolutionary (DE)} \cite{XXX} techniques have proven a simple and effective way of optimising multi-agent systems \cite{XXX}, and have been utilised in both multi-objective \cite{XXX}, and non-stationary \cite{XXX} systems. However, there are a number of factors that can make DE less applicable in real-world situations;
+\begin{enumerate}
+	\item \textit{Occlusion and obstruction} Nodes in a WSN may be obstructed by other objects or weather effects in an environment, making some actions less optimal or even possible. e.g, a transmission action blocked by a rock.
+
+	\item \textit{Communication bandwidth limitations} WSN nodes usually have limited transmission bandwidth and processing power, so exchanging significant amounts of information to apply algorithms is not possible. 
+	
+	\item \textit{Reliability of centralised coordination} Using a centralised node to compute evolutions will involve significant data transfer, with nodes required to relay data in larger systems due to transmission strength. In addition, connectivity to such a node may be intermittent. 
+	
+	\item \textit{Heterogeneity of nodes} Nodes may be homogenous in specification at system initialisation, however, localised conditions, ad-hoc placement, and changing functionality over time, differentiates their capabilities and optimal actions over time. e.g, the degradation in transmission power as a nodes battery wears.
+	
+	\item \textit{Uniqueness due to location} Each nodes' optimal actions are often unique, for example, localised sensing conditions. e.g. a node in an ocean-based WSN may have its temperature sensor placed in a strong current, with rapidly variable readings.  
+\end{enumerate}
+For these reasons, we focus on distributed reinforcement learning techniques.
+
+For the second problem, there has been work looking at cooperative Q-learning between nodes for better task scheduling and energy consumption \citep{doi:10.1155/2014/765182}. Due to the increased resources and computation required to coordinate amongst multiple agents and form cooperative behaviours, we look more to approaches using decentralised, autonomous agents learning from localised knowledge only \citep{10.1007/978-3-642-11814-2_4}.  This utilises the idea of individual agents optimising energy usage within a small neighbourhood of nearby nodes to optimise the energy consumption of the system as a whole. 
 
 Each of these solutions mentioned above cover elements of the desired behaviours of a WSN. We take these key concepts from that work and build upon them.
 \reviewquestion{Second list, item 2: It is odd that it ends with a citation to Mihaylov et al. when you are talking about what the focus of your own is (and you aren't called Mihaylov). It is not clear what the citation is providing the source for.
