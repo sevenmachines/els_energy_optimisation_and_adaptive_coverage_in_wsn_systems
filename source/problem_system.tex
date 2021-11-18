@@ -13,18 +13,7 @@
 	{\setCompositeTask{}{}}
 	{\powerSetSymbol{\setSinkAgents{#1}{#2}}{}{}}
 }
-\reviewquestionopen{Figure 2 seems inconsistent with the text early in the section.
-	- How can there be nodes that are distinctly 'sensor nodes' when you say every node has 'one or more sensors'? When you say "...a final measurement is made by a sensor node" do you mean "a sensor node *for that task*", i.e. it is a role played for a given task rather than a distinct kind of node?  If it is meant to be a role within a task, 'sensor node' sounds like a type rather than a role, so there may be a better name to use.
-	- When every node has an agent by your definition, then why are some elements in the figure called nodes and others (apparently of the same kind) called agents? 
-	- Why does one agent (and possibly by implication other agents) have a 'broadcast radius of node' shown, but this broadcast radius is not mentioned as a property of an agent or node in the text?}
 
-
-\begin{figure}
-\centering 
-\includegraphics[width=0.9\linewidth, trim={25pt 0pt 24pt 0pt, clip}]{grid_concept}
-\caption[WSN deployment terminology]{WSN components and terminology}
-\label{fig:grid_concept}
-\end{figure}
 
 \subsection{Tasks and resources}
 \label{section:tasks}
@@ -55,73 +44,26 @@ We define the agent-based system as the tuple, $\langle
 	\setAtomicTask{}{},
 	\setCompositeTask{}{},
 	\setResource{}{},
-	\mathit{ar},
-	\mathit{ra},
-	\mathit{sg},
-	\mathit{conf},
-	\mathit{dp}
 \rangle$, where
 \begin{itemize}
-	\item $\setAgents{}{}$ is a set of agents in the system that can complete tasks;
-	\item $\setSinkAgents{}{} \subset \setAgents{}{}$ is a set of sink nodes, agents that can receive composite tasks from external to the system;
 	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
+	\item $\setAgents{}{}$ is a set of agents in the system that can complete tasks;
 	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
 	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
-	  \item $\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
-	 \item $\formalTaskResourceAllocation{}{}$ maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type.
-	\item $\formalSinkMapping{}{}$ is a static mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type, fixed on system initialisation.
-	\item $\formalDeployment{}{}$ is a mapping of each agent to their location in the system.
-	\item  $\formalTaskDemandPoint{}{}$ maps atomic tasks to their respective demand points.
+
 \end{itemize}
 
-\subsection{Node roles and task paths}
-\label{section:roles}
+$\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\formalSinkRole}[2]{
-	\functionFormal{sink}
-	{\setAtomicTask{}{}}
-	{\setAgents{}{}}
-}
-\newcommand{\formalSenseRole}[2]{
-	\functionFormal{sensor}
-	{\setAtomicTask{}{}}
-	{\setAgents{}{}}
-}
-\newcommand{\formalActiveRole}[2]{
-	\functionFormal{active}
-	{\setAtomicTask{}{}}
-	{\powerSetAgents{}{}}
-}
-\newcommand{\formalIdleRole}[2]{
-	\functionFormal{idle_{\setTime{}{}}}
-	{\setAtomicTask{}{}}
-	{\powerSetAgents{}{}}
-}
-\newcommand{\formalSleepRole}[2]{
-	\functionFormal{sleep_{\setTime{}{}}}
-	{\setAtomicTask{}{}}
-	{\powerSetAgents{}{}}
-}
-\newcommand{\functionSinkRole}[2]{\functionSignature{sink}{\varAtomicTask{}{}}}
-	
-\newcommand{\functionSenseRole}[2]{\functionSignature{sensor}{\varAtomicTask{}{}}}
-\newcommand{\functionActiveRole}[2]{\functionSignature{active_{#1}}{\varAtomicTask{}{}}}
-\newcommand{\functionIdleRole}[2]{\functionSignature{idle}{\varAtomicTask{}{}}}
-\newcommand{\functionSleepRole}[2]{\functionSignature{sleep}{\varAtomicTask{}{}}}
-\reviewquestionopen{This is clearer than in Section 3.1, but the use of terms seems inconsistent again. In Section 3.1, nodes were hardware while agents were software. In Section 3.2, the terms were interchangeable. In Section 3.3, nodes are roles that agents can play with regard to an atomic task. This is too confusing - there needs to be some consistency.
-}
-\reviewquestionopen{The distinction between idle node and sleep node roles for an atomic task seems odd, as neither appears to have any part in the completion of the task. This is just a note not necessarily a point of concern - maybe the reason for distinguishing them becomes clearer later in the paper.
-}
-\reviewquestionopen{As said for Section 3.1, I still don't understand what happens to the measurement once it is taken.
-}
-For the execution of atomic tasks we distinguish nodes by the role they play. These roles will also define the energy used by the nodes in executing composite tasks and their component atomic tasks.
-\begin{itemize}
-	\item A \textit{sink node} of an atomic task $\varAtomicTask{}{}$ receives the corresponding composite task initially, and will return the results, $\formalSinkRole{}{}$.
-	\item A \textit{sensor node} executes the atomic task and so performs the measurement, $\formalSenseRole{}{}$.
-	\item An \textit{active node} participates in sub-allocating, or routing, an atomic task, but is neither a sink node nor a sensor node, $\formalActiveRole{}{}$.
-	\item An \textit{idle node} does not participate in the specific task, but does in other tasks in the system during a time period $\setTime{}{}$, $\formalIdleRole{}{}$.
-	\item A \textit{sleep node} does not participate in any of the tasks in the system during a time period $\setTime{}{}$, $\formalSleepRole{}{}$.
-\end{itemize}
-With these roles in mind, we can now define the  \textit{task-path} as a mapping of atomic tasks to ordered sequence of agents $\formalTaskArc{}{}$ that each atomic task $\varAtomicTask{}{}$ is sub-allocated to. The first agent is that of the sink node that has received the initial composite task, and the last agent is that of the sensor node that executes the atomic task, with the sequence of agents in-between those of the active nodes relaying the atomic task. So for a task path of depth $n$, we have
-$\functionTaskArc{}{} = \lbrace \functionSinkRole{}{}, \functionActiveRole{i}{}, \functionSenseRole{}{} \rbrace_{i=1}^{n-2}$. 
+$\formalTaskResourceAllocation{}{}$ maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type.
+
+
+$\formalSinkMapping{}{}$ is a static mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type, fixed on system initialisation.
+
+$\formalDeployment{}{}$ is a mapping of each agent to their location in the system.
+
+$\formalTaskDemandPoint{}{}$ maps atomic tasks to their respective demand points.
+
+
+\todo[inline]{Define transmission range}
+
