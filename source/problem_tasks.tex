@@ -31,7 +31,16 @@
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Task quality and system utility}
 \label{section:task_quality}
-
+\reviewquestionopen{2nd sentence: either the apostrophes are wrong or I don't understand something. "the nodes distance to the tasks' demand point". Is "nodes distance" an undefined variable or do you mean "node's distance" or "nodes' distance"? When you say "tasks' demand point" that means multiple tasks have the same demand point?
+}
+\reviewquestionopen{"As the location grid has unit length" - Does it? Did you say that earlier and I missed it? Why would it? Do you mean that each side has unit length or that the grid has unit area? If the former, then that means your research only applies to square-shaped problem areas? What does it mean for there to be an outer edge to the map on which nodes are located, such that it could be given a fixed length/area? Is it the limits of what would be asked to be sensed in a composite task?
+}
+\reviewquestionopen{You should explain equation (4) in the text. It is not trivial to understand what it is saying just be looking at the maths.
+}
+\reviewquestionopen{Paragraph 2: I suggest that you clarify "replicated a nearby result". If it was only nearby and not the same demand point, then is it really replicating it?
+}
+\reviewquestionopen{Paragraph 3: As in Section 3.5, I'm unclear how the fact that energy is a resource and so influences atomic quality fits with energy availability and distribution being separate components added to calculate composite task quality. Maybe this will be clarified by addressing the comments on Section 3.5.
+}
 An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. In this case, this is dependant on the resources it has dedicated to tasks of that type, and the nodes distance to the tasks' demand point.  For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}

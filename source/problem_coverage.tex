@@ -30,8 +30,17 @@
 \newcommand{\functionSystemCoverage}[2]{
 	\functionSignature{cov_{\setTime{}{}}}{\setCompositeTask{}{}}
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\reviewquestionopen{The 'success' function is weird. Its signature uses a type AT' which you have not defined: I assume you just mean AT? It maps a single atomic task to another single atomic task (assuming AT' = AT) but the text description talks about a 'set'. You also mentioned undefined set CT', which looks like it should be another set of composite tasks like CT but you treat it as a set of atomic tasks. From the text description, I guess you mean to say something like $AT_success \subset AT$ is the set of successful atomic tasks where, $\forall at \in AT_success q(at, sensor(at)) > e$?
+}
+\reviewquestionopen{Equation (8) also seems wrong. It has Phi as a parameter on the left-hand side but it is not used on the right-hand side. Also CT is the set of all composite tasks in the system by your definition. So the right-hand side is not the successful completion in time period Phi, it is the success over the whole lifetime of the system.
+}
+\reviewquestionopen{(8) also seems unnecessarily complicated: if every atomic task is only in one composite task, then the fact that they are grouped into composite tasks doesn't seem relevant to calculating coverage, i.e. the composition of atomic tasks into groups has no relevance to coverage. You could just as well write: sum over $at \in AT$, $|AT_success|/|AT|$ (or success(at) instead of $AT_success$ if you don't agree with my comment above).
+}
+\reviewquestionopen{Paragraph 3: You mention the 'percentage failure of nodes' but where is this defined in the problem specification? What effect does failure have? As I understand it from the paragraph, failed nodes do not recover - if so, where is this characteristic specified?
+}
+\reviewquestionopen{Paragraph 3: "a the minimum"
+}
 When the quality of the completion of an atomic task falls below a certain level, the result may no longer be useful. As an example, we could have a system where a large number of sensor nodes are deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. Taking a measurement $1$ metre away from a demand point is likely to be close to the demand points' actual value, whereas $100$ metres away it may be uncorrelated, and not be a useful measurement. The distance at which this is likely to occur is highly dependent on the type of task performed, the environment it is in, and the desired system behaviour. To formalise this concept, we set a value $\varQualityMin{}{}$ to be the \textit{quality threshold} above which an atomic task is considered successful, and the set of \textit{successful atomic tasks} as, $\formalTasksSuccess{}{}$ where $\functionAtomicTaskQualitySensor{}{} > \varQualityMin{}{}$ for all $\varAtomicTask{}{} \in \setCompositeTask{}{'}$. 
 
 

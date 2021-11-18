@@ -1,6 +1,21 @@
 \subsection{Energy consumption and availability}
 \label{section:energy_consumption}
-
+\reviewquestionopen{For neatness of presenting the opening list sentence, see my comment above for the Section 3 intro as the same applies.
+}
+\reviewquestionopen{In the equation for atec, why does the sensor node use transmission energy? There is no mention of transmission by the sensor node in Section 3.3 I think?
+}
+\reviewquestionopen{You distinguish energy used in "idle power saving mode" and "sleep mode", but this seems very confusing given what you said in Section 3.3. You said that for an atomic task, an "idle node" was one that was completing some atomic task just not this one, meaning it will be transmitting, receiving and/or sensing. So how can there be an "idle power saving mode"?
+}
+\reviewquestionopen{Paragraph 3 sentence 1: You are missing an apostrophe from "sources" and it is confusing whether you mean source's or sources'?
+}
+\reviewquestionopen{Isn't energy just one resource that an agent can have and use for tasks? You gave it as the example of a resource in Section 3.2. If so, why is there a section (Section 3.5) on just one particular resource type? Are you implying that this type of resource is always an element of R for every system (and if so, where do you say this)? You define energy as being used for things other than enacting an atomic task - transmission and receiving - so are other resources also used up by these actions? In Section 3.2, you define ra as giving the resources allocated to 'completing' task types, but does 'completing' include receiving, transmitting and sensing, or only sensing? If the latter, then where is the allocation of resources for receiving and transmitting? If it is correct that you want to highlight a particular kind of resource, then it would be good to give that resource a name, e.g. $energy \in R$.
+}
+\reviewquestionopen{The mapping between the actions of Section 3.4 and the energy consuming 'things' of Section 3.5 is not clear. Maybe the actions in 3.4 are 'application-level' actions that need to be mapped down to the 'network-level' actions they require, e.g. $alloc(at,g_2)$ by agent $g_1$ requires a trans() action by $g_1$ and (if successful) a $recv()$ action by $g_2$? What energy does establishing or maintaining a connection ($link(g)$) require?
+}
+\reviewquestionopen{I assume function fe relates to functions ar and ra, e.g. fe = ra/ar? If so, this should be made explicit. If not, then it is not currently clear why not.
+}
+\reviewquestionopen{Equation (2) uses symbol $fe_phi$ but that has not been defined, only fe.
+}
 We quantify an \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. This is composed of,
  \begin{itemize}
  	\item \textit{Transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 

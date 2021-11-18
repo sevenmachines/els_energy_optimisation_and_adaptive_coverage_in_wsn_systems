@@ -1,6 +1,11 @@
 \subsection{Agent actions}
 \label{section:actions}
-
+\reviewquestionopen{Given what you said about failures in Section 2, for alloc(at,g) do you mean that "the agent will *attempt* to allocate the atomic task..."?
+}
+\reviewquestionopen{It is unclear what 'information' an agent could request with info(g). No exchange of information is described in earlier sections, and agents do not obviously hold information according to the system definition in Section 3.2.
+}
+\reviewquestionopen{Links seem mentioned out of the blue here without adequate explanation. If the resources allocated to atomic task types are part of the system definition, why are an agent's links not part of that definition? Where do you formalise a link and say what it is?
+}
 Agents in the system can perform \textit{actions}. Each action $\varAction{}{}$ is mapped by the function $\functionAgentActionType{}{}$ to one of the action-categories below,
 
 \begin{enumerate}

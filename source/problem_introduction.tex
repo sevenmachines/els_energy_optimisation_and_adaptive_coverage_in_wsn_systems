@@ -1,5 +1,8 @@
 
 In this section we will formally set out the problem we look to solve. We define the base concepts of our WSN system in Sections \ref{section:terminology} and \ref{section:tasks}, looking at,
+\reviewquestionopen{Opening list: For neatness of the sentence, please un-capitalise "Nodes", "Agents", "Tasks" and "Resources" and consistently end the first three items with commas or semi-colons (personally I'd use semi-colons as each item is a long clause).
+}
+\reviewquestionopen{Final sentence of intro: "in in"}
 \begin{itemize}
 	\item Nodes, the hardware components that comprise each node of the network,
 	\item Agents, the software controllers that control each node individually.
@@ -10,7 +13,10 @@ In completing tasks, agents will be able to choose from a number of different ac
 
 \subsection{Wireless sensor network components and terminology}
 \label{section:terminology}
-
+\reviewquestionopen{What happens to the measurement, e.g. is it stored by the sensor node, or communicated by the sensor node directly out of the system, or back along the task-path to the sink node, or along a potentially different path to the sink node, or something else? While I know you go on to explain more detail in later sections, it seems odd to omit the end of the description of what happens to a request at this point.
+}
 A WSN system is comprised of a set of \textit{nodes}. Each node is equipped with a microcontroller for computation, a battery for power storage, a wireless transceiver for  transmitting and receiving messages from other nodes, and one or more \textit{sensors} for sensing and measuring some property of the environment such as temperature or radiation levels \citep{muhammad_r_ahmed_2012_1072589}. Each node has one \textit{agent}, a software controller that instructs its actions. Nodes may be deployed to precise locations or through a more random distribution method. The network structure formed may be flat or hierarchical, with or without clustering, dependent on the choice of protocol used \citep{Carlos-Mancilla2016b}. 
 
 Requests for measurements come from outside the WSN and are received by \textit{sink nodes}. These nodes relay requests through other nodes until a final measurement is made by a \textit{sensor node}. The sequence of nodes that comprise the allocation and execution of a measurement task define its \textit{task-path}. These concepts are illustrated in Figure \ref{fig:grid_concept} and will be detailed in the following sections.
+\reviewquestionopen{Reading through Section 3, it feels like there is something missing before Section 3.1 on the characteristics of the environment into which the WSN is deployed. There are hints of things given along the way, but no coherent list of assumptions. In particular, I'm thinking of things like the 'location grid' in Section 3.6 and the opening sentences of Section 3.7 on the relation between spatial distance and radiation levels (i.e. a gradual change over space).
+}
