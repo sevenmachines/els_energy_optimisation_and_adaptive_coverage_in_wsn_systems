@@ -34,7 +34,6 @@
 
 \include{notation}
 
-\newcommand*{\DEBUG}{}%
 %%%Author macros
 \def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
 \tsc{WGM}
@@ -52,15 +51,39 @@
 \let\oldnl\nl% Store \nl in \oldnl
 \newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}% Remove line number for one line
 
+\newcommand{\DEBUG}{}%
+\ifdefined\DEBUG
+	\usepackage{mdframed}
+	\newcommand{\reviewquestion}[1]{
+		\begin{mdframed}[backgroundcolor=blue!20,rightline=false,leftline=false,topline=false,bottomline=false, innerleftmargin=2pt, innerrightmargin=2pt, innertopmargin=5pt, innerbottommargin=5pt]
+			#1
+		\end{mdframed}
+	}%
+	\newcommand{\reviewquestionopen}[1]{
+		\begin{mdframed}[backgroundcolor=red!20,rightline=false,leftline=false,topline=false,bottomline=false, innerleftmargin=2pt, innerrightmargin=2pt, innertopmargin=5pt, innerbottommargin=5pt]
+			#1
+		\end{mdframed}
+	}%
+	\newcommand{\reviewresponse}[1]{
+		\begin{mdframed}[backgroundcolor=yellow!20,rightline=false,leftline=false,topline=false,bottomline=false, innerleftmargin=2pt, innerrightmargin=2pt, innertopmargin=5pt, innerbottommargin=5pt]
+			#1
+		\end{mdframed}
+	}%
+\else
+	\newcommand{\reviewquestion}[1]{#1}
+	\newcommand{\reviewquestionopen}[1]{#1}
+	\newcommand{\reviewresponse}[1]{#1}
+\fi
+	
 \begin{document}
 	\let\WriteBookmarks\relax
 	\def\floatpagepagefraction{1}
 	\def\textpagefraction{.001}
-	\shorttitle{Energy and task quality optimisation in WSN systems}
+	\shorttitle{Multi-objective optimisation in WSN systems}
 	\shortauthors{N Creech et~al.}
 	%\begin{frontmatter}
 	
-	\title [mode = title]{Energy and task quality optimisation in WSN systems}                      
+	\title [mode = title]{Multi-objective optimisation in WSN systems}                      
 	
 	\author[1]{Niall Creech}[type=editor,	orcid=0000-0002-9573-0991]
 	\ead{niall.creech@kcl.ac.uk}
