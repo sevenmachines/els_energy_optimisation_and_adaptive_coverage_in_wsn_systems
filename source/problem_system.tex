@@ -47,10 +47,14 @@ We define the agent-based system as the tuple, $\langle
 \rangle$, where
 \begin{itemize}
 	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
-	\item $\setAgents{}{}$ is a set of agents in the system that can complete tasks;
 	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
 	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
-
+	\item $\setAgents{}{}$ is a set of agents in the system, each agent $\varAgent{}{}$ being defined by a tuple $\tupleAgent{}{}$ where;
+	\begin{itemize}
+		\item $\varAgentCapability{}{}\subseteq \setAtomicTaskType{}{}$ is the agent capabilities; i.e., the atomic task types that the agent can p    erform;
+		 \item $\varAgentResponsiblity{}{} \subseteq \setCompositeTaskType{}{}$ is the agent responsibilities; i.e., the composite task types that t    he agent can oversee;
+		\item $\varAgentNeighbourhoodConstraint{}{}, \varAgentKnowledgeConstraint{}{} \in \mathbb{N}$, are the resource constraints of the agent, n    amely the communication and memory constraints (i.e., how many other agents a given agent can communicate with and know about).
+	\end{itemize}
 \end{itemize}
 
 $\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
@@ -60,10 +64,10 @@ $\formalTaskResourceAllocation{}{}$ maps each agent and type of atomic task, to 
 
 $\formalSinkMapping{}{}$ is a static mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type, fixed on system initialisation.
 
+
+\paragraph{Environment}
 $\formalDeployment{}{}$ is a mapping of each agent to their location in the system.
 
 $\formalTaskDemandPoint{}{}$ maps atomic tasks to their respective demand points.
 
-
-\todo[inline]{Define transmission range}
-
+A nodes hardware has a \textit{transmission range}, the distance it can effectively communicate with other nodes \cite{Radman201}. This can be varied, nodes can broadcast further at the expense of using more power., \cite{Padmanabh2008, Song2009}.
