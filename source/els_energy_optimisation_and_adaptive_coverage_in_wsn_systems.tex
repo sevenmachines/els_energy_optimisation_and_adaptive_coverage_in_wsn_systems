@@ -43,6 +43,7 @@
 \tsc{BEC}
 \tsc{DE}
 %%%
+\newtheorem{example}{Example}[section]
 
 \newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
 \newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
@@ -133,18 +134,25 @@
 	\input{introduction}
 	\input{background}
 	%\input{background_extended}
+	\section{Balancing energy and measurement in a WSN system}
 	\input{problem}
 	\input{problem_introduction}
 	\input{problem_system}
+	\input{problem_dynamics}
+	\section{Resource optimisation}
+	\input{problem_resource_optimsation}
 	\input{problem_actions}
-	\input{problem_consumption}
-	%\input{problem_energy}
-	\input{problem_roles}
+		\input{problem_roles}
 	\input{problem_task_paths}
-		\input{problem_tasks}
+	\input{problem_consumption}
+	\input{problem_quality}
+	\section{Optimising for system utility}
+	\input{problem_tasks}
 	\input{probem_utility}
 	\input{problem_coverage}
 	\input{problem_definition}
+\section{Solving the multi-objective WSN problem}
+\label{section:solution}
 	\input{solution}
 	\input{solution-anhtao}
 	\input{algorithms}

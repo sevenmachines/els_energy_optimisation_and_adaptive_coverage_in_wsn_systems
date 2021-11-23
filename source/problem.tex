@@ -1,6 +1,7 @@
-\section{Balancing energy and measurement in a WSN system}
 \label{section:problem}
 %%%%%%%%%%%%%%%%%% NOTATION %%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tupleLocation}[2]{(\setRealNumbersNonNegative{}{} \times
+\setRealNumbersNonNegative{}{})}
 \newcommand{\varTime}[2]{\phi}
 \newcommand{\setTime}[2]{\Phi}
 \newcommand{\varAtomicTask}[2]{\varSymbol{at}{#1}{#2}}
@@ -13,6 +14,11 @@
 
 \newcommand{\varAgent}[2]{g_{#1}^{#2}}
 \newcommand{\setAgents}[2]{G_{#1}^{#2}}
+\newcommand{\setOfSetsAgents}[2]{\setOfSetsSymbol{G}{#1}{#2}}
+
+\newcommand{\varExternalAgent}[2]{\varSymbol{eg}{#1}{#2}}
+\newcommand{\setExternalAgent}[2]{\setSymbol{EG}{#1}{#2}}
+
 
 \newcommand{\powerSetAgents}[2]{\powerSetSymbol{G_{#1}^{#2}}{}{}}
 \newcommand{\varIdleAgent}[2]{\varAgent{i}{}}  
@@ -101,18 +107,8 @@
 \newcommand{\formalVarLocation}[2]{(x,y)}
 \newcommand{\formalSetLocation}[2]{(\setRealNumbers{}{} \times \setRealNumbers{}{})}
 
-\newcommand{\functionDeployment}[2]{
-	\ifx \\1\\
-	\functionSignature{conf}{\setAgents{}{}}
-	\else
-	\functionSignature{conf}{#1}
-	\fi 
-}
-\newcommand{\formalDeployment}[2]{\functionFormal{conf}{\setAgents{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
 \newcommand{\functionTaskArc}[2]{\functionSignature{path}{\varAtomicTask{}{}}}
 \newcommand{\formalTaskArc}[2]{\functionFormal{path}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}
-\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{dp}{\varAtomicTask{}{}}}
-\newcommand{\formalTaskDemandPoint}[2]{\functionFormal{dp}{\setAtomicTask{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
 \newcommand{\varActiveAgent}[2]{\varAgent{#1}{\oplus}}
 \newcommand{\varInactiveAgent}[2]{\varAgent{#1}{\ominus}}
 \newcommand{\varSensingAgent}[2]{\varAgent{#1}{\ast}}
@@ -121,15 +117,6 @@
 \newcommand{\varEnergy}[2]{\varSymbol{e}{#1}{#2}}
 \newcommand{\setEnergy}[2]{\setSymbol{E}{#1}{#2}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varResource}[2]{\varSymbol{r}{#1}{#2}}
-\newcommand{\setResource}[2]{\setSymbol{R}{#1}{#2}}
-\newcommand{\formalTaskResourceAllocation}[2]{
-	\functionFormal{ra}
-	{\setAgents{}{} \times \setAtomicTask{}{}}
-	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}{}}{}{}}
-}
-\newcommand{\functionTaskResourceAllocation}[2]{
-	\functionSignature{ra}
-	{\varAgent{}{}, \varAtomicTask{}{}}
-}
+\newcommand{\varResource}[2]{\varSymbol{res}{#1}{#2}}
+\newcommand{\setResource}[2]{\setSymbol{RES}{#1}{#2}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

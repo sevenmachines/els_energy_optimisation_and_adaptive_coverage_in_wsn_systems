@@ -1,0 +1,15 @@
+In optimising the WSN system we distinguish computational, memory, and energy resource into,
+\begin{enumerate}
+	\item \textit{operational} Agents' general operating costs, functions and actions that are not part of a task execution. e.g. energy usage such as idle and sleep cycle functions. 
+	
+	\item \textit{significant} When completing tasks, resources are used to move data internal to the agent and other such functions. We assume the energy costs of actions such as sensing and transmission are large in comparison, and these are the dominant factors.
+	
+	\item \textit{optimisable} Agents' can adapt their energy costs by altering  their transmission range, communicating with closer agents will cost less energy. By reducing the sampling time of a sensor, they can reduce the computation resources used as well as energy usage. This makes these actions optimisable, and strategies that can be learned.
+\end{enumerate} 
+
+Due to these reasons we ignore operational resource usage and focus on that due to actions in a task-path. With the justifications above on significance of the resource usage and if it is optimisable, we model resource usage and optimsation in the ways below,
+\begin{enumerate}
+	\item Computational resource usage is adaptable by an agent executing a task. The more of this resource it can allocate to a task, the higher quality that task will be performed to,
+	\item Memory resource. Agents will use all memory resource to maintain knowledge and neighbourhood information, but with a fixed maximum.
+	\item Energy usage. Agents that are transmitting messages can reduce energy usage by preferring nearby agents. Reducing this will impact the number of agents in a task-path , as well as the closeness of the agent that executes the task to the tasks' demand point, affecting its quality.  
+\end{enumerate}

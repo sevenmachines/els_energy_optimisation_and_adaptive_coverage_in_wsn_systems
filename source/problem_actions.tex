@@ -1,16 +1,16 @@
 \subsection{Agent actions}
 \label{section:actions}
-\reviewquestionopen{Given what you said about failures in Section 2, for alloc(at,g) do you mean that "the agent will *attempt* to allocate the atomic task..."?
+\reviewquestion{Given what you said about failures in Section 2, for alloc(at,g) do you mean that "the agent will *attempt* to allocate the atomic task..."?
 }
-\reviewquestionopen{It is unclear what 'information' an agent could request with info(g). No exchange of information is described in earlier sections, and agents do not obviously hold information according to the system definition in Section 3.2.
+\reviewquestion{It is unclear what 'information' an agent could request with info(g). No exchange of information is described in earlier sections, and agents do not obviously hold information according to the system definition in Section 3.2.
 }
-\reviewquestionopen{Links seem mentioned out of the blue here without adequate explanation. If the resources allocated to atomic task types are part of the system definition, why are an agent's links not part of that definition? Where do you formalise a link and say what it is?
+\reviewquestion{Links seem mentioned out of the blue here without adequate explanation. If the resources allocated to atomic task types are part of the system definition, why are an agent's links not part of that definition? Where do you formalise a link and say what it is?
 }
 Agents in the system can perform \textit{actions}. Each action $\varAction{}{}$ is mapped by the function $\functionAgentActionType{}{}$ to one of the action-categories below,
 
 \begin{enumerate}
 	\item $\functionExec{}{}$, The agent will execute the atomic task $\varAtomicTask{}{}$ itself, this may require some of its available resources.
-	\item $\functionAlloc{}{}$, the agent will allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
-	\item $\functionInfo{}{}$, the agent will request information from another agent $\varAgent{}{}$.
-	\item $\functionLink{}{}$, the agent will allocate resources to hold information on the agent $\varAgent{}{}$ and maintain a connection. It can only allocate tasks to agents that it has a link to.
+	\item $\functionAlloc{}{}$, the agent will attempt to allocate the atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$.
+	\item $\functionInfo{}{}$, the agent will request knowledge from another agent $\varAgent{}{}$.
+	\item $\functionLink{}{}$, the agent will allocate resources to hold knowledge on the agent $\varAgent{}{}$ and maintain a connection. 
 \end{enumerate}

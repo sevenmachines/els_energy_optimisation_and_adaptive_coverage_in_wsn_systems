@@ -1,10 +1,10 @@
 \subsection{Energy consumption and availability}
 \label{section:energy_consumption}
-\reviewquestionopen{For neatness of presenting the opening list sentence, see my comment above for the Section 3 intro as the same applies.
+\reviewquestion{For neatness of presenting the opening list sentence, see my comment above for the Section 3 intro as the same applies.
 }
-\reviewquestionopen{In the equation for atec, why does the sensor node use transmission energy? There is no mention of transmission by the sensor node in Section 3.3 I think?
+\reviewquestion{In the equation for atec, why does the sensor node use transmission energy? There is no mention of transmission by the sensor node in Section 3.3 I think?
 }
-\reviewquestionopen{You distinguish energy used in "idle power saving mode" and "sleep mode", but this seems very confusing given what you said in Section 3.3. You said that for an atomic task, an "idle node" was one that was completing some atomic task just not this one, meaning it will be transmitting, receiving and/or sensing. So how can there be an "idle power saving mode"?
+\reviewquestion{You distinguish energy used in "idle power saving mode" and "sleep mode", but this seems very confusing given what you said in Section 3.3. You said that for an atomic task, an "idle node" was one that was completing some atomic task just not this one, meaning it will be transmitting, receiving and/or sensing. So how can there be an "idle power saving mode"?
 }
 \reviewquestionopen{Paragraph 3 sentence 1: You are missing an apostrophe from "sources" and it is confusing whether you mean source's or sources'?
 }
@@ -18,9 +18,9 @@
 }
 We quantify an \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. This is composed of,
  \begin{itemize}
- 	\item \textit{Transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 
- 	\item \textit{Receiver energy}, $\varReceiverEnergy{}{}$, the energy used by a node to receive a message. 
- 	 \item \textit{Sensor energy}, $\varSensorEnergy{}{}$,the energy used by a node to execute an atomic measurement task.
+ 	\item \textit{transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 
+ 	\item \textit{receiver energy}, $\varReceiverEnergy{}{}$, the energy used by a node to receive a message. 
+ 	 \item \textit{sensor energy}, $\varSensorEnergy{}{}$,the energy used by a node to execute an atomic measurement task.
  \end{itemize}
 For simplification, we assume that these values are constants in a given system. For a given task-path, the combined energy usage will be,
 \begin{align}
@@ -39,7 +39,7 @@ For simplification, we assume that these values are constants in a given system.
 	 )
  }_{\text{sensor node}}  
 \end{align}
-Although nodes would still use energy when in an idle power saving mode, or sleep mode, we disregard these for this formulation as we look to optimise the active node power usage only. There are other algorithms that can be used to optimise the cycling of power cell usage \citep{Escolar2014}.
+To simplify our system, we make the assumption that the energy usage of wireless communication devices and sensors are much larger than that used by other functions of the agent, and more open to optimisation \citep{Matin2012}. We also disregard energy used in idle, or sleep modes for agents for the same reason, although there are other algorithms that can be used to optimise the cycling of power cell usage \citep{Escolar2014}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalAgentEnergyAvailable}[2]{

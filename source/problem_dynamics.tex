@@ -1,0 +1,22 @@
+\subsection{System state}
+
+Composite tasks arrive in the WSN from external agents $\setExternalAgent{}{}$, with a constant or slowly varying frequency. At a point in time, a sink will process one such task, and return it to the external agent when completed.
+\begin{enumerate}
+	\item An external agent sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$. 
+	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks.
+	\item $\varAgent{}{}$ allocates the atomic tasks to agents it knows of, which may include itself.
+	\item $\varAgent{}{}$ aggregates the results of the atomic tasks as their results are returned.
+	\item $\varAgent{}{}$ returns the aggregated results to the external agent $\varExternalAgent{}{}$.
+\end{enumerate}
+
+For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\varAgent{}{'}$, it must have \textit{knowledge} of $\varAgent{}{'}$, i.e. be aware that agent and its capabilities to execute tasks. It also must be \textit{connected} to the agent, i.e. have communication links established with $\varAgent{}{'}$. We define the set of agents an agent is connected to as its \textit{neighbourhood}. An agent can only allocate tasks to agents that it is connected to. Agents can also make requests to agents in its neighbourhood for knowledge, enabling it to discover new agents in the system.
+ 
+
+\begin{definition}[Agent State]
+	\label{def:agent-state}
+	Given an agent $g=\langle c, r, \delta_n, \delta_k \rangle$, we define its state at a particular point in time as a tuple $\langle K, N\rangle$, where:
+	\begin{itemize}
+		\item $K\subseteq G$ is the knowledge of the agent\footnote{For simplicity, we represent the knowledge about a particular agent by the agent identifier, but the knowledge also includes other information such as the agent capabilities and qualities when performing particular actions, etc. }.
+		\item $N\subset K$ is the neighbourhood of the agent.
+	\end{itemize}
+\end{definition}

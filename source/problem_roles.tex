@@ -2,37 +2,35 @@
 \label{section:roles}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\formalAtomicTaskRole}[2]{
-	\functionFormal{#1}
-	{\setAtomicTaskInstance{}{} \times \setAgent{}{}}
-	{ \setAgent{}{}}
-}
-\newcommand{\formalCompositeTaskRole}[2]{
-	\functionFormal{#1}
-	{\powerSetAtomicTaskInstance{}{} \times \setAgent{}{}}
-	{ \setAgent{}{}}
-}
 \newcommand{\formalSinkRole}[2]{
-	\formalCompositeTaskRole{sink}{}}
-\newcommand{\formalDetectorRole}[2]{
-	\formalAtomicTaskRole{detect}{}}
-\newcommand{\formalRelayRole}[2]{
-	\formalAtomicTaskRole{relay}{}}
-
-\newcommand{\functionAtomicTaskRole}[2]{
-	\functionSignature{#1}
-	{\varAtomicTask{}{}, \varAgent{}{}}
-}
-\newcommand{\functionCompositeTaskRole}[2]{
-	\functionSignature{#1}
-	{\setAtomicTaskInstance{}{}, \varAgent{}{}}
+	\functionFormal{sink}
+	{\setCompositeTask{}{}}
+	{\powerSetAgents}{}{}
 }
 \newcommand{\functionSinkRole}[2]{
-	\functionCompositeTaskRole{sink}{}}
+	\functionSignature{sink}
+	{\setAtomicTaskInstance{}{}, \varAgent{}{}}
+}
+
+\newcommand{\formalAtomicTaskRole}[2]{
+	\functionFormal{#1}{\setAtomicTaskInstance{}{} \times \setAgent{}{}}{ \setAgent{}{}}
+}
+
+\newcommand{\formalDetectorRole}[2]{
+	\functionFormal{detect}{\setAtomicTaskInstance{}{} \times \setAgent{}{}}{ \setAgent{}{}}
+}
+
+\newcommand{\formalRelayRole}[2]{
+	\functionFormal{relay}{\setAtomicTaskInstance{}{} \times \setAgent{}{}}{ \setAgent{}{}}
+}
+
 \newcommand{\functionDetectorRole}[2]{
-	\functionAtomicTaskRole{detect}{}}
+	\functionSignature{detect}{\varAtomicTask{}{}, \varAgent{}{}}
+}
+
 \newcommand{\functionRelayRole}[2]{
-	\functionAtomicTaskRole{relay}{}}
+	\functionSignature{relay}{\varAtomicTask{}{}, \varAgent{}{}}
+}
 
 \reviewquestion{What happens to the measurement, e.g. is it stored by the sensor node, or communicated by the sensor node directly out of the system, or back along the task-path to the sink node, or along a potentially different path to the sink node, or something else? While I know you go on to explain more detail in later sections, it seems odd to omit the end of the description of what happens to a request at this point.
 }

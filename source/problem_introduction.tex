@@ -4,17 +4,29 @@ In this section we will formally set out the problem we look to solve. We define
 }
 \reviewquestion{Final sentence of intro: "in in"}
 \begin{itemize}
-	\item nodes, the hardware devices connected to the network;
+	\item nodes, hardware devices connected to the network;
 	\item agents, the software controllers for each node;
-	\item tasks, the actions that agents should execute, in this case, returning a measurement in a geographic location;
+	\item tasks, the actions that agents should complete;
 	\item resources, required by agents to complete tasks; 
 \end{itemize}
-In completing tasks, agents will be able to choose from a number of different actions, and assume different roles in executing each individual task, which we look at in Sections \ref{section:roles} and \ref{section:actions}. In Section \ref{section:energy_consumption} we describe how energy is consumed by the system. Next, in Section \ref{section:task_quality}, we define to what quality a measurement is completed, and how this, energy availability, and energy distribution in the system, effects the quality of overall composite task completion. Finally, we detail task coverage in Section \ref{section:coverage}, and how this relates to the resilience of the network, and the effective lifetime of the system, giving us the problem definition in Section \ref{section:optimisation_problem}.
+In completing tasks, agents will be able to choose from a number of different actions, and assume different roles in executing each individual task. We look at roles and actions in Sections \ref{section:roles} and \ref{section:actions}. In Section \ref{section:energy_consumption} we describe how energy is consumed by the system. Next, in Section \ref{section:task_quality}, we define to what quality a measurement is completed, and how this, energy availability, and energy distribution in the system, effects the quality of overall composite task completion. Finally, we detail task coverage in Section \ref{section:coverage}, and how this relates to the resilience of the network, and the effective lifetime of the system, giving us the problem definition in Section \ref{section:optimisation_problem}.
+
+\begin{example}[High-level view of WSN components]
+\todo[inline]{XXX}
+\end{example}
 
 \subsection{Wireless sensor network components and terminology}
 \label{section:terminology}
 
-A WSN system is comprised of a set of \textit{nodes}. Each node is equipped with a microcontroller for computation, a battery for power storage, a solar panel for recharging, a wireless transceiver for  transmitting and receiving messages from other nodes, and one or more \textit{sensors} for sensing and measuring some property of the environment such as temperature or radiation levels \citep{muhammad_r_ahmed_2012_1072589}. Each node has one \textit{agent}, a software controller that instructs its actions. Nodes may be deployed to precise locations or through a more random distribution method. The network structure formed may be flat or hierarchical, with or without clustering, dependent on the choice of protocol used \citep{Carlos-Mancilla2016b}. 
-
-\reviewquestionopen{Reading through Section 3, it feels like there is something missing before Section 3.1 on the characteristics of the environment into which the WSN is deployed. There are hints of things given along the way, but no coherent list of assumptions. In particular, I'm thinking of things like the 'location grid' in Section 3.6 and the opening sentences of Section 3.7 on the relation between spatial distance and radiation levels (i.e. a gradual change over space).
+\reviewquestion{Reading through Section 3, it feels like there is something missing before Section 3.1 on the characteristics of the environment into which the WSN is deployed. There are hints of things given along the way, but no coherent list of assumptions. In particular, I'm thinking of things like the 'location grid' in Section 3.6 and the opening sentences of Section 3.7 on the relation between spatial distance and radiation levels (i.e. a gradual change over space).
 }
+
+\paragraph{Nodes and agents}
+A WSN system is comprised of a set of inter-connected hardware \textit{nodes}. The network structure formed may be flat or hierarchical, with or without clustering, dependent on the choice of protocol used \citep{Carlos-Mancilla2016b}. Each node is equipped with a microcontroller for computation, a battery for power storage, a solar panel for recharging the battery, a wireless transceiver for  transmitting and receiving messages from other nodes, and one or more \textit{sensors} for sensing and measuring some property of the environment such as temperature or radiation levels \citep{muhammad_r_ahmed_2012_1072589}. Each node has one \textit{agent}, a software controller that instructs its actions. For simplicity, we will use the term 'agent' to refer to both the software controller and the hardware node it controls.
+
+\paragraph{Environment}
+Agents may be deployed to precise locations or through a more random distribution method. Their placement is measured in comparison to a \textit{location grid}, a 2d co-ordinate system overlayed over the systems' environment. 
+
+\paragraph{Measurement}
+Each task will require a sensor measurement at a specific place on the location grid, the \textit{demand point} of the task. The further away the sensor taking the measurement is from this point, the less value the task has to the system.
+

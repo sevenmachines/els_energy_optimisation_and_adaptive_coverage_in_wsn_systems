@@ -1,43 +1,31 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\setSinkAgents}[2]{\setSymbol{SG}{#1}{#2}}
-\newcommand{\formalAgentResources}[2]{
-	\functionFormal{ar}
-	{\setAgents{}{} \times \setResource{}{}}
-	{\setRealNumbersNonNegative{}{}}
-}
-\newcommand{\functionAgentResources}[2]{
-	\functionSignature{ar}{\varAgent{}{}, \varResource{}{}}
-}
-\newcommand{\formalSinkMapping}[2]{
-	\functionFormal{sg}
-	{\setCompositeTask{}{}}
-	{\powerSetSymbol{\setSinkAgents{#1}{#2}}{}{}}
-}
-
-
 \subsection{Tasks and resources}
 \label{section:tasks}
-\reviewquestionopen{In multiple places, there seems confusion between 'agents' and 'nodes', e.g. in paragraph 1, it seems odd to say that the deployment configuration maps agents to locations when agents are 'ethereal' software. Shouldn't it be nodes that are mapped to locations? Or in the system definition, you say "sink nodes, agents the can receive composite tasks" as if nodes are the same as or a subclass of agents which contradicts what you said in Section 3.1.
+\reviewquestion{In multiple places, there seems confusion between 'agents' and 'nodes', e.g. in paragraph 1, it seems odd to say that the deployment configuration maps agents to locations when agents are 'ethereal' software. Shouldn't it be nodes that are mapped to locations? Or in the system definition, you say "sink nodes, agents the can receive composite tasks" as if nodes are the same as or a subclass of agents which contradicts what you said in Section 3.1.
 }
-\reviewquestionopen{You need to decide whether you need two distinct concepts with different terms (node for the hardware, agent for the software) or one term because the distinction doesn't matter for your paper. If you have two distinct concepts, then you can't use the terms interchangeably: they refer to different things. If you don't want to distinguish then you need to (a) say that's what you're going to do (e.g. in Section 3.1 say that the distinction between agents and nodes is not important so you will use 'agent' from now on), and (b) only use your chosen term and not the other.
+\reviewquestion{You need to decide whether you need two distinct concepts with different terms (node for the hardware, agent for the software) or one term because the distinction doesn't matter for your paper. If you have two distinct concepts, then you can't use the terms interchangeably: they refer to different things. If you don't want to distinguish then you need to (a) say that's what you're going to do (e.g. in Section 3.1 say that the distinction between agents and nodes is not important so you will use 'agent' from now on), and (b) only use your chosen term and not the other.
 }
-\reviewquestionopen{Paragraph 1: "them being either executed" should be "then..."
+\reviewquestion{Paragraph 1: "them being either executed" should be "then..."
 }
-\reviewquestionopen{Paragraph 1: You say that completing atomic tasks requires resources, but you do not mention whether communication between agents requires resources. This feels like an obvious reviewer question: either say that it does or say why it is OK to not include that in the model.
+\reviewquestion{You say "We define the agent-based system..." but to clarify I think you mean "... at an instant of time"? That is, it is a state of the system rather than the persistent system structure? Otherwise, ra couldn't change for example. Alternatively, you could separately define a 'system' as the definition of a system structure containing all the constant elements of your current definition and a time-dependent 'system state' containing the dynamic elements.
 }
-\reviewquestionopen{You say "We define the agent-based system..." but to clarify I think you mean "... at an instant of time"? That is, it is a state of the system rather than the persistent system structure? Otherwise, ra couldn't change for example. Alternatively, you could separately define a 'system' as the definition of a system structure containing all the constant elements of your current definition and a time-dependent 'system state' containing the dynamic elements.
-}
-\reviewquestionopen{When you say "Completing atomic tasks requires resources, such as energy, of which a node has a fixed amount" it is ambiguous what you mean by 'fixed amount'. As a reader I would naturally assume, given your discussion of irreplaceable batteries and energy usage in Section 2, that each node has 'a given initial amount' which reduces as it performs each task - but does 'fixed' then mean that every node has the same initial amount? Or you could mean that it always has the same amount because whenever it uses energy it is replaced somehow - so each node effectively has infinite energy but only a certain amount to pump into something at any one instant. Either way, you need to clarify.
-}
+
 
 \paragraph{Distribution}
-In our assumed system there is a geographical area to monitor on which a set of nodes controlled by agents $\setAgents{}{}$ are distributed randomly, such as occurs in an aerial deployment \citep{Kumar2013}.  The area is defined by a two dimensional grid of real numbers of unit length  $(\setRealNumbersUnit{}{} \times \setRealNumbersUnit{}{})$, onto which the \textit{deployment} maps each node to a distinct location.  
+In our assumed system there is a geographical area to monitor on which a set of agents controlled by agents $\setAgents{}{}$ are distributed randomly, such as occurs in an aerial deployment \citep{Kumar2013}.  The area is defined by a two dimensional \textit{ location grid} of real numbers of unit length  $(\setRealNumbersUnit{}{} \times \setRealNumbersUnit{}{})$, onto which the \textit{deployment} maps each agent to a distinct location.  
 
 \paragraph{Tasks}
-Agents controlling these nodes can perform \textit{atomic tasks}, individual sensor measurements, which are typed. Each atomic task targets a sensor measurement at a location on the distribution, the tasks' \textit{demand point}. Some nodes will have sets of atomic tasks called \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. We term these nodes \textit{sinks} (see Section \ref{XXX}). Composite tasks are decomposed into atomic tasks by sinks, with each atomic task them being either executed, or allocated to other agents to complete or relay further.
+Agents controlling these agents can perform \textit{atomic tasks}, individual sensor measurements, which are typed. Each atomic task targets a sensor measurement at a location on the distribution, the tasks' \textit{demand point}. Some agents will have sets of atomic tasks called \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. We term these agents \textit{sinks} (see Section \ref{XXX}). Composite tasks are decomposed into atomic tasks by sinks, with each atomic task then being either executed by the sink, or allocated to other agents to complete or relay further.
 
+\reviewquestion{Paragraph 1: You say that completing atomic tasks requires resources, but you do not mention whether communication between agents requires resources. This feels like an obvious reviewer question: either say that it does or say why it is OK to not include that in the model.}
+\reviewquestion{When you say "Completing atomic tasks requires resources, such as energy, of which a node has a fixed amount" it is ambiguous what you mean by 'fixed amount'. As a reader I would naturally assume, given your discussion of irreplaceable batteries and energy usage in Section 2, that each node has 'a given initial amount' which reduces as it performs each task - but does 'fixed' then mean that every node has the same initial amount? Or you could mean that it always has the same amount because whenever it uses energy it is replaced somehow - so each node effectively has infinite energy but only a certain amount to pump into something at any one instant. Either way, you need to clarify.}
 \paragraph{Resources}
- Completing atomic tasks requires \textit{resources}, such as energy, of which each node has a fixed amount. At any given time each node has a certain amount of its  available resources assigned to completing each type of atomic task. 
+In our system we focus on three resources,
+\begin{itemize}
+	\item \textit{compute resources}, used in activating a sensor and taking a reading. Each agent has the same, fixed, amount of compute resource, which it must share amongst its current tasks. The less allocated to a task, the lower the quality of its' completion. 
+	\item \textit{memory resources}, this restricts the amount of knowledge an agent can have at any one time. Each agent has the same, fixed, amount of this resource.
+	\item \textit{energy resources}, which are required to transmit and receive task requests, results, and knowledge between agents. Each agent has the same, fixed, maximum amount of energy in its battery at system initialisation. Each action uses some of this energy, which is replenished by a solar panel. Over time, the maximum energy storage decreases as the battery wears and degrades.
+\end{itemize}
+
 \reviewquestionopen{In the system definition, ra is defined as mapping each 'type of atomic task' to a resource amount, but in the formalisation it mapping from AT, which is defined as a 'set of atomic tasks' not of 'set of types of atomic tasks'. It may be just a language issue, but it is confusing and needs clarifying.
 }
 \reviewquestionopen{Do you need to set SG? You can seemingly define function sg as mapping to G rather than SG. As 'sink node' is just a role played for an atomic task (as said in Section 3.3) rather than a special type of agent, it seems inconsistent to define a special set for them.
@@ -46,12 +34,12 @@ Agents controlling these nodes can perform \textit{atomic tasks}, individual sen
 	- A system is defined by the fixed sets and constants that are independent of any given agent or task: $(G, AT, CT, R, e_trans, ...)$
 	- Everything else is presented separately from the system definition as a function returning some property of an agent, task or resource, i.e. you separately define each of ar, ra, sg, conf, sink, sensor, etc. That is, you are presenting as if the values returned by these functions are already present in the system by being attributes of the function's inputs (which are agents/tasks/resources in a given system) but the functions themselves are independent of any given system.}
 
+\subsection{System definition}
 We define the agent-based system as the tuple, $\langle 
-	\setAgents{}{},
-	\setSinkAgents{}{},
 	\setAtomicTask{}{},
 	\setCompositeTask{}{},
 	\setResource{}{},
+	\setAgents{}{}
 \rangle$, where
 \begin{itemize}
 	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
@@ -59,23 +47,71 @@ We define the agent-based system as the tuple, $\langle
 	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
 	\item $\setAgents{}{}$ is a set of agents in the system, each agent $\varAgent{}{}$ being defined by a tuple $\tupleAgent{}{}$ where;
 	\begin{itemize}
-		\item $\varAgentCapability{}{}\subseteq \setAtomicTaskType{}{}$ is the agent capabilities; i.e., the atomic task types that the agent can p    erform;
+		\item $\varAgentCapability{}{}\subseteq \setAtomicTaskType{}{}$ is the agent capabilities; i.e., the atomic task types that the agent can perform;
 		 \item $\varAgentResponsiblity{}{} \subseteq \setCompositeTaskType{}{}$ is the agent responsibilities; i.e., the composite task types that t    he agent can oversee;
-		\item $\varAgentNeighbourhoodConstraint{}{}, \varAgentKnowledgeConstraint{}{} \in \mathbb{N}$, are the resource constraints of the agent, n    amely the communication and memory constraints (i.e., how many other agents a given agent can communicate with and know about).
+		\item $\varAgentNeighbourhoodConstraint{}{}, \varAgentKnowledgeConstraint{}{} \in \mathbb{N}$, are the resource constraints of the agent, namely the communication and memory constraints (i.e., how many other agents a given agent can communicate with and know about).
 	\end{itemize}
 \end{itemize}
 
-$\formalAgentResources{}{}$ is a mapping from each agent and each resource to the amount of that resource that the agent possesses.
-
-$\formalTaskResourceAllocation{}{}$ maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-$\formalSinkMapping{}{}$ is a static mapping from each composite task type to the group of sink agents that receive and ensure the completion of tasks of that type, fixed on system initialisation.
 
+\newcommand{\formalAgentResources}[2]{
+	\functionFormal{agentres}
+	{\setAgents{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionAgentResources}[2]{
+	\functionSignature{agentres}{\varAgent{}{}, \varResource{}{}}
+}
+The \textit{agent resources} function maps each agent and each resource to the amount of that resource that the agent can utilise to complete tasks, $\formalAgentResources{}{}$.
 
-\paragraph{Environment}
-$\formalDeployment{}{}$ is a mapping of each agent to their location in the system.
+\newcommand{\formalTaskResourceAllocation}[2]{
+	\functionFormal{taskres}
+	{\setAgents{}{} \times \setAtomicTask{}{}}
+	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}  {}}{}{}}
+}
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{taskres}
+	{\varAgent{}{}, \varAtomicTask{}{}}
+}
+The \text{task resource allocation} maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
 
-$\formalTaskDemandPoint{}{}$ maps atomic tasks to their respective demand points.
+\newcommand{\formalTaskResponsibilities}[2]{
+	\functionFormal{resp}
+	{\setCompositeTask{}{} \times \powerSetAgent{}{}{}{}}
+	({\setCompositeTask{}{} \times \setAgent{}{}})
+}
+\newcommand{\functionTaskResponsibilities}[2]{
+	\functionSignature{resp}
+	{\varCompositeTask{}{}, \setAgent{}{}}
+}
+\textit{Task-responsibilities} is a mapping from each composite task type to the group of agents, with the corresponding responsibilities, that will receive those tasks types and ensure their completion. This mapping is fixed on system initialisation; $\formalTaskResponsibilities{}{}$.
 
-A nodes hardware has a \textit{transmission range}, the distance it can effectively communicate with other nodes \cite{Radman201}. This can be varied, nodes can broadcast further at the expense of using more power., \cite{Padmanabh2008, Song2009}.
+\newcommand{\formalDeployment}[2]{\functionFormal{deploy}{\setAgents{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
+\newcommand{\functionDeployment}[2]{
+	\ifx \\1\\
+	\functionSignature{deploy}{\setAgents{}{}}
+	\else
+	\functionSignature{deploy}{#1}
+	\fi
+}
+The \textit{deployment} is a mapping of each agent to its location in the system; $\formalDeployment{}{}$
+
+\newcommand{\formalTaskDemandPoint}[2]{
+	\functionFormal{demand}
+	{\setAtomicTask  {}{}}{\tupleLocation{}{}}
+}
+\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{demand}{\varAtomicTask{}{}}}
+The \text{task demand points} maps atomic tasks to their respective demand points; $\formalTaskDemandPoint{}{}$ 
+
+%%%%%%%%%%%%%%%%%
+\newcommand{\formalTransmissionRange}[2]{
+	\functionFormal{range}
+	{\powerSetAgents{}{} \times (\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionTransmissionRange}[2]{\functionSignature{range}{\setAgents{}{}}}
+
+A agents' hardware has a maximum distance it can effectively communicate with other agents \cite{Radman201}. This range can vary between agents as they can broadcast further, but at the expense of using more power., \cite{Padmanabh2008, Song2009}. The effective range is also effected by conditions and obstructions close to the agents location. We define the agents' \textit{transmission range} by $\formalTransmissionRange{}{}$.  
