@@ -41,7 +41,16 @@
 }
 \reviewquestionopen{Paragraph 3: As in Section 3.5, I'm unclear how the fact that energy is a resource and so influences atomic quality fits with energy availability and distribution being separate components added to calculate composite task quality. Maybe this will be clarified by addressing the comments on Section 3.5.
 }
-An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type. It also decreases as the distance increases between the sensor used to complete the task and the demand point of the task.  For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
+\newcommand{\formalExecutionRange}[2]{
+	\functionFormal{execrange}
+	{\setAtomicTask{}{} \times \setAgent{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionExecutionRange}[2]{
+	\functionSignature{execrange}
+	{\varAtomicTask{}{}, \varAgent{}{}}
+}
+An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type. It also decreases as the distance increases between the sensor used to complete the task and the demand point of the task, the \textit{execution range}, $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$. For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 

@@ -1,15 +1,8 @@
 \subsection{Tasks and resources}
 \label{section:tasks}
-\reviewquestion{In multiple places, there seems confusion between 'agents' and 'nodes', e.g. in paragraph 1, it seems odd to say that the deployment configuration maps agents to locations when agents are 'ethereal' software. Shouldn't it be nodes that are mapped to locations? Or in the system definition, you say "sink nodes, agents the can receive composite tasks" as if nodes are the same as or a subclass of agents which contradicts what you said in Section 3.1.
-}
-\reviewquestion{You need to decide whether you need two distinct concepts with different terms (node for the hardware, agent for the software) or one term because the distinction doesn't matter for your paper. If you have two distinct concepts, then you can't use the terms interchangeably: they refer to different things. If you don't want to distinguish then you need to (a) say that's what you're going to do (e.g. in Section 3.1 say that the distinction between agents and nodes is not important so you will use 'agent' from now on), and (b) only use your chosen term and not the other.
-}
-\reviewquestion{Paragraph 1: "them being either executed" should be "then..."
-}
+
 \reviewquestion{You say "We define the agent-based system..." but to clarify I think you mean "... at an instant of time"? That is, it is a state of the system rather than the persistent system structure? Otherwise, ra couldn't change for example. Alternatively, you could separately define a 'system' as the definition of a system structure containing all the constant elements of your current definition and a time-dependent 'system state' containing the dynamic elements.
 }
-
-
 \paragraph{Distribution}
 In our assumed system there is a geographical area to monitor on which a set of agents controlled by agents $\setAgents{}{}$ are distributed randomly, such as occurs in an aerial deployment \citep{Kumar2013}.  The area is defined by a two dimensional \textit{ location grid} of real numbers of unit length  $(\setRealNumbersUnit{}{} \times \setRealNumbersUnit{}{})$, onto which the \textit{deployment} maps each agent to a distinct location.  
 
