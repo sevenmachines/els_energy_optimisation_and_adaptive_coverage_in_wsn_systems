@@ -51,7 +51,7 @@
 	{\varAtomicTask{}{}, \varAgent{}{}}
 }
 An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type, and  its \textit{execution range}, the distance between the agent and the demand point of the task, $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$. 
-With the maximum distance between any agent and demand point in our coordinate system being scaled to $\sqrt{2}$ (See Section \ref{section:task_and_resources:distribution}), we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
+With the maximum distance between any agent and demand point in our coordinate system\footnote{As detailed in Section \ref{section:task_and_resources:distribution})} being scaled to $\sqrt{2}$, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 
