@@ -33,7 +33,7 @@
 \label{section:task_quality}
 \reviewquestion{2nd sentence: either the apostrophes are wrong or I don't understand something. "the nodes distance to the tasks' demand point". Is "nodes distance" an undefined variable or do you mean "node's distance" or "nodes' distance"? When you say "tasks' demand point" that means multiple tasks have the same demand point?
 }
-\reviewquestionopen{"As the location grid has unit length" - Does it? Did you say that earlier and I missed it? Why would it? Do you mean that each side has unit length or that the grid has unit area? If the former, then that means your research only applies to square-shaped problem areas? What does it mean for there to be an outer edge to the map on which nodes are located, such that it could be given a fixed length/area? Is it the limits of what would be asked to be sensed in a composite task?
+\reviewquestion{"As the location grid has unit length" - Does it? Did you say that earlier and I missed it? Why would it? Do you mean that each side has unit length or that the grid has unit area? If the former, then that means your research only applies to square-shaped problem areas? What does it mean for there to be an outer edge to the map on which nodes are located, such that it could be given a fixed length/area? Is it the limits of what would be asked to be sensed in a composite task?
 }
 \reviewquestionopen{You should explain equation (4) in the text. It is not trivial to understand what it is saying just be looking at the maths.
 }
@@ -50,7 +50,8 @@
 	\functionSignature{execrange}
 	{\varAtomicTask{}{}, \varAgent{}{}}
 }
-An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type. It also decreases as the distance increases between the sensor used to complete the task and the demand point of the task, the \textit{execution range}, $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$. For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. As the location grid has unit length, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
+An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type, and  its \textit{execution range}, the distance between the agent and the demand point of the task, $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$. 
+With the maximum distance between any agent and demand point in our coordinate system being scaled to $\sqrt{2}$ (See Section \ref{section:task_and_resources:distribution}), we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 
@@ -61,3 +62,8 @@ An agent will complete an atomic task with a certain \textit{atomic task quality
 \end{equation}
 
 When a composite task is completed, the value of an atomic task to its final outcome can be measured. This is not the same as task quality, at it may be dependent on factors such as whether or not it replicated a nearby result, making it less valuable than if it uniquely covered a demand point. We define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task of a composite task to the fractional value of each of them to the composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
+
+\todo[inline]{Rewording}
+For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. 
+\example{XXX}
+{Something goes here}
