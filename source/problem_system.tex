@@ -1,20 +1,15 @@
-\subsection{System definition}
+\paragraph{System}
 \label{section:system_definition}
-
-\reviewquestion{You say "We define the agent-based system..." but to clarify I think you mean "... at an instant of time"? That is, it is a state of the system rather than the persistent system structure? Otherwise, ra couldn't change for example. Alternatively, you could separately define a 'system' as the definition of a system structure containing all the constant elements of your current definition and a time-dependent 'system state' containing the dynamic elements.
-}
-
-
-\reviewquestion{Paragraph 1: You say that completing atomic tasks requires resources, but you do not mention whether communication between agents requires resources. This feels like an obvious reviewer question: either say that it does or say why it is OK to not include that in the model.}
-\reviewquestion{When you say "Completing atomic tasks requires resources, such as energy, of which a node has a fixed amount" it is ambiguous what you mean by 'fixed amount'. As a reader I would naturally assume, given your discussion of irreplaceable batteries and energy usage in Section 2, that each node has 'a given initial amount' which reduces as it performs each task - but does 'fixed' then mean that every node has the same initial amount? Or you could mean that it always has the same amount because whenever it uses energy it is replaced somehow - so each node effectively has infinite energy but only a certain amount to pump into something at any one instant. Either way, you need to clarify.}
+\todo[inline]{Define the system as things that are constant, and persistent, not dependent on time}
 
 \reviewquestionopen{In the system definition, ra is defined as mapping each 'type of atomic task' to a resource amount, but in the formalisation it mapping from AT, which is defined as a 'set of atomic tasks' not of 'set of types of atomic tasks'. It may be just a language issue, but it is confusing and needs clarifying.
 }
-\reviewquestionopen{Do you need to set SG? You can seemingly define function sg as mapping to G rather than SG. As 'sink node' is just a role played for an atomic task (as said in Section 3.3) rather than a special type of agent, it seems inconsistent to define a special set for them.
-	
+\reviewquestionopen{Do you need to set SG? You can seemingly define function sg as mapping to G rather than SG. As 'sink node' is just a role played for an atomic task (as said in Section 3.3) rather than a special type of agent, it seems inconsistent to define a special set for them.}
+\reviewquestionopen{	
 	There is an issue that the system definition is both complex, having 10 terms in the tuple, and apparently incomplete because lots of things are mentioned in the following sections that appear to be part of the system but are not in the definition: links, information, transmission energy, etc. Why, for example, is conf part of the system definition but $e_trans$ is not? I wonder if you could present things differently:
 	- A system is defined by the fixed sets and constants that are independent of any given agent or task: $(G, AT, CT, R, e_trans, ...)$
-	- Everything else is presented separately from the system definition as a function returning some property of an agent, task or resource, i.e. you separately define each of ar, ra, sg, conf, sink, sensor, etc. That is, you are presenting as if the values returned by these functions are already present in the system by being attributes of the function's inputs (which are agents/tasks/resources in a given system) but the functions themselves are independent of any given system.}
+	- Everything else is presented separately from the system definition as a function returning some property of an agent, task or resource, i.e. you separately define each of ar, ra, sg, conf, sink, sensor, etc. That is, you are presenting as if the values returned by these functions are already present in the system by being attributes of the function's inputs (which are agents/tasks/resources in a given system) but the functions themselves are independent of any given system.
+}
 
 
 We define the agent-based system as the tuple, $\langle 
@@ -30,35 +25,10 @@ We define the agent-based system as the tuple, $\langle
 	\item $\setAgents{}{}$ is a set of agents in the system, each agent $\varAgent{}{}$ being defined by a tuple $\tupleAgent{}{}$ where;
 	\begin{itemize}
 		\item $\varAgentCapability{}{}\subseteq \setAtomicTaskType{}{}$ is the agent capabilities; i.e., the atomic task types that the agent can perform;
-		 \item $\varAgentResponsiblity{}{} \subseteq \setCompositeTaskType{}{}$ is the agent responsibilities; i.e., the composite task types that t    he agent can oversee;
+		 \item $\varAgentResponsiblity{}{} \subseteq \setCompositeTaskType{}{}$ is the agent responsibilities; i.e., the composite task types that the agent can oversee;
 		\item $\varAgentNeighbourhoodConstraint{}{}, \varAgentKnowledgeConstraint{}{} \in \mathbb{N}$, are the resource constraints of the agent, namely the communication and memory constraints (i.e., how many other agents a given agent can communicate with and know about).
 	\end{itemize}
 \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\newcommand{\formalAgentResources}[2]{
-	\functionFormal{agentres}
-	{\setAgents{}{} \times \setResource{}{}}
-	{\setRealNumbersNonNegative{}{}}
-}
-\newcommand{\functionAgentResources}[2]{
-	\functionSignature{agentres}{\varAgent{}{}, \varResource{}{}}
-}
-The \textit{agent resources} function maps each agent and each resource to the amount of that resource that the agent can utilise to complete tasks, $\formalAgentResources{}{}$.
-
-\newcommand{\formalTaskResourceAllocation}[2]{
-	\functionFormal{taskres}
-	{\setAgents{}{} \times \setAtomicTask{}{}}
-	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}  {}}{}{}}
-}
-\newcommand{\functionTaskResourceAllocation}[2]{
-	\functionSignature{taskres}
-	{\varAgent{}{}, \varAtomicTask{}{}}
-}
-The \text{task resource allocation} maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
 
 \newcommand{\formalTaskResponsibilities}[2]{
 	\functionFormal{resp}

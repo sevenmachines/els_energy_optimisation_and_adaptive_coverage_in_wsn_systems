@@ -16,13 +16,27 @@ Each node has one \textit{agent}, a software controller that instructs its actio
 
 \paragraph{Resources}
 \label{section:overview:resources}
-Agents will have to use \textit{resources} such as;
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\varResourceType}[2]{\varSymbol{RT}{#1}{#2}}
+\newcommand{\setResourceType}[2]{\setSymbol{RT}{#1}{#2}}
+\newcommand{\formalResourceType}[2]{
+	\functionFormal{type_{res}}
+	{\setResource{}{}}
+	{\setResourceType{}{}}
+}
+\newcommand{\functionResourceType}[2]{
+	\functionSignature{type_{res}}
+	{\setResource{}{}}}
+
+%%%%%%%%%%%%%%%%%%%
+Agents will have to use \textit{resources} $\varResource{}{}$ to complete tasks and for general operations. These resources are of one of the types $\varResourceType{}{}$ shown below, given by the mapping $\formalResourceType{}{}$.
 
 \begin{itemize}
 	\item \textit{compute resources}, used in activating a sensor and taking a reading. Each agent has the same, fixed, amount of compute resource, which it must share amongst its current tasks. The less allocated to a task, the lower the quality of its' completion. 
 	\item \textit{memory resources}, this restricts the amount of knowledge an agent can have at any one time. Each agent has the same, fixed, amount of this resource.
 	\item \textit{energy resources}, which are required to transmit and receive task requests, results, and knowledge between agents. Each agent has the same, fixed, maximum amount of energy in its battery at system initialisation. Each action uses some of this energy, which is gradually replenished by a solar panel. Over time, the maximum energy storage decreases as the battery wears and degrades.
-\end{itemize} 
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalDeployment}[2]{\functionFormal{deploy}{\setAgents{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
@@ -71,8 +85,5 @@ At a high-level, the flow of task execution is as follows,
 	\item The initial agent aggregates all the task results and transmits them to the external agent.
 \end{enumerate}
 
-
-\begin{example}
-	\todo[inline]{XXX}
-\end{example}
+\example{Task flow in an ocean-based WSN}{}
 

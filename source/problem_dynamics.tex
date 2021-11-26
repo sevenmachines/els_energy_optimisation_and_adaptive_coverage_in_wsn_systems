@@ -1,4 +1,5 @@
-\subsection{System state}
+\paragraph{State}
+\todo[inline]{Define the state as things that can change over time}
 
 Composite tasks arrive in the WSN from external agents $\setExternalAgent{}{}$, with a constant or slowly varying frequency. At a point in time, a sink will process one such task, and return it to the external agent when completed.
 \begin{enumerate}
@@ -20,3 +21,33 @@ For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\var
 		\item $N\subset K$ is the neighbourhood of the agent.
 	\end{itemize}
 \end{definition}
+
+\reviewquestionopen{Why does one agent (and possibly by implication other agents) have a 'broadcast radius of node' shown, but this broadcast radius is not mentioned as a property of an agent or node in the text?}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcommand{\formalAgentResources}[2]{
+	\functionFormal{agentres}
+	{\setAgents{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionAgentResources}[2]{
+	\functionSignature{agentres}{\varAgent{}{}, \varResource{}{}}
+}
+The \textit{agent resources} function maps each agent and each resource to the amount of that resource that the agent can utilise to complete tasks, $\formalAgentResources{}{}$.
+
+\newcommand{\formalTaskResourceAllocation}[2]{
+	\functionFormal{taskres}
+	{\setAgents{}{} \times \setAtomicTaskType{}{}}
+	{\powerSetSymbol{\setResource{}{} \times \setRealNumbersNonNegative{}  {}}{}{}}
+}
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{taskres}
+	{\varAgent{}{}, \varAtomicTask{}{}}
+}
+The \text{task resource allocation} maps each agent and type of atomic task, to a value representing the amount of a resource it has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
+
+\example{Relating formal definitions to an ocean-based WSN}{}

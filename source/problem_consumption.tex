@@ -1,47 +1,29 @@
-\subsection{Energy consumption and availability}
+\paragraph{Energy consumption}
 \label{section:energy_consumption}
-\reviewquestion{For neatness of presenting the opening list sentence, see my comment above for the Section 3 intro as the same applies.
-}
-\reviewquestion{In the equation for atec, why does the sensor node use transmission energy? There is no mention of transmission by the sensor node in Section 3.3 I think?
-}
-\reviewquestion{You distinguish energy used in "idle power saving mode" and "sleep mode", but this seems very confusing given what you said in Section 3.3. You said that for an atomic task, an "idle node" was one that was completing some atomic task just not this one, meaning it will be transmitting, receiving and/or sensing. So how can there be an "idle power saving mode"?
-}\label{key}
+
 \reviewquestionopen{Isn't energy just one resource that an agent can have and use for tasks? You gave it as the example of a resource in Section 3.2. If so, why is there a section (Section 3.5) on just one particular resource type? Are you implying that this type of resource is always an element of R for every system (and if so, where do you say this)? You define energy as being used for things other than enacting an atomic task - transmission and receiving - so are other resources also used up by these actions? In Section 3.2, you define ra as giving the resources allocated to 'completing' task types, but does 'completing' include receiving, transmitting and sensing, or only sensing? If the latter, then where is the allocation of resources for receiving and transmitting? If it is correct that you want to highlight a particular kind of resource, then it would be good to give that resource a name, e.g. $energy \in R$.
 }
-\reviewquestionopen{The mapping between the actions of Section 3.4 and the energy consuming 'things' of Section 3.5 is not clear. Maybe the actions in 3.4 are 'application-level' actions that need to be mapped down to the 'network-level' actions they require, e.g. $alloc(at,g_2)$ by agent $g_1$ requires a trans() action by $g_1$ and (if successful) a $recv()$ action by $g_2$? What energy does establishing or maintaining a connection ($link(g)$) require?
-}
-\reviewquestionopen{I assume function fe relates to functions ar and ra, e.g. fe = ra/ar? If so, this should be made explicit. If not, then it is not currently clear why not.
-}
-\reviewquestionopen{Equation (2) uses symbol $fe_phi$ but that has not been defined, only fe.
-}
-We quantify an \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. This is composed of,
- \begin{itemize}
- 	\item \textit{transmission energy}, $\varTransmissionEnergy{}{}$, the energy used by nodes to  send a message, such as when allocating a task to another node or returning a task result. 
- 	\item \textit{receiver energy}, $\varReceiverEnergy{}{}$, the energy used by a node to receive a message. 
- 	 \item \textit{sensor energy}, $\varSensorEnergy{}{}$,the energy used by a node to execute an atomic measurement task.
- \end{itemize}
-For simplification, we assume that these values are constants in a given system. For a given task-path, the combined energy usage will be,
-\begin{align}
-\functionAtomicTaskEnergyConsumptionSignature{}{} 
-&= 
-\underbrace{(\varTransmissionEnergy{}{} + \varReceiverEnergy{}{})}_{\text{sink node}}
-+ \underbrace{
-	2 (\varTransmissionEnergy{}{} + \varReceiverEnergy{}{})
- 	(\funcSize{(\functionTaskArc{}{}}{} -2)
-}_{\text{active nodes}}
-+ \underbrace{
-	 (
-	 	\varTransmissionEnergy{}{}
-	 	+ \varReceiverEnergy{}{}
-	 	+ \varSensorEnergy{}{}
-	 )
- }_{\text{sensor node}}  
-\end{align}
-To simplify our system, we make the assumption that the energy usage of wireless communication devices and sensors are much larger than that used by other functions of the agent, and more open to optimisation \citep{Matin2012}. We also disregard energy used in idle, or sleep modes for agents for the same reason, although there are other algorithms that can be used to optimise the cycling of power cell usage \citep{Escolar2014}.
+
+Given a task path, $\lbrace \functionSinkRoleAtomic{}{}, \functionRelayRole{i}{i+1}, \functionDetectorRole{}{} \rbrace_{i=2}^{n-1}$, 
+we can quantify the \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. 
+\begin{equation}
+\begin{aligned}
+	\functionAtomicTaskEnergyConsumptionSignature{}{} 
+	&= (\functionSignature{energy_{tr}}
+		{\functionSinkRoleAtomic{}{},\varAgent{2}{}} + \varReceiverEnergy{}{}) & [\textit{sink energy}]\\
+	&+ 2 \sum_{i=2}^{n-1} (\functionTransmissionEnergy{i}{i+1} + \varReceiverEnergy{}{})
+	 & [\textit{relay energy}]\\
+	&+ (
+		\functionTransmissionEnergy{n}{n-1}
+		+ \varReceiverEnergy{}{}
+		+ \varSensorEnergy{}{}
+		)& [\textit{detector energy}]
+\end{aligned}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalAgentEnergyAvailable}[2]{
-	\functionFormal{\mathit{fe}}
+	\functionFormal{\mathit{fe_{\varTime{}{}}}}
 	{\setAgents{}{}}
 	{\setRealNumbersUnit{}{}}
 }
@@ -65,7 +47,8 @@ To simplify our system, we make the assumption that the energy usage of wireless
 	\functionSignature{ea_{\varTime{}{}}}{#1}
 	\fi
 }
-The \textit{fractional agent energy} maps an agent to its available energy, as a fraction of its energy sources' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
+\reviewquestionopen{I assume function fe relates to functions ar and ra, e.g. fe = ra/ar? If so, this should be made explicit. If not, then it is not currently clear why not.}
+At a specific point in time $\varTime{}{}$, the \textit{fractional agent energy} maps an agent to its available energy, as a fraction of its energy sources' maximum capacity, $\formalAgentEnergyAvailable{}{}$. We can then specify the \textit{fractional energy availability}, as the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
 \begin{equation}
 	\functionEnergyAvailable{}{} 
 	= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionAgentEnergyAvailable{\varAgent{i}{}}{}}

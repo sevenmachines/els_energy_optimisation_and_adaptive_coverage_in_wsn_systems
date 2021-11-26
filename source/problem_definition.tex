@@ -1,5 +1,3 @@
-\subsection{The multi-objective optimisation problem}
-\label{section:optimisation_problem}
 \reviewquestionopen{For neatness of presenting the list sentence, see my comment above for the Section 3 intro as the same applies.
 }
 \reviewquestionopen{There seems two ways to read this section and neither seems valid. You could be saying that (i) each of the four objectives is separate and you are trying to optimise against each separately and so will weight each of the four separately in judging success; or (ii) the four objectives are combined into the weighted sum of system utility which defines how you judge success. But if (i) is what you intend, then why have you defined taq() and system utility u() functions which already seem to give a weighted sum of the first three items; also, how should item 3 be interpreted when it seems to set an independent measure for each atomic task. Or if (ii) is what you intend, then something is wrong because item 4 is not included in the system utility weighted sum, function u(). I don't understand how the overall success metric is defined.
@@ -12,4 +10,4 @@ The goal of a system of agents $\setAgents{}{}$ is to maximise $\functionSystemU
 	\item Maintain $\functionSystemCoverage{}{}$, the system coverage, as the system degrades over time due to temporary and permanent node failures.
 \end{enumerate}
 
-
+\example{Defining the problem in an ocean-based WSN}{}

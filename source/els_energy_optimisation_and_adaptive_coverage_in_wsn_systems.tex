@@ -43,8 +43,12 @@
 \tsc{BEC}
 \tsc{DE}
 %%%
-\newtheorem{example}{Example}[section]
-
+\newtheorem{ex}{Example}[section]
+\newcommand{\example}[2]{
+\begin{ex}[\emph{#1}]
+\ifx\\#2\\ \todo[inline]{TODO}\else#2\fi
+\end{ex}
+}
 \newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
 \newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
 \newcommand{\pushline}{\Indp}% Indent
@@ -134,16 +138,19 @@
 	\input{introduction}
 	\input{background}
 	%\input{background_extended}
-	\section{Balancing energy and measurement in a WSN system}
+	\section{Properties of a WSN system}
+	\todo[inline]{This section introduces the terminology, sets and mappings required to define the system}
 	\input{problem}
 	\input{problem_introduction}
+	\todo[inline]{This section is the formal specification of the system and state using the previous definitions}
 	\input{problem_overview}
 	\input{problem_system}
 	\input{problem_dynamics}
-	%\section{Resource optimisation}
+	\subsection{Optimising resource usage and measuring system utility}
+	\todo[inline]{This section introduces actions, the resources they use, and the energy and quality measures needed to define the problem}
 	\input{problem_resource_optimsation}
 	\input{problem_actions}
-		\input{problem_roles}
+	\input{problem_roles}
 	\input{problem_task_paths}
 	\input{problem_consumption}
 	\input{problem_quality}
@@ -151,6 +158,9 @@
 	\input{problem_tasks}
 	\input{probem_utility}
 	\input{problem_coverage}
+	\subsection{The multi-objective optimisation problem}
+	\todo[inline]{This section formally defines the problem}
+	\label{section:optimisation_problem}
 	\input{problem_definition}
 \section{Solving the multi-objective WSN problem}
 \label{section:solution}
