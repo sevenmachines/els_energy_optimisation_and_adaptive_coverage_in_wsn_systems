@@ -51,15 +51,25 @@
 	\functionSignature{execrange}
 	{\varAtomicTask{}{}, \varAgent{}{}}
 }
-An agent will complete an atomic task with a certain \textit{atomic task quality}\footnote{See definition of key requirements, \ref{requirement:quality}, in Section \ref{section:background}}, how well it has performed the task. This value is dependant on the resources the agent has dedicated to tasks of that type, and  its \textit{execution range}, the distance between the agent and the demand point of the task, $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$. 
-With the maximum distance between any agent and demand point in our coordinate system\footnote{As detailed in Section \ref{section:task_and_resources:distribution})} being scaled to $\sqrt{2}$, we can specify the atomic task quality of an atomic task $\varAtomicTask{}{}$ as a value in the range $\lbrack 0, 1 \rbrack$,
+An agent will complete an atomic task with a certain \textit{atomic task quality}, how well it has performed the task. This value is dependant on the \textit{execution range}, the distance between the agent and the demand point of the task\footnote{As the maximum distance between any agent and demand point in our coordinate system\footnote{As detailed in Section \ref{section:task_and_resources:distribution})} is $\sqrt{2}$, we can scale $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$ to the range $\lbrack 0, 1 \rbrack$ as shown, ensuring the quality also stays in this range.}, and the resources the agent has dedicated to tasks of that type\footnote{To simplify the quality function, we assume reducing resource allocation for a task has an equal and linear impact across all tasks and resources. However, a more complex resource fraction component could easily be defined given a specific systems' set of resources and tasks.}.
 \begin{equation}
 	\label{eq:atomic_task_quality}
 	\functionAtomicTaskQualitySignature{}{} = 
-	{\functionTaskResourceAllocation{}{}}
-	\bigg ( 1 - \frac{\funcSize{
+\bigg (
+\underbrace{
+	1 - \frac{\funcSize{
 			\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{} 
-		}{}}{{\sqrt{2}}}\bigg )
+		}{}}{{\sqrt{2}}}
+}_{\text{distance decay}}
+\bigg )
+\bigg (
+\underbrace{
+	\frac{1}{\funcSize{\setResource{}{}}}\sum_{\varResource{}{} \in \setResource{}{}} 
+	\frac
+	{\functionTaskResourceAllocationInstance{}{}}
+	{\functionRequiredResourcesInstance{}{}}
+}_{\text{resource fraction}}
+\bigg )
 \end{equation}
 
 When a composite task is completed, the value of an atomic task to its final outcome can be measured. This is not the same as task quality, at it may be dependent on factors such as whether or not it replicated a nearby result, making it less valuable than if it uniquely covered a demand point. We define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task of a composite task to the fractional value of each of them to the composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.

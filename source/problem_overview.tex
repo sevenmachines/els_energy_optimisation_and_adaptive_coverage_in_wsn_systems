@@ -20,13 +20,13 @@ Each node has one \textit{agent}, a software controller that instructs its actio
 \newcommand{\varResourceType}[2]{\varSymbol{RT}{#1}{#2}}
 \newcommand{\setResourceType}[2]{\setSymbol{RT}{#1}{#2}}
 \newcommand{\formalResourceType}[2]{
-	\functionFormal{type_{res}}
+	\functionFormal{type_r}
 	{\setResource{}{}}
 	{\setResourceType{}{}}
 }
 \newcommand{\functionResourceType}[2]{
-	\functionSignature{type_{res}}
-	{\setResource{}{}}}
+	\functionSignature{type_r}
+	{\varResource{}{}}}
 
 %%%%%%%%%%%%%%%%%%%
 Agents will have to use \textit{resources} $\varResource{}{}$ to complete tasks and for general operations. These resources are of one of the types $\varResourceType{}{}$ shown below, given by the mapping $\formalResourceType{}{}$.
@@ -71,7 +71,28 @@ A agents' hardware has a maximum distance it can effectively communicate with ot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Tasks}
 \label{section:task_and_resources:tasks}
-Agents execute \textit{atomic tasks}, individual sensor measurements, which are typed. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. The further away the agent is from this point, the less value the task has to the system. Some agents will have sets of atomic tasks called \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. We term these agents \textit{sinks} (see Section \ref{XXX}). Composite tasks are decomposed into atomic tasks by sinks, with each atomic task then being either executed by the sink, or allocated to other agents to complete or relay further.
+Some agents will have sets of atomic tasks called \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. We term these agents \textit{sinks} (see Section \ref{XXX}). Composite tasks are decomposed into atomic tasks by sinks, with each atomic task then being either executed by the sink, or allocated to other agents to complete or relay further.
+
+Agents execute \textit{atomic tasks}, individual sensor measurements, which are typed. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. The further away the agent is from this point, the less value the task has to the system.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionRequiredResourcesSymbol}[2]{
+	\functionSymbol{requiredres}
+}
+\newcommand{\formalRequiredResources}[2]{
+	\functionFormal{\functionRequiredResourcesSymbol{}{}}
+	{\setAtomicTaskType{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionRequiredResources}[2]{
+	\functionSignature{\functionRequiredResourcesSymbol{}{}}{\varAtomicTaskType{}{}, \varResource{}{}}
+}
+\newcommand{\functionRequiredResourcesInstance}[2]{
+	\functionSignature{\functionRequiredResourcesSymbol{}{}}
+	{\functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \functionResourceType{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Atomic tasks have a \textit{resources requirement}, a mapping from the type of the task to the set of resources it requires to be completed optimally, $\formalRequiredResources{}{}$. 
 
 \paragraph{System task execution flow}
 
@@ -84,6 +105,86 @@ At a high-level, the flow of task execution is as follows,
 	\item The results are re-transmitted back to allocating agents until they reach the initial agent.
 	\item The initial agent aggregates all the task results and transmits them to the external agent.
 \end{enumerate}
+
+\paragraph{Resources available to tasks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionAgentResourcesSymbol}[2]{
+	\functionSymbol{agentres}
+}
+\newcommand{\formalAgentResources}[2]{
+	\functionFormal{\functionAgentResourcesSymbol{}{}}
+	{\setAgents{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionAgentResources}[2]{
+	\functionSignature{\functionAgentResourcesSymbol{}{}}{\varAgent{}{}, \varResource{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The \textit{agent resources} function maps each agent and each resource to the maximum amount of that resource that the agent can utilise to complete tasks, $\formalAgentResources{}{}$. e.g. the maximum capacity of the agents' battery, or size of its memory storage.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionTaskResourceAllocationSymbol}[2]{
+	\functionSymbol{taskres}
+}
+\newcommand{\formalTaskResourceAllocation}[2]{
+	\functionFormal{\functionTaskResourceAllocationSymbol{}{}}
+	{\setAgents{}{} \times \setAtomicTaskType{}{} \times \setResourceType{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionTaskResourceAllocation}[2]{
+	\functionSignature{\functionTaskResourceAllocationSymbol{}{}}
+	{\varAgent{}{}, \varAtomicTask{}{}, \varResourceType{}{}}
+}
+\newcommand{\functionTaskResourceAllocationInstance}[2]{
+	\functionSignature{\functionTaskResourceAllocationSymbol{}{}}
+	{\varAgent{}{}, \varAtomicTask{}{}, \functionResourceType{}{}}
+}
+
+
+The \text{task resource allocation} maps each agent, type of atomic task, and resource, to the amount of the resource it has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionAgentAvailableResourcesSymbol}[2]{
+	\functionSymbol{availres}
+}
+\newcommand{\formalAgentAvailableResources}[2]{
+	\functionFormal{\functionAgentAvailableResourcesSymbol{}{}}
+	{\setAgents{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionAgentAvailableResources}[2]{
+	\functionSignature{\functionAgentAvailableResourcesSymbol{}{}}
+	{\varAgent{}{}, \varResource{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo[inline]{are the task assigned resources still available?}
+The \textit{agent available resources} function maps each agent and each resource to the current amount of that resource that the agent can utilise to complete tasks, $\formalAgentAvailableResources{}{}$. e.g. the power currently left in the agents' battery, or free memory.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionFractionalAgentResourcesSymbol}[2]{
+	\functionSymbol{fracres_{\varTime{}{}}}
+}
+\newcommand{\formalAgentResourcesAvailable}[2]{
+	\functionFormal{\functionFractionalAgentResourcesSymbol{}{}}
+	{\setAgents{}{} \times \setResource{}{}}
+	{\setRealNumbersUnit{}{}}
+}
+\newcommand{\functionFractionalAgentResources}[2]{
+	\functionSignature{\functionFractionalAgentResourcesSymbol{}{}}
+	{\varAgent{}{}, \varResource{}{}}
+}
+\newcommand{\functionFractionalAgentEnergy}[2]{
+	\functionSignature{\functionFractionalAgentResourcesSymbol{}{}}
+	{\varAgent{}{}, \varResource{energy}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+At a specific point in time $\varTime{}{}$, the \textit{fractional agent resources} function maps agents and resources to the amount of each resource it has available to utilise for tasks, as a fraction of the resources' maximum capacity for that agent, $\formalAgentResourcesAvailable{}{}$. So that,
+\begin{equation}
+	\functionFractionalAgentResources{}{}
+	= \frac
+	{\functionAgentAvailableResources{}{}}
+	{\functionAgentResources{}{}}
+\end{equation}
 
 \example{Task flow in an ocean-based WSN}{}
 
