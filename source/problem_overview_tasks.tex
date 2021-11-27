@@ -1,0 +1,39 @@
+\paragraph{Tasks}
+\label{section:task_and_resources:tasks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\formalTaskResponsibilities}[2]{
+	\functionFormal{resp}
+	{\setCompositeTask{}{} \times \powerSetAgent{}{}{}{}}
+	({\setCompositeTask{}{} \times \setAgent{}{}})
+}
+\newcommand{\functionTaskResponsibilities}[2]{
+	\functionSignature{resp}
+	{\varCompositeTask{}{}, \setAgent{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\formalTaskDemandPoint}[2]{
+	\functionFormal{demand}
+	{\setAtomicTask  {}{}}{\tupleLocation{}{}}
+}
+\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{demand}{\varAtomicTask{}{}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionRequiredResourcesSymbol}[2]{
+	\functionSymbol{demandres}
+}
+\newcommand{\formalRequiredResources}[2]{
+	\functionFormal{\functionRequiredResourcesSymbol{}{}}
+	{\setAtomicTaskType{}{} \times \setResource{}{}}
+	{\setRealNumbersNonNegative{}{}}
+}
+\newcommand{\functionRequiredResources}[2]{
+	\functionSignature{\functionRequiredResourcesSymbol{}{}}{\varAtomicTaskType{}{}, \varResource{}{}}
+}
+\newcommand{\functionRequiredResourcesInstance}[2]{
+	\functionSignature{\functionRequiredResourcesSymbol{}{}}
+	{\functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \varResource{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Some agents, \textit{sinks}\footnote{See Section \ref{XXX}}, will have \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. The \textit{task-responsibilities} function maps each composite task type to the group of agents that will receive those tasks types and ensure their completion; $\formalTaskResponsibilities{}{}$. This mapping is fixed on system initialisation. Composite tasks are decomposed into their constituent \textit{atomic tasks}, with each atomic task then being either executed by the sink, or allocated to other agents to complete or relay further. Agents execute \textit{atomic tasks} which are typed. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement is differs significantly from that at the targeted point. Atomic tasks have a \textit{resources demand}, a mapping from the type of the task to the set of resources it requires to be completed optimally, $\formalRequiredResources{}{}$. 
+

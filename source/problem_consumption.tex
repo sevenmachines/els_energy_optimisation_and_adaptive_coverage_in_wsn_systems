@@ -20,37 +20,3 @@ we can quantify the \textit{atomic task energy consumption}, $\formalAtomicTaskE
 		)& [\textit{detector energy}]
 \end{aligned}
 \end{equation}
-
-
-\newcommand{\functionEnergyVariability}[2]{
-	\ifx \\#1\\
-	\functionSignature{rev_{\varTime{}{}}}
-	{\setAgents{}{}}
-	\else
-	\functionSignature{rev_{\varTime{}{}}}{#1}
-	\fi
-}
-
-\newcommand{\functionEnergyAvailable}[2]{
-	\ifx \\#1\\
-	\functionSignature{ea_{\varTime{}{}}}{\setAgents{}{}}
-	\else
-	\functionSignature{ea_{\varTime{}{}}}{#1}
-	\fi
-}
-We can then specify the \textit{fractional energy availability}, as the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
-\begin{equation}
-	\functionEnergyAvailable{}{} 
-	= \dfrac{\sum_{\forall \varAgent{}{} \in \setAgents{}{}} \functionFractionalAgentEnergy{\varAgent{i}{}}{}}
-	{\funcSize{\setAgents{}{}}}
-\end{equation}
-To optimise for distribution of energy usage we minimise the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the fractional agent energy values. As we look to optimise by maximising across multiple goals, and the values of $\functionFractionalAgentEnergy{}{}$ are bounded by $[0, 1]$, we can rephrase this as maximising the distance between the variance and the maximum possible, $1/4$. So we use the \textit{relative energy variability} as our distribution measurement,
-\begin{equation}     	
-	\functionEnergyVariability{}{} 
-	= \frac{1}{4} - \sigma^2(
-	\lbrace \functionFractionalAgentEnergy{}{}
-	\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
-	)
-\end{equation}
-
-

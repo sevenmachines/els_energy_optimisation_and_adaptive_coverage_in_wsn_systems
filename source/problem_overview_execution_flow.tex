@@ -1,0 +1,12 @@
+\paragraph{System task execution flow}
+
+At a high-level, the flow of task execution is as follows,
+\begin{enumerate}
+	\item An agent receives a tasks from an external agent
+	\item The agent executes or allocates these tasks to other agents in the system, which may also re-allocate them.
+	\item Agents' execute tasks by taking measurements using its sensors.
+	\item The task results are transmitted back to the agent that allocated the task.
+	\item The results are re-transmitted back to allocating agents until they reach the initial agent.
+	\item The initial agent aggregates all the task results and transmits them to the external agent.
+\end{enumerate}
+
