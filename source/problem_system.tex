@@ -2,9 +2,6 @@
 \label{section:system_definition}
 \todo[inline]{Define the system as things that are constant, and persistent, not dependent on time}
 
-\reviewquestionopen{In the system definition, ra is defined as mapping each 'type of atomic task' to a resource amount, but in the formalisation it mapping from AT, which is defined as a 'set of atomic tasks' not of 'set of types of atomic tasks'. It may be just a language issue, but it is confusing and needs clarifying.
-}
-\reviewquestionopen{Do you need to set SG? You can seemingly define function sg as mapping to G rather than SG. As 'sink node' is just a role played for an atomic task (as said in Section 3.3) rather than a special type of agent, it seems inconsistent to define a special set for them.}
 \reviewquestionopen{	
 	There is an issue that the system definition is both complex, having 10 terms in the tuple, and apparently incomplete because lots of things are mentioned in the following sections that appear to be part of the system but are not in the definition: links, information, transmission energy, etc. Why, for example, is conf part of the system definition but $e_trans$ is not? I wonder if you could present things differently:
 	- A system is defined by the fixed sets and constants that are independent of any given agent or task: $(G, AT, CT, R, e_trans, ...)$

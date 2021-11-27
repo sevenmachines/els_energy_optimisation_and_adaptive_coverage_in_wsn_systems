@@ -28,9 +28,10 @@
 
 
 \newcommand{\functionSystemCoverage}[2]{
-	\functionSignature{cov_{\setTime{}{}}}{\setCompositeTask{}{}}
+	\functionSignature{syscov_{\setTime{}{}}}{\setCompositeTask{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo[inline]{Need this section? Coverage mainly is a metric that allows us to track whats happening in the simmulations, maybe useful there rather than here}
 \reviewquestionopen{The 'success' function is weird. Its signature uses a type AT' which you have not defined: I assume you just mean AT? It maps a single atomic task to another single atomic task (assuming AT' = AT) but the text description talks about a 'set'. You also mentioned undefined set CT', which looks like it should be another set of composite tasks like CT but you treat it as a set of atomic tasks. From the text description, I guess you mean to say something like $AT_success \subset AT$ is the set of successful atomic tasks where, $\forall at \in AT_success q(at, sensor(at)) > e$?
 }
 \reviewquestionopen{Equation (8) also seems wrong. It has Phi as a parameter on the left-hand side but it is not used on the right-hand side. Also CT is the set of all composite tasks in the system by your definition. So the right-hand side is not the successful completion in time period Phi, it is the success over the whole lifetime of the system.

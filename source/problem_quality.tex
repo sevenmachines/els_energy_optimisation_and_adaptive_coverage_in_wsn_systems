@@ -1,15 +1,16 @@
 \paragraph{Task quality}
 \label{section:task_quality}
 %%%%%%%%%%%%%%%%%
+\newcommand{\functionAtomicTaskQualitySymbol}[2]{\functionSymbol{atq_{#1}^{#2}}}
 \newcommand{\functionAtomicTaskQualitySignature}[2]{
 	\ifx&#1&
-	\functionSignature{q} {\varAtomicTask{}{}, \varAgent{}{}}
+	\functionSignature{\functionAtomicTaskQualitySymbol{}{}} {\varAtomicTask{}{}, \varAgent{}{}}
 	\else
-	\functionSignature{q}{#1, #2}
+	\functionSignature{\functionAtomicTaskQualitySymbol{}{}}{#1, #2}
 	\fi
 }
 \newcommand{\functionAtomicTaskQualitySensor}[2]{
-	\functionSignature{q} {\varAtomicTask{}{}, \functionDetectorRole{}{}}
+	\functionSignature{\functionAtomicTaskQualitySymbol{}{}} {\varAtomicTask{}{}, \functionDetectorRole{}{}}
 }
 
 \newcommand{\functionComponentTaskValue}[2]{
@@ -18,7 +19,7 @@
 \newcommand{\formalComponentTaskValue}[2]{
 	\functionFormal{ctv}{\setAtomicTask{}{}}{\setRealNumbersNonNegative{}{}}
 }
-\newcommand{\functionSystemUtility}[2]{\functionSignature{u}{\setTime{}{}}}
+\newcommand{\functionSystemUtility}[2]{\functionSignature{utility}{\setTime{}{}}}
 %%%%%%%%%%%%%%%%%%%
 \newcommand{\functionCompositeTaskQuality}[2]{
 	\functionSignature{taq_\varTime{}{}}{\varCompositeTask{}{}}

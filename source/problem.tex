@@ -26,11 +26,9 @@
 \newcommand{\varChildAgent}[2]{\varAgent{c}{}}    
 \newcommand{\varParentAgent}[2]{\varAgent{p}{}}
 
-\newcommand{\varOrchestrationEnergy}[2]{e_{orch}}
-\newcommand{\varTransmissionEnergy}[2]{e_{trans}}
-\newcommand{\varReceiverEnergy}[2]{e_{recv}}
-\newcommand{\varSensorEnergy}[2]{e_{sens}}
-\newcommand{\varIdleEnergy}[2]{e_{idle}}
+\newcommand{\varTransmissionEnergy}[2]{e_{\symbolTransmission{}{}}}
+\newcommand{\varReceiverEnergy}[2]{e_{\symbolReceiver{}{}}}
+\newcommand{\varSensorEnergy}[2]{e_{\symbolDetect{}{}}}
 \newcommand{\functionTaskRange}[2]{
 	\functionSignature{\mathit{range}}
 	{\varAtomicTask{}{}}
@@ -45,10 +43,9 @@
 	{\setAtomicTask{}{}}
 	{\setRealNumbersNonNegative{}{}}}
 %%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\symbolDataAcquisition}[2]{\setSymbol{DAQ}{#1}{#2}}
-\newcommand{\symbolTransmission}[2]{\setSymbol{TX}{#1}{#2}}
-\newcommand{\symbolReceiver}[2]{\setSymbol{RX}{#1}{#2}}
-\newcommand{\symbolWakeUpRadio}[2]{\setSymbol{WUR}{#1}{#2}}
+\newcommand{\symbolTransmission}[2]{\varSymbol{TX}{#1}{#2}}
+\newcommand{\symbolReceiver}[2]{\varSymbol{RX}{#1}{#2}}
+\newcommand{\symbolDetect}[2]{\varSymbol{DT}{#1}{#2}}
 
 
 \newcommand{\functionSystemEnergyDistribution}[2]{
