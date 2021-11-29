@@ -1,8 +1,8 @@
-\subsection{Coverage, network resilience, and system lifetime}
-\label{section:coverage}
+\paragraph{Measuring the robustness of a WSN}
+
+Optimising the utility of the system as defined in Section \ref{section:utility} increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime as discussed in Section \ref{section:background:requirements} should also increase. We now specify how we can explicitly measure these within our system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \newcommand{\varQualityMin}[2]{\epsilon}
 \newcommand{\formalTasksSuccess}[2]{
 	\functionFormal{success}
@@ -31,7 +31,7 @@
 	\functionSignature{syscov_{\setTime{}{}}}{\setCompositeTask{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\todo[inline]{Need this section? Coverage mainly is a metric that allows us to track whats happening in the simmulations, maybe useful there rather than here}
+
 \reviewquestionopen{The 'success' function is weird. Its signature uses a type AT' which you have not defined: I assume you just mean AT? It maps a single atomic task to another single atomic task (assuming AT' = AT) but the text description talks about a 'set'. You also mentioned undefined set CT', which looks like it should be another set of composite tasks like CT but you treat it as a set of atomic tasks. From the text description, I guess you mean to say something like $AT_success \subset AT$ is the set of successful atomic tasks where, $\forall at \in AT_success q(at, sensor(at)) > e$?
 }
 \reviewquestionopen{Equation (8) also seems wrong. It has Phi as a parameter on the left-hand side but it is not used on the right-hand side. Also CT is the set of all composite tasks in the system by your definition. So the right-hand side is not the successful completion in time period Phi, it is the success over the whole lifetime of the system.
@@ -42,9 +42,12 @@
 }
 \reviewquestionopen{Paragraph 3: "a the minimum"
 }
+\paragraph{Successful task completion}
+\label{section:success}
 When the quality of the completion of an atomic task falls below a certain level, the result may no longer be useful. As an example, we could have a system where a large number of sensor nodes are deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. Taking a measurement $1$ metre away from a demand point is likely to be close to the demand points' actual value, whereas $100$ metres away it may be uncorrelated, and not be a useful measurement. The distance at which this is likely to occur is highly dependent on the type of task performed, the environment it is in, and the desired system behaviour. To formalise this concept, we set a value $\varQualityMin{}{}$ to be the \textit{quality threshold} above which an atomic task is considered successful, and the set of \textit{successful atomic tasks} as, $\formalTasksSuccess{}{}$ where $\functionAtomicTaskQualitySensor{}{} > \varQualityMin{}{}$ for all $\varAtomicTask{}{} \in \setCompositeTask{}{'}$. 
 
-
+\paragraph{Coverage}
+\label{section:coverage}
 We define the systems' \textit{ coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} as the proportion of successfully completed atomic tasks in the set of completed composite tasks over a time period $\setTime{}{}$.
 \begin{equation}
 	\label{eq:coverage}
@@ -54,4 +57,6 @@ We define the systems' \textit{ coverage} \footnote{See definition of key requir
 	{\funcSize{\setCompositeTask{}{}}{}}
 \end{equation}
 
+\paragraph{Resilience}
+\label{section:resilience}
 As network connectivity is disrupted by node failures, communication problems, and weather effects, it may become complex to route all of the atomic tasks to nodes that can successfully complete them. We use the proportion of successfully completed atomic tasks, given the percentage failure of nodes, as a measure of the networks' \textit{resilience} \footnote{See definition of key requirements, \ref{requirement:resilience}, in Section \ref{section:background}}, how adaptive it is to these disruptions. Despite this adaptivity, there will be a gradual deterioration of coverage overall with time. The \textit{system lifetime} \footnote{See definition of key requirements, \ref{requirement:lifetime}, in Section \ref{section:background}} is then the time until the coverage falls below a the minimum level required for the system to be useful. 

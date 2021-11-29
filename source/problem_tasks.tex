@@ -1,4 +1,5 @@
-\paragraph{System utility}
+\paragraph{Composite task quality}
+\label{section:composite_task_quality}
 The quality of a composite task will not only be dependent on the value of its atomic tasks, but also on how well nodes in their respective task-paths have minimised energy usage, and energy distribution. Therefore we define the \textit{composite task quality} with these multiple objectives included as terms,
 \begin{equation}
 	\label{eq:ctv}
@@ -21,6 +22,8 @@ where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initiali
 	\functionAtomicTaskQualitySignature{}{}
 \end{equation}
 
+\paragraph{System utility}
+\label{section:utility}
 The overall \textit{ utility} of the system over a time period $\setTime{}{}$ will then be the sum of the composite task qualities of all the composite tasks $\setCompositeTask{}{}$ completed during that period.
 	\begin{equation}
 		\label{eq:system_utility}
@@ -28,3 +31,9 @@ The overall \textit{ utility} of the system over a time period $\setTime{}{}$ wi
 		\sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{\setTime{}{}}{}}
 		\functionCompositeTaskQuality{}{}
 	\end{equation}
+The goal of a system of agents $\setAgents{}{}$ is to maximise $\functionSystemUtility{}{}$ over the lifetime of the WSN.
+
+\reviewquestionopen{There seems two ways to read this section and neither seems valid. You could be saying that (i) each of the four objectives is separate and you are trying to optimise against each separately and so will weight each of the four separately in judging success; or (ii) the four objectives are combined into the weighted sum of system utility which defines how you judge success. But if (i) is what you intend, then why have you defined taq() and system utility u() functions which already seem to give a weighted sum of the first three items; also, how should item 3 be interpreted when it seems to set an independent measure for each atomic task. Or if (ii) is what you intend, then something is wrong because item 4 is not included in the system utility weighted sum, function u(). I don't understand how the overall success metric is defined.
+}
+
+\example{Defining the problem in an ocean-based WSN}{}
