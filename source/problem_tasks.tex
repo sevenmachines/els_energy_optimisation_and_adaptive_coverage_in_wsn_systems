@@ -14,7 +14,7 @@ The quality of a composite task will not only be dependent on the value of its a
 	}_{\text{task quality}}
 \big\rbrack
 \end{equation}
-where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. Each \textit{atomic task's absolute value} to the system will then be the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality,
+where $\alpha$, $\beta$, and $\gamma$, are proportions chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively. Each \textit{atomic task's absolute value} to the system will then be the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality. This value can be used by agents in a task-path to measure how useful their actions were in completing the atomic task overall, as judged by sinks that completed the associated composite task.
 \begin{equation}
 	\functionTaskAbsoluteValue{}{} = 
 	\functionCompositeTaskQuality{}{}
