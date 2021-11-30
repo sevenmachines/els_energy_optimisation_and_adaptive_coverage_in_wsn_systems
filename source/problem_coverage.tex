@@ -3,32 +3,29 @@
 Optimising the utility of the system as defined in Section \ref{section:utility} increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime as discussed in Section \ref{section:background:requirements} should also increase. We now specify how we can explicitly measure these within our system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varQualityMin}[2]{\epsilon}
-\newcommand{\formalTasksSuccess}[2]{
+\newcommand{\varQualityMin}[2]{q_\epsilon}
+
+\newcommand{\formalAtomicTaskSuccess}[2]{
 	\functionFormal{success}
 	{\setAtomicTask{}{}}
-	{\setAtomicTask{}{'}}
+	{\setIntegersBinary{}{}}
 }
-\newcommand{\functionTasksSuccess}[2]{
-\ifx&#1&%
-	\functionSignature{success}{\setAtomicTask{}{}}
-\else
-	\functionSignature{success}{#1}
-\fi
+\newcommand{\functionAtomicTaskSuccess}[2]{
+	\functionSignature{success}{\varAtomicTask{}{}}
 }
 
 \newcommand{\formalCompositeTaskCoverage}[2]{
 	\functionFormal{taskcov}
 	{\setCompositeTask{}{}}
-	{\setCompositeTask{}{'}}
+	{\setRealNumbersUnit{}{}}
 }
 \newcommand{\functionCompositeTaskCoverage}[2]{
-	\functionSignature{taskcov}{\setCompositeTask{}{}}
+	\functionSignature{taskcov}{\varCompositeTask{}{}}
 }
 
 
 \newcommand{\functionSystemCoverage}[2]{
-	\functionSignature{syscov_{\setTime{}{}}}{\setCompositeTask{}{}}
+	\functionSignature{syscov}{\setAtomicTaskInstance{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -44,19 +41,34 @@ Optimising the utility of the system as defined in Section \ref{section:utility}
 }
 \paragraph{Successful task completion}
 \label{section:success}
-When the quality of the completion of an atomic task falls below a certain level, the result may no longer be useful. As an example, we could have a system where a large number of sensor nodes are deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. Taking a measurement $1$ metre away from a demand point is likely to be close to the demand points' actual value, whereas $100$ metres away it may be uncorrelated, and not be a useful measurement. The distance at which this is likely to occur is highly dependent on the type of task performed, the environment it is in, and the desired system behaviour. To formalise this concept, we set a value $\varQualityMin{}{}$ to be the \textit{quality threshold} above which an atomic task is considered successful, and the set of \textit{successful atomic tasks} as, $\formalTasksSuccess{}{}$ where $\functionAtomicTaskQualitySensor{}{} > \varQualityMin{}{}$ for all $\varAtomicTask{}{} \in \setCompositeTask{}{'}$. 
+When the quality of the completion of an atomic task falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful (See Example \ref{example:success}).  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
+
+\begin{equation}
+	 \functionAtomicTaskSuccess{}{}
+	 = 
+	\begin{cases}
+		1, & \text{if } \functionAtomicTaskQualitySensor{}{} > \varQualityMin{}{} \\
+		0, & \text{otherwise}
+	\end{cases}
+\end{equation}
 
 \paragraph{Coverage}
 \label{section:coverage}
-We define the systems' \textit{ coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} as the proportion of successfully completed atomic tasks in the set of completed composite tasks over a time period $\setTime{}{}$.
+Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \setAtomicTask{}{}$, then the \textit{system coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} of the these tasks is the fraction of those tasks which were successful;
 \begin{equation}
 	\label{eq:coverage}
-	\functionSystemCoverage{}{} = \sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}} 
-	\frac
-	{\funcSize{\functionTasksSuccess{\varCompositeTask{}{}}{}}/\funcSize{\varCompositeTask{}{}}}
-	{\funcSize{\setCompositeTask{}{}}{}}
+	\functionSystemCoverage{}{}
+	=
+	\frac{1}{\funcSize{\setAtomicTaskInstance{}{}}}
+	\sum\limits_{\forall \varAtomicTask{}{} \in \setAtomicTaskInstance{}{}}
+	\functionAtomicTaskSuccess{}{}
 \end{equation}
 
 \paragraph{Resilience}
 \label{section:resilience}
 As network connectivity is disrupted by node failures, communication problems, and weather effects, it may become complex to route all of the atomic tasks to nodes that can successfully complete them. We use the proportion of successfully completed atomic tasks, given the percentage failure of nodes, as a measure of the networks' \textit{resilience} \footnote{See definition of key requirements, \ref{requirement:resilience}, in Section \ref{section:background}}, how adaptive it is to these disruptions. Despite this adaptivity, there will be a gradual deterioration of coverage overall with time. The \textit{system lifetime} \footnote{See definition of key requirements, \ref{requirement:lifetime}, in Section \ref{section:background}} is then the time until the coverage falls below a the minimum level required for the system to be useful. 
+
+\example{Coverage and resilience}{
+	\label{example:success}
+	A system has a large number of sensor nodes deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. An agent $\varAgent{}{}$ takes a measurement $1$ metre away from a demand point of a task $\varAtomicTask{1}{}$ and $100$ metres from that of $\varAtomicTask{2}{}$. The result of the first task is likely to be close to the actual value in that location, whereas that of the second may be uncorrelated, and not be a practically useful measurement. In this case, the systems designer may set $\varQualityMin{}{}$ such that measurements $>10$ metres away, although they are completed with non-zero quality, are judged unsuccessful as $\functionSignature{atq}{\varAtomicTask{1}{}} < \varQualityMin{}{} < \functionSignature{atq}{\varAtomicTask{2}{}}$.  
+}
