@@ -1,6 +1,6 @@
 \paragraph{Measuring the robustness of a WSN}
 
-Optimising the utility of the system as defined in Section \ref{section:utility} increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime as discussed in Section \ref{section:background:requirements} should also increase. We now specify how we can explicitly measure these within our system.
+Optimising the utility of the system as defined in Section \ref{section:utility} increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime as discussed in Section \ref{section:background:requirements} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varQualityMin}[2]{q_\epsilon}
@@ -29,19 +29,9 @@ Optimising the utility of the system as defined in Section \ref{section:utility}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\reviewquestionopen{The 'success' function is weird. Its signature uses a type AT' which you have not defined: I assume you just mean AT? It maps a single atomic task to another single atomic task (assuming AT' = AT) but the text description talks about a 'set'. You also mentioned undefined set CT', which looks like it should be another set of composite tasks like CT but you treat it as a set of atomic tasks. From the text description, I guess you mean to say something like $AT_success \subset AT$ is the set of successful atomic tasks where, $\forall at \in AT_success q(at, sensor(at)) > e$?
-}
-\reviewquestionopen{Equation (8) also seems wrong. It has Phi as a parameter on the left-hand side but it is not used on the right-hand side. Also CT is the set of all composite tasks in the system by your definition. So the right-hand side is not the successful completion in time period Phi, it is the success over the whole lifetime of the system.
-}
-\reviewquestionopen{(8) also seems unnecessarily complicated: if every atomic task is only in one composite task, then the fact that they are grouped into composite tasks doesn't seem relevant to calculating coverage, i.e. the composition of atomic tasks into groups has no relevance to coverage. You could just as well write: sum over $at \in AT$, $|AT_success|/|AT|$ (or success(at) instead of $AT_success$ if you don't agree with my comment above).
-}
-\reviewquestionopen{Paragraph 3: You mention the 'percentage failure of nodes' but where is this defined in the problem specification? What effect does failure have? As I understand it from the paragraph, failed nodes do not recover - if so, where is this characteristic specified?
-}
-\reviewquestionopen{Paragraph 3: "a the minimum"
-}
 \paragraph{Successful task completion}
 \label{section:success}
-When the quality of the completion of an atomic task falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful (See Example \ref{example:success}).  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
+In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement a large distance away from the corresponding tasks' demand point.  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
 
 \begin{equation}
 	 \functionAtomicTaskSuccess{}{}
@@ -54,7 +44,7 @@ When the quality of the completion of an atomic task falls below a certain \text
 
 \paragraph{Coverage}
 \label{section:coverage}
-Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \setAtomicTask{}{}$, then the \textit{system coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} of the these tasks is the fraction of those tasks which were successful;
+Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \setAtomicTask{}{}$, then the \textit{system coverage} \footnote{See definition of key requirements, \ref{requirement:coverage}, in Section \ref{section:background}} of these tasks is the fraction of those tasks which were successful;
 \begin{equation}
 	\label{eq:coverage}
 	\functionSystemCoverage{}{}
@@ -64,11 +54,34 @@ Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \se
 	\functionAtomicTaskSuccess{}{}
 \end{equation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionSymbolResilence}[2]{\functionSymbol{resilience}{#1}{#2}}
+\newcommand{\functionResilence}[2]{
+	\functionSignature{\functionSymbolResilence{#1}{#2}}
+	{\setAtomicTaskInstance{}{}, \setAgent{}{'}, \setAgent{}{} }
+}
 \paragraph{Resilience}
 \label{section:resilience}
-As network connectivity is disrupted by node failures, communication problems, and weather effects, it may become complex to route all of the atomic tasks to nodes that can successfully complete them. We use the proportion of successfully completed atomic tasks, given the percentage failure of nodes, as a measure of the networks' \textit{resilience} \footnote{See definition of key requirements, \ref{requirement:resilience}, in Section \ref{section:background}}, how adaptive it is to these disruptions. Despite this adaptivity, there will be a gradual deterioration of coverage overall with time. The \textit{system lifetime} \footnote{See definition of key requirements, \ref{requirement:lifetime}, in Section \ref{section:background}} is then the time until the coverage falls below a the minimum level required for the system to be useful. 
+As network connectivity is disrupted by node failures, communication problems, and weather effects, it may become complex to route all of the atomic tasks to nodes that can successfully complete them. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
+\begin{equation}
+	\functionResilence{}{}
+	= 
+	\frac{
+		\functionSystemCoverage{}{}
+	}{
+		\funcSize{\setAgents{}{'}} / \funcSize{\setAgents{}{}}
+	}
+\end{equation}
+In this way, a system whose coverage remains high as the number of available agents falls has a higher resilience that a system who coverage drops lower under the same circumstances.
 
-\example{Coverage and resilience}{
+ \paragraph{Lifetime}
+ \label{section:lifetime}
+ \newcommand{\varCoverageMinimum}[2]{\varSymbol{c}{lt}{}}
+ Despite a systems resilience, given enough agent failures, there will be a deterioration of coverage with time. A system-specific set of tasks $\setAtomicTaskInstance{}{}$ and minimum coverage value, $\varCoverageMinimum{}{}$, considered for the system to remain useful can be chosen. The \textit{system lifetime} can then be defined as the time until $\functionSystemCoverage{}{} < \varCoverageMinimum{}{}$.
+ 
+
+
+\example{Success, coverage, and resilience}{
 	\label{example:success}
 	A system has a large number of sensor nodes deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. An agent $\varAgent{}{}$ takes a measurement $1$ metre away from a demand point of a task $\varAtomicTask{1}{}$ and $100$ metres from that of $\varAtomicTask{2}{}$. The result of the first task is likely to be close to the actual value in that location, whereas that of the second may be uncorrelated, and not be a practically useful measurement. In this case, the systems designer may set $\varQualityMin{}{}$ such that measurements $>10$ metres away, although they are completed with non-zero quality, are judged unsuccessful as $\functionSignature{atq}{\varAtomicTask{1}{}} < \varQualityMin{}{} < \functionSignature{atq}{\varAtomicTask{2}{}}$.  
 }
