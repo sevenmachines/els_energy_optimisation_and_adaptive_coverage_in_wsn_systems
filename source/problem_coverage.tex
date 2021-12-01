@@ -1,9 +1,7 @@
-\paragraph{Measuring the robustness of a WSN}
-
 Optimising the utility of the system as defined in Section \ref{section:utility} increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime as discussed in Section \ref{section:background:requirements} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varQualityMin}[2]{q_\epsilon}
+\newcommand{\varQualityMin}[2]{c_{\textit{qual}}}
 
 \newcommand{\formalAtomicTaskSuccess}[2]{
 	\functionFormal{success}
@@ -29,9 +27,9 @@ Optimising the utility of the system as defined in Section \ref{section:utility}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph{Successful task completion}
+\paragraph{Task success}
 \label{section:success}
-In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement a large distance away from the corresponding tasks' demand point.  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
+In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement successfully but a very large distance away from the corresponding tasks' demand point.  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
 
 \begin{equation}
 	 \functionAtomicTaskSuccess{}{}
@@ -62,7 +60,7 @@ Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \se
 }
 \paragraph{Resilience}
 \label{section:resilience}
-As network connectivity is disrupted by node failures, communication problems, and weather effects, it may become complex to route all of the atomic tasks to nodes that can successfully complete them. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
+A systems' agents become either permanently or temporarily unavailable through events such as component failures, communication problems, or weather disruption. It may become complex or impossible to route atomic tasks to nodes that can successfully complete them. The ability to maintain coverage under these circumstances defines a systems' \textit{resilience}. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
 \begin{equation}
 	\functionResilence{}{}
 	= 
@@ -74,14 +72,17 @@ As network connectivity is disrupted by node failures, communication problems, a
 \end{equation}
 In this way, a system whose coverage remains high as the number of available agents falls has a higher resilience that a system who coverage drops lower under the same circumstances.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newcommand{\varCoverageMinimum}[2]{\varSymbol{c}{\textit{life}}{}}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \paragraph{Lifetime}
  \label{section:lifetime}
- \newcommand{\varCoverageMinimum}[2]{\varSymbol{c}{lt}{}}
- Despite a systems resilience, given enough agent failures, there will be a deterioration of coverage with time. A system-specific set of tasks $\setAtomicTaskInstance{}{}$ and minimum coverage value, $\varCoverageMinimum{}{}$, considered for the system to remain useful can be chosen. The \textit{system lifetime} can then be defined as the time until $\functionSystemCoverage{}{} < \varCoverageMinimum{}{}$.
+ Despite a systems resilience, given enough agent failures, some atomic tasks will become impossible to complete successfully, and there will be a deterioration of coverage with time. For a specific system, a minimum coverage value $\varCoverageMinimum{}{}$ for the some set of atomic tasks $\setAtomicTaskInstance{}{}$ can be chosen below below which the system is deemed to be no longer useful. The \textit{system lifetime} can then be defined as the time until $\functionSystemCoverage{}{} < \varCoverageMinimum{}{}$.
  
-
-
+ 
 \example{Success, coverage, and resilience}{
+	\todo[inline]{TODO}
 	\label{example:success}
 	A system has a large number of sensor nodes deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. An agent $\varAgent{}{}$ takes a measurement $1$ metre away from a demand point of a task $\varAtomicTask{1}{}$ and $100$ metres from that of $\varAtomicTask{2}{}$. The result of the first task is likely to be close to the actual value in that location, whereas that of the second may be uncorrelated, and not be a practically useful measurement. In this case, the systems designer may set $\varQualityMin{}{}$ such that measurements $>10$ metres away, although they are completed with non-zero quality, are judged unsuccessful as $\functionSignature{atq}{\varAtomicTask{1}{}} < \varQualityMin{}{} < \functionSignature{atq}{\varAtomicTask{2}{}}$.  
 }
