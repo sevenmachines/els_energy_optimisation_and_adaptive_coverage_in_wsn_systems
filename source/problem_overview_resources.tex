@@ -21,11 +21,13 @@
 	\functionSignature{type_r}
 	{\varResource{}{}}}
 %%%%%%%%%%%%%%%%%%%
-Agents will have to use \textit{resources} $\varResource{}{}$ to complete tasks and for general operations. These resources are of one of the types $\varResourceType{}{}$ shown below, given by the mapping $\formalResourceType{}{}$.
+Agents will have to use \textit{resources} $\varResource{}{}$ to complete tasks and for general operations. These resources are of one of the types $\varResourceType{}{}$ shown below, alongside their main use cases, and are given by the mapping $\formalResourceType{}{}$.
 
 \begin{itemize}
-	\item \textit{compute resources}, $\varResourceTypeCompute{}{}$, used in activating a sensor and taking a reading. Each agent has the same, fixed, amount of compute resource, which it must share amongst its current tasks. The less allocated to a task, the lower the quality of its' completion. 
-	\item \textit{memory resources}, $\varResourceTypeMemory{}{}$,  this restricts the amount of knowledge an agent can have at any one time. Each agent has the same, fixed, amount of this resource.
-	\item \textit{energy resources}, $\varResourceTypeEnergy{}{}$,  which are required to transmit and receive task requests, results, and knowledge between agents. Each agent has the same, fixed, maximum amount of energy in its battery at system initialisation. Each action uses some of this energy, which is gradually replenished by a solar panel. Over time, the maximum energy storage decreases as the battery wears and degrades.
+	\item \textit{compute resources}, $\varResourceTypeCompute{}{}$,  used in activating a sensor and taking a reading. Each agent has the same, fixed, amount of compute resource, which it must share amongst its current tasks.
+	
+	\item \textit{memory resources}, $\varResourceTypeMemory{}{}$,  restrict the amount of knowledge of the system that an agent can have at any one time. Each agent has the same, fixed, amount of this resource.
+
+	\item \textit{energy resources}, $\varResourceTypeEnergy{}{}$,  required to transmit and receive task requests, results, and knowledge between agents. Each agent has the same, fixed, maximum amount of energy in its battery at system initialisation. Each action uses some of this energy, which is gradually replenished by a solar panel. Over time, the maximum energy storage decreases as the battery wears and degrades.
 \end{itemize}
 

@@ -4,20 +4,33 @@
 
 \newcommand{\formalTaskResponsibilities}[2]{
 	\functionFormal{resp}
-	{\setCompositeTask{}{} \times \powerSetAgent{}{}{}{}}
-	({\setCompositeTask{}{} \times \setAgent{}{}})
+	{\setCompositeTaskType{}{} \times \powerSetAgent{}{}{}{}}
+	({\setCompositeTaskType{}{} \times \setAgent{}{}})
 }
 \newcommand{\functionTaskResponsibilities}[2]{
 	\functionSignature{resp}
-	{\varCompositeTask{}{}, \setAgent{}{}}
+	{\varCompositeTaskType{}{}, \setAgent{}{}}
 }
+
+\newcommand{\formalCompositeTaskType}[2]{
+	\functionFormal{type_{\varCompositeTask{}{}}}
+	{\setCompositeTask{}{}}
+	{\setCompositeTaskType{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Composite tasks}
+\label{section:problem:composite_tasks}
+
+Some agents, \textit{sinks}, will have \textit{composite tasks}, $\varCompositeTask{}{}$, allocated to them from an external source, throughout the systems' lifetime. These are typed by the function $\formalCompositeTaskType{}{}$. The \textit{task-responsibilities} function gives a mapping, fixed on system initialisation, of each composite task type  to the group of agents that will receive those tasks and ensure their completion; $\formalTaskResponsibilities{}{}$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalTaskDemandPoint}[2]{
 	\functionFormal{demand}
 	{\setAtomicTask  {}{}}{\tupleLocation{}{}}
 }
 \newcommand{\functionTaskDemandPoint}[2]{\functionSignature{demand}{\varAtomicTask{}{}}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand{\functionRequiredResourcesSymbol}[2]{
 	\functionSymbol{demandres}
 }
@@ -33,7 +46,15 @@
 	\functionSignature{\functionRequiredResourcesSymbol{}{}}
 	{\functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \varResource{}{}}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Some agents, \textit{sinks}\footnote{See Section \ref{XXX}}, will have \textit{composite tasks} allocated to them from an external source, throughout the systems' lifetime. The \textit{task-responsibilities} function maps each composite task type to the group of agents that will receive those tasks types and ensure their completion; $\formalTaskResponsibilities{}{}$. This mapping is fixed on system initialisation. Composite tasks are decomposed into their constituent \textit{atomic tasks}, with each atomic task then being either executed by the sink, or allocated to other agents to complete or relay further. Agents execute \textit{atomic tasks} which are typed. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement is differs significantly from that at the targeted point. Atomic tasks have a \textit{resources demand}, a mapping from the type of the task to the set of resources it requires to be completed optimally, $\formalRequiredResources{}{}$. 
+\newcommand{\formalAtomicTaskType}[2]{
+	\functionFormal{type_{\varAtomicTask{}{}}}
+	{\setAtomicTask{}{}}
+	{\setAtomicTaskType{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Atomic tasks}
+\label{section:problem:atomic_tasks}
+Sinks will decompose composite tasks into their constituent, \textit{atomic tasks}, $\setAtomicTask{}{}$, of type $\formalAtomicTaskType{}{}$. Each atomic task will then be either executed by the sink, or allocated to other agents to complete or relay further. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement is differs significantly from that at the targeted point. Atomic tasks have a \textit{resources demand}, a mapping from the type of the task to the set of resources it requires to be completed optimally, $\formalRequiredResources{}{}$. 
 
