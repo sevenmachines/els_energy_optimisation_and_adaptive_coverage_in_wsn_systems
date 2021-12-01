@@ -1,7 +1,6 @@
-\paragraph{State}
-\todo[inline]{Define the state as things that can change over time}
+\paragraph{Agent state}
 
-Composite tasks arrive in the WSN from external agents $\setExternalAgent{}{}$, with a constant or slowly varying frequency. At a point in time, a sink will process one such task, and return it to the external agent when completed.
+Composite tasks arrive in the WSN from external agents with a constant or slowly varying frequency. A sink will sequentially process a composite task it has responsibility for, and return it to the external agent when completed.
 \begin{enumerate}
 	\item An external agent sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$. 
 	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks.
@@ -15,7 +14,7 @@ For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\var
 
 \begin{definition}[Agent State]
 	\label{def:agent-state}
-	Given an agent $g=\langle c, r, \delta_n, \delta_k \rangle$, we define its state at a particular point in time as a tuple $\langle K, N\rangle$, where:
+	Given an agent $g$, we define its state at a particular point in time as a tuple $\langle K, N\rangle$, where:
 	\begin{itemize}
 		\item $K\subseteq G$ is the knowledge of the agent\footnote{For simplicity, we represent the knowledge about a particular agent by the agent identifier, but the knowledge also includes other information such as the agent capabilities and qualities when performing particular actions, etc. }.
 		\item $N\subset K$ is the neighbourhood of the agent.

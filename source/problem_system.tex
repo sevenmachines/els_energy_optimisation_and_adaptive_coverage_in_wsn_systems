@@ -1,13 +1,5 @@
-\paragraph{System}
+\paragraph{System definition}
 \label{section:system_definition}
-\todo[inline]{Define the system as things that are constant, and persistent, not dependent on time}
-
-\reviewquestionopen{	
-	There is an issue that the system definition is both complex, having 10 terms in the tuple, and apparently incomplete because lots of things are mentioned in the following sections that appear to be part of the system but are not in the definition: links, information, transmission energy, etc. Why, for example, is conf part of the system definition but $e_trans$ is not? I wonder if you could present things differently:
-	- A system is defined by the fixed sets and constants that are independent of any given agent or task: $(G, AT, CT, R, e_trans, ...)$
-	- Everything else is presented separately from the system definition as a function returning some property of an agent, task or resource, i.e. you separately define each of ar, ra, sg, conf, sink, sensor, etc. That is, you are presenting as if the values returned by these functions are already present in the system by being attributes of the function's inputs (which are agents/tasks/resources in a given system) but the functions themselves are independent of any given system.
-}
-
 
 We define the agent-based system as the tuple, $\langle 
 	\setAtomicTask{}{},
@@ -19,10 +11,5 @@ We define the agent-based system as the tuple, $\langle
 	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
 	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
 	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
-	\item $\setAgents{}{}$ is a set of agents in the system, each agent $\varAgent{}{}$ being defined by a tuple $\tupleAgent{}{}$ where;
-	\begin{itemize}
-		\item $\varAgentCapability{}{}\subseteq \setAtomicTaskType{}{}$ is the agent capabilities; i.e., the atomic task types that the agent can perform;
-		 \item $\varAgentResponsiblity{}{} \subseteq \setCompositeTaskType{}{}$ is the agent responsibilities; i.e., the composite task types that the agent can oversee;
-		\item $\varAgentNeighbourhoodConstraint{}{}, \varAgentKnowledgeConstraint{}{} \in \mathbb{N}$, are the resource constraints of the agent, namely the communication and memory constraints (i.e., how many other agents a given agent can communicate with and know about).
-	\end{itemize}
+	\item $\setAgents{}{}$ is a set of agents in the system.
 \end{itemize}

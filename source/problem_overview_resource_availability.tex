@@ -5,35 +5,35 @@
 }
 \newcommand{\formalAgentResources}[2]{
 	\functionFormal{\functionAgentResourcesSymbol{}{}}
-	{\setAgents{}{} \times \setResource{}{}}
+	{\setAgents{}{} \times \setResourceType{}{}}
 	{\setRealNumbersNonNegative{}{}}
 }
 \newcommand{\functionAgentResources}[2]{
-	\functionSignature{\functionAgentResourcesSymbol{}{}}{\varAgent{}{}, \varResource{}{}}
+	\functionSignature{\functionAgentResourcesSymbol{}{}}{\varAgent{}{}, \varResourceType{}{}}
 }
 \newcommand{\functionAgentResourcesEnergy}[2]{
-	\functionSignature{\functionAgentResourcesSymbol{}{}}{\varAgent{}{}, \varResourceEnergy{}{}}
+	\functionSignature{\functionAgentResourcesSymbol{}{}}{\varAgent{}{}, \varResourceType{e}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionAgentAvailableResourcesSymbol}[2]{
-	\functionSymbol{availres_{\varTime{}{}}}{#1}{#2}
+	\functionSymbol{availres}{#1}{#2}
 }
 \newcommand{\formalAgentAvailableResources}[2]{
 	\functionFormal{\functionAgentAvailableResourcesSymbol{}{}}
-	{\setAgents{}{} \times \setResource{}{}}
+	{\setAgents{}{} \times \setResourceType{}{}}
 	{\setRealNumbersNonNegative{}{}}
 }
 \newcommand{\functionAgentAvailableResources}[2]{
 	\functionSignature{\functionAgentAvailableResourcesSymbol{}{}}
-	{\varAgent{}{}, \varResource{}{}}
+	{\varAgent{}{}, \varResourceType{}{}}
 }
 \newcommand{\functionAgentAvailableResourcesEnergy}[2]{
 	\functionSignature{\functionAgentAvailableResourcesSymbol{}{}}
-	{\varAgent{}{}, \varResourceEnergy{}{}}
+	{\varAgent{}{}, \varResourceType{e}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionTaskResourceAllocationSymbol}[2]{
-	\functionSymbol{taskres_\varTime{}{}}{#1}{#2}
+	\functionSymbol{taskres}{#1}{#2}
 }
 \newcommand{\formalTaskResourceAllocation}[2]{
 	\functionFormal{\functionTaskResourceAllocationSymbol{}{}}
@@ -42,56 +42,62 @@
 }
 \newcommand{\functionTaskResourceAllocation}[2]{
 	\functionSignature{\functionTaskResourceAllocationSymbol{}{}}
-	{\varAgent{}{}, \varAtomicTaskType{}{}, \varResource{}{}}
+	{\varAgent{}{}, \varAtomicTaskType{}{}, \varResourceType{}{}}
 }
 \newcommand{\functionTaskResourceAllocationInstance}[2]{
 	\functionSignature{\functionTaskResourceAllocationSymbol{}{}}
-	{\varAgent{}{}, \functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \varResource{}{}}
+	{\varAgent{}{}, \functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \varResourceType{}{}}
 }
+
+The \textit{agent resources} function maps each agent and each resource type to the maximum amount that the agent ever has available, $\formalAgentResources{}{}$; e.g. the maximum capacity of the agents' battery or memory storage. 
+The \textit{available agent resources} is the amount of each resource type available for the agent to use currently, $\formalAgentAvailableResources{}{}$. e.g. the power currently left in the agents' battery, or free memory. The \textit{task resources} function then maps each agent, type of atomic task, and resource type, to the fraction of each available resource that the agent has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
+
+\paragraph{System resource usage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\functionEnergyAvailableSymbol}[2]{
-	\functionSymbol{availenergy_{\varTime{}{}}}}
-\newcommand{\functionEnergyAvailable}[2]{
-	\ifx \\#1\\
-	\functionSignature{\functionEnergyAvailableSymbol{}{}}
-	{\setAgents{}{}}
-	\else
-	\functionSignature{\functionEnergyAvailableSymbol{}{}}{#1}
-	\fi
+\newcommand{\functionResourceAvailableSymbol}[2]{
+	\functionSymbol{\textit{fracres}}}
+\newcommand{\functionResourceAvailable}[2]{
+	\functionSignature{\functionResourceAvailableSymbol{}{}}
+	{\setAgents{}{}, \varResourceType{}{}}
+}
+\newcommand{\functionTaskPathEnergyAvailable}[2]{
+	\functionSignature{\functionResourceAvailableSymbol{}{}}
+	{\functionTaskArc{}{}, \varResourceTypeEnergy{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\functionEnergyVariabilitySymbol}[2]{\functionSymbol{varres_{\varTime{}{}}}{#1}{#2}}
-\newcommand{\functionEnergyVariability}[2]{
-	\ifx \\#1\\
-	\functionSignature{\functionEnergyVariabilitySymbol{}{}}
-	{\setAgents{}{}}
-	\else
-	\functionSignature{\functionEnergyVariabilitySymbol{}{}}{#1}
-	\fi
+\newcommand{\functionResourceVariabilitySymbol}[2]{\functionSymbol{varres}{#1}{#2}}
+\newcommand{\functionResourceVariability}[2]{
+	\functionSignature{\functionResourceVariabilitySymbol{}{}}
+	{\setAgents{}{}, \varResourceType{}{}}
+}
+
+\newcommand{\functionTaskPathEnergyVariability}[2]{
+	\functionSignature{\functionResourceVariabilitySymbol{}{}}
+	{\functionTaskArc{}{}, \varResourceTypeEnergy{}{}}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The \textit{agent resources} function maps each agent and each resource to the maximum amount of that resource that the agent can utilise at any time, $\formalAgentResources{}{}$. e.g. the maximum capacity of the agents' battery, or size of its memory storage. 
-The \textit{agent available resources} is the amount of each resource available $\varTime{}{}$ for the agent to use, $\formalAgentAvailableResources{}{}$. e.g. the power currently left in the agents' battery, or free memory. The \text{task resource allocation} them maps each agent, type of atomic task, and resource, to the fraction of each available resource it has assigned to completing tasks of that type, $\formalTaskResourceAllocation{}{}$.
-
-For resources such as compute and memory, the goal of the agent is to utilise $100\%$ of these resources, but to distribute their usage amongst tasks and actions to obtain the best performance. For battery power however, they need to minimise the energy used to extend their useful lifetime, and also distribute energy use throughout the system to spread component wear and therefore reduce node failures. To measure the available energy across the system at time $\varTime{}{}$ we use \textit{fractional energy availability}, the sum-average of the agent energy of all agents in a set $\setAgents{}{}$.
+For resources such as compute and memory, the goal of the agent is to utilise $100\%$ of these resources, but to distribute their usage amongst tasks and actions to obtain the best performance. For battery power however, they need to minimise the energy used to extend their useful lifetime, and also distribute energy use throughout the system to spread component wear and therefore reduce node failures. To measure the currently available resources across a group of agents we define the \textit{fractional resource availability}, the sum-average of the agent resources of a specific type, for all agents in a set $\setAgents{}{}$.
 \begin{equation}
-	\functionEnergyAvailable{}{} 
+	\functionResourceAvailable{}{} 
 	= \frac{1}{\funcSize{\setAgents{}{}}}
 		\sum_{\forall \varAgent{}{} \in \setAgents{}{}} 
 		\frac
-		{\functionAgentAvailableResourcesEnergy{}{}}
-		{\functionAgentResourcesEnergy{}{}}
+		{\functionAgentAvailableResources{}{}}
+		{\functionAgentResources{}{}}
 \end{equation}
 
-The distribution of energy can be measured using the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the set of fractional energy availabilities of the agents in the system. As this we have multiple goals, and these values are bounded by $[0, 1]$, we can reshape this as the distance between the variance and the maximum variability of a unit-bounded set, $\frac{1}{4}$, so distribution can be optimised by maximisation of this function. This gives us the \textit{relative energy variability},
+The distribution of resource use across a group of agents can be measured using the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the set of fractional resource availabilities of the agents. As these values are bounded by $[0, 1]$, we can reshape this as the distance between the variance and the maximum variability of a unit-bounded set, $\frac{1}{4}$, so distribution can be optimised by maximisation of this function. This gives us the \textit{relative resource variability},
 \begin{equation}     	
-	\functionEnergyVariability{}{} 
+	\functionResourceVariability{}{} 
 	= \frac{1}{4} - \sigma^2 
 	\bigg(
 	\bigg\lbrace \frac
-		{\functionAgentAvailableResourcesEnergy{}{}}
-		{\functionAgentResourcesEnergy{}{}}
+		{\functionAgentAvailableResources{}{}}
+		{\functionAgentResources{}{}}
 	\bigg\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
 	\bigg)
 \end{equation}
+
+\example{Resource distribution§ in an ocean-based WSN}{}
+
 

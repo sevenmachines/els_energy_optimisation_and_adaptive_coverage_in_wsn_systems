@@ -45,17 +45,17 @@ Differential Evolution for Lifetime Maximization of Heterogeneous Wireless Senso
 
 This problem of optimising WSN systems across multiple objectives is further detailed in work by \cite{ s150717572}, with the multi-objective evolutionary algorithm techniques developed going on to be integrated into algorithms for the WSN domain \citep{4633340,SENGUPTA2013405}. In particular, \textit{differential evolution (DE)} \cite{XXX} techniques have proven a simple and effective way of optimising multi-agent systems \cite{XXX}, and have been utilised in both multi-objective \cite{XXX}, and non-stationary \cite{XXX} systems. However, there are a number of factors that can make DE less applicable in real-world situations;
 \begin{itemize}
-	\item \textit{Occlusion and obstruction} Nodes in a WSN may be obstructed by other objects or weather effects in an environment, making some actions less optimal or even possible. e.g, a transmission action blocked by a rock.
+	\item \textit{Occlusion and obstruction} Nodes in a WSN may be obstructed by other objects or weather effects in an environment, making some actions less optimal or even possible. e.g, a transmission to another node is blocked by a rock.
 
 	\item \textit{Communication bandwidth limitations} WSN nodes usually have limited transmission bandwidth and processing power, so exchanging significant amounts of information to apply algorithms is not possible. 
 	
 	\item \textit{Reliability of centralised coordination} Using a centralised node to compute evolutions will involve significant data transfer, with nodes required to relay data in larger systems due to transmission strength. In addition, connectivity to such a node may be intermittent. 
 	
-	\item \textit{Heterogeneity of nodes} Nodes may be homogenous in specification at system initialisation, however, localised conditions, ad-hoc placement, and changing functionality over time, differentiates their capabilities and optimal actions over time. e.g, the degradation in transmission power as a nodes battery wears.
+	\item \textit{Heterogeneity of nodes} Nodes may be homogenous in specification at system initialisation, however, localised conditions, ad-hoc placement, and changing functionality over time, differentiates their capabilities and optimal actions over time. e.g, the degradation in transmission power as a nodes' battery wears.
 	
 	\item \textit{Uniqueness due to location} Each nodes' optimal actions are often unique, for example, localised sensing conditions. e.g. a node in an ocean-based WSN may have its temperature sensor placed in a strong current, with rapidly variable readings.
 	
-	\item \textit{Mobility} Nodes may be mobile to different degrees, with this changing throughout the systems lifetime. A nodes optimal policy one moment may change as its mobility changes, and two identical nodes may have widely different optimal actions to take based on their speed and direction of movement. e.g \todo[inline]{Put an example here}  
+	\item \textit{Mobility} Identical nodes in the same location may be mobile to different degrees and would need to take different actions. e.g a node attached to a stationary buoy in an ocean environment does not need to spend as much time on actions to discover other nodes in the network as one in the same location that is floating freely. A nodes' mobility may also change within its lifetime, for example with changing currents.
 \end{itemize}
 For these reasons, we focus on distributed reinforcement learning techniques.
 
