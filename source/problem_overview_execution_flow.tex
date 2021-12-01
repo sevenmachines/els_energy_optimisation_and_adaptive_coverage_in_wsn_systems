@@ -1,15 +1,21 @@
 \paragraph{System task execution flow}
 
-At a high-level, the flow of task execution is as follows,
+At a high-level, an example of the flow of task execution is as follows,
+
 \begin{enumerate}
-	\item An agent receives a tasks from an external agent.
-	\item The agent executes or allocates these tasks to other agents in the system, which may also re-allocate them.
-	\item Agents' execute tasks by taking measurements using its sensors.
-	\item The task results are transmitted back to the agent that allocated the task.
-	\item The results are re-transmitted by each agent back the agent that allocated them the corresponding task until they reach the sink agent.
-	\item The sink agent aggregates all the task results and transmits them to the external agent.
+	\item An external agent $\varExternalAgent{}{}$ sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$. 
+	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks $\lbrace \varAtomicTask{1}{}, \varAtomicTask{2}{}, \varAtomicTask{3}{} \rbrace$.
+	
+	\item $\varAgent{}{}$ can allocate the atomic tasks to itself, or to other agents in its neighbourhood, $\lbrace \varAgent{a}{}, \varAgent{b}{}, \varAgent{c}{} \rbrace$.
+	\begin{enumerate}
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{1}{}$ to the agent $\varAgent{a}{}$
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{2}{}$ to an agent $\varAgent{b}{}$, which then reallocates it to another agent $\varAgent{c}{}$, which completes the results and returns them to $\varAgent{b}{}$, which in turn, returns them to $\varAgent{}{}$.
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{3}{}$ to itself and completes it.
+	\end{enumerate}
+	\item $\varAgent{}{}$ aggregates the results of the atomic tasks as their results are returned.
+	\item $\varAgent{}{}$ aggregates the results of the atomic tasks and returns them to the external agent $\varExternalAgent{}{}$.
 \end{enumerate}
 
-\example{Task flow in an ocean-based WSN}{}
-
-
+\example{Task flow in an ocean-based WSN}{
+  A sink agent in an ocean bay deployment receives a composite task  from an on-shore base station. It decomposes it into atomic tasks $\lbrace \varAtomicTask{1}{},\dots, \varAtomicTask{10}{} \rbrace$ to measure the salinity in the $10$ different locations. It then sends these task requests to other agents in the bay, who are close to the desired locations, $\functionTaskDemandPoint{}{}$,  for the salinity measurements. The agents use their sensors to make the measurements, and return the results to the sink, which then aggregates the data and broadcasts it back to the base station.
+}

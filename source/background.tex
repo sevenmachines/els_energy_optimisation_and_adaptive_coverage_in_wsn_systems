@@ -23,8 +23,6 @@ To summarise, we require that WSNs minimise their energy usage, distribute compo
 The best network connectivity, task allocation strategy, and assignment of resource by agents are unknown at system initialisation. These values may also vary throughout the systems' lifetime. Due to this, there has been increasing research into algorithms utilising reinforcement learning techniques that can learn these values as the system evolves \citep{Al-Rawi2015}. These broadly contain two main challenges. First, how algorithms can best learn to optimise across multiple system goals. Second, how agents' share information and cooperate to connect their localised actions to the broader system goals. In the first case, an approach has been to enhance network routing protocols with Q-learning, using a reward function that consider multiple factors including residual energy, link distance, and hop count, to select better routes while increasing the lifetime of the network and energy efficiency \citep{Guo2019}. 
 
 \paragraph{Evolutionary algorithms}
-\reviewquestionopen{You imply (paragraph 3) that two research groups, Li and Zhang 2009 and Sengupta et al. 2013, have provided solutions to multi-objective optimisation in WSNs. It's not clear how the goal of this paper as expressed in the final paragraph differs from that. If so, what don't they solve that you will?
-}
 
 \reviewtodo{
 Multi-Objective Differential Evolution with Adaptive Control of Parameters and Operators \citep{Ke2011}\\
@@ -63,10 +61,7 @@ For these reasons, we focus on distributed reinforcement learning techniques.
 For the second problem, there has been work looking at cooperative Q-learning between nodes for better task scheduling and energy consumption \citep{doi:10.1155/2014/765182}. Due to the increased resources and computation required to coordinate amongst multiple agents and form cooperative behaviours, we look more to approaches using decentralised, autonomous agents learning from localised knowledge only \citep{10.1007/978-3-642-11814-2_4}.  This utilises the idea of individual agents optimising energy usage within a small neighbourhood of nearby nodes to optimise the energy consumption of the system as a whole. 
 
 Each of these solutions mentioned above cover elements of the desired behaviours of a WSN. We take these key concepts from that work and build upon them.
-\reviewquestion{Second list, item 2: It is odd that it ends with a citation to Mihaylov et al. when you are talking about what the focus of your own is (and you aren't called Mihaylov). It is not clear what the citation is providing the source for.
-}
-\reviewquestion{Second list, item 3: The last sentence is overly complex and seems to be describing optimisation for two competing things (quality of task completion and utility of the system overall). I suggest it should be reduced to something like "The algorithm should be able to learn the allocation of resources at each node that optimises overall system utility."
-}
+
 \begin{enumerate}
 	\item \textit{The optimisation of multiple objectives}.  The algorithm must be able to balance learning to take actions that benefit more than one objective so that it can optimise across energy use, task quality, etc and meet the needs of a WSN \citep{Guo2019, s150717572, SENGUPTA2013405}.
 

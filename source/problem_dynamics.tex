@@ -1,17 +1,7 @@
 \paragraph{Agent state}
 
-Composite tasks arrive in the WSN from external agents with a constant or slowly varying frequency. A sink will sequentially process a composite task it has responsibility for, and return it to the external agent when completed.
-\begin{enumerate}
-	\item An external agent sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$. 
-	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks.
-	\item $\varAgent{}{}$ allocates the atomic tasks to agents it knows of, which may include itself.
-	\item $\varAgent{}{}$ aggregates the results of the atomic tasks as their results are returned.
-	\item $\varAgent{}{}$ returns the aggregated results to the external agent $\varExternalAgent{}{}$.
-\end{enumerate}
-
-For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\varAgent{}{'}$, it must have \textit{knowledge} of $\varAgent{}{'}$, i.e. be aware that agent and its capabilities to execute tasks. It also must be \textit{connected} to the agent, i.e. have communication links established with $\varAgent{}{'}$. We define the set of agents an agent is connected to as its \textit{neighbourhood}. An agent can only allocate tasks to agents that it is connected to. Agents can also make requests to agents in its neighbourhood for knowledge, enabling it to discover new agents in the system.
+Composite tasks arrive in the WSN from external agents with a constant or slowly varying frequency. A sink will sequentially process a composite task it has responsibility for by completing or allocating the atomic tasks that compose it, and return the aggregated results to the external agent when completed. For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\varAgent{}{'}$, it must have \textit{knowledge} of $\varAgent{}{'}$, i.e. be aware that agent and its capabilities to execute tasks. It also must be \textit{connected} to the agent, i.e. have communication links established with $\varAgent{}{'}$. We define the set of agents an agent is connected to as its \textit{neighbourhood}. An agent can only allocate tasks to agents that it is connected to. Agents can also make requests to agents in its neighbourhood for knowledge, enabling it to discover new agents in the system.
  
-
 \begin{definition}[Agent State]
 	\label{def:agent-state}
 	Given an agent $g$, we define its state at a particular point in time as a tuple $\langle K, N\rangle$, where:
@@ -21,4 +11,6 @@ For an agent $\varAgent{}{}$ to be able to allocate tasks to another agent $\var
 	\end{itemize}
 \end{definition}
 
-\example{Relating formal definitions to an ocean-based WSN}{}
+\example{Relating formal definitions to an ocean-based WSN}{
+	A group of agents $\setAgent{}{}$ are dropped into an ocean bay from a boat. They each have resources $\lbrace \text{energy, CPU, memory} \rbrace \in \setResource{}{}$. Every hour, the same agent, the sink,  receives a message from a base station on-shore to collect salinity measurements in $10$ locations throughout the bay, the composite task $\varCompositeTask{}{}$. The sink knows about another $5$ agents in the system that can help it with its task, its knowledge, however, it has only established communication links with $3$ of these agents, its neighbourhood. 
+}
