@@ -8,8 +8,8 @@ We define the agent-based system as the tuple, $\langle
 	\setAgents{}{}
 \rangle$, where
 \begin{itemize}
-	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is a measurement task performed by a single agent;
-	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system;
-	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks;
+	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is of type $\varAtomicTaskType{}{} \in \setAtomicTaskType{}{}$, and is performed by a single agent;
+	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system where each task is of type $\varCompositeTaskType{}{} \in \setCompositeTaskType{}{}$;
+	\item $\setResource{}{}$ is a set of resources, each of type a type $\varResourceType{}{} \in \setResourceType{}{}$, needed to perform atomic tasks and to take actions;
 	\item $\setAgents{}{}$ is a set of agents in the system.
 \end{itemize}
