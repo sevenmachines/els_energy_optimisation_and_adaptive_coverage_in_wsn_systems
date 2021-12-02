@@ -37,6 +37,18 @@ Agents in the system can perform \textit{actions}. Each action $\varAction{}{}$ 
 \newcommand{\functionTransmissionEnergyIndexed}[2]{
 	\functionTransmissionEnergy{\varAgent{i}{}}{\varAgent{i+1}{}}
 }
+\newcommand{\functionTransmissionEnergySink}[2]{
+	\functionSignature{energy_{\symbolTransmission{}{}}}
+	{\functionSinkRoleAtomic{}{},\varAgent{2}{}}
+}
+\newcommand{\functionTransmissionEnergyRelay}[2]{
+	\functionSignature{energy_{\symbolTransmission{}{}}}
+	{\varAgent{#1}{},\varAgent{#2}{}}
+}
+\newcommand{\functionTransmissionEnergyDetector}[2]{
+	\functionSignature{energy_{\symbolTransmission{}{}}}
+	{\varAgent{#1}{},\varAgent{#2}{}}
+}
 In calculating the energy involved in completing tasks we make the following assumptions;
 \begin{itemize}
 	\item \textit{transmission energy}, the energy used by nodes to send a message. We assume that there is a linear relationship between the distance separating agents and the energy cost\footnote{A more complex relationship could be modelled with no expected impact on the effectiveness of our algorithms}. So that, in transmitting a message from $\varAgent{1}{}$ to $\varAgent{2}{}$, there is a constant $\varTransmissionEnergy{}{}$ such that;

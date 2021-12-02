@@ -1,17 +1,16 @@
 \paragraph{Energy consumption}
 \label{section:energy_consumption}
 
-Given a task path, $\lbrace \functionSinkRoleAtomic{}{}, \functionRelayRole{i}{i+1}, \functionDetectorRole{}{} \rbrace_{i=2}^{n-1}$, 
+Given a task path, $\lbrace \functionSinkRoleAtomic{}{}, \functionRelayRole{i}{}{i+1}, \functionDetectorRole{}{},  \rbrace_{i=2}^{n-1}$, 
 we can quantify the \textit{atomic task energy consumption}, $\formalAtomicTaskEnergyConsumption{}{}$, as the energy used by a task paths' nodes in executing the atomic task \footnote{See definition of key requirements, \ref{requirement:energy}, in Section \ref{section:background}}. 
 \begin{equation}
 \begin{aligned}
 	\functionAtomicTaskEnergyConsumptionSignature{}{} 
-	&= (\functionSignature{energy_{tr}}
-		{\functionSinkRoleAtomic{}{},\varAgent{2}{}} + \varReceiverEnergy{}{}) & [\textit{sink energy}]\\
-	&+ 2 \sum_{i=2}^{n-1} (\functionTransmissionEnergy{i}{i+1} + \varReceiverEnergy{}{})
+	&= (\functionTransmissionEnergySink{}{} + \varReceiverEnergy{}{}) & [\textit{sink energy}]\\
+	& + 2 \sum_{i=2}^{n-1} (\functionTransmissionEnergyRelay{i}{i+1} + \varReceiverEnergy{}{} )
 	 & [\textit{relay energy}]\\
 	&+ (
-		\functionTransmissionEnergy{n}{n-1}
+		\functionTransmissionEnergyDetector{n}{n-1}
 		+ \varReceiverEnergy{}{}
 		+ \varSensorEnergy{}{}
 		)& [\textit{detector energy}]
