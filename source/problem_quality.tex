@@ -12,40 +12,13 @@
 \newcommand{\functionAtomicTaskQualitySensor}[2]{
 	\functionSignature{\functionAtomicTaskQualitySymbol{}{}} {\varAtomicTask{}{}, \functionDetectorRole{}{}}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\functionComponentTaskValue}[2]{
-	\functionSignature{ctv}{\varAtomicTask{}{}}
-}
-\newcommand{\formalComponentTaskValue}[2]{
-	\functionFormal{ctv}{\setAtomicTask{}{}}{\setRealNumbersNonNegative{}{}}
-}
-\newcommand{\functionSystemUtility}[2]{\functionSignature{utility}{\setTime{}{}}}
-%%%%%%%%%%%%%%%%%%%
-\newcommand{\functionCompositeTaskQuality}[2]{
-	\functionSignature{taq_\varTime{}{}}{\varCompositeTask{}{}}
-}
-\newcommand{\functionTaskAbsoluteValue}[2]{
-	\functionSignature{atv}{\varCompositeTask{}{}, \varAtomicTask{}{}}
-}
-
-\newcommand{\functionRelativeDistance}[2]{
-	\functionSignature{dist}{\varAtomicTask{}{}, \varAgent{}{}}
-}
-%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\formalExecutionRange}[2]{
-	\functionFormal{execrange}
-	{\setAtomicTask{}{} \times \setAgent{}{}}
-	{\setRealNumbersNonNegative{}{}}
-}
-\newcommand{\functionExecutionRange}[2]{
-	\functionSignature{execrange}
-	{\varAtomicTask{}{}, \varAgent{}{}}
-}
-An agent will complete an atomic task with a certain \textit{atomic task quality}, how well it has performed the task. This value is dependant on two components,
-\begin{itemize}
+An agent will complete an atomic task with a certain \textit{atomic task quality}, how well it has performed the task. This value is dependant on two components;
+\begin{enumerate}
 	\item \textit{execution range}, the distance between the agent and the demand point of the task. As the maximum distance between any agent and demand point in our normalised coordinate system\footnote{As discussed in Section \ref{section:task_and_resources:distribution}} is $\sqrt{2}$, we can scale $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$ to the range $\lbrack 0, 1 \rbrack$, ensuring the quality also stays in this range.
-	\item \textit{resource fraction}, the fraction of the resources the task requests for execution that the agent has actually dedicated to tasks of that type. To simplify the quality function, we assume reducing resource allocation for a task has an equal and linear impact across all tasks and resources. However, a more complex resource fraction component could easily be defined given a specific systems' set of resources and tasks.
-\end{itemize}
+	\item \textit{resource fraction}, the fraction of the atomic tasks' resource demand that the agent has actually dedicated to tasks of that type\footnote{To simplify the task quality function, we assume reducing resource allocation for a task has an equal and linear impact across all tasks and resources. However, a more complex resource fraction component could be used given a specific systems' set of resources and tasks.}.
+\end{enumerate}
 
 \begin{equation}
 	\label{eq:atomic_task_quality}
@@ -53,7 +26,7 @@ An agent will complete an atomic task with a certain \textit{atomic task quality
 \bigg (
 \underbrace{
 	1 - \frac{\funcSize{
-			\functionTaskDemandPoint{}{} - \functionDeployment{\varAgent{}{}}{} 
+			\functionTaskDemandPoint{}{} - \functionDeployment{}{} 
 		}{}}{{\sqrt{2}}}
 }_{\text{distance decay}}
 \bigg )
@@ -67,8 +40,15 @@ An agent will complete an atomic task with a certain \textit{atomic task quality
 \bigg )
 \end{equation}
 
-When a composite task is completed, the value of an atomic task to its final outcome can be measured. This is not the same as task quality, at it may be dependent on other factors. For example, 
-an atomic task may may have a demand point very close to one that has already been completed as part of the composite task, making it less valuable than if it was significantly separated from other tasks' demand points. Therefore, we define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task of a composite task to the fractional value of each of them to the composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
+\paragraph{Component task value}
+%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionComponentTaskValue}[2]{
+	\functionSignature{ctv}{\varAtomicTask{}{}}
+}
+\newcommand{\formalComponentTaskValue}[2]{
+	\functionFormal{ctv}{\setAtomicTask{}{}}{\setRealNumbersNonNegative{}{}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For example, the longer the sample time of the measurement the more accurate and higher quality the reading will be, but at the expense of using more energy resources. 
-\example{Accuracy and sample times in an environment sensor}{}
+When a composite task is completed, the value of an atomic task to its final outcome can be measured. This is not the same as task quality, as it may be dependent on other factors. For example,  two atomic tasks $\varAtomicTask{1}{}, \varAtomicTask{2}{}$, are part of the sample composite task. If $\functionTaskDemandPoint{1}{} \simeq \functionTaskDemandPoint{2}{}$ then each tasks results may be less valuable to the composite task than if the demand points were more separated, as their results have significant information overlap. Therefore, we define the \textit{component task value} as the mapping, $\formalComponentTaskValue{}{}$,  of each atomic task of a composite task to the fractional value of each of them to the composite tasks' completion, such that $\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}} \functionComponentTaskValue{}{} = 1$.
+
