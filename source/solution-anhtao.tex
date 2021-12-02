@@ -25,15 +25,15 @@ The \acronymWSNOptimisation{}{} algorithm optimises this process  in 3 main ways
 The high-level flowchart in Figure \ref{fig:algorithm-flow}(a) shows how sink node agents decompose composite tasks, choose actions to take, allocate atomic tasks, and return results. In Figure \ref{fig:algorithm-flow}(b) we can see how agents in a task-path choose actions, and how they execute or re-allocate the atomic tasks they have been allocated.
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{.49\textwidth}
+	\begin{subfigure}{0.75\textwidth}
 		\centering
-		\includegraphics[width=0.9\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{algorithm-flow-sink}
 		\caption{Sink agent flow}
+		\includegraphics[width=0.9\linewidth, trim={25pt 0pt 25pt 0pt, clip}]{algorithm-flow-sink}
 		\label{fig:algorithm-flow-sink}
 	\end{subfigure} \hfill%
-	\begin{subfigure}{.49\textwidth}
-		\centering	\includegraphics[width=0.9\linewidth,trim={25pt 0pt 25pt 0pt, clip}]{algorithm-flow-arc}
+	\begin{subfigure}{0.75\textwidth}
 		\caption{Task-path agent flow}
+		\centering	\includegraphics[width=0.9\linewidth,trim={25pt 0pt 25pt 0pt, clip}]{algorithm-flow-arc}
 		\label{fig:algorithm-flow-arc}
 	\end{subfigure}
 	\caption{\textbf{\acronymWSNOptimisation{}{} execution flowchart.} Shows how \acronymWSNOptimisation{}{} combines the \acronymATARIA{}{} and \acronymMGRAO{}{} algorithms and enables recursive allocation of tasks.}
