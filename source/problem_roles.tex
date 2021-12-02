@@ -26,20 +26,9 @@
 \newcommand{\formalRelayRole}[2]{
 	\functionFormal{relay}{\setAtomicTaskInstance{}{} \times \setAgent{}{}}{ \setAgent{}{}}
 }
-\newcommand{\functionRelayRole}[2]{
-	\functionSignature{relay_{#1}}{\varAtomicTask{}{}, \varAgent{#2}{}}
+\newcommand{\functionRelayRole}[3]{
+	\functionSignature{relay_{#1}}{\varAtomicTask{#2}{}, \varAgent{#3}{}}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-For each atomic task, agents will have different \textit{roles} for that task,  what behaviours they take on to help complete the task. A \textit{sink} is an agent that  receives a composite task from outside the system, $\formalSinkRole{}{}$. A \textit{relay} is an agent that is allocated an atomic task, but does not complete it, instead re-allocating it to other agents, $\formalRelayRole{}{}$. A \textit{detector} is an agent that  executes an atomic task, and so performs the measurement, $\formalDetectorRole{}{}$. With these roles, we can describe the steps of a task completion as;
-\begin{enumerate}
-	\item A composite task containing atomic tasks $\setAtomicTaskInstance{}{}$ is sent from an agent external to the system.
-	\item $\functionSinkRole{}{}$ can either complete each atomic task $
-	\varAtomicTask{}{} \in \setAtomicTaskInstance{}{}$ itself, or allocate it to another agent $\varAgent{i}{}$.
-	 \item $\varAgent{i}{}$ receives an atomic task, and passes it on to another agent $\varAgent{i+1}{}$, $\functionRelayRole{i}{i+1}$ .
-	 \item $\functionDetectorRole{}{}$ performs the atomic task.
-	 \item The detector returns the results of the atomic task execution back to the agent that allocated it $\varAtomicTask{}{}$.
-	 \item Relay agents pass back the atomic task results to the agents that allocated the corresponding atomic task to them, until the results reach the initiating sink agent.
-	 \item The sink agent aggregates the results of all the atomic tasks $ \varAtomicTask{}{} \in \setAtomicTaskInstance{}{}$ and sends this aggregated result of the corresponding composite task back to the external agent.
-\end{enumerate}
+For each atomic task, agents will have different \textit{roles} for that task,  what behaviours they take on to help complete the task. A \textit{sink} is an agent that  receives a composite task from outside the system, $\formalSinkRole{}{}$. A \textit{relay} is an agent that is allocated an atomic task, but does not complete it, instead re-allocating it to other agents, $\formalRelayRole{}{}$. A \textit{detector} is an agent that  executes an atomic task, and so performs the measurement, $\formalDetectorRole{}{}$. 

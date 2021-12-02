@@ -1,19 +1,18 @@
-\paragraph{System task execution flow}
-
-At a high-level, an example of a possible flow of task execution is as follows,
-
+\paragraph{Task execution flow}
+With these roles, we can describe an example of one possible flow of a composite task execution as follows,
 \begin{enumerate}
-	\item An external agent $\varExternalAgent{}{}$ sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$. $\varAgent{}{}$ is a sink for the task $\varCompositeTask{}{}$.
-	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks $\lbrace \varAtomicTask{1}{}, \varAtomicTask{2}{}, \varAtomicTask{3}{} \rbrace$.
+	\item An external agent $\varExternalAgent{}{}$ sends a composite task $\varCompositeTask{}{}$ of type $\varCompositeTaskType{}{}$ to an agent $\varAgent{}{} \in \functionTaskResponsibilities{}{}$; $\varAgent{}{} = \functionSinkRole{}{}$.
 	
-	\item $\varAgent{}{}$ can allocate the atomic tasks to itself, or to other agents in its neighbourhood, $\lbrace \varAgent{a}{}, \varAgent{b}{}, \varAgent{c}{} \rbrace$.
+	\item $\varAgent{}{}$ decomposes the composite task into atomic tasks $\setAtomicTaskInstance{}{} = \lbrace \varAtomicTask{1}{}, \varAtomicTask{2}{}, \varAtomicTask{3}{} \rbrace$.
+	
+	\item $\varAgent{}{}$ can allocate the atomic tasks to itself, or to other agents in its neighbourhood, $\functionNeighbourhoodSignature{}{} = \lbrace \varAgent{a}{}, \varAgent{b}{}, \varAgent{c}{} \rbrace$.
 	\begin{enumerate}
-		\item $\varAgent{}{}$ allocates $\varAtomicTask{1}{}$ to the agent $\varAgent{a}{}$
-		\item $\varAgent{}{}$ allocates $\varAtomicTask{2}{}$ to an agent $\varAgent{b}{}$, which then reallocates it to another agent $\varAgent{c}{}$. $\varAgent{c}{}$ completes the task, and returns the results  to $\varAgent{b}{}$, which in turn, returns them to $\varAgent{}{}$.
-		\item $\varAgent{}{}$ allocates $\varAtomicTask{3}{}$ to itself and completes it.
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{1}{}$ to the agent $\varAgent{a}{}$ which completes the task and returns the results to $\varAgent{}{}$; $\varAgent{a}{} = \functionDetectorRole{1}{}$.
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{2}{}$ to an agent $\varAgent{b}{}$, which then reallocates it to another agent $\varAgent{c}{}$. $\varAgent{c}{}$ completes the task, and returns the results  to $\varAgent{b}{}$, which in turn, returns them to $\varAgent{}{}$; $\varAgent{c}{} = \functionDetectorRole{2}{}$, $\varAgent{b}{} = \functionRelayRole{2}{2}{c}$
+		\item $\varAgent{}{}$ allocates $\varAtomicTask{3}{}$ to itself and completes it; $\varAgent{}{} = \functionDetectorRole{3}{}$.
 	\end{enumerate}
-	\item $\varAgent{}{}$ aggregates the results of the atomic tasks as their results are returned.
-	\item $\varAgent{}{}$ aggregates the results of the atomic tasks and returns them to the external agent $\varExternalAgent{}{}$.
+	
+	\item $\varAgent{}{}$ aggregates the results of the atomic tasks in $\setAtomicTaskInstance{}{}$ and returns them to the external agent $\varExternalAgent{}{}$.
 \end{enumerate}
 
 \example{Task flow in an ocean-based WSN}{

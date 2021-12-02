@@ -1,25 +1,29 @@
-We make the assumption that resource usage can be categorised by the following criteria;
+We categorise resource usage by the following criteria\footnote{For many systems the simplifications discussed are reasonable. In some cases however, sensors may have significant energy requirements as an example. This increases the complexity of the modelling but can be incorporated into the same framework we present.};
 \begin{enumerate}
 	\item \textit{operational}, resource usage resulting from an agents' general functionality that are not part of a task execution. e.g. energy usage such as idle and sleep cycle functions, the computational and memory storage costs of background operations. 
 	
-	\item \textit{significant}, often there is a dominant use of a resource that makes other uses insignificant in comparison. e.g. when completing tasks, computational resources are used activate and coordinate internal component use. We assume the energy costs of sensor use and transmission are large in comparison adn so can disregard the effects of these other uses.
+	\item \textit{significant}, often there is a dominant use of a resource that makes other uses insignificant in comparison. e.g. when completing tasks, the energy used to transmit and receive results are large compared to the resources used to activate and coordinate other internal components. 
 	
 	\item \textit{optimisable}, whether or not the resource usage can be actively optimised by the agent. Agents' can shorten their transmission range, meaning less energy is used for broadcasting. By reducing the sampling time of a sensor, they can reduce the computation and energy usage. This makes these actions optimisable, and strategies can be learned.
 \end{enumerate} 
 
-In this work we focus on the cost of task completions, and disregard operational factors. Other work covers this area such as on battery duty-cycling, transmission algorithms, and solar-energy harvesting optimisation \citep{Kumar2010,Pinto2012,Matin2012,Escolar2014, Sharma2018}. 
+In this work we focus on the cost of task completions, and disregard other operational factors. Other work covers this area such as on battery duty-cycling, transmission algorithms, and solar-energy harvesting optimisation \citep{Kumar2010,Pinto2012,Matin2012,Escolar2014, Sharma2018}. With the justifications above on significance of the resource usage and optimisability, we model the relationships between an agents' actions and resultant resource usage as follows. 
 
-With the justifications above on significance of the resource usage and optimisability, we model the relationships between an agents' actions and resultant resource usage as follows. Agents in the system can perform \textit{actions}. Each action $\varAction{}{}$ is mapped by the function $\functionAgentActionType{}{}$ to one of the action-categories below;
+\paragraph{Actions}
+Agents in the system can perform \textit{actions}. Each action $\varAction{}{}$ is mapped by the function $\functionAgentActionType{}{}$ to one of the action-categories below;
 
 \begin{enumerate}
 	\item $\functionExec{}{}$ - the agent will perform a \textit{task execution} of an atomic task $\varAtomicTask{}{}$ itself, using its computational resources. Computational resource usage is adaptable by an agent executing a task. The more of this resource it can allocate to a task, the higher quality that task will be performed to.
 
-	\item $\functionAlloc{}{}$ - the agent will attempt \textit{task allocation} of an atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$. This will use energy resources to transmit tasks and receive results. Agents that are transmitting messages can reduce energy usage by preferring nearby agents. This will either make the resulting sensor measurement at a greater distance from its demand point, or require relaying the task through more agents.
+	\item $\functionAlloc{}{}$ - the agent will attempt \textit{task allocation} of an atomic task $\varAtomicTask{}{}$ to another agent $\varAgent{}{}$. This will use energy resources to transmit tasks and receive results, the amount being dependant on the distance between the two agents. Therefore, agents that are transmitting messages can reduce energy usage by preferring nearby agents. This may; make the distance of the resulting sensor measurement from the tasks' demand point larger, or require relaying, i.e. receiving and re-transmitting, the task through a greater number of agents.
 
-	\item  $\functionInfo{}{}$ - the agent will make an \textit{information request} to acquire knowledge from another agent $\varAgent{}{}$. This will require energy use for transmit and receive messages, and use memory storage for the results. 
-	\item $\functionLink{}{}$ -  an agent carrying out a \textit{connection action} will allocate memory storage to hold knowledge on an agent $\varAgent{}{}$.  Agents will use their memory resources to maintain knowledge and neighbourhood information, but with a fixed maximum.
+	\item  $\functionInfo{}{}$ - the agent will make an \textit{information request} to acquire knowledge from another agent $\varAgent{}{}$. This will require energy use to transmit and receive messages, and use memory storage for the results. 
+	
+	\item $\functionLink{}{}$ -  an agent carrying out a \textit{connection action} will allocate memory storage to hold knowledge on an agent $\varAgent{}{}$.  Agents will use their memory resources to maintain knowledge and neighbourhood information, but within their fixed maximum capacity.
 \end{enumerate}
 
+\paragraph{Dominant energy costs}
+\label{section:problem:dominant_energy_costs}
 %%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalTransmissionEnergy}[2]{
 	\functionFormal{energy_{\symbolTransmission{}{}}}
