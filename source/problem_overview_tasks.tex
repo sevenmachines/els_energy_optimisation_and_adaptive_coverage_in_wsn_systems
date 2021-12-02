@@ -1,7 +1,6 @@
-\paragraph{Tasks}
-\label{section:task_and_resources:tasks}
+\paragraph{Composite tasks}
+\label{section:problem:composite_tasks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \newcommand{\formalTaskResponsibilities}[2]{
 	\functionFormal{resp}
 	{\setCompositeTaskType{}{} \times \powerSetAgent{}{}{}{}}
@@ -17,34 +16,35 @@
 	{\setCompositeTask{}{}}
 	{\setCompositeTaskType{}{}}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\functionCompositeTaskType}[2]{
+	\functionSignature{type_{\varCompositeTask{}{}}}
+	{\varCompositeTask{#1}{#2}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph{Composite tasks}
-\label{section:problem:composite_tasks}
-
-Some agents, \textit{sinks}, will have \textit{composite tasks}, $\varCompositeTask{}{}$, allocated to them from an external source, throughout the systems' lifetime. These are typed by the function $\formalCompositeTaskType{}{}$. The \textit{task-responsibilities} function gives a mapping, fixed on system initialisation, of each composite task type  to the group of agents that will receive those tasks and ensure their completion; $\formalTaskResponsibilities{}{}$.
+Some agents will have \textit{composite tasks}, $\varCompositeTask{}{}$, allocated to them from an external source, throughout the systems' lifetime. We term these agents \textit{sinks}. These composite tasks are typed by the function $\formalCompositeTaskType{}{}$. The \textit{task-responsibilities} function gives a mapping, fixed on system initialisation, of each composite task type  to the group of agents that will receive those tasks and ensure their completion; $\formalTaskResponsibilities{}{}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalTaskDemandPoint}[2]{
 	\functionFormal{demand}
 	{\setAtomicTask  {}{}}{\tupleLocation{}{}}
 }
-\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{demand}{\varAtomicTask{}{}}}
+\newcommand{\functionTaskDemandPoint}[2]{\functionSignature{demand}{\varAtomicTask{#1}{#2}}}
 
 \newcommand{\functionRequiredResourcesSymbol}[2]{
 	\functionSymbol{demandres}
 }
 \newcommand{\formalRequiredResources}[2]{
 	\functionFormal{\functionRequiredResourcesSymbol{}{}}
-	{\setAtomicTaskType{}{} \times \setResource{}{}}
+	{\setAtomicTaskType{#1}{} \times \setResourceType{#2}{}}
 	{\setRealNumbersNonNegative{}{}}
 }
 \newcommand{\functionRequiredResources}[2]{
-	\functionSignature{\functionRequiredResourcesSymbol{}{}}{\varAtomicTaskType{}{}, \varResource{}{}}
+	\functionSignature{\functionRequiredResourcesSymbol{}{}}{\varAtomicTaskType{#1}{}, \varResourceType{#2}{}}
 }
 \newcommand{\functionRequiredResourcesInstance}[2]{
 	\functionSignature{\functionRequiredResourcesSymbol{}{}}
-	{\functionAtomicTaskMapping{\varAtomicTask{}{}}{}, \varResource{}{}}
+	{\functionAtomicTaskMapping{\varAtomicTask{#1}{}}{}, \varResourceType{#2}{}}
 }
 
 \newcommand{\formalAtomicTaskType}[2]{
@@ -52,9 +52,17 @@ Some agents, \textit{sinks}, will have \textit{composite tasks}, $\varCompositeT
 	{\setAtomicTask{}{}}
 	{\setAtomicTaskType{}{}}
 }
+\newcommand{\functionAtomicTaskType}[2]{
+	\functionSignatyre{type_{\varAtomicTask{}{}}}
+	{\varAtomicTask{#1}{#2}}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Atomic tasks}
 \label{section:problem:atomic_tasks}
-Sinks will decompose composite tasks into their constituent \textit{atomic tasks}, $\setAtomicTask{}{}$, of type $\formalAtomicTaskType{}{}$. Each atomic task will then be either executed by the sink, or allocated to other agents to complete or relay further. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement differs significantly from the actual value at the targeted point. Atomic tasks also have a \textit{resources demand}, a mapping from a task type to the resources it would require for tasks of that type to be completed to their highest quality; $\formalRequiredResources{}{}$.
+Sinks will decompose composite tasks into their constituent \textit{atomic tasks}, $\setAtomicTask{}{}$, of type $\formalAtomicTaskType{}{}$. Each atomic task can either be; executed by the sink, allocated to other agents to complete,  or relayed to further agents. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement differs significantly from the actual value at the targeted point. Atomic tasks also have a \textit{resources demand}, a mapping from a task type to the resources it would require for tasks of that type to be completed to their highest quality; $\formalRequiredResources{}{}$. 
+
+\example{Distance to tasks demand points and task resource demands}{
+An agent $\varAgent{1}{}$ and an agent $\varAgent{2}{}$ are allocated tasks to take salinity measurements $\varAtomicTask{1}{}$, and $\varAtomicTask{2}{}$ respectively in a ocean-monitoring system, where the demand points of the two tasks are close, $\functionTaskDemandPoint{1}{} \simeq \functionTaskDemandPoint{2}{}$. However, $\varAgent{1}{}$  is much further away from this point than $\varAgent{2}{}$ so that, $\funcSize{\functionTaskDemandPoint{2}{}  - \functionDeployment{2}{}} <<< \funcSize{\functionTaskDemandPoint{1}{}  - \functionDeployment{1}{}}$. Since $\varAtomicTask{2}{}$ is much closer to the demand point targeted by $\varAtomicTask{2}{}$ than in $\varAtomicTask{1}{}$'s case, we assume its salinity measurement is much more likely to be close to the actual value at that location as well\footnote{In this example there may be salinity barriers and effects of water currents that invalidate this assumption, but we assume that it broadly holds.}. If $\varAgent{2}{}$ has dedicated $50$ units of its energy resource $\varResource{e}{}$ to completing tasks of type  $\varResourceType{e}{}$, and $\functionRequiredResourcesInstance{2}{e} = 100$, then it can make the sensor reading more accurate bv increasing its energy allocation to the salinity sensor and improve its sampling rate.
+}
 

@@ -2,12 +2,9 @@
 \label{section:task_and_resources:distribution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalDeployment}[2]{\functionFormal{deploy}{\setAgents{}{}}{(\setRealNumbersNonNegative{}{} \times \setRealNumbersNonNegative{}{})}}
+
 \newcommand{\functionDeployment}[2]{
-	\ifx \\1\\
-	\functionSignature{deploy}{\setAgents{}{}}
-	\else
-	\functionSignature{deploy}{#1}
-	\fi
+	\functionSignature{deploy}{\varAgent{#1}{#2}}
 }
 
 \newcommand{\formalTransmissionRange}[2]{
@@ -15,8 +12,10 @@
 	{\setAgents{}{} \times \setAgents{}{}}
 	{\setRealNumbersNonNegative{}{}}
 }
-\newcommand{\functionTransmissionRange}[2]{\functionSignature{range}{\varAgent{1}{}, varAgent{2}{}}}
+\newcommand{\functionTransmissionRange}[2]{\functionSignature{range}{\varAgent{#1}{}, varAgent{#2}{}}}
 %%%%%%%%%%%%%%%%%
 
-The WSN is deployed over a finite geographical area, with agents (and tasks) randomly located within this bounded area, such as occurs in an aerial deployment \citep{Kumar2013}.  The agents form an ad-hoc network, which may be flat, hierarchical, or clustered, dependent on the choice of protocol used \citep{Carlos-Mancilla2016b}. This area is overlaid by a unit-normalised 2-dimensional Cartesian coordinate system\footnote{The algorithms that follow are equally valid for other coordinate systems and more dimensions but we use the simplest implementable here for clarity of presentation.},  $(\setRealNumbersUnit{}{} \times \setRealNumbersUnit{}{})$\footnote{The coordinate system is scaled such that the maximum distance between any components in the system will be $\sqrt{2}$. This is for simplicity in further definitions and equations but is not a requirement for applicability of the algorithms presented.}. An agents' \textit{deployment} is then its mapping to a specific $(x, y)$ location in this coordinate system; $\formalDeployment{}{}$ An agents' hardware has a range it can effectively communicate with other agents,. This can be increased by and agent dedicating more of its power to its transceiver \citep{Padmanabh2008, Song2009, Radman2010}, but may also be effected by weather conditions or obstructions close to the agents' location that impede a transmissions' path the target agent. We define the \textit{transmission range} of one agent to another by $\formalTransmissionRange{}{}$.  
+The WSN is deployed over a finite geographical area, with agents (and tasks) randomly located within this bounded area, such as occurs in an aerial deployment \citep{Kumar2013}.  The agents form an ad-hoc network, which may be flat, hierarchical, or clustered, dependent on the choice of protocol used \citep{Carlos-Mancilla2016b}. This area is overlaid by a unit-normalised 2-dimensional Cartesian coordinate system\footnote{The algorithms that follow are equally valid for other coordinate systems and more dimensions but we use the simplest implementable here for clarity of presentation.},  $(\setRealNumbersUnit{}{} \times \setRealNumbersUnit{}{})$\footnote{The coordinate system is scaled such that the maximum distance between any components in the system will be $\sqrt{2}$. This is for simplicity in further definitions and equations but is not a requirement for applicability of the algorithms presented.}. An agents' \textit{deployment} is then its mapping to a specific $(x, y)$ location in this coordinate system; $\formalDeployment{}{}$.
+
+An agents' hardware has a range it can effectively communicate with other agents. The agent can increase this range by dedicating more of its power to its transceiver \citep{Padmanabh2008, Song2009, Radman2010}. The range may also be effected by weather conditions or obstructions close to the agents' location that impede a transmissions' path the target agent. We define the \textit{transmission range} of one agent to another by $\formalTransmissionRange{}{}$.  
 
