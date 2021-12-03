@@ -1,4 +1,4 @@
-Optimising the utility of the system increases the quality of task completions, minimises energy consumption, and increases energy distribution. In optimising these, the necessary WSN properties of coverage, resilience and system lifetime \footnote{As discussed in Section \ref{section:background:requirements}.} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
+The utility of the system can be increased by; improving the quality of task completions, minimising energy consumption, and distributing energy usage more evenly across agents. In doing so, the necessary WSN properties of coverage, resilience and system lifetime \footnote{As discussed in Section \ref{section:background:requirements}.} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varQualityMin}[2]{c_{\textit{qual}}}
@@ -9,7 +9,7 @@ Optimising the utility of the system increases the quality of task completions, 
 	{\setIntegersBinary{}{}}
 }
 \newcommand{\functionAtomicTaskSuccess}[2]{
-	\functionSignature{success}{\varAtomicTask{}{}}
+	\functionSignature{success}{\varAtomicTask{#1}{#2}}
 }
 
 \newcommand{\formalCompositeTaskCoverage}[2]{
@@ -29,7 +29,7 @@ Optimising the utility of the system increases the quality of task completions, 
 
 \paragraph{Task success}
 \label{section:success}
-In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement successfully but a very large distance away from the corresponding tasks' demand point.  We formalise this concept as an atomic tasks' \textit{success}, the mapping $\formalAtomicTaskSuccess{}{}$ where;
+In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement, but so far away from the corresponding tasks' demand point that the result is not useful.  We formalise this concept as the atomic task mapping $\formalAtomicTaskSuccess{}{}$ where;
 
 \begin{equation}
 	 \functionAtomicTaskSuccess{}{}
@@ -60,7 +60,8 @@ Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \se
 }
 \paragraph{Resilience}
 \label{section:resilience}
-A systems' agents become either permanently or temporarily unavailable through events such as component failures, communication problems, or weather disruption. It may become complex or impossible to route atomic tasks to nodes that can successfully complete them. The ability to maintain coverage under these circumstances defines a systems' \textit{resilience}. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
+A systems' agents may become either permanently or temporarily unavailable through events such as component failures, communication problems, or weather disruption. In these circumstances, relaying atomic tasks to agents that can successfully complete can be complex or even impossible.
+ The ability to maintain coverage under these circumstances defines a systems' \textit{resilience}. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
 \begin{equation}
 	\functionResilence{}{}
 	= 
@@ -78,11 +79,9 @@ In this way, a system whose coverage remains high as the number of available age
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \paragraph{Lifetime}
  \label{section:lifetime}
- Despite a systems resilience, given enough agent failures, some atomic tasks will become impossible to complete successfully, and there will be a deterioration of coverage with time. For a specific system, a minimum coverage value $\varCoverageMinimum{}{}$ for the some set of atomic tasks $\setAtomicTaskInstance{}{}$ can be chosen below below which the system is deemed to be no longer useful. The \textit{system lifetime} can then be defined as the time until $\functionSystemCoverage{}{} < \varCoverageMinimum{}{}$.
+ Despite a systems resilience, given enough agents becoming permanently unavailable, some atomic tasks will become impossible to complete successfully, and there will be a deterioration of coverage with time. For a specific system, a minimum coverage value $\varCoverageMinimum{}{}$ for some set of atomic tasks $\setAtomicTaskInstance{}{}$ can be chosen below which the system is judged to be no longer useful. The \textit{lifetime} of the system can then be defined as the time until $\functionSystemCoverage{}{} < \varCoverageMinimum{}{}$.
  
  
-\example{Success, coverage, and resilience}{
-	\todo[inline]{TODO}
-	\label{example:success}
-	A system has a large number of sensor nodes deployed across an environment with rough terrain in which we want to monitor the spread of contamination from a radioactive pollutant. An agent $\varAgent{}{}$ takes a measurement $1$ metre away from a demand point of a task $\varAtomicTask{1}{}$ and $100$ metres from that of $\varAtomicTask{2}{}$. The result of the first task is likely to be close to the actual value in that location, whereas that of the second may be uncorrelated, and not be a practically useful measurement. In this case, the systems designer may set $\varQualityMin{}{}$ such that measurements $>10$ metres away, although they are completed with non-zero quality, are judged unsuccessful as $\functionSignature{atq}{\varAtomicTask{1}{}} < \varQualityMin{}{} < \functionSignature{atq}{\varAtomicTask{2}{}}$.  
+\example{Success and coverage}{
+	An ocean-monitoring system has a deployment area of $1\text{ km}^2$. An agent $\varAgent{}{}$ takes a salinity measurement $1$ metre away from a demand point of a task $\varAtomicTask{1}{}$, and $900$ metres from that of $\varAtomicTask{2}{}$. The result of $\varAtomicTask{1}{}$ is likely to be close to the actual value at the demand points' location, whereas that of $\varAtomicTask{2}{}$ is so far away as to uncorrelated, and not a practically useful measurement to the system. In this case, $\functionAtomicTaskSuccess{1}{} = 1$ and $\functionAtomicTaskSuccess{2}{} = 0$. So, with $\setAtomicTaskInstance{}{} = \lbrace \varAtomicTask{1}{}, \varAtomicTask{2}{} \rbrace$, the system coverage is $\functionSystemCoverage{}{} = \frac{1}{2}(1 + 0) = 0.5$  
 }

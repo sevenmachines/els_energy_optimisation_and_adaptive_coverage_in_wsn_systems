@@ -61,3 +61,15 @@ If over a period of time the system completes composite tasks $\setCompositeTask
 		\sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
 		\functionCompositeTaskQuality{}{}
 	\end{equation}
+
+The goal of a system of agents $\setAgents{}{}$ is to maximise $\functionSystemUtility{}{}$ over the lifetime of the WSN.
+
+\example{Goals in an ocean-based WSN}{
+	$100$ agents, each with a sensor to measure salinity, are deployed into an ocean bay $1\ km^2$ in area. Each agent is deployed attached to a buoy to maintain their general positions. One of the agents receives a composite task request every hour from a base-station on the coast consisting of atomic tasks to measure the salinity in $50$ separate locations in the bay. The goal of the system is to;
+	\begin{itemize}
+		\item form and maintain an ad-hoc communication network, adaptable to changes in the environment.
+		\item return the most accurate, high quality results every hour to the base station.
+		\item minimise the energy used by agents so that their batteries can charge enough between repeated requests to maintain coverage.
+		\item distribute the tasks so that the wear and subsequent failure of agents is reduced, meaning the systems' lifetime exceeds the operational design of $1$ year. 
+	\end{itemize}
+}
