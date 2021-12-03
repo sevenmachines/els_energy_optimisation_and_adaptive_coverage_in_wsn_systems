@@ -27,11 +27,11 @@ As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task 
 		An ocean monitoring system agent is given a simple composite task $\varCompositeTask{}{} = \lbrace \varAtomicTask{1}{} \rbrace$ to complete.
 		Take two task paths, $\functionTaskArc{1}{} = \lbrace \varAgent{a}{}, \varAgent{b}{}, \varAgent{c}{} \rbrace$ and $\functionTaskArc{1}{} = \lbrace \varAgent{a}{}, \varAgent{d}{}, \varAgent{c}{} \rbrace$, with; the same detecting agent $\varAgent{c}{}$,  an equal task quality component for $\varAtomicTask{1}{}$'s  completion. an equal energy resource capacity, $\functionAgentResourcesEnergy{}{}$ for all agents, and $\functionAgentAvailableResources{a}{e} \simeq \functionAgentAvailableResources{c}{e}$ after the composite tasks completion. Then, depending on the energy of the relaying agent, the quality of the composite task will be effected in the following ways;
 		\begin{enumerate}
-			\item $\functionAgentAvailableResources{d}{e} \simeq \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is high. 
-			\item $\functionAgentAvailableResources{d}{e} >>> \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is lowered and 'energy available' component increases compared to (1). 
-			\item $\functionAgentAvailableResources{d}{e} <<< \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is lowered and 'energy available' component is lowered  compared to (1). 
+			\item $\functionAgentAvailableResources{d}{e} \simeq \functionAgentAvailableResources{c}{e}$, 'energy distribution' component is high. 
+			\item $\functionAgentAvailableResources{d}{e} >>> \functionAgentAvailableResources{c}{e}$, 'energy distribution' component is lowered and 'energy available' component increases compared to (1). 
+			\item $\functionAgentAvailableResources{d}{e} <<< \functionAgentAvailableResources{c}{e}$, 'energy distribution' component is lowered and 'energy available' component is lowered  compared to (1). 
 		\end{enumerate}
-	This means that, given relatively equivalent sensor quality measurements, the system will prefer to route the tasks through the agents with the most spare energy, but also network routes where the distribution of energy amongst participants is equal.
+	This means that, given relatively equivalent sensor quality measurements, the system will prefer to route the tasks through the agents with the most spare energy, but also where the distribution of available energy amongst participants is similar.
  }
 
 \paragraph{Atomic task absolute value}
