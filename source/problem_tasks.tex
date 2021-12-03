@@ -7,7 +7,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%
 
-As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task is dependent on the resources the executing agent $\functionDetectorRole{}{}$ has assigned to the task, its distance away from the tasks demand point, as well as the significance of the atomic tasks results to the composite task overall. However, the quality of a composite task is not purely dependent on these values for all the atomic tasks in the corresponding composite task. For each atomic task there is a task-path that may contain other agents that have used their resources to help the detector receive and return the results of the task, $\functionRelayRole{}{}{}$. In receiving and transmitting, and taking other actions, these agents will have used some of their resources, in particular energy resources to relay the messages\footnote{As discussed in Section \ref{section:problem:optimising_resource_usage}.}. To meet the systems' goals\footnote{See Section \ref{section:background:requirements}.}  the quality of a composite task will also be dependent on how well nodes in their respective task-paths have minimised energy usage, and energy distribution.  We therefore define the \textit{composite task quality} including these multiple objectives, with constants $\alpha$, $\beta$, and $\gamma$ chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively, depending on the desired properties of the specific system; 
+As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task is dependent on the resources the executing agent $\functionDetectorRole{}{}$ has assigned to the task, its distance away from the tasks demand point, as well as the significance of the atomic tasks results to the composite task overall. However, the quality of a composite task is not purely dependent on these values for all the atomic tasks in the corresponding composite task. For each atomic task there is a task-path that may contain other agents that have used their resources to help the detector receive and return the results of the task, $\functionRelayRole{}{}{}$. In receiving and transmitting, and taking other actions, these agents will have used some of their resources, in particular energy resources to relay the messages\footnote{As discussed in Section \ref{section:problem:optimising_resource_usage}.}. To meet the systems' goals\footnote{See Section \ref{section:background:requirements}.}  the quality of a composite task will also be dependent on how well agents in their respective task-paths have minimised energy usage, and energy distribution.  We therefore define the \textit{composite task quality} including these multiple objectives, with constants $\alpha$, $\beta$, and $\gamma$ chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively, depending on the desired properties of the specific system; 
 \begin{equation}
 	\label{eq:taq}
 	\functionCompositeTaskQuality{}{} = 
@@ -62,6 +62,9 @@ If over a period of time the system completes composite tasks $\setCompositeTask
 		\functionCompositeTaskQuality{}{}
 	\end{equation}
 
+\subsection{The multi-objective optimisation of tasks in a WSN system}
+\label{section:problem:statement}
+\todo[inline]{TODO}
 The goal of a system of agents $\setAgents{}{}$ is to maximise $\functionSystemUtility{}{}$ over the lifetime of the WSN.
 
 \example{Goals in an ocean-based WSN}{
