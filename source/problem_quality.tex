@@ -40,6 +40,10 @@ An agent will complete an atomic task with a certain \textit{atomic task quality
 \bigg )
 \end{equation}
 
+\example{Distance to tasks demand points and task resource demands}{
+	An agent $\varAgent{1}{}$ and an agent $\varAgent{2}{}$ are allocated tasks to take salinity measurements $\varAtomicTask{1}{}$, and $\varAtomicTask{2}{}$ respectively in a ocean-monitoring system, where the demand points of the two tasks are close, $\functionTaskDemandPoint{1}{} \simeq \functionTaskDemandPoint{2}{}$. However, $\varAgent{1}{}$  is much further away from this point than $\varAgent{2}{}$ so that, $\funcSize{\functionTaskDemandPoint{2}{}  - \functionDeployment{2}{}} <<< \funcSize{\functionTaskDemandPoint{1}{}  - \functionDeployment{1}{}}$. Since $\varAtomicTask{2}{}$ is much closer to the demand point targeted by $\varAtomicTask{2}{}$ than in $\varAtomicTask{1}{}$'s case, we assume its salinity measurement is much more likely to be close to the actual value at that location as well\footnote{In this example there may be salinity barriers and effects of water currents that invalidate this assumption, but we assume that it broadly holds.}. If $\varAgent{2}{}$ has dedicated $50$ units of its energy resource $\varResource{e}{}$ to completing tasks of type  $\varResourceType{e}{}$, and $\functionRequiredResourcesInstance{2}{e} = 100$, then it can make the sensor reading more accurate bv increasing its energy allocation to the salinity sensor and improve its sampling rate.
+}
+
 \paragraph{Component task value}
 %%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionComponentTaskValue}[2]{

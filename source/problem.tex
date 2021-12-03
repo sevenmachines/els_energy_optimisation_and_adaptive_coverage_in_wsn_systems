@@ -104,8 +104,8 @@
 \newcommand{\formalVarLocation}[2]{(x,y)}
 \newcommand{\formalSetLocation}[2]{(\setRealNumbers{}{} \times \setRealNumbers{}{})}
 
-\newcommand{\functionTaskArc}[2]{\functionSignature{path}{\varAtomicTask{}{}}}
-\newcommand{\formalTaskArc}[2]{\functionFormal{path}{\setAtomicTask{}{}}{\powerSetAgents{}{}}}
+\newcommand{\functionTaskArc}[2]{\functionSignature{path}{\varAtomicTask{#1}{#2}}}
+\newcommand{\formalTaskArc}[2]{\functionFormal{path}{\setAtomicTask{#1}{}}{\powerSetAgents{#2}{}}}
 \newcommand{\varActiveAgent}[2]{\varAgent{#1}{\oplus}}
 \newcommand{\varInactiveAgent}[2]{\varAgent{#1}{\ominus}}
 \newcommand{\varSensingAgent}[2]{\varAgent{#1}{\ast}}

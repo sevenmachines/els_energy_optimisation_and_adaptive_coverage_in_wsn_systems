@@ -81,20 +81,20 @@ For resources such as compute and memory, the goal of the agent is to utilise $1
 	= \frac{1}{\funcSize{\setAgents{}{}}}
 		\sum_{\forall \varAgent{}{} \in \setAgents{}{}} 
 		\frac
-		{\functionAgentAvailableResources{}{e}}
-		{\functionAgentResources{}{e}}
+		{\functionAgentAvailableResources{}{}}
+		{\functionAgentResources{}{}}
 \end{equation}
 
 \paragraph{Resource variability}
 \label{section:problem:resource_variability}
-Energy use should also be distributed throughout the system to spread component wear and therefore reduce failures. The distribution of resource use across a group of agents can be measured using the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the set of fractional resource availabilities of the agents. As these values are bounded by $[0, 1]$, we can reshape this as the distance between the variance and the maximum variability of a unit-bounded set, $\frac{1}{4}$, so distribution can be optimised by maximisation of this function. This gives us the \textit{relative resource variability},
+The use of a resource such as energy should also be distributed throughout the system to spread component wear and therefore reduce failures. The distribution of resource use across a group of agents can be measured using the variance\footnote{Using the standard definition of variability of a discrete set $X$, $\sigma^2(X) = \frac{\sum (x_i - \bar{x})^2}{\funcSize{X}-1}$} of the set of fractional resource availabilities of the agents. As these values are bounded by $[0, 1]$, we can reshape this as the distance between the variance and the maximum variability of a unit-bounded set, $\frac{1}{4}$, so distribution can be optimised by maximisation of this function. This gives us the \textit{relative resource variability},
 \begin{equation}     	
 	\functionResourceVariability{}{} 
 	= \frac{1}{4} - \sigma^2 
 	\bigg(
 	\bigg\lbrace \frac
-		{\functionAgentAvailableResources{}{e}}
-		{\functionAgentResources{}{e}}
+		{\functionAgentAvailableResources{}{}}
+		{\functionAgentResources{}{}}
 	\bigg\rbrace_{\forall \varAgent{}{} \in \setAgents{}{}}
 	\bigg)
 \end{equation}

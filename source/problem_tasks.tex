@@ -9,7 +9,7 @@
 
 As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task is dependent on the resources the executing agent $\functionDetectorRole{}{}$ has assigned to the task, its distance away from the tasks demand point, as well as the significance of the atomic tasks results to the composite task overall. However, the quality of a composite task is not purely dependent on these values for all the atomic tasks in the corresponding composite task. For each atomic task there is a task-path that may contain other agents that have used their resources to help the detector receive and return the results of the task, $\functionRelayRole{}{}{}$. In receiving and transmitting, and taking other actions, these agents will have used some of their resources, in particular energy resources to relay the messages\footnote{As discussed in Section \ref{section:problem:optimising_resource_usage}.}. To meet the systems' goals\footnote{See Section \ref{section:background:requirements}.}  the quality of a composite task will also be dependent on how well nodes in their respective task-paths have minimised energy usage, and energy distribution.  We therefore define the \textit{composite task quality} including these multiple objectives, with constants $\alpha$, $\beta$, and $\gamma$ chosen at system initialisation to weight the influence of energy, distribution, and task quality respectively, depending on the desired properties of the specific system; 
 \begin{equation}
-	\label{eq:ctv}
+	\label{eq:taq}
 	\functionCompositeTaskQuality{}{} = 
 	\sum\limits_{\forall \varAtomicTask{}{} \in \varCompositeTask{}{}}
 	\big\lbrack
@@ -23,6 +23,17 @@ As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task 
 \big\rbrack
 \end{equation}
 
+\example{Quality of a composite task}{
+		An ocean monitoring system agent is given a simple composite task $\varCompositeTask{}{} = \lbrace \varAtomicTask{1}{} \rbrace$ to complete.
+		Take two task paths, $\functionTaskArc{1}{} = \lbrace \varAgent{a}{}, \varAgent{b}{}, \varAgent{c}{} \rbrace$ and $\functionTaskArc{1}{} = \lbrace \varAgent{a}{}, \varAgent{d}{}, \varAgent{c}{} \rbrace$, with; the same detecting agent $\varAgent{c}{}$,  an equal task quality component for $\varAtomicTask{1}{}$'s  completion. an equal energy resource capacity, $\functionAgentResourcesEnergy{}{}$ for all agents, and $\functionAgentAvailableResources{a}{e} \simeq \functionAgentAvailableResources{c}{e}$ after the composite tasks completion. Then, depending on the energy of the relaying agent, the quality of the composite task will be effected in the following ways;
+		\begin{enumerate}
+			\item $\functionAgentAvailableResources{d}{e} \simeq \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is high. 
+			\item $\functionAgentAvailableResources{d}{e} >>> \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is lowered and 'energy available' component increases compared to (1). 
+			\item $\functionAgentAvailableResources{d}{e} <<< \functionAgentAvailableResources{c}{e}$  - 'energy distribution' component is lowered and 'energy available' component is lowered  compared to (1). 
+		\end{enumerate}
+	This means that, given relatively equivalent sensor quality measurements, the system will prefer to route the tasks through the agents with the most spare energy, but also network routes where the distribution of energy amongst participants is equal.
+ }
+
 \paragraph{Atomic task absolute value}
 %%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\functionTaskAbsoluteValue}[2]{
@@ -30,7 +41,7 @@ As discussed, the value of atomic task $\varAtomicTask{}{}$ to a composite task 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-An \textit{atomic task's absolute value} is used by agents in a task-path to measure how useful their actions were in completing the atomic task overall, as judged by sink that completed the associated composite task. Its value is the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality.
+An \textit{atomic task's absolute value} is used by agents in a task-path to measure how useful their actions were in completing the atomic task overall, as judged by sink that completed the associated composite task. This can then be used by those agents to adapt their individual behaviours to improve the outcome of the composite task. Its value is the product of the respective composite task's quality and the fractional contribution of the atomic task to that quality. 
 \begin{equation}
 	\functionTaskAbsoluteValue{}{} = 
 	\functionCompositeTaskQuality{}{}
@@ -50,5 +61,3 @@ If over a period of time the system completes composite tasks $\setCompositeTask
 		\sum\limits_{\forall \varCompositeTask{}{} \in \setCompositeTask{}{}}
 		\functionCompositeTaskQuality{}{}
 	\end{equation}
-
-\example{Defining the problem in an ocean-based WSN}{}
