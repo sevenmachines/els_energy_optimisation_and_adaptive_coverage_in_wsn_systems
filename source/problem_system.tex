@@ -13,7 +13,7 @@ We define the agent-based system as the tuple, $\langle
 \begin{itemize}
 	\item $\setAtomicTask{}{}$ is a set of atomic tasks where each task is of type $\varAtomicTaskType{}{} \in \setAtomicTaskType{}{}$, and is performed by a single agent;
 	\item $\setCompositeTask{}{} \subseteq \powerSetSymbol{\setAtomicTask{}{}}{}{}$ is the set of composite tasks that occur in the system where each task is of type $\varCompositeTaskType{}{} \in \setCompositeTaskType{}{}$;
-	\item $\setResource{}{}$ is a set of resources, each of type a type $\varResourceType{}{} \in \setResourceType{}{}$, needed to perform atomic tasks and to take actions;
+	\item $\setResource{}{}$ is a set of resources needed to perform atomic tasks and to take actions;
 	\item $\setAgents{}{}$ is a set of agents in the system.
-	\item $\varTransmissionEnergy{}{}, \varReceiverEnergy{}{},\varSensorEnergy{}{}$ are constants representing transmitting, receiving, and sensor activation energies of the relevant hardware components respectively, to be discussed in Section \ref{section:problem:dominant_energy_costs}.
+	\item $\varTransmissionEnergy{}{}, \varReceiverEnergy{}{},\varSensorEnergy{}{}$ are constants representing the energy required to transmit and receive messages, and activate sensors, to be discussed further in Section \ref{section:problem:dominant_energy_costs}.
 \end{itemize}

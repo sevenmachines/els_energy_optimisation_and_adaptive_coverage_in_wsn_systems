@@ -22,7 +22,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Some agents will have \textit{composite tasks}, $\varCompositeTask{}{}$, allocated to them from an external source, throughout the systems' lifetime. We term these agents \textit{sinks}. These composite tasks are typed by the function $\formalCompositeTaskType{}{}$. The \textit{task-responsibilities} function gives a mapping, fixed on system initialisation, of each composite task type  to the group of agents that will receive those tasks and ensure their completion; $\formalTaskResponsibilities{}{}$.
+Some agents will have \textit{composite tasks}, $\varCompositeTask{}{}$, sets of measurement requests, allocated to them from an external source with a constant or slowly varying frequency over the systems' lifetime. We term these agents \textit{sinks}. These composite tasks are typed by the function $\formalCompositeTaskType{}{}$. The \textit{task-responsibilities} function gives a mapping, fixed on system initialisation, of each composite task type  to the group of agents that will receive those tasks and ensure their completion; $\formalTaskResponsibilities{}{}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\formalTaskDemandPoint}[2]{
@@ -60,6 +60,6 @@ Some agents will have \textit{composite tasks}, $\varCompositeTask{}{}$, allocat
 
 \paragraph{Atomic tasks}
 \label{section:problem:atomic_tasks}
-Sinks will decompose composite tasks into their constituent \textit{atomic tasks}, $\setAtomicTask{}{}$, of type $\formalAtomicTaskType{}{}$. Each atomic task can either be; executed by the sink, allocated to other agents to complete,  or relayed to further agents. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement differs significantly from the actual value at the targeted point. Atomic tasks also have a \textit{resource demand}, a mapping from a task type to the resources it would require for tasks of that type to be completed to their highest quality; $\formalRequiredResources{}{}$. 
+Sinks will decompose composite tasks into their constituent \textit{atomic tasks}, $\setAtomicTask{}{}$, of type $\formalAtomicTaskType{}{}$. Each atomic task can be  executed by the sink, or allocated to other agents to complete, which may then reallocate it to further agents. Each atomic task targets a sensor measurement at a specific location, the tasks' \textit{demand point}, $\formalTaskDemandPoint{}{}$. We assume that the further away the agent is from this point, the less value the task has to the system; e.g. the measurement differs significantly from the actual value at the targeted point. Atomic tasks also have a \textit{resource demand}, a mapping from a task type to the resources it would require for tasks of that type to be completed to their highest quality; $\formalRequiredResources{}{}$. 
 
 
