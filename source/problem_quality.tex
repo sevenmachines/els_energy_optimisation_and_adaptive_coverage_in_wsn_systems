@@ -1,5 +1,5 @@
-\paragraph{Task quality}
-\label{section:task_quality}
+\paragraph{Atomic task quality}
+\label{section:atomic_task_quality}
 %%%%%%%%%%%%%%%%%
 \newcommand{\functionAtomicTaskQualitySymbol}[2]{\functionSymbol{atq_{#1}^{#2}}}
 \newcommand{\functionAtomicTaskQualitySignature}[2]{
@@ -16,7 +16,7 @@
 
 An agent will complete an atomic task with a certain \textit{atomic task quality}, how well it has performed the task. This value is dependant on two components;
 \begin{enumerate}
-	\item \textit{execution range}, the distance between the agent and the demand point of the task. As the maximum distance between any agent and demand point in our normalised coordinate system\footnote{As discussed in Section \ref{section:task_and_resources:distribution}} is $\sqrt{2}$, we can scale $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$ to the range $\lbrack 0, 1 \rbrack$, ensuring the quality also stays in this range.
+	\item \textit{execution range}, the distance between the agent and the demand point of the task. As the maximum distance between any agent and demand point in our normalised coordinate system is $\sqrt{2}$, we can scale $\funcSize{ \functionTaskDemandPoint{}{} - \functionSignature{deploy}{\varAgent{}{}}}$ to the range $\lbrack 0, 1 \rbrack$, ensuring the quality also stays in this range\footnote{As discussed in Section \ref{section:task_and_resources:distribution}.}.
 	\item \textit{resource fraction}, the fraction of the atomic tasks' resource demand that the agent has actually dedicated to tasks of that type\footnote{To simplify the task quality function, we assume reducing resource allocation for a task has an equal and linear impact across all tasks and resources. However, a more complex resource fraction component could be used given a specific systems' set of resources and tasks.}.
 \end{enumerate}
 

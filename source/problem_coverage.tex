@@ -1,7 +1,7 @@
-The utility of the system can be increased by; improving the quality of task completions, minimising energy consumption, and distributing energy usage more evenly across agents. In doing so, the necessary WSN properties of coverage, resilience and system lifetime \footnote{As discussed in Section \ref{section:background:requirements}.} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
+The utility of the system can be increased by improving the quality of task completions, minimising energy consumption, and distributing energy usage more evenly across agents. In doing so, the necessary WSN properties of coverage, resilience and system lifetime \footnote{As discussed in Section \ref{section:background:requirements}.} should also increase. Using the concept of success of an atomic task, we now define how we can measure these within the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\varQualityMin}[2]{c_{\textit{qual}}}
+\newcommand{\varQualityMin}[2]{qual_{min}}
 
 \newcommand{\formalAtomicTaskSuccess}[2]{
 	\functionFormal{success}
@@ -27,9 +27,9 @@ The utility of the system can be increased by; improving the quality of task com
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph{Task success}
+\paragraph{Atomic task success}
 \label{section:success}
-In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system, e.g. when an agent takes a sensor measurement, but so far away from the corresponding tasks' demand point that the result is not useful.  We formalise this concept as the atomic task mapping $\formalAtomicTaskSuccess{}{}$ where;
+In real-life scenarios, when the quality of an atomic task completion falls below a certain \textit{quality threshold}, $\varQualityMin{}{}$, the result may no longer be useful or relevant to the system; e.g. when an agent takes a sensor measurement far away from the corresponding tasks' demand point, or of such low quality that its masked by background variations in the environment.  We formalise this concept as the atomic task mapping $\formalAtomicTaskSuccess{}{}$ where;
 
 \begin{equation}
 	 \functionAtomicTaskSuccess{}{}
@@ -60,8 +60,8 @@ Given a set of completed atomic tasks, $\setAtomicTaskInstance{}{} \subseteq \se
 }
 \paragraph{Resilience}
 \label{section:resilience}
-A systems' agents may become either permanently or temporarily unavailable through events such as component failures, communication problems, or weather disruption. In these circumstances, relaying atomic tasks to agents that can successfully complete can be complex or even impossible.
- The ability to maintain coverage under these circumstances defines a systems' \textit{resilience}. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'}$, out of the system agents $\setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
+A systems' agents may become either permanently or temporarily unavailable through events such as component failures, communication problems, or weather disruption. In these circumstances, relaying atomic tasks to agents that can successfully complete them can be complex or even impossible.
+ The ability to maintain coverage under these circumstances defines a systems' \textit{resilience}. Specifically, if a system completes a set of atomic tasks $\setAtomicTaskInstance{}{}$, with available agents $\setAgent{}{'} \subseteq \setAgent{}{}$, then the systems \textit{resilience} can be defined as; 
 \begin{equation}
 	\functionResilence{}{}
 	= 
@@ -71,11 +71,11 @@ A systems' agents may become either permanently or temporarily unavailable throu
 		\funcSize{\setAgents{}{'}} / \funcSize{\setAgents{}{}}
 	}
 \end{equation}
-In this way, a system whose coverage remains high as the number of available agents falls has a higher resilience that a system who coverage drops lower under the same circumstances.
+In this way, a system whose coverage remains high as the number of available agents falls has a higher resilience that a system whose coverage drops lower under the same circumstances.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \newcommand{\varCoverageMinimum}[2]{\varSymbol{c}{\textit{life}}{}}
+ \newcommand{\varCoverageMinimum}[2]{\varSymbol{cov}{\textit{min}}{}}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \paragraph{Lifetime}
  \label{section:lifetime}
