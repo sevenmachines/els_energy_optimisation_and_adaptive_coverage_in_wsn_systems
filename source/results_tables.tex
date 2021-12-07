@@ -6,12 +6,12 @@
 		\textbf{Algorithm} & \textbf{Summary} & \textbf{Agent count} & \textbf{Atomic tasks}  & \textbf{$(\alpha,\beta,\gamma)$}\\
 		\hline
 		\algorithmBalancedSimple{}{} &  EWSN optimisation algorithm with balanced objectives. & $25$ & $10$    & $(0.33,0.33,0.33)$  \\
-		\algorithmQRoutingSimple{}{} &  Q-learning algorithm optimising task-paths network routes. & $25$ & $10$    & $(0.33,0.33,0.33)$  \\
+		\algorithmDynaQSimple{}{} &  Q-learning algorithm optimising task-paths network routes. & $25$ & $10$    & $(0.33,0.33,0.33)$  \\
 		\algorithmEnergy{}{} & EWSN with $80\%$ bias for energy consumption minimisation  & $25$ & $10$   & $(0.80,0.10,0.10)$  \\
 		\algorithmQuality{}{} & EWSN with $80\%$ bias for task quality maximisation. & $25$ & $10$   & $(0.10,0.80,0.10)$  \\
 		\algorithmDistribution{}{} & EWSN with $80\%$ bias for energy distribution maximisation. & $25$ & $10$  & $(0.10,0.10,0.80)$  \\
 		\algorithmFailure{}{} &  EWSN optimisation algorithm with balanced objectives. & $25$ & $10$   & $(0.33,0.33,0.33)$  \\
-		\algorithmQRoutingFailure{}{} &  Q-learning algorithm optimising task-paths network routes.  & $25$ & $10$ & $(0.5,0.5,0.0)$  \\
+		\algorithmDynaQFailure{}{} &  Q-learning algorithm optimising task-paths network routes.  & $25$ & $10$ & $(0.5,0.5,0.0)$  \\
 		
 		\hline
 	\end{tabular}
@@ -42,7 +42,7 @@
 			& \resultsSimpleEnergyBalancedStart{}{} &  \resultsSimpleEnergyBalancedEnd{}{}
 			& n/a
 			& \resultsSimpleCumulativeEnergyComparison{}{} \\
-		\algorithmQRoutingSimple{}{} 
+		\algorithmDynaQSimple{}{} 
 			& \resultsSimpleCTVQRoutingStart{}{} &  \resultsSimpleCTVQRoutingEnd{}{} 
 			& n/a
 			& $0.0$
@@ -57,7 +57,7 @@
 		& \resultsNodeFailureEnergyBalancedStart{}{} &  \resultsNodeFailureEnergyBalancedEnd{}{}
 		& \resultsNodeFailureEnergyBalancedImpactDiff{}{} 
 		& \resultsNodeFailureCumulativeEnergyComparison{}{} \\
-		\algorithmQRoutingFailure{}{} 
+		\algorithmDynaQFailure{}{} 
 		& \resultsNodeFailureCTVQRoutingStart{}{} &  \resultsNodeFailureCTVQRoutingEnd{}{} 
 		& \resultsNodeFailureCTVQRoutingImpactDiff{}{}
 		& $0.0$
@@ -67,7 +67,7 @@
 \hline
 \end{tabular}
 \captionsetup{labelfont=bf,singlelinecheck=on,justification=raggedright}
-\caption{Results for average and cumulative CTV and energy values over each systems' lifetime. Cumulative values are from the comparison of the \acronymWSNOptimisation{}{} algorithm against \acronymQRouting{}{}. Percentage losses for both CTV and energy are from the end of the agent failure episode range of the \simulationNodeFailure{}{} system.}
+\caption{Results for average and cumulative CTV and energy values over each systems' lifetime. Cumulative values are from the comparison of the \acronymWSNOptimisation{}{} algorithm against \acronymBaseline{}{}. Percentage losses for both CTV and energy are from the end of the agent failure episode range of the \simulationNodeFailure{}{} system.}
 \label{table:results_main}
 \end{table}
 
@@ -75,7 +75,7 @@
 	\centering
 \begin{minipage}{.4\textwidth}
 	\begin{tabular}{
-			|p{0.43\textwidth}|p{0.16\textwidth}|p{0.18\textwidth}|
+			|p{0.44\textwidth}|p{0.15\textwidth}|p{0.18\textwidth}|
 		}
 		\hline
 		\textbf{Algorithm}
@@ -85,7 +85,7 @@
 		\algorithmFailure{}{}
 		&  \resultsNodeFailureFailedAgentsBalancedEnd{}{}
 		& \resultsNodeFailureCoverageBalancedEnd{}{}  \\
-		\algorithmQRoutingFailure{}{}
+		\algorithmDynaQFailure{}{}
 		&  \resultsNodeFailureFailedAgentsQRoutingEnd{}{}
 		& \resultsNodeFailureCoverageQRoutingEnd{}{}  \\
 		\hline
