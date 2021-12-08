@@ -1,6 +1,9 @@
 \section{The \acronymATARIA{}{} algorithm \citep{creech2021dynamic}}
 \label{appendix:algorithm-ataria}
-\todo[inline]{Update for previous paper updates in ATARIA}
+
+\newcommand{\varQProb}[2]{\varSymbol{{p}}{#1}{#2}}
+\newcommand{\funcSumNormIndexed}[2]{
+	\functionTextSymbol{sumnorm}_{#1}(#2)}
 
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
@@ -12,7 +15,7 @@
 		\KwIn{ $\varAgent{}{}$ , The agent allocated the composite task}
 		\KwIn{ $\varCompositeTask{}{}$ , The composite task allocated to the agent}
 		\KwIn{$\setAtomicTaskUnallocated{}{}$, The composite tasks currently unallocated atomic tasks}	\KwIn{$\functionInstanceQMappingSignature{}{}$, the Q-values mappings for agent $\varAgent{}{}$ }
-		\KwIn{$\setRiskAction{}{}$, The potential change on neighbourhoods on taking an action.}
+		\KwIn{\defSetRiskAction{}{}{}}
 		\KwIn{$\setRewardSet{\varAgent{}{}}{}$, the TQSM matrix of summarised reward trends for agent $\varAgent{}{}$}
 		\KwIn{\defVarLearningRate{}{}{}}
 		\KwIn{\defVarDiscountFactor{}{}{}}
@@ -74,7 +77,6 @@
 			\tcp{Update action samples}
 			$\setActionSample{}{} \leftarrow \setActionSample{}{} \cup \lbrace (\varAction{}{}, \varSampleTime{}{}, \varAtomicTaskQualityValue{}{}) \rbrace$\label{ataria:updatesamples}
 		}
-
 		\Return{$(\functionNeighbourhoodSignature{}{},  \functionKnowledgeSignature{}{}, \functionInstanceQMappingSignature{}{}, \setActionSample{}{})$\label{ataria:return}}
 	}
 \end{algorithm}
@@ -96,19 +98,15 @@
 		\KwResult{$\varAction{}{}$, the action for the agent to carry out}
 		
 		\nonl \;
-		$(\setAction{}{},\setQ{}{}) \funcupdate \functionInstanceQMappingSignature{}{}$ \;
+		$\setQ{}{} \funcupdate \functionInstanceQMappingSignature{}{}$ \;
 		\tcp{Scale Q-values element-wise using impact-transformation}
-		$(\setAction{}{}, \setQ{}{})
+		$\setQ{}{}
 		\funcupdate
-		(	\setAction{}{},
-		\setQ{}{}
+		(	\setQ{}{}
 		\funcHadamard{}{} \functionImpactTransformationSignature{\setRiskAction{}{}}{}
 		)$ \;\label{rtrap:it}
-		$(\setAction{}{}, \setQ{}{})
-		\funcupdate
-		(
-		\setAction{}{},
-		\funcSumNorm{\setQ{}{}})$ \;\label{rtrap:qtrans}
+		%\tcp{Normalise Q-valuesover their $\varQProb{}$ values}
+		$\setQ{}{} \funcupdate \funcSumNormIndexed{\varQProb{}{}}{\setQ{}{}}$ \;\label{rtrap:qtrans}
 		
 		\tcp{Calculate the impact exploration factor}
 		$\varExploreImpact{}{} \funcupdate \functionImpactTransformationSignature{0.5}{}$ \;\label{rtrap:expcalc}
@@ -120,11 +118,11 @@
 		\uIf{$\funcRand{\mathbb{R} [0, 1]} < \varExplore{}{}$}
 		{
 			$\tupleQ{}{}
-			\funcupdate \max_q{(\setAction{}{}, \setQ{}{})}$ \;\label{rtrap:actbest}
+			\funcupdate \funcMaxExtended{\varQProb{}{}}{\setQ{}{}}$ \;\label{rtrap:actbest}
 		}
 		\Else{
 			$\tupleQ{}{} \funcupdate
-			\texttt{boltzmann}_q{(\setAction{}{}, \setQ{}{})}$ \;\label{rtrap:actrand}
+			\funcBoltzmann{\varQProb{}{}}{\setQ{}{}}$ \;\label{rtrap:actrand}
 		}
 		\Return $\varAction{}{}$ 
 	}
@@ -170,7 +168,7 @@
 					\lbrace \varX{}{}
 					\suchthat
 					\forall \tupleQ{}{} \in \setQ{}{}, \varX{}{} \in \functionKnowledgeSignature{}{},
-					\varAction{}{} \not \in \setNeighbourhoodTargetActions{\varAgent{}{}}{\varX{}{}}{}\rbrace$ \; \label{saskr:removeagents}
+					\varAction{}{} \not \in \setNeighbourhoodTargetActions{\varAgent{}{}}{\varX{}{}}\rbrace$ \; \label{saskr:removeagents}
 					$\functionKnowledgeSignature{}{} \funcupdate \functionKnowledgeSignature{}{} - \setX{}{}$\label{saskr:updateknowledge}
 				}
 			}

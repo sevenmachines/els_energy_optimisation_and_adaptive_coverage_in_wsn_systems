@@ -3,13 +3,13 @@
 
 The variation of Dyna-Q we use for comparison utilises the same multi-objective reward function as \acronymWSNOptimisation{}{}. It also assumes full knowledge and neighbourhood containing all agents in the system.
 \todo[inline]{Adapt this for dyna-q}
-\todo[inline]{Update for previous paper updates in ATARIA}
+
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
 	\footnotesize
 	
 	\caption{\textbf{The \acronymBaseline{}{} algorithm}}
-	\label{alg:dynaq}
+	\label{alg:mo-dynaq}
 	{
 		\KwIn{ $\varAgent{}{}$ , The agent allocated the composite task}
 		\KwIn{ $\varCompositeTask{}{}$ , The composite task allocated to the agent}
@@ -17,48 +17,76 @@ The variation of Dyna-Q we use for comparison utilises the same multi-objective 
 		\KwIn{\defVarLearningRate{}{}{}}
 		\KwIn{\defVarDiscountFactor{}{}{}}
 		\nonl \;
-		
+
 		\KwResult{$\functionInstanceQMappingSignature{}{}$, updates to the Q-mapping of agent $\varAgent{}{}$}
+
 		\nonl \;
 		
 		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{} $}
 		{
 			\tcp{Execute atomic task if agent has capabilities} 		
-			\uIf{$\functionAgentActionType{}{} \in \functionAgentCapability{}{}$ }
+			\uIf{$\functionAgentActionType{}{} \in \functionAgentCapability{}{}$ \label{dynaq:hascapability}}
 			{
-				$\functionActionExecSignature{}{}$\; 
+				$\functionActionExecSignature{}{}$\; \label{dynaq:doexec}
 				\If {$\varAtomicTask{}{}$ is successfully completed}
 				{
 					$\varCompositeTask{}{} \leftarrow \varCompositeTask{}{} - \lbrace \varAtomicTask{}{} \rbrace$ \;
-				}
+				}\label{dynaq:hascapabilityend}
 			}
-			\Else{
+			\uElse{
 				\tcp{Select an action given unallocated tasks}
-				\todo[inline]{Change for Dyna-Q}
-				$\functionRAT{}{}$ \; 
-				
-				\uIf{$\functionAgentActionType{}{} = \functionActionAllocSignature{}{}$}
+				$XXX$ \; \label{dynaq:dortrap}
+				\todo[inline]{Adapt for DynaQ}
 				{
-					$\functionActionAllocSignature{}{}$\;
+					$\functionActionAllocSignature{}{}$\; \label{dynaq:doalloc}
 					
 					\If {$\varAtomicTask{}{}$ is successfully completed}
 					{
 						$\varCompositeTask{}{} \leftarrow \varCompositeTask{}{} - \lbrace \varAtomicTask{}{} \rbrace$ \;
 					}
-				}
-				\uElseIf{$\functionAgentActionType{}{} = \functionActionInfoSignature{}{}$}
-				{
-					\tcp{N/A}
-				}
-				\uElseIf{$\functionAgentActionType{}{} = \functionActionLinkSignature{}{}$}{
-					\tcp{N/A}
-				}
-			}
-			\tcp{Update Q-value mappings using Dyna-Q}
-			\todo[inline]{Change for Dyna-Q}
-			$\functionInstanceQMappingSignature{}{} \leftarrow \functionTDUpdateSignature{}{}$\;
+				}\label{dynaq:hasallocend}
+			
+			\tcp{Update Q-value mappings with reward}
+			\todo[inline]{Adapt for DynaQ}
+			$\functionInstanceQMappingSignature{}{} \leftarrow \functionTDUpdateSignature{}{}$\;\label{dynaq:updateq}
 		}
+		\Return{$\functionInstanceQMappingSignature{}{}$}
+	}
+}
+\end{algorithm}
+
+
+\begin{algorithm}[ht]
+	\DontPrintSemicolon
+	\footnotesize
+	
+	\caption{\textbf{The Tabular \acronymDynaQ{}{} algorithm}}
+	\label{alg:dynaq}
+	{
+		\KwIn{ $\varAgent{}{}$ , The agent allocated the composite task}
+		\nonl \;
 		
-		\Return{$( \functionInstanceQMappingSignature{}{}$}
+		\KwResult{$XXX$}
+		
+		\nonl \;
+		
+		\For{$\varAtomicTask{}{} \in \varCompositeTask{}{} $}
+		{
+			\tcp{Initialize $Q(s, a)$ and $Model(s, a)$ for all $s \in S$ and $a \in A(s)$}
+			\tcp{$S$ current (nonterminal) state}
+			$A \leftarrow \epsilon\text{-greedy}(S, Q)$\;
+			\tcp{Take action $A$; observe resultant reward, $R$, and state, $S'$}
+			$Q(S, A) \leftarrow Q(S, A) + \alpha [R +  \gamma max_a Q(S' a) - Q(S, A)]$\;
+			$Model(S, A) \leftarrow R, S' \text{ (assuming deterministic environment)}$ \; 
+			\tcp{Loop repeat n times}
+			$S \leftarrow  \text{ random previously observed state}$\;
+			$A \leftarrow \text{ random action previously taken in }S$\;
+			$R, S \leftarrow Model(S, A)$ \;
+			$Q(S, A) \leftarrow Q(S, A) + \alpha [R +  \gamma max_a Q(S', a) - Q(S, A)]$\;
+		}
+		\Return{$\functionInstanceQMappingSignature{}{}$}
 	}
 \end{algorithm}
+
+
+
