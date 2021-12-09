@@ -1,9 +1,12 @@
 \section{The \acronymATARIA{}{} algorithm \citep{creech2021dynamic}}
 \label{appendix:algorithm-ataria}
 
+%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varQProb}[2]{\varSymbol{{p}}{#1}{#2}}
 \newcommand{\funcSumNormIndexed}[2]{
 	\functionTextSymbol{sumnorm}_{#1}(#2)}
+
+%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
@@ -81,6 +84,10 @@
 	}
 \end{algorithm}
 
+Where the $\functionTDUpdateSignature{}{}$ function is defined by the update to actions to Q-value mappings resulting from a reward corresponding to an atomic task value $\omega$.
+\begin{equation*}
+\functionTDUpdate{}{}
+\end{equation*}
 \begin{algorithm}[ht]
 	\SetAlgoLined
 	\DontPrintSemicolon
