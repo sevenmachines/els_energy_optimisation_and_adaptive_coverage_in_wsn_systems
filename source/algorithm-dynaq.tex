@@ -7,15 +7,8 @@
 }
 %%%%%%%%%%%%%%%%
 
-The variation of Q-routing we use for comparison utilises the same multi-objective reward function as \acronymWSNOptimisation{}{}. It also assumes full knowledge and neighbourhood containing all agents in the system. The algorithm uses the update function for actions to Q-value mappings from the \acronymATARIA{}{} algorithm. In comparison to the \acronymATARIA{}{} algorithm, it uses $\functionEGreedy{}{}$ selection for choosing actions instead of \acronymRewardTrendsAlgorithm{}{}, and does not attempt to learn actions relating to knowledge and neighbourhood as agents assume full system information.
+The variation of Q-routing we use for comparison utilises the same multi-objective reward function as \acronymWSNOptimisation{}{}. It also assumes full knowledge and neighbourhood containing all agents in the system. The algorithm uses the update function for actions to Q-value mappings from the \acronymATARIA{}{} algorithm. In comparison to the \acronymATARIA{}{} algorithm, it uses $\functionEGreedy{}{}$ selection for choosing actions instead of \acronymRewardTrendsAlgorithm{}{}, and does not attempt to learn actions relating to knowledge and neighbourhood as agents assume full system information. This algorithm follows strategies developed from Q-routing \citep{Boyan}, but without low-level details on node communications and protocols. This is comparable in particular to work that adds energy-awareness and adaptive routing \citep{Kiani2015, Wang2006, Khan2021}. We also adapt the application of Q-learning to fit the multi-agent, task-based framework.
 
-\todo[inline]{Some more explanation and references.}
-This algorithm follows strategies developed from Q-routing \citep{Boyan}, but without the additional low-level details on node communications and protocols. This is comparable in particular to work that adds energy-awareness\citep{Kiani2015}, and coverage \citep{XXX}. 
-
-Q-learning based energy-efficient and void avoidance routing protocol for underwater acoustic sensor networks \citep{Khan2021}
-\todo[inline]{Why not use these algorithms directly.}
-
-\citep{Li2020}
 \begin{algorithm}[ht]
 	\DontPrintSemicolon
 	\footnotesize
